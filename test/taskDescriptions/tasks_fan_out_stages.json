@@ -1,0 +1,25 @@
+{
+    "schemaVersion": "1.0.0",
+    "comment": [
+        "Execute the following node graph:",
+        "",
+        "[definePrim_a](out_stage) -> (stage)[getPrimAtPath_a]",
+        "                         |-> (stage)[getPrimAtPath_a_b]",
+        "                         |-> (stage)[definePrim_a_b](out_stage)]",
+        "                              -> (stage)[getPrimAtPath_a]",
+        "                              -> (stage)[getPrimAtPath_a_b]",
+        "",
+        "The first stage copy should contain only the `/a` prim.",
+        "The second stage copy should contain both the `/a` and the `/a/b` prims."
+    ],
+    "options": {
+        "definitionFiles": [
+            "fan_out_stages_test00.json"
+        ],
+        "compound": "USD::Test::Stage::fan_out_stages_test00"
+    },
+    "task": {
+        "type": "single",
+        "name": "Use Default Params"
+    }
+}

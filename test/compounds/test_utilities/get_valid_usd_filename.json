@@ -1,0 +1,624 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Test::TestUtilities::get_valid_usd_filename",
+            "uriImported": "stream:/bifrostGraphShape1",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-1416.13 1182.86"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "filename"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "valid_filename"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1483.59 795.561"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-1495.69 238.818 3273.56 1744.42"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "724.11 -73.9355"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "filename",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "valid_filename",
+                    "portDirection": "output"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "prepend_default_stem",
+                    "nodeType": "Core::String::build_string",
+                    "fanInPortNames": {
+                        "strings": [
+                            "output",
+                            "filename"
+                        ]
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "strings",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-25.2511 1426.73"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if_has_valid_extension",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "690.835 1040.74"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if_filename_is_empty",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1035.62 797.291"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "or",
+                    "nodeType": "Core::Logic::or",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-676.078 935.411"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_ends_with",
+                    "nodeType": "Core::String::string_ends_with",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-973.075 869.507"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_ends_with1",
+                    "nodeType": "Core::String::string_ends_with",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-978.979 1082.19"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_ends_with2",
+                    "nodeType": "Core::String::string_ends_with",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-983.046 1297.14"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_length",
+                    "nodeType": "Core::String::string_length",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-985.304 1566.57"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_find",
+                    "nodeType": "Core::String::string_find",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-689.503 1554.18"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "or1",
+                    "nodeType": "Core::Logic::or",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-405.287 1076.26"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_empty",
+                    "nodeType": "Core::String::string_empty",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-979.342 664.237"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if_has_no_stem",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "309.455 1239.33"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-305.61 365.67"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "equal",
+                    "nodeType": "Core::Logic::equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-32.8351 1212.43"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "append_default_extension",
+                    "nodeType": "Core::String::build_string",
+                    "fanInPortNames": {
+                        "strings": [
+                            "filename",
+                            "output"
+                        ]
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "strings",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "321.307 1584.31"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value1",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-313.096 567.248"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_default_filename",
+                    "nodeType": "Core::String::build_string",
+                    "fanInPortNames": {
+                        "strings": [
+                            "output",
+                            "output1"
+                        ]
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "strings",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "44.4673 422.234"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "if_filename_is_empty.output",
+                    "target": ".valid_filename"
+                },
+                {
+                    "source": "or.output",
+                    "target": "or1.first"
+                },
+                {
+                    "source": "string_ends_with.end_matches",
+                    "target": "or.first"
+                },
+                {
+                    "source": "string_ends_with1.end_matches",
+                    "target": "or.second"
+                },
+                {
+                    "source": "string_ends_with2.end_matches",
+                    "target": "or1.second"
+                },
+                {
+                    "source": "string_length.length",
+                    "target": "string_find.end"
+                },
+                {
+                    "source": "or1.output",
+                    "target": "if_has_valid_extension.condition"
+                },
+                {
+                    "source": "string_empty.empty",
+                    "target": "if_filename_is_empty.condition"
+                },
+                {
+                    "source": ".filename",
+                    "target": "string_ends_with.string"
+                },
+                {
+                    "source": ".filename",
+                    "target": "string_ends_with1.string"
+                },
+                {
+                    "source": ".filename",
+                    "target": "string_ends_with2.string"
+                },
+                {
+                    "source": ".filename",
+                    "target": "string_length.string"
+                },
+                {
+                    "source": ".filename",
+                    "target": "string_find.string"
+                },
+                {
+                    "source": ".filename",
+                    "target": "string_empty.string"
+                },
+                {
+                    "source": "if_has_no_stem.output",
+                    "target": "if_has_valid_extension.true_case"
+                },
+                {
+                    "source": "if_has_valid_extension.output",
+                    "target": "if_filename_is_empty.false_case"
+                },
+                {
+                    "source": "value.output",
+                    "target": "prepend_default_stem.strings.output"
+                },
+                {
+                    "source": ".filename",
+                    "target": "prepend_default_stem.strings.filename"
+                },
+                {
+                    "source": "string_find.index",
+                    "target": "equal.first"
+                },
+                {
+                    "source": "equal.output",
+                    "target": "if_has_no_stem.condition"
+                },
+                {
+                    "source": "prepend_default_stem.joined",
+                    "target": "if_has_no_stem.true_case"
+                },
+                {
+                    "source": ".filename",
+                    "target": "if_has_no_stem.false_case"
+                },
+                {
+                    "source": ".filename",
+                    "target": "append_default_extension.strings.filename"
+                },
+                {
+                    "source": "value1.output",
+                    "target": "append_default_extension.strings.output"
+                },
+                {
+                    "source": "append_default_extension.joined",
+                    "target": "if_has_valid_extension.false_case"
+                },
+                {
+                    "source": "value.output",
+                    "target": "get_default_filename.strings.output"
+                },
+                {
+                    "source": "value1.output",
+                    "target": "get_default_filename.strings.output1"
+                },
+                {
+                    "source": "get_default_filename.joined",
+                    "target": "if_filename_is_empty.true_case"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "if_has_valid_extension.true_case",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "if_has_valid_extension.false_case",
+                    "valueType": "string",
+                    "value": ".usd"
+                },
+                {
+                    "valueName": "if_filename_is_empty.true_case",
+                    "valueType": "string",
+                    "value": "bifrost.usd"
+                },
+                {
+                    "valueName": "string_ends_with.suffix",
+                    "valueType": "string",
+                    "value": ".usd"
+                },
+                {
+                    "valueName": "string_ends_with1.suffix",
+                    "valueType": "string",
+                    "value": ".usda"
+                },
+                {
+                    "valueName": "string_ends_with2.suffix",
+                    "valueType": "string",
+                    "value": ".usdc"
+                },
+                {
+                    "valueName": "string_find.find",
+                    "valueType": "string",
+                    "value": "."
+                },
+                {
+                    "valueName": "string_find.reverse",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "string_find.end",
+                    "valueType": "long",
+                    "value": "-1"
+                },
+                {
+                    "valueName": "if_has_no_stem.true_case",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "value.value",
+                    "valueType": "string",
+                    "value": "bifrost"
+                },
+                {
+                    "valueName": "value1.value",
+                    "valueType": "string",
+                    "value": ".usd"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

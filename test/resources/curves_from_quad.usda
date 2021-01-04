@@ -1,0 +1,19 @@
+#usda 1.0
+(
+    defaultPrim = "curves_from_quad"
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def BasisCurves "curves_from_quad"
+{
+    uniform token basis = "catmullRom"
+    int[] curveVertexCounts = [2, 2, 2, 2]
+    point3f[] points = [(-0.5, 0, -0.5), (-0.5, 1, -0.5), (-0.5, 0, 0.5), (-0.5, 1, 0.5), (0.5, 0, -0.5), (0.5, 1, -0.5), (0.5, 0, 0.5), (0.5, 1, 0.5)]
+    color3f[] primvars:displayColor = [(0.5, 0, 0.5), (0.5, 1, 0.5), (0.5, 0, 0.5), (0.5, 1, 0.5), (0.5, 0, 0.5), (0.5, 1, 0.5), (0.5, 0, 0.5), (0.5, 1, 0.5)] (
+        interpolation = "varying"
+    )
+    uniform token type = "cubic"
+    float[] widths = [0.2, 0.1, 0.2, 0.1, 0.2, 0.1, 0.2, 0.1]
+}
+

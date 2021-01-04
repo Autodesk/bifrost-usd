@@ -1,0 +1,1211 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Stage::save_usd_stage",
+            "uriImported": "file:///save_usd_stage.json",
+            "metadata": [
+                {
+                    "metaName": "documentation",
+                    "metaType": "string",
+                    "metaValue": "../docs/${language}/save_usd_stage.md"
+                },
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "161.294 451.316"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "stage"
+                                                },
+                                                {
+                                                    "metaName": "enable"
+                                                },
+                                                {
+                                                    "metaName": "file"
+                                                },
+                                                {
+                                                    "metaName": "relative_path"
+                                                },
+                                                {
+                                                    "metaName": "default_prim"
+                                                },
+                                                {
+                                                    "metaName": "enable_meters_per_unit"
+                                                },
+                                                {
+                                                    "metaName": "meters_per_unit"
+                                                },
+                                                {
+                                                    "metaName": "enable_up_axis"
+                                                },
+                                                {
+                                                    "metaName": "up_axis"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "2790.02 573.662"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "out_stage"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                },
+                {
+                    "metaName": "NodeValueDisplay",
+                    "metadata": [
+                        {
+                            "metaName": "format",
+                            "metaType": "string",
+                            "metaValue": "Save Stage (Enable {enable})"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Stage,set_stage_up_axis"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,Core::Logic,if"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,Core::Graph,pass"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Stage,set_stage_documentation"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Stage,set_stage_time_code"
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "80.5548 -412.086 3015.47 2052.38"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-91.5 -244"
+                },
+                {
+                    "metaName": "UILayout",
+                    "metaType": "string",
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"stage\"\n            },\n            {\n                \"port\": \"enable\"\n            },\n            {\n                \"port\": \"file\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Options\",\n                \"items\": [\n                    {\n                        \"port\": \"relative_path\"\n                    },\n                    {\n                        \"port\": \"set_default_prim\"\n                    },\n                    {\n                        \"port\": \"default_prim\"\n                    },\n                    {\n                        \"port\": \"enable_meters_per_unit\"\n                    },\n                    {\n                        \"port\": \"meters_per_unit\"\n                    },\n                    {\n                        \"port\": \"enable_up_axis\"\n                    },\n                    {\n                        \"port\": \"up_axis\"\n                    }\n                ]\n            }\n        ]\n    }\n}\n"
+                },
+                {
+                    "metaName": "PortExpandedState",
+                    "metadata": [
+                        {
+                            "metaName": "Options",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        }
+                    ]
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "stage",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Stage"
+                },
+                {
+                    "portName": "enable",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "false"
+                },
+                {
+                    "portName": "file",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "browserMode=save;filter=\"USD (*.usd *.usda *.usdc);;All (*.*)\""
+                        },
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "FileBrowserWidget"
+                        }
+                    ]
+                },
+                {
+                    "portName": "relative_path",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "true"
+                },
+                {
+                    "portName": "out_stage",
+                    "portDirection": "output",
+                    "portType": "BifrostUsd::Stage"
+                },
+                {
+                    "portName": "default_prim",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "true"
+                },
+                {
+                    "portName": "enable_meters_per_unit",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "true"
+                },
+                {
+                    "portName": "meters_per_unit",
+                    "portDirection": "input",
+                    "portType": "double",
+                    "portDefault": "0.01"
+                },
+                {
+                    "portName": "enable_up_axis",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "true"
+                },
+                {
+                    "portName": "up_axis",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::UpAxis",
+                    "portDefault": "Y"
+                }
+            ],
+            "compounds": [
+                {
+                    "name": "set_first_prim_as_default_prim",
+                    "uriImported": "file:///save_usd_stage.json",
+                    "metadata": [
+                        {
+                            "metaName": "io_nodes",
+                            "metadata": [
+                                {
+                                    "metaName": "io_inodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "input",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "8.82081 -16.768"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "stage"
+                                                        },
+                                                        {
+                                                            "metaName": "enable_default_prim"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "io_onodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "output",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "1251.22 -23.1689"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "out_stage"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "ViewportRect",
+                            "metaType": "string",
+                            "metaValue": "-70 -389.446 1606 1091.89"
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "portName": "stage",
+                            "portDirection": "input",
+                            "portType": "BifrostUsd::Stage"
+                        },
+                        {
+                            "portName": "enable_default_prim",
+                            "portDirection": "input",
+                            "portType": "bool"
+                        },
+                        {
+                            "portName": "out_stage",
+                            "portDirection": "output",
+                            "portType": "BifrostUsd::Stage"
+                        }
+                    ],
+                    "compounds": [
+                        {
+                            "name": "get_first_prim",
+                            "uriImported": "file:///save_usd_stage.json",
+                            "metadata": [
+                                {
+                                    "metaName": "_recentNode_",
+                                    "metaType": "string",
+                                    "metaValue": "BifrostGraph,USD::Stage,open_stage_from_layer"
+                                },
+                                {
+                                    "metaName": "_recentNode_",
+                                    "metaType": "string",
+                                    "metaValue": "BifrostGraph,Core::Logic,if"
+                                },
+                                {
+                                    "metaName": "_recentNode_",
+                                    "metaType": "string",
+                                    "metaValue": "BifrostGraph,Core::String,string_empty"
+                                },
+                                {
+                                    "metaName": "_recentNode_",
+                                    "metaType": "string",
+                                    "metaValue": "BifrostGraph,USD::Prim,get_prim_path"
+                                },
+                                {
+                                    "metaName": "_recentNode_",
+                                    "metaType": "string",
+                                    "metaValue": "BifrostGraph,Core::Array,first_in_array"
+                                },
+                                {
+                                    "metaName": "io_nodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "io_inodes",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "input",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "DisplayMode",
+                                                            "metaType": "string",
+                                                            "metaValue": "2"
+                                                        },
+                                                        {
+                                                            "metaName": "LayoutPos",
+                                                            "metaType": "string",
+                                                            "metaValue": "10 83"
+                                                        },
+                                                        {
+                                                            "metaName": "io_ports",
+                                                            "metadata": [
+                                                                {
+                                                                    "metaName": "stage"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "io_onodes",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "output",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "DisplayMode",
+                                                            "metaType": "string",
+                                                            "metaValue": "2"
+                                                        },
+                                                        {
+                                                            "metaName": "LayoutPos",
+                                                            "metaType": "string",
+                                                            "metaValue": "1230 10"
+                                                        },
+                                                        {
+                                                            "metaName": "io_ports",
+                                                            "metadata": [
+                                                                {
+                                                                    "metaName": "prim_path"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "ViewportRect",
+                                    "metaType": "string",
+                                    "metaValue": "-70 -399.446 1606 1091.89"
+                                }
+                            ],
+                            "ports": [
+                                {
+                                    "portName": "stage",
+                                    "portDirection": "input",
+                                    "portType": "BifrostUsd::Stage"
+                                },
+                                {
+                                    "portName": "prim_path",
+                                    "portDirection": "output"
+                                }
+                            ],
+                            "compoundNodes": [
+                                {
+                                    "nodeName": "first_in_array",
+                                    "nodeType": "Core::Array::first_in_array",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "620 34"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nodeName": "get_prim_children",
+                                    "nodeType": "USD::Prim::get_prim_children",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "315 59"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nodeName": "get_prim_path",
+                                    "nodeType": "USD::Prim::get_prim_path",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "925 11"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "connections": [
+                                {
+                                    "source": "first_in_array.first",
+                                    "target": "get_prim_path.prim"
+                                },
+                                {
+                                    "source": "get_prim_children.children",
+                                    "target": "first_in_array.array"
+                                },
+                                {
+                                    "source": "get_prim_path.path",
+                                    "target": ".prim_path"
+                                },
+                                {
+                                    "source": ".stage",
+                                    "target": "get_prim_children.stage"
+                                }
+                            ],
+                            "values": [
+                                {
+                                    "valueName": "get_prim_children.prim_path",
+                                    "valueType": "string",
+                                    "value": "/"
+                                }
+                            ],
+                            "reservedNodeNames": [
+                                {
+                                    "name": "input"
+                                },
+                                {
+                                    "name": "output"
+                                }
+                            ]
+                        }
+                    ],
+                    "compoundNodes": [
+                        {
+                            "nodeName": "get_first_prim",
+                            "nodeType": "get_first_prim",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "335.046 216.326"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "if2",
+                            "nodeType": "Core::Logic::if",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "955.658 -216.729"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "set_usd_default_prim",
+                            "nodeType": "USD::Prim::set_usd_default_prim",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "611.746 34.6549"
+                                }
+                            ]
+                        }
+                    ],
+                    "connections": [
+                        {
+                            "source": ".stage",
+                            "target": "get_first_prim.stage"
+                        },
+                        {
+                            "source": "get_first_prim.prim_path",
+                            "target": "set_usd_default_prim.prim_path"
+                        },
+                        {
+                            "source": ".enable_default_prim",
+                            "target": "if2.condition"
+                        },
+                        {
+                            "source": "set_usd_default_prim.out_stage",
+                            "target": "if2.true_case"
+                        },
+                        {
+                            "source": ".stage",
+                            "target": "if2.false_case"
+                        },
+                        {
+                            "source": ".stage",
+                            "target": "set_usd_default_prim.stage"
+                        },
+                        {
+                            "source": "if2.output",
+                            "target": ".out_stage"
+                        }
+                    ],
+                    "values": [
+                        {
+                            "valueName": "set_usd_default_prim.prim_path",
+                            "valueType": "string",
+                            "value": ""
+                        }
+                    ],
+                    "reservedNodeNames": [
+                        {
+                            "name": "input"
+                        },
+                        {
+                            "name": "output"
+                        }
+                    ]
+                },
+                {
+                    "name": "set_meters_per_unit",
+                    "uriImported": "file:///save_usd_stage.json",
+                    "metadata": [
+                        {
+                            "metaName": "io_nodes",
+                            "metadata": [
+                                {
+                                    "metaName": "io_inodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "input",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "enable_meters_by_unit"
+                                                        },
+                                                        {
+                                                            "metaName": "stage"
+                                                        },
+                                                        {
+                                                            "metaName": "meters_per_unit"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "10 102"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "io_onodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "output",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "out_stage"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "925 84"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "ViewportRect",
+                            "metaType": "string",
+                            "metaValue": "-70 -274.264 1301 884.527"
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "portName": "enable_meters_by_unit",
+                            "portDirection": "input",
+                            "portType": "bool"
+                        },
+                        {
+                            "portName": "stage",
+                            "portDirection": "input",
+                            "portType": "BifrostUsd::Stage"
+                        },
+                        {
+                            "portName": "out_stage",
+                            "portDirection": "output",
+                            "portType": "BifrostUsd::Stage"
+                        },
+                        {
+                            "portName": "meters_per_unit",
+                            "portDirection": "input",
+                            "portType": "double"
+                        }
+                    ],
+                    "compoundNodes": [
+                        {
+                            "nodeName": "if2",
+                            "nodeType": "Core::Logic::if",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "620 65"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "set_stage_metadata",
+                            "nodeType": "USD::Stage::set_stage_metadata",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "315 10"
+                                }
+                            ]
+                        }
+                    ],
+                    "connections": [
+                        {
+                            "source": ".enable_meters_by_unit",
+                            "target": "if2.condition"
+                        },
+                        {
+                            "source": "set_stage_metadata.out_stage",
+                            "target": "if2.true_case"
+                        },
+                        {
+                            "source": ".meters_per_unit",
+                            "target": "set_stage_metadata.value"
+                        },
+                        {
+                            "source": ".stage",
+                            "target": "if2.false_case"
+                        },
+                        {
+                            "source": ".stage",
+                            "target": "set_stage_metadata.stage"
+                        },
+                        {
+                            "source": "if2.output",
+                            "target": ".out_stage"
+                        }
+                    ],
+                    "values": [
+                        {
+                            "valueName": "set_stage_metadata.key",
+                            "valueType": "string",
+                            "value": "metersPerUnit"
+                        },
+                        {
+                            "valueName": "set_stage_metadata.value",
+                            "valueType": "double",
+                            "value": "0.01"
+                        }
+                    ],
+                    "reservedNodeNames": [
+                        {
+                            "name": "input"
+                        },
+                        {
+                            "name": "output"
+                        }
+                    ]
+                },
+                {
+                    "name": "set_up_axis",
+                    "uriImported": "file:///save_usd_stage.json",
+                    "metadata": [
+                        {
+                            "metaName": "io_nodes",
+                            "metadata": [
+                                {
+                                    "metaName": "io_inodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "input",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "enable_up_axis"
+                                                        },
+                                                        {
+                                                            "metaName": "stage"
+                                                        },
+                                                        {
+                                                            "metaName": "up_axis"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "io_onodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "output",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "out_stage"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "portName": "enable_up_axis",
+                            "portDirection": "input",
+                            "portType": "bool"
+                        },
+                        {
+                            "portName": "stage",
+                            "portDirection": "input",
+                            "portType": "BifrostUsd::Stage"
+                        },
+                        {
+                            "portName": "out_stage",
+                            "portDirection": "output",
+                            "portType": "BifrostUsd::Stage"
+                        },
+                        {
+                            "portName": "up_axis",
+                            "portDirection": "input",
+                            "portType": "BifrostUsd::UpAxis"
+                        }
+                    ],
+                    "compoundNodes": [
+                        {
+                            "nodeName": "if3",
+                            "nodeType": "Core::Logic::if",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "1237.95 691.641"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "set_stage_up_axis",
+                            "nodeType": "USD::Stage::set_stage_up_axis",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "967.845 852.873"
+                                }
+                            ]
+                        }
+                    ],
+                    "connections": [
+                        {
+                            "source": ".enable_up_axis",
+                            "target": "if3.condition"
+                        },
+                        {
+                            "source": "set_stage_up_axis.out_stage",
+                            "target": "if3.true_case"
+                        },
+                        {
+                            "source": ".up_axis",
+                            "target": "set_stage_up_axis.axis"
+                        },
+                        {
+                            "source": ".stage",
+                            "target": "if3.false_case"
+                        },
+                        {
+                            "source": ".stage",
+                            "target": "set_stage_up_axis.stage"
+                        },
+                        {
+                            "source": "if3.output",
+                            "target": ".out_stage"
+                        }
+                    ],
+                    "values": [],
+                    "reservedNodeNames": [
+                        {
+                            "name": "input"
+                        },
+                        {
+                            "name": "output"
+                        }
+                    ]
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "export_layer_to_file",
+                    "nodeType": "USD::Layer::export_layer_to_file",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1958.32 175.861"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_root_layer",
+                    "nodeType": "USD::Layer::get_root_layer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1708.29 74.7545"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "2204.54 302.225"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if1",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "2477.59 452.656"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_first_prim_as_default_prim",
+                    "nodeType": "set_first_prim_as_default_prim",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "535.662 904.838"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "pass",
+                    "nodeType": "Core::Graph::pass",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1486.91 586.664"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_meters_per_unit",
+                    "nodeType": "set_meters_per_unit",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "883.027 787.772"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_up_axis",
+                    "nodeType": "set_up_axis",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1203.44 616.713"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "get_root_layer.layer",
+                    "target": "export_layer_to_file.layer"
+                },
+                {
+                    "source": ".file",
+                    "target": "export_layer_to_file.file"
+                },
+                {
+                    "source": ".relative_path",
+                    "target": "export_layer_to_file.relative_path"
+                },
+                {
+                    "source": ".enable",
+                    "target": "if1.condition"
+                },
+                {
+                    "source": "export_layer_to_file.success",
+                    "target": "if.condition"
+                },
+                {
+                    "source": "if.output",
+                    "target": "if1.true_case"
+                },
+                {
+                    "source": ".default_prim",
+                    "target": "set_first_prim_as_default_prim.enable_default_prim"
+                },
+                {
+                    "source": "if1.output",
+                    "target": ".out_stage"
+                },
+                {
+                    "source": "pass.output",
+                    "target": "if1.false_case"
+                },
+                {
+                    "source": "pass.output",
+                    "target": "if.true_case"
+                },
+                {
+                    "source": "pass.output",
+                    "target": "get_root_layer.stage"
+                },
+                {
+                    "source": ".enable_meters_per_unit",
+                    "target": "set_meters_per_unit.enable_meters_by_unit"
+                },
+                {
+                    "source": ".meters_per_unit",
+                    "target": "set_meters_per_unit.meters_per_unit"
+                },
+                {
+                    "source": ".enable_up_axis",
+                    "target": "set_up_axis.enable_up_axis"
+                },
+                {
+                    "source": ".up_axis",
+                    "target": "set_up_axis.up_axis"
+                },
+                {
+                    "source": "set_meters_per_unit.out_stage",
+                    "target": "set_up_axis.stage"
+                },
+                {
+                    "source": "set_up_axis.out_stage",
+                    "target": "pass.input"
+                },
+                {
+                    "source": ".stage",
+                    "target": "set_first_prim_as_default_prim.stage"
+                },
+                {
+                    "source": "set_first_prim_as_default_prim.out_stage",
+                    "target": "set_meters_per_unit.stage"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "set_first_prim_as_default_prim.stage",
+                    "valueType": "BifrostUsd::Stage",
+                    "value": {}
+                },
+                {
+                    "valueName": "set_first_prim_as_default_prim.enable_default_prim",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "set_meters_per_unit.enable_meters_by_unit",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "set_meters_per_unit.stage",
+                    "valueType": "BifrostUsd::Stage",
+                    "value": {}
+                },
+                {
+                    "valueName": "set_up_axis.enable_up_axis",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "set_up_axis.stage",
+                    "valueType": "BifrostUsd::Stage",
+                    "value": {}
+                },
+                {
+                    "valueName": "set_up_axis.up_axis",
+                    "valueType": "BifrostUsd::UpAxis",
+                    "value": "Y"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

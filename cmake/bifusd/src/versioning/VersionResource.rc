@@ -1,0 +1,59 @@
+//-
+// Copyright 2022 Autodesk, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//+
+
+// This file is a template for CMake to automatically generate RC files.  It
+// is based on Visual Studio auto-gen files resource.h and resource.rc.  And
+// we removed the APSTUDIO_INVOKED support to slim the file.
+
+#include <windows.h>
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION    ${BIFUSD_MAJOR_VERSION}, ${BIFUSD_MINOR_VERSION}, ${BIFUSD_PATCH_LEVEL}, ${BIFUSD_BUILD_VERSION}
+ PRODUCTVERSION ${BIFUSD_MAJOR_VERSION}, ${BIFUSD_MINOR_VERSION}, ${BIFUSD_PATCH_LEVEL}, ${BIFUSD_BUILD_VERSION}
+ FILEFLAGSMASK 0x3fL // All flags enabled
+ FILEFLAGS ${BIFUSD_FILE_FLAGS}
+ FILEOS VOS_NT_WINDOWS32
+ FILETYPE ${BIFUSD_FILE_TYPE}
+ FILESUBTYPE 0x0L // No subtype
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName",        ${BIFUSD_COMPANY_NAME}
+            VALUE "FileDescription",    ${BIFUSD_FILE_DESCRIPTION}
+            VALUE "FileVersion",        "${BIFUSD_MAJOR_VERSION}.${BIFUSD_MINOR_VERSION}.${BIFUSD_PATCH_LEVEL}.${BIFUSD_BUILD_VERSION}"
+            VALUE "InternalName",       ${BIFUSD_INTERNAL_NAME}
+            VALUE "LegalCopyright",     ${BIFUSD_LEGAL_COPYRIGHT}
+            VALUE "LegalTrademarks1",   ${BIFUSD_LEGAL_TRADEMARKS1}
+            VALUE "LegalTrademarks2",   ${BIFUSD_LEGAL_TRADEMARKS2}
+            VALUE "OriginalFilename",   ${BIFUSD_ORIGINAL_FILENAME}
+            VALUE "ProductName",        ${BIFUSD_PRODUCT_NAME}
+            VALUE "ProductVersion",     "${BIFUSD_MAJOR_VERSION}.${BIFUSD_MINOR_VERSION}.${BIFUSD_PATCH_LEVEL}.${BIFUSD_BUILD_VERSION}"
+            VALUE "ProductDate",        ${BIFUSD_PRODUCT_DATE}
+            VALUE "Build",              ${BIFUSD_BUILD_ID_0}
+            VALUE "BuildExt",           ${BIFUSD_BUILD_ID_1}
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

@@ -1,0 +1,24 @@
+{
+    "schemaVersion": "1.0.0",
+    "comment": [
+        "The add_to_stage_test00 compound is checking:",
+        "   - if prims are added to the stage.",
+        "   - if an attribute is created on a prim.",
+        "   - if a reference is added to a prim.",
+        "   - how many prims the compound is creating.",
+        "   - if there is a variantSet called 'look'.",
+        "   - if such variantSet got a 'red' and a 'blue' variant.",
+        "   - if the '/A/geo/obj' prim is assigned to the '/A/mtl/Red' material in the 'red' variant.",
+        "   - if the '/A/geo/obj' prim is assigned to the '/A/mtl/Blue' material in the 'blue' variant."
+    ],
+    "options": {
+        "definitionFiles": [
+            "add_to_stage_test00.json"
+        ],
+        "compound": "USD::Test::Stage::add_to_stage_test00"
+    },
+    "task": {
+        "type": "single",
+        "name": "Use Default Params"
+    }
+}

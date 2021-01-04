@@ -1,0 +1,17 @@
+---
+Language: Cpp
+BasedOnStyle: Google
+IndentWidth: 4
+AccessModifierOffset: -4
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AllowShortCaseLabelsOnASingleLine: true
+BinPackParameters: false
+BreakStringLiterals: true
+DerivePointerAlignment: false
+IncludeBlocks: Preserve
+IncludeIsMainRegex: "$"
+ReflowComments: true
+SpacesBeforeTrailingComments: 1
+Standard: Cpp11
+CommentPragmas: '^\\.+'

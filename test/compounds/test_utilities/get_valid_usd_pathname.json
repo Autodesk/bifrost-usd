@@ -1,0 +1,490 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Test::TestUtilities::get_valid_usd_pathname",
+            "uriImported": "stream:/bifrostGraphShape1",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-721.068 213.221"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "unix_path"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1699.5 175.175"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "valid_pathname"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "text",
+                            "metaType": "string",
+                            "metaValue": "If the filename provided is the path to the current directory (\".\") or parent directory (\"..\"),\nthen the filename is considered to be empty.\n"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-73.9167 552.95 835.672 730.006"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-801.333 -33.4792 2806.67 1495.63"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-631.289 617.952"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "unix_path",
+                    "portDirection": "input"
+                },
+                {
+                    "portName": "valid_pathname",
+                    "portDirection": "output"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "extract_filename",
+                    "nodeType": "USD::Test::TestUtilities::extract_filename",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-396.616 785.493"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "equal1",
+                    "nodeType": "Core::Logic::equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-11.6557 856.679"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "or3",
+                    "nodeType": "Core::Logic::or",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "250.777 726.374"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "equal",
+                    "nodeType": "Core::Logic::equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-10.7917 649.739"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_directory",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "829.386 189.49"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "or",
+                    "nodeType": "Core::Logic::or",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "507.001 862.619"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_empty",
+                    "nodeType": "Core::String::string_empty",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-14.3834 1084.89"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "filename_length",
+                    "nodeType": "Core::String::string_length",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-83.9047 328.351"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "path_length",
+                    "nodeType": "Core::String::string_length",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-83.1201 145.658"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "subtract",
+                    "nodeType": "Core::Math::subtract",
+                    "multiInPortNames": [
+                        "length",
+                        "length1"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "218.047 204.617"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "slice_string",
+                    "nodeType": "Core::String::slice_string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "521.477 186.464"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if_has_empty_filename",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "798.137 845.875"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_valid_usd_filename",
+                    "nodeType": "USD::Test::TestUtilities::get_valid_usd_filename",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1067.69 839.517"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "make_file_path",
+                    "nodeType": "USD::Test::TestUtilities::make_file_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1263.26 167.034"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "extract_filename.filename",
+                    "target": "equal.first"
+                },
+                {
+                    "source": "extract_filename.filename",
+                    "target": "equal1.first"
+                },
+                {
+                    "source": "equal1.output",
+                    "target": "or3.second"
+                },
+                {
+                    "source": "equal.output",
+                    "target": "or3.first"
+                },
+                {
+                    "source": ".unix_path",
+                    "target": "extract_filename.unix_path"
+                },
+                {
+                    "source": "string_empty.empty",
+                    "target": "or.second"
+                },
+                {
+                    "source": "extract_filename.filename",
+                    "target": "string_empty.string"
+                },
+                {
+                    "source": "or3.output",
+                    "target": "or.first"
+                },
+                {
+                    "source": "or.output",
+                    "target": "get_directory.condition"
+                },
+                {
+                    "source": ".unix_path",
+                    "target": "get_directory.true_case"
+                },
+                {
+                    "source": "extract_filename.filename",
+                    "target": "filename_length.string"
+                },
+                {
+                    "source": ".unix_path",
+                    "target": "path_length.string"
+                },
+                {
+                    "source": "path_length.length",
+                    "target": "subtract.first.length"
+                },
+                {
+                    "source": "filename_length.length",
+                    "target": "subtract.first.length1"
+                },
+                {
+                    "source": ".unix_path",
+                    "target": "slice_string.string"
+                },
+                {
+                    "source": "subtract.output",
+                    "target": "slice_string.stop"
+                },
+                {
+                    "source": "slice_string.slice",
+                    "target": "get_directory.false_case"
+                },
+                {
+                    "source": "or.output",
+                    "target": "if_has_empty_filename.condition"
+                },
+                {
+                    "source": "extract_filename.filename",
+                    "target": "if_has_empty_filename.false_case"
+                },
+                {
+                    "source": "if_has_empty_filename.output",
+                    "target": "get_valid_usd_filename.filename"
+                },
+                {
+                    "source": "get_directory.output",
+                    "target": "make_file_path.directory"
+                },
+                {
+                    "source": "get_valid_usd_filename.valid_filename",
+                    "target": "make_file_path.filename"
+                },
+                {
+                    "source": "make_file_path.path",
+                    "target": ".valid_pathname"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "extract_filename.unix_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "equal1.first",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "equal1.second",
+                    "valueType": "string",
+                    "value": ".."
+                },
+                {
+                    "valueName": "equal.first",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "equal.second",
+                    "valueType": "string",
+                    "value": "."
+                },
+                {
+                    "valueName": "get_directory.true_case",
+                    "valueType": "string",
+                    "value": ""
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

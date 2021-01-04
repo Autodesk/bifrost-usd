@@ -1,0 +1,302 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Prim::set_prim_color",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "io_metadata",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "-893.148 -494.453"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "stage"
+                                                },
+                                                {
+                                                    "metaName": "prim_path"
+                                                },
+                                                {
+                                                    "metaName": "name"
+                                                },
+                                                {
+                                                    "metaName": "value"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "io_metadata",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "557.337 -515.296"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "out_stage"
+                                                },
+                                                {
+                                                    "metaName": "success"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-1154.35 -629 2198.7 729"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "12 -985"
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "stage",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Stage"
+                },
+                {
+                    "portName": "prim_path",
+                    "portDirection": "input",
+                    "portType": "string"
+                },
+                {
+                    "portName": "name",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "primvars:displayColor"
+                },
+                {
+                    "portName": "value",
+                    "portDirection": "input",
+                    "portType": "array<Math::float3>"
+                },
+                {
+                    "portName": "out_stage",
+                    "portDirection": "output"
+                },
+                {
+                    "portName": "success",
+                    "portDirection": "output"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "set_prim_attribute",
+                    "nodeType": "USD::Attribute::set_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "228.846 -439.004"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value",
+                    "valueType": "BifrostUsd::SdfValueTypeName",
+                    "metadata": [
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "14"
+                        },
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-444.712 -139.583"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value1",
+                    "valueType": "array<Math::float3>",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-181.99 -588.743"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_prim_attribute1",
+                    "nodeType": "USD::Attribute::create_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-100.138 -259.947"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "value1.output",
+                    "target": "set_prim_attribute.value"
+                },
+                {
+                    "source": ".prim_path",
+                    "target": "set_prim_attribute.prim_path"
+                },
+                {
+                    "source": ".value",
+                    "target": "value1.value"
+                },
+                {
+                    "source": ".name",
+                    "target": "set_prim_attribute.name"
+                },
+                {
+                    "source": "set_prim_attribute.out_stage",
+                    "target": ".out_stage"
+                },
+                {
+                    "source": "set_prim_attribute.success",
+                    "target": ".success"
+                },
+                {
+                    "source": ".name",
+                    "target": "create_prim_attribute1.name"
+                },
+                {
+                    "source": ".prim_path",
+                    "target": "create_prim_attribute1.prim_path"
+                },
+                {
+                    "source": ".stage",
+                    "target": "create_prim_attribute1.stage"
+                },
+                {
+                    "source": "create_prim_attribute1.out_stage",
+                    "target": "set_prim_attribute.stage"
+                },
+                {
+                    "source": "value.output",
+                    "target": "create_prim_attribute1.type_name"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "value.value",
+                    "valueType": "BifrostUsd::SdfValueTypeName",
+                    "value": "Color3fArray"
+                },
+                {
+                    "valueName": "value1.value",
+                    "valueType": "array<Math::float3>",
+                    "value": []
+                },
+                {
+                    "valueName": "create_prim_attribute1.type_name",
+                    "valueType": "BifrostUsd::SdfValueTypeName",
+                    "value": "Color3fArray"
+                }
+            ]
+        }
+    ]
+}

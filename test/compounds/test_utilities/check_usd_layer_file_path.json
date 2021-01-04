@@ -1,0 +1,513 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Test::TestUtilities::check_usd_layer_file_path",
+            "uriImported": "file:///check_usd_layer_file_path.json",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-818 73"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "layer"
+                                                },
+                                                {
+                                                    "metaName": "save_pathname"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1082 86"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "failure_msg"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop1",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "text",
+                            "metaType": "string",
+                            "metaValue": "The layer's save file_path is expected to be empty only when the input save_pathname is empty.\nAs soon as the user specifies a non-empty save_pathname, even if it is a directory name ending with\nthe directory separator or the \".\" or \"..\" string, then the layer's save file_path is expected to contain\na path to a valid USD filename with a valid USD file format extension.\n"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "112.815 -8.25202 904.129 866.233"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-1039.5 -48 2569 1520"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-142.833 35.6667"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "failure_msg",
+                    "portDirection": "output",
+                    "portType": "string"
+                },
+                {
+                    "portName": "layer",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Layer",
+                    "portDefault": {}
+                },
+                {
+                    "portName": "save_pathname",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "expect_true1",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "752 116"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_layer_file_path",
+                    "nodeType": "USD::Layer::get_layer_file_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-517 216"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_find1",
+                    "nodeType": "Core::String::string_find",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "122 536"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "is_file_path_empty",
+                    "nodeType": "Core::String::string_empty",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "122 326"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "is_pathname_empty",
+                    "nodeType": "Core::String::string_empty",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "122 116"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "452 266"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_valid_usd_pathname",
+                    "nodeType": "USD::Test::TestUtilities::get_valid_usd_pathname",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-247 486"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "to_unix_path1",
+                    "nodeType": "USD::Test::TestUtilities::to_unix_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-517 486"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "to_unix_path2",
+                    "nodeType": "USD::Test::TestUtilities::to_unix_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-247 216"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value2",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-88 1256"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value1",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-88 1076"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "output",
+                        "file",
+                        "output1",
+                        "valid_pathname",
+                        "output2"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "242 896"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-88 896"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_join",
+                    "nodeType": "Core::String::string_join",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "512 896"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": ".layer",
+                    "target": "get_layer_file_path.layer"
+                },
+                {
+                    "source": ".save_pathname",
+                    "target": "is_pathname_empty.string"
+                },
+                {
+                    "source": "is_pathname_empty.empty",
+                    "target": "if.condition"
+                },
+                {
+                    "source": "is_file_path_empty.empty",
+                    "target": "if.true_case"
+                },
+                {
+                    "source": "if.output",
+                    "target": "expect_true1.condition"
+                },
+                {
+                    "source": "string_find1.found",
+                    "target": "if.false_case"
+                },
+                {
+                    "source": "get_valid_usd_pathname.valid_pathname",
+                    "target": "string_find1.find"
+                },
+                {
+                    "source": ".save_pathname",
+                    "target": "to_unix_path1.path"
+                },
+                {
+                    "source": "to_unix_path1.unix_path",
+                    "target": "get_valid_usd_pathname.unix_path"
+                },
+                {
+                    "source": "get_layer_file_path.file",
+                    "target": "to_unix_path2.path"
+                },
+                {
+                    "source": "to_unix_path2.unix_path",
+                    "target": "is_file_path_empty.string"
+                },
+                {
+                    "source": "to_unix_path2.unix_path",
+                    "target": "string_find1.string"
+                },
+                {
+                    "source": "build_array.array",
+                    "target": "string_join.strings"
+                },
+                {
+                    "source": "value.output",
+                    "target": "build_array.first.output"
+                },
+                {
+                    "source": "expect_true1.result",
+                    "target": ".failure_msg"
+                },
+                {
+                    "source": "get_layer_file_path.file",
+                    "target": "build_array.first.file"
+                },
+                {
+                    "source": "value1.output",
+                    "target": "build_array.first.output1"
+                },
+                {
+                    "source": "get_valid_usd_pathname.valid_pathname",
+                    "target": "build_array.first.valid_pathname"
+                },
+                {
+                    "source": "value2.output",
+                    "target": "build_array.first.output2"
+                },
+                {
+                    "source": "string_join.joined",
+                    "target": "expect_true1.msg_if_failed"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "expect_true1.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: get_layer_file_path does not contain layer's file name"
+                },
+                {
+                    "valueName": "string_find1.find",
+                    "valueType": "string",
+                    "value": "bifrost.usd"
+                },
+                {
+                    "valueName": "string_find1.end",
+                    "valueType": "long",
+                    "value": "-1"
+                },
+                {
+                    "valueName": "value2.value",
+                    "valueType": "string",
+                    "value": "`"
+                },
+                {
+                    "valueName": "value1.value",
+                    "valueType": "string",
+                    "value": "` does not contain layer's pathname `"
+                },
+                {
+                    "valueName": "value.value",
+                    "valueType": "string",
+                    "value": "Error: layer's save file path `"
+                },
+                {
+                    "valueName": "string_join.separator",
+                    "valueType": "string",
+                    "value": ""
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

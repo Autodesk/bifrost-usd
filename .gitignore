@@ -1,0 +1,7 @@
+.DS_Store
+__pycache__
+
+# Visual Studio Code
+.vscode
+# jetbrains solutions
+.idea
