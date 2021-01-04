@@ -1,0 +1,40 @@
+{
+    "schemaVersion": "1.0.0",
+    "comment": "Test read_usd_curves",
+    "options": {
+        "definitionFiles": [
+            "read_usd_curves_test00.json"
+        ],
+        "compound": "USD::Test::IO::read_usd_curves_test00"
+    },
+    "task": {
+        "type": "sequence",
+        "tasks": [
+            {
+                "type": "single",
+                "name": "Params Set 1",
+                "options": {
+                    "comment": "Inputs for test loading a USD curve generated from the points' normals of a quad",
+                    "inputPorts": [
+                        {
+                            "name": "root_resource_dir",
+                            "optionPortName": "root_resource_dir"
+                        },
+                        {
+                            "name": "file",
+                            "value": "curves_from_quad.usda"
+                        },
+                        {
+                            "name": "expected_point_count",
+                            "value": "8"
+                        },
+                        {
+                            "name": "expected_point_position",
+                            "value": "-0.5,0,-0.5,-0.5,1,-0.5,-0.5,0,0.5,-0.5,1,0.5,0.5,0,-0.5,0.5,1,-0.5,0.5,0,0.5,0.5,1,0.5"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,8 @@
+#usda 1.0
+
+def "Tree" (
+    prepend references = @Tree1.usd@</Tree1>
+)
+{
+}
+

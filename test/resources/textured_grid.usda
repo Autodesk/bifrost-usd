@@ -1,0 +1,98 @@
+#usda 1.0
+(
+    defaultPrim = "grid"
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def Mesh "grid" (
+    prepend apiSchemas = ["MaterialBindingAPI"]
+    kind = "component"
+)
+{
+    uniform bool doubleSided = 1
+    float3[] extent = [(-2, -4.440892e-16, -2), (2, 4.440892e-16, 2)]
+    int[] faceVertexCounts = [4]
+    int[] faceVertexIndices = [0, 1, 3, 2]
+    rel material:binding = </grid/Looks/usdPreviewSurface1SG>
+    normal3f[] normals = [(0, 1, 2.220446e-16), (0, 1, 2.220446e-16), (0, 1, 2.220446e-16), (0, 1, 2.220446e-16)] (
+        interpolation = "faceVarying"
+    )
+    point3f[] points = [(-2, -4.440892e-16, 2), (2, -4.440892e-16, 2), (-2, 4.440892e-16, -2), (2, 4.440892e-16, -2)]
+    texCoord2f[] primvars:st = [(0, 0), (1, 0), (0, 1), (1, 1)] (
+        customData = {
+            dictionary Maya = {
+                token name = "map1"
+            }
+        }
+        interpolation = "faceVarying"
+    )
+    texCoord2f[] primvars:st1 = [(0, 0.75048614), (1, 0.75048614), (1, 1), (0, 1)] (
+        customData = {
+            dictionary Maya = {
+                token name = "uvSet1"
+            }
+        }
+        interpolation = "faceVarying"
+    )
+    int[] primvars:st1:indices = [0, 1, 2, 3]
+    texCoord2f[] primvars:st2 = [(0, 0.5), (1, 0.5), (0, 1), (1, 1)] (
+        customData = {
+            dictionary Maya = {
+                token name = "uvSet2"
+            }
+        }
+        interpolation = "faceVarying"
+    )
+    int[] primvars:st2:indices = [0, 1, 3, 2]
+    texCoord2f[] primvars:st3 = [(0, 0.25193572), (1, 0.25193572), (1, 1), (0, 1)] (
+        customData = {
+            dictionary Maya = {
+                token name = "uvSet3"
+            }
+        }
+        interpolation = "faceVarying"
+    )
+    int[] primvars:st3:indices = [0, 1, 2, 3]
+    int[] primvars:st:indices = [0, 1, 3, 2]
+    uniform token subdivisionScheme = "none"
+
+    def Scope "Looks"
+    {
+        def Material "usdPreviewSurface1SG"
+        {
+            token inputs:file1:varname = "st"
+            token outputs:surface.connect = </grid/Looks/usdPreviewSurface1SG/usdPreviewSurface1.outputs:surface>
+
+            def Shader "usdPreviewSurface1"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor.connect = </grid/Looks/usdPreviewSurface1SG/file1.outputs:rgb>
+                token outputs:displacement
+                token outputs:surface
+            }
+
+            def Shader "file1"
+            {
+                uniform token info:id = "UsdUVTexture"
+                float4 inputs:fallback = (0.5, 0.5, 0.5, 1)
+                asset inputs:file = @uv_checker_512.png@ (
+                    colorSpace = "sRGB"
+                )
+                token inputs:sourceColorSpace = "sRGB"
+                float2 inputs:st.connect = </grid/Looks/usdPreviewSurface1SG/place2dTexture1.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "place2dTexture1"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname.connect = </grid/Looks/usdPreviewSurface1SG.inputs:file1:varname>
+                float2 outputs:result
+            }
+        }
+    }
+}
+

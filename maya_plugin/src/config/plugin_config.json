@@ -1,0 +1,4 @@
+{
+    "include" : "usd_pack_config.json",
+    "include" : "usd_maya_translation.json"
+}

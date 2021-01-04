@@ -1,0 +1,23 @@
+#usda 1.0
+(
+    defaultPrim = "bottle"
+    upAxis = "Z"
+)
+
+def Xform "Props_grp" (
+    kind = "group"
+)
+{
+    def "bottle" (
+        add references = @./assets/Bottle/Bottle.usd@
+    ) {}
+
+    def "MeasuringSpoon" (
+        add references = @./assets/MeasuringSpoon/MeasuringSpoon.usd@
+    )
+    {
+        float3 xformOp:rotateXYZ = (180, 3.0688782, 180)
+        double3 xformOp:translate = (0, -10, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
+    }    
+}

@@ -1,0 +1,1579 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Test::VariantSet::create_variants_test00",
+            "uriImported": "stream:/bifrostGraphShape1",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "test_info"
+                                                },
+                                                {
+                                                    "metaName": "failure_msgs"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1177 141"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "text",
+                            "metaType": "string",
+                            "metaValue": "Create a VariantSet with some Variants"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-1853.44 85.9246 835.646 1430.48"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop1",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "text",
+                            "metaType": "string",
+                            "metaValue": "Create primitives and their attributes\n"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-1855.16 -720.572 985.691 423.738"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop2",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-719.245 40.82 857.248 523.243"
+                        },
+                        {
+                            "metaName": "text",
+                            "metaType": "string",
+                            "metaValue": "Check VariantSets"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop3",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-713.996 621.063 851.999 1043.49"
+                        },
+                        {
+                            "metaName": "text",
+                            "metaType": "string",
+                            "metaValue": "Check Variants"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-2677.18 -768.953 4184.44 2475.81"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-587.86 -81.3814"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "test_info",
+                    "portDirection": "output",
+                    "portType": "string"
+                },
+                {
+                    "portName": "failure_msgs",
+                    "portDirection": "output",
+                    "portType": "array<string>"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "build_array",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "result",
+                        "result1",
+                        "result2",
+                        "result3",
+                        "result4",
+                        "result5"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "877 231"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "877 21"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "createPrim_hello",
+                    "nodeType": "USD::Prim::create_prim",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1851.25 -638.452"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "addVariantSet_shadingVariant",
+                    "nodeType": "USD::VariantSet::add_variant_set",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1817.75 179.493"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "addVariant_green",
+                    "nodeType": "USD::VariantSet::add_variant",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1817.75 809.493"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "addVariant_red",
+                    "nodeType": "USD::VariantSet::add_variant",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1817.75 449.493"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_variant_sets",
+                    "nodeType": "USD::VariantSet::get_variant_sets",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-713 201"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_variants",
+                    "nodeType": "USD::VariantSet::get_variants",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-713 801"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_from_array",
+                    "nodeType": "Core::Array::get_from_array",
+                    "metadata": [
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-413 321"
+                        },
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_from_array0",
+                    "nodeType": "Core::Array::get_from_array",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-413 921"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_from_array1",
+                    "nodeType": "Core::Array::get_from_array",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-413 1161"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "createAttr_displayColor1",
+                    "nodeType": "USD::Attribute::create_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1547.75 449.493"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "setDisplayColor_red",
+                    "nodeType": "USD::Attribute::set_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1277.75 449.493"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "createPrim_world",
+                    "nodeType": "USD::Prim::create_prim",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1611.25 -638.452"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "addVariant_blue",
+                    "nodeType": "USD::VariantSet::add_variant",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1817.75 1169.49"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "createAttr_displayColor3",
+                    "nodeType": "USD::Attribute::create_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1547.75 1169.49"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "setDisplayColor_blue",
+                    "nodeType": "USD::Attribute::set_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1277.75 1169.49"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "createAttr_displayColor2",
+                    "nodeType": "USD::Attribute::create_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1547.75 809.493"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "setDisplayColor_green",
+                    "nodeType": "USD::Attribute::set_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1277.75 809.493"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "createAttr_displayColor",
+                    "nodeType": "USD::Attribute::create_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1371.25 -638.452"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "setDisplayColor_black",
+                    "nodeType": "USD::Attribute::set_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1131.25 -638.452"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value2",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2573 -519"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value4",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2573 561"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value5",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2573 -309"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value6",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2573 921"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value7",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2573 1281"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value1",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2573 -729"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "root_prim",
+                    "nodeType": "Core::Graph::pass",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2273 -729"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "variant_set_owner",
+                    "nodeType": "Core::Graph::pass",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2273 -99"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "sub_prim",
+                    "nodeType": "Core::Graph::pass",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2273 -519"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "attr_name",
+                    "nodeType": "Core::Graph::pass",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2273 -309"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "variant_name1",
+                    "nodeType": "Core::Graph::pass",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2273 561"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "variant_name2",
+                    "nodeType": "Core::Graph::pass",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2273 921"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "variant_name3",
+                    "nodeType": "Core::Graph::pass",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2273 1281"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "array_size",
+                    "nodeType": "Core::Array::array_size",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-413 81"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-113 81"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal1",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-113 321"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value3",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2573 231"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "variant_set_name",
+                    "nodeType": "Core::Graph::pass",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2273 231"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "array_size1",
+                    "nodeType": "Core::Array::array_size",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-413 681"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal2",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-113 681"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_from_array2",
+                    "nodeType": "Core::Array::get_from_array",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-413 1401"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal3",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-113 921"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal4",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-113 1161"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal5",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-113 1401"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "build_array.array",
+                    "target": ".failure_msgs"
+                },
+                {
+                    "source": "value.output",
+                    "target": ".test_info"
+                },
+                {
+                    "source": "addVariantSet_shadingVariant.out_stage",
+                    "target": "addVariant_red.stage"
+                },
+                {
+                    "source": "get_variant_sets.names",
+                    "target": "get_from_array.array"
+                },
+                {
+                    "source": "get_variants.names",
+                    "target": "get_from_array0.array"
+                },
+                {
+                    "source": "get_variants.names",
+                    "target": "get_from_array1.array"
+                },
+                {
+                    "source": "createAttr_displayColor1.out_stage",
+                    "target": "setDisplayColor_red.stage"
+                },
+                {
+                    "source": "setDisplayColor_red.out_stage",
+                    "target": "addVariant_green.stage"
+                },
+                {
+                    "source": "addVariant_red.out_stage",
+                    "target": "createAttr_displayColor1.stage"
+                },
+                {
+                    "source": "createAttr_displayColor3.out_stage",
+                    "target": "setDisplayColor_blue.stage"
+                },
+                {
+                    "source": "createAttr_displayColor2.out_stage",
+                    "target": "setDisplayColor_green.stage"
+                },
+                {
+                    "source": "addVariant_green.out_stage",
+                    "target": "createAttr_displayColor2.stage"
+                },
+                {
+                    "source": "setDisplayColor_green.out_stage",
+                    "target": "addVariant_blue.stage"
+                },
+                {
+                    "source": "addVariant_blue.out_stage",
+                    "target": "createAttr_displayColor3.stage"
+                },
+                {
+                    "source": "createAttr_displayColor.out_stage",
+                    "target": "setDisplayColor_black.stage"
+                },
+                {
+                    "source": "createPrim_hello.out_stage",
+                    "target": "createPrim_world.stage"
+                },
+                {
+                    "source": "createPrim_world.out_stage",
+                    "target": "createAttr_displayColor.stage"
+                },
+                {
+                    "source": "setDisplayColor_black.out_stage",
+                    "target": "addVariantSet_shadingVariant.stage"
+                },
+                {
+                    "source": "setDisplayColor_blue.out_stage",
+                    "target": "get_variant_sets.stage"
+                },
+                {
+                    "source": "value1.output",
+                    "target": "root_prim.input"
+                },
+                {
+                    "source": "root_prim.output",
+                    "target": "createPrim_hello.path"
+                },
+                {
+                    "source": "root_prim.output",
+                    "target": "createAttr_displayColor.prim_path"
+                },
+                {
+                    "source": "root_prim.output",
+                    "target": "setDisplayColor_black.prim_path"
+                },
+                {
+                    "source": "value1.output",
+                    "target": "variant_set_owner.input"
+                },
+                {
+                    "source": "variant_set_owner.output",
+                    "target": "addVariantSet_shadingVariant.prim_path"
+                },
+                {
+                    "source": "variant_set_owner.output",
+                    "target": "addVariant_red.prim_path"
+                },
+                {
+                    "source": "variant_set_owner.output",
+                    "target": "addVariant_green.prim_path"
+                },
+                {
+                    "source": "variant_set_owner.output",
+                    "target": "addVariant_blue.prim_path"
+                },
+                {
+                    "source": "variant_set_owner.output",
+                    "target": "createAttr_displayColor1.prim_path"
+                },
+                {
+                    "source": "variant_set_owner.output",
+                    "target": "createAttr_displayColor2.prim_path"
+                },
+                {
+                    "source": "variant_set_owner.output",
+                    "target": "createAttr_displayColor3.prim_path"
+                },
+                {
+                    "source": "value2.output",
+                    "target": "sub_prim.input"
+                },
+                {
+                    "source": "sub_prim.output",
+                    "target": "createPrim_world.path"
+                },
+                {
+                    "source": "variant_set_owner.output",
+                    "target": "setDisplayColor_red.prim_path"
+                },
+                {
+                    "source": "variant_set_owner.output",
+                    "target": "setDisplayColor_green.prim_path"
+                },
+                {
+                    "source": "variant_set_owner.output",
+                    "target": "setDisplayColor_blue.prim_path"
+                },
+                {
+                    "source": "value5.output",
+                    "target": "attr_name.input"
+                },
+                {
+                    "source": "attr_name.output",
+                    "target": "createAttr_displayColor.name"
+                },
+                {
+                    "source": "attr_name.output",
+                    "target": "setDisplayColor_black.name"
+                },
+                {
+                    "source": "attr_name.output",
+                    "target": "createAttr_displayColor1.name"
+                },
+                {
+                    "source": "attr_name.output",
+                    "target": "createAttr_displayColor2.name"
+                },
+                {
+                    "source": "attr_name.output",
+                    "target": "createAttr_displayColor3.name"
+                },
+                {
+                    "source": "attr_name.output",
+                    "target": "setDisplayColor_red.name"
+                },
+                {
+                    "source": "attr_name.output",
+                    "target": "setDisplayColor_green.name"
+                },
+                {
+                    "source": "attr_name.output",
+                    "target": "setDisplayColor_blue.name"
+                },
+                {
+                    "source": "value4.output",
+                    "target": "variant_name1.input"
+                },
+                {
+                    "source": "variant_name1.output",
+                    "target": "addVariant_red.variant_name"
+                },
+                {
+                    "source": "value6.output",
+                    "target": "variant_name2.input"
+                },
+                {
+                    "source": "variant_name2.output",
+                    "target": "addVariant_green.variant_name"
+                },
+                {
+                    "source": "value7.output",
+                    "target": "variant_name3.input"
+                },
+                {
+                    "source": "variant_name3.output",
+                    "target": "addVariant_blue.variant_name"
+                },
+                {
+                    "source": "get_variant_sets.names",
+                    "target": "array_size.array"
+                },
+                {
+                    "source": "array_size.size",
+                    "target": "expect_equal.first"
+                },
+                {
+                    "source": "variant_set_owner.output",
+                    "target": "get_variant_sets.prim_path"
+                },
+                {
+                    "source": "get_from_array.value",
+                    "target": "expect_equal1.first"
+                },
+                {
+                    "source": "value3.output",
+                    "target": "variant_set_name.input"
+                },
+                {
+                    "source": "variant_set_name.output",
+                    "target": "addVariantSet_shadingVariant.variant_set_name"
+                },
+                {
+                    "source": "variant_set_name.output",
+                    "target": "addVariant_red.variant_set_name"
+                },
+                {
+                    "source": "variant_set_name.output",
+                    "target": "addVariant_green.variant_set_name"
+                },
+                {
+                    "source": "variant_set_name.output",
+                    "target": "addVariant_blue.variant_set_name"
+                },
+                {
+                    "source": "variant_set_name.output",
+                    "target": "expect_equal1.second"
+                },
+                {
+                    "source": "setDisplayColor_blue.out_stage",
+                    "target": "get_variants.stage"
+                },
+                {
+                    "source": "variant_set_name.output",
+                    "target": "get_variants.variant_set_name"
+                },
+                {
+                    "source": "variant_set_owner.output",
+                    "target": "get_variants.prim_path"
+                },
+                {
+                    "source": "get_variants.names",
+                    "target": "array_size1.array"
+                },
+                {
+                    "source": "array_size1.size",
+                    "target": "expect_equal2.first"
+                },
+                {
+                    "source": "get_variants.names",
+                    "target": "get_from_array2.array"
+                },
+                {
+                    "source": "get_from_array2.value",
+                    "target": "expect_equal5.first"
+                },
+                {
+                    "source": "get_from_array1.value",
+                    "target": "expect_equal4.first"
+                },
+                {
+                    "source": "get_from_array0.value",
+                    "target": "expect_equal3.first"
+                },
+                {
+                    "source": "variant_name1.output",
+                    "target": "expect_equal3.second"
+                },
+                {
+                    "source": "variant_name2.output",
+                    "target": "expect_equal4.second"
+                },
+                {
+                    "source": "variant_name3.output",
+                    "target": "expect_equal5.second"
+                },
+                {
+                    "source": "expect_equal.result",
+                    "target": "build_array.first.result"
+                },
+                {
+                    "source": "expect_equal1.result",
+                    "target": "build_array.first.result1"
+                },
+                {
+                    "source": "expect_equal2.result",
+                    "target": "build_array.first.result2"
+                },
+                {
+                    "source": "expect_equal3.result",
+                    "target": "build_array.first.result3"
+                },
+                {
+                    "source": "expect_equal4.result",
+                    "target": "build_array.first.result4"
+                },
+                {
+                    "source": "expect_equal5.result",
+                    "target": "build_array.first.result5"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "value.value",
+                    "valueType": "string",
+                    "value": "Test creating a variant set with some variants, and checking result on root layer."
+                },
+                {
+                    "valueName": "createPrim_hello.path",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "addVariantSet_shadingVariant.prim_path",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "addVariantSet_shadingVariant.variant_set_name",
+                    "valueType": "string",
+                    "value": "shadingVariant"
+                },
+                {
+                    "valueName": "addVariant_green.prim_path",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "addVariant_green.variant_set_name",
+                    "valueType": "string",
+                    "value": "shadingVariant"
+                },
+                {
+                    "valueName": "addVariant_green.variant_name",
+                    "valueType": "string",
+                    "value": "green"
+                },
+                {
+                    "valueName": "addVariant_green.set_variant_selection",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "addVariant_red.prim_path",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "addVariant_red.variant_set_name",
+                    "valueType": "string",
+                    "value": "shadingVariant"
+                },
+                {
+                    "valueName": "addVariant_red.variant_name",
+                    "valueType": "string",
+                    "value": "red"
+                },
+                {
+                    "valueName": "addVariant_red.set_variant_selection",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "get_variant_sets.prim_path",
+                    "valueType": "string",
+                    "value": "/a"
+                },
+                {
+                    "valueName": "get_variants.prim_path",
+                    "valueType": "string",
+                    "value": "/a"
+                },
+                {
+                    "valueName": "get_from_array1.index",
+                    "valueType": "long",
+                    "value": "1"
+                },
+                {
+                    "valueName": "createAttr_displayColor1.prim_path",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "createAttr_displayColor1.name",
+                    "valueType": "string",
+                    "value": "displayColor"
+                },
+                {
+                    "valueName": "createAttr_displayColor1.type_name",
+                    "valueType": "BifrostUsd::SdfValueTypeName",
+                    "value": "Color3f"
+                },
+                {
+                    "valueName": "setDisplayColor_red.prim_path",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "setDisplayColor_red.name",
+                    "valueType": "string",
+                    "value": "displayColor"
+                },
+                {
+                    "valueName": "setDisplayColor_red.value",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "1f",
+                        "y": "0f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "createPrim_world.path",
+                    "valueType": "string",
+                    "value": "/hello/world"
+                },
+                {
+                    "valueName": "createPrim_world.type",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "addVariant_blue.prim_path",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "addVariant_blue.variant_set_name",
+                    "valueType": "string",
+                    "value": "shadingVariant"
+                },
+                {
+                    "valueName": "addVariant_blue.variant_name",
+                    "valueType": "string",
+                    "value": "blue"
+                },
+                {
+                    "valueName": "addVariant_blue.set_variant_selection",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "createAttr_displayColor3.prim_path",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "createAttr_displayColor3.name",
+                    "valueType": "string",
+                    "value": "displayColor"
+                },
+                {
+                    "valueName": "createAttr_displayColor3.type_name",
+                    "valueType": "BifrostUsd::SdfValueTypeName",
+                    "value": "Color3f"
+                },
+                {
+                    "valueName": "setDisplayColor_blue.prim_path",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "setDisplayColor_blue.name",
+                    "valueType": "string",
+                    "value": "displayColor"
+                },
+                {
+                    "valueName": "setDisplayColor_blue.value",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "0f",
+                        "z": "1f"
+                    }
+                },
+                {
+                    "valueName": "createAttr_displayColor2.prim_path",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "createAttr_displayColor2.name",
+                    "valueType": "string",
+                    "value": "displayColor"
+                },
+                {
+                    "valueName": "createAttr_displayColor2.type_name",
+                    "valueType": "BifrostUsd::SdfValueTypeName",
+                    "value": "Color3f"
+                },
+                {
+                    "valueName": "setDisplayColor_green.prim_path",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "setDisplayColor_green.name",
+                    "valueType": "string",
+                    "value": "displayColor"
+                },
+                {
+                    "valueName": "setDisplayColor_green.value",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "1f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "createAttr_displayColor.prim_path",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "createAttr_displayColor.name",
+                    "valueType": "string",
+                    "value": "displayColor"
+                },
+                {
+                    "valueName": "createAttr_displayColor.type_name",
+                    "valueType": "BifrostUsd::SdfValueTypeName",
+                    "value": "Color3f"
+                },
+                {
+                    "valueName": "setDisplayColor_black.prim_path",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "setDisplayColor_black.name",
+                    "valueType": "string",
+                    "value": "displayColor"
+                },
+                {
+                    "valueName": "setDisplayColor_black.value",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "0f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "value2.value",
+                    "valueType": "string",
+                    "value": "/hello/world"
+                },
+                {
+                    "valueName": "value4.value",
+                    "valueType": "string",
+                    "value": "A_red"
+                },
+                {
+                    "valueName": "value5.value",
+                    "valueType": "string",
+                    "value": "displayColor"
+                },
+                {
+                    "valueName": "value6.value",
+                    "valueType": "string",
+                    "value": "B_green"
+                },
+                {
+                    "valueName": "value7.value",
+                    "valueType": "string",
+                    "value": "C_blue"
+                },
+                {
+                    "valueName": "value1.value",
+                    "valueType": "string",
+                    "value": "/hello"
+                },
+                {
+                    "valueName": "expect_equal.second",
+                    "valueType": "long",
+                    "value": "1"
+                },
+                {
+                    "valueName": "expect_equal.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: wrong number of VariantSets"
+                },
+                {
+                    "valueName": "expect_equal1.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: VariantSet 0 has the wrong name"
+                },
+                {
+                    "valueName": "value3.value",
+                    "valueType": "string",
+                    "value": "shadingVariant"
+                },
+                {
+                    "valueName": "expect_equal2.second",
+                    "valueType": "long",
+                    "value": "3"
+                },
+                {
+                    "valueName": "expect_equal2.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: wrong number of Variants within the VariantSet"
+                },
+                {
+                    "valueName": "get_from_array2.index",
+                    "valueType": "long",
+                    "value": "2"
+                },
+                {
+                    "valueName": "expect_equal3.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: Variant 0 has the wrong name"
+                },
+                {
+                    "valueName": "expect_equal4.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: Variant 1 has the wrong name"
+                },
+                {
+                    "valueName": "expect_equal5.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: Variant 2 has the wrong name"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

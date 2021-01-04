@@ -1,0 +1,341 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Stage::open_usd_stage",
+            "uriImported": "file:///open_usd_stage.json",
+            "metadata": [
+                {
+                    "metaName": "documentation",
+                    "metaType": "string",
+                    "metaValue": "../docs/${language}/open_usd_stage.md"
+                },
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "10 72"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "file"
+                                                },
+                                                {
+                                                    "metaName": "read_only"
+                                                },
+                                                {
+                                                    "metaName": "save_file"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "input1",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "620 380"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "mask"
+                                                },
+                                                {
+                                                    "metaName": "load"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1230 235"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "stage"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                },
+                {
+                    "metaName": "NodeValueDisplay",
+                    "metadata": [
+                        {
+                            "metaName": "format",
+                            "metaType": "string",
+                            "metaValue": "Open Stage {file}"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-69.0262 -176.653 1602.79 943.005"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-129.5 -181.041"
+                },
+                {
+                    "metaName": "UILayout",
+                    "metaType": "string",
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"load_in_sublayer\"\n            },\n            {\n                \"expanded\": true,\n                \"group\": \"Open Parameters\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Settings\",\n                \"items\": [\n                    {\n                        \"port\": \"file\"\n                    },\n                    {\n                        \"port\": \"read_only\"\n                    },\n                    {\n                        \"port\": \"save_file\"\n                    },\n                    {\n                        \"port\": \"increment_if_empty\"\n                    },\n                    {\n                        \"port\": \"mask\"\n                    },\n                    {\n                        \"port\": \"load\"\n                    }\n                ]\n            }\n        ]\n    }\n}\n"
+                },
+                {
+                    "metaName": "PortExpandedState",
+                    "metadata": [
+                        {
+                            "metaName": "Settings",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        }
+                    ]
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "stage",
+                    "portDirection": "output",
+                    "portType": "BifrostUsd::Stage"
+                },
+                {
+                    "portName": "file",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "browserMode=open;filter=\"USD (*.usd *.usda *.usdc *.usdz);;All (*.*)\""
+                        },
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "FileBrowserWidget"
+                        }
+                    ]
+                },
+                {
+                    "portName": "read_only",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "true"
+                },
+                {
+                    "portName": "mask",
+                    "portDirection": "input",
+                    "portType": "array<string>"
+                },
+                {
+                    "portName": "load",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::InitialLoadSet"
+                },
+                {
+                    "portName": "save_file",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "browserMode=save;filter=\"USD (*.usd *.usda *.usdc);;All (*.*)\""
+                        },
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "FileBrowserWidget"
+                        }
+                    ]
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "open_stage_from_layer",
+                    "nodeType": "USD::Stage::open_stage_from_layer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "925 236"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "open_usd_layer",
+                    "nodeType": "USD::Layer::open_usd_layer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "620 65"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if_read_only",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "315 10"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "open_stage_from_layer.stage",
+                    "target": ".stage"
+                },
+                {
+                    "source": ".file",
+                    "target": "open_usd_layer.file"
+                },
+                {
+                    "source": ".read_only",
+                    "target": "open_usd_layer.read_only"
+                },
+                {
+                    "source": ".mask",
+                    "target": "open_stage_from_layer.mask"
+                },
+                {
+                    "source": ".load",
+                    "target": "open_stage_from_layer.load"
+                },
+                {
+                    "source": "if_read_only.output",
+                    "target": "open_usd_layer.save_file"
+                },
+                {
+                    "source": ".read_only",
+                    "target": "if_read_only.condition"
+                },
+                {
+                    "source": ".save_file",
+                    "target": "if_read_only.false_case"
+                },
+                {
+                    "source": "open_usd_layer.layer",
+                    "target": "open_stage_from_layer.root_layer"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "open_stage_from_layer.load",
+                    "valueType": "BifrostUsd::InitialLoadSet",
+                    "value": "LoadAll"
+                },
+                {
+                    "valueName": "open_usd_layer.file",
+                    "valueType": "string",
+                    "value": "/Users/laforgg/dev/bifrost/bifrost-usd-pack/test/resources/kitchen_set/kitchen_props.usd"
+                },
+                {
+                    "valueName": "open_usd_layer.read_only",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "if_read_only.false_case",
+                    "valueType": "string",
+                    "value": "Bla.usd"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                },
+                {
+                    "name": "input1"
+                }
+            ]
+        }
+    ]
+}

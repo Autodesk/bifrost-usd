@@ -1,0 +1,14 @@
+{
+    "AminoConfigurations": [
+        {
+            "vendorName": "Autodesk",
+            "libraryName": "bifrost_usd_pack_test",
+            "libraryVersion": "",
+            "jsonLibs": [
+                {
+                    "path": "compounds"
+                }
+            ]
+        }
+    ]
+}

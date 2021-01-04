@@ -1,0 +1,304 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Test::TestUtilities::get_valid_usd_tag",
+            "uriImported": "stream:/bifrostGraphShape1",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-850.455 -11.3907"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "unix_path"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1026.36 -75.2794"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "valid_tag"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "text",
+                            "metaType": "string",
+                            "metaValue": "If the filename provided is the path to the current directory (\".\") or parent directory (\"..\"),\nthen the filename is considered to be empty.\n"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-288.962 -501.95 628.275 530.046"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-930.667 -775.243 2275.33 1212.49"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-629.062 381.81"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "unix_path",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "valid_tag",
+                    "portDirection": "output"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "extract_filename",
+                    "nodeType": "USD::Test::TestUtilities::extract_filename",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-564.77 -15.1863"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "equal",
+                    "nodeType": "Core::Logic::equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-252.11 -406.851"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "or3",
+                    "nodeType": "Core::Logic::or",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "13.7101 -330.396"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "equal1",
+                    "nodeType": "Core::Logic::equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-252.974 -199.911"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "388.099 -76.0767"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_valid_usd_filename",
+                    "nodeType": "USD::Test::TestUtilities::get_valid_usd_filename",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "708.64 -76.8261"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": ".unix_path",
+                    "target": "extract_filename.unix_path"
+                },
+                {
+                    "source": "equal.output",
+                    "target": "or3.first"
+                },
+                {
+                    "source": "equal1.output",
+                    "target": "or3.second"
+                },
+                {
+                    "source": "or3.output",
+                    "target": "if.condition"
+                },
+                {
+                    "source": "extract_filename.filename",
+                    "target": "equal.first"
+                },
+                {
+                    "source": "extract_filename.filename",
+                    "target": "equal1.first"
+                },
+                {
+                    "source": "extract_filename.filename",
+                    "target": "if.false_case"
+                },
+                {
+                    "source": "if.output",
+                    "target": "get_valid_usd_filename.filename"
+                },
+                {
+                    "source": "get_valid_usd_filename.valid_filename",
+                    "target": ".valid_tag"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "extract_filename.unix_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "equal.first",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "equal.second",
+                    "valueType": "string",
+                    "value": "."
+                },
+                {
+                    "valueName": "equal1.first",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "equal1.second",
+                    "valueType": "string",
+                    "value": ".."
+                },
+                {
+                    "valueName": "if.true_case",
+                    "valueType": "string",
+                    "value": ""
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

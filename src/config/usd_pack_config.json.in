@@ -1,0 +1,35 @@
+{
+    "AminoConfigurations": [
+        {
+            "vendorName": "Autodesk",
+            "libraryVersion": "",
+            "libraryDependencies": [
+                "bif",
+                "Amino"
+            ],
+            "libraryName": "@BIFUSD_PACKAGE_NAME@",
+            "sharedLibs": [
+                {
+                    "path": "${BIFROST_USD_CONFIG_SHARED_LIB}",
+                    "files": [
+                        "BifrostUSD_@BIFUSD_MAJOR_VERSION@_@BIFUSD_MINOR_VERSION@",
+                        "BifrostUSDNodedefs_@BIFUSD_MAJOR_VERSION@_@BIFUSD_MINOR_VERSION@"
+                    ]
+                }
+            ],
+            "jsonLibs": [
+                {
+                    "path": "${BIFROST_USD_CONFIG_JSON}"
+                }
+            ],
+            "watchPointsTranslationLibs": [
+                {
+                    "path": "${BIFROST_USD_CONFIG_SHARED_LIB}",
+                    "files": [
+                        "BifrostUSDWatchpoint_@BIFUSD_MAJOR_VERSION@_@BIFUSD_MINOR_VERSION@"
+                    ]
+                }
+            ]
+        }
+    ]
+}

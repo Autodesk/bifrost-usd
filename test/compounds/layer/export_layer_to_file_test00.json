@@ -1,0 +1,797 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Test::Layer::export_layer_to_file_test00",
+            "uriImported": "file:///export_layer_to_file_test00.json",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "root_temp_dir"
+                                                },
+                                                {
+                                                    "metaName": "root_layer_filename"
+                                                },
+                                                {
+                                                    "metaName": "sublayer_filename"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-3263.02 -424.288"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "194 -489"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "test_info"
+                                                },
+                                                {
+                                                    "metaName": "failure_msgs"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "color",
+                            "metaType": "string",
+                            "metaValue": "#287cc29f"
+                        },
+                        {
+                            "metaName": "title",
+                            "metaType": "string",
+                            "metaValue": "First, create a root and a sublayer, then export the layers to files."
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-1844.81 -671.373 1114.21 548.094"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop1",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "color",
+                            "metaType": "string",
+                            "metaValue": "#287cc29f"
+                        },
+                        {
+                            "metaName": "title",
+                            "metaType": "string",
+                            "metaValue": "If we successfully exported the layers to files, then read them back and check the result..."
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-2086.53 -45.1528 1679.74 862.138"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-3285.85 -746.851 1205.8 1019.5"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Test::TestUtilities,make_file_path"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Test::Layer,export_layer_to_file_test00"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,Core::Transform,graph_space"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Test::Layer,create_empty_layer_test00"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Layer,export_layer_to_file"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-1018.48 247.723"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "test_info",
+                    "portDirection": "output",
+                    "portType": "string"
+                },
+                {
+                    "portName": "failure_msgs",
+                    "portDirection": "output",
+                    "portType": "array<string>"
+                },
+                {
+                    "portName": "root_temp_dir",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "root_layer_filename",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "C:\\Temp\\root.usda",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "FileBrowserWidget"
+                        },
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "browserMode=save;filter=\"USD (*.usd *.usda *.usdc);;All (*.*)\""
+                        }
+                    ]
+                },
+                {
+                    "portName": "sublayer_filename",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "C:\\Temp\\sublayer.usda",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "FileBrowserWidget"
+                        },
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "browserMode=save;filter=\"USD (*.usd *.usda *.usdc);;All (*.*)\""
+                        }
+                    ]
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "build_array",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "result",
+                        "output"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-106 -339"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-997.67 -529.245"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "export_layer_to_file",
+                    "nodeType": "USD::Layer::export_layer_to_file",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1248.81 -527.373"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-106 -609"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_root_layer",
+                    "nodeType": "USD::Layer::create_layer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1818.81 -527.373"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_sublayer",
+                    "nodeType": "USD::Layer::create_layer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1818.81 -317.373"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "add_sublayer",
+                    "nodeType": "USD::Layer::add_sublayer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1518.81 -527.373"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "open_layer",
+                    "nodeType": "USD::Layer::open_layer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2045.16 106.723"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "root_layer_file",
+                    "nodeType": "Core::Graph::pass",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2386 -429"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "sublayer_file",
+                    "nodeType": "Core::Graph::pass",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2386 -219"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_sublayer_paths",
+                    "nodeType": "USD::Layer::get_sublayer_paths",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1505.16 376.723"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "open_stage_from_layer",
+                    "nodeType": "USD::Stage::open_stage_from_layer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1775.16 376.723"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "array_size",
+                    "nodeType": "Core::Array::array_size",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1235.16 376.723"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-965.165 376.723"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_layer",
+                    "nodeType": "USD::Layer::get_layer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1505.16 586.723"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "check_usd_layer_id_and_file_path",
+                    "nodeType": "USD::Test::TestUtilities::check_usd_layer_id_and_file_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1775.16 106.723"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "check_usd_layer_id",
+                    "nodeType": "USD::Test::TestUtilities::check_usd_layer_id",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1235.16 586.723"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-376 -219"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array1",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "failure_msgs",
+                        "result",
+                        "failure_msg"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-665.165 76.7232"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "add_root_layer_filename",
+                    "nodeType": "USD::Test::TestUtilities::make_file_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2684.28 -431.211"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "add_subdir",
+                    "nodeType": "USD::Test::TestUtilities::make_file_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-3002.06 -556.585"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "add_sublayer_filename",
+                    "nodeType": "USD::Test::TestUtilities::make_file_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2674.58 -213.671"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "expect_true.result",
+                    "target": "build_array.first.result"
+                },
+                {
+                    "source": "export_layer_to_file.success",
+                    "target": "expect_true.condition"
+                },
+                {
+                    "source": "create_root_layer.layer",
+                    "target": "add_sublayer.layer"
+                },
+                {
+                    "source": "create_sublayer.layer",
+                    "target": "add_sublayer.sub_layer"
+                },
+                {
+                    "source": "add_sublayer.new_layer",
+                    "target": "export_layer_to_file.layer"
+                },
+                {
+                    "source": "sublayer_file.output",
+                    "target": "create_sublayer.save_file"
+                },
+                {
+                    "source": "open_layer.layer",
+                    "target": "open_stage_from_layer.root_layer"
+                },
+                {
+                    "source": "open_stage_from_layer.stage",
+                    "target": "get_sublayer_paths.stage"
+                },
+                {
+                    "source": "get_sublayer_paths.sub_layer_paths",
+                    "target": "array_size.array"
+                },
+                {
+                    "source": "array_size.size",
+                    "target": "expect_equal.first"
+                },
+                {
+                    "source": "open_stage_from_layer.stage",
+                    "target": "get_layer.stage"
+                },
+                {
+                    "source": "open_layer.layer",
+                    "target": "check_usd_layer_id_and_file_path.layer"
+                },
+                {
+                    "source": "build_array.array",
+                    "target": ".failure_msgs"
+                },
+                {
+                    "source": "value.output",
+                    "target": ".test_info"
+                },
+                {
+                    "source": "get_layer.layer",
+                    "target": "check_usd_layer_id.layer"
+                },
+                {
+                    "source": "sublayer_file.output",
+                    "target": "check_usd_layer_id.save_pathname"
+                },
+                {
+                    "source": "root_layer_file.output",
+                    "target": "create_root_layer.save_file"
+                },
+                {
+                    "source": "root_layer_file.output",
+                    "target": "open_layer.file"
+                },
+                {
+                    "source": "root_layer_file.output",
+                    "target": "check_usd_layer_id_and_file_path.save_pathname"
+                },
+                {
+                    "source": "export_layer_to_file.success",
+                    "target": "if.condition"
+                },
+                {
+                    "source": "check_usd_layer_id_and_file_path.failure_msgs",
+                    "target": "build_array1.first.failure_msgs"
+                },
+                {
+                    "source": "expect_equal.result",
+                    "target": "build_array1.first.result"
+                },
+                {
+                    "source": "check_usd_layer_id.failure_msg",
+                    "target": "build_array1.first.failure_msg"
+                },
+                {
+                    "source": "if.output",
+                    "target": "build_array.first.output"
+                },
+                {
+                    "source": "build_array1.array",
+                    "target": "if.true_case"
+                },
+                {
+                    "source": ".root_temp_dir",
+                    "target": "add_subdir.directory"
+                },
+                {
+                    "source": "add_subdir.path",
+                    "target": "add_root_layer_filename.directory"
+                },
+                {
+                    "source": ".root_layer_filename",
+                    "target": "add_root_layer_filename.filename"
+                },
+                {
+                    "source": "add_subdir.path",
+                    "target": "add_sublayer_filename.directory"
+                },
+                {
+                    "source": ".sublayer_filename",
+                    "target": "add_sublayer_filename.filename"
+                },
+                {
+                    "source": "add_sublayer_filename.path",
+                    "target": "sublayer_file.input"
+                },
+                {
+                    "source": "add_root_layer_filename.path",
+                    "target": "root_layer_file.input"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "expect_true.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: export_layer_to_file failed."
+                },
+                {
+                    "valueName": "export_layer_to_file.relative_path",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "value.value",
+                    "valueType": "string",
+                    "value": "Test the export_layer_to_file nodedef."
+                },
+                {
+                    "valueName": "create_root_layer.save_file",
+                    "valueType": "string",
+                    "value": "C:\\TEMP\\layer1.usda"
+                },
+                {
+                    "valueName": "create_sublayer.save_file",
+                    "valueType": "string",
+                    "value": "C:\\TEMP\\layer2.usda"
+                },
+                {
+                    "valueName": "open_layer.read_only",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "root_layer_file.input",
+                    "valueType": "string",
+                    "value": "C:\\TEMP\\root.usda"
+                },
+                {
+                    "valueName": "sublayer_file.input",
+                    "valueType": "string",
+                    "value": "C:\\TEMP\\sublayer.usda"
+                },
+                {
+                    "valueName": "expect_equal.second",
+                    "valueType": "int",
+                    "value": "1L"
+                },
+                {
+                    "valueName": "expect_equal.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: the root layer file does not contain one sublayer."
+                },
+                {
+                    "valueName": "add_subdir.filename",
+                    "valueType": "string",
+                    "value": "export_layer_to_file_test00"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,655 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Test::Stage::fan_out_stages_test00",
+            "uriImported": "stream:/bifrostGraphShape1",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes"
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "test_info"
+                                                },
+                                                {
+                                                    "metaName": "failure_msgs"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1548.23 -312.203"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-1134.29 -817.788 3469.9 1879.89"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "892.457 -63.2875"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "test_info",
+                    "portDirection": "output",
+                    "portType": "string"
+                },
+                {
+                    "portName": "failure_msgs",
+                    "portDirection": "output",
+                    "portType": "array<string>"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "build_array",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "result",
+                        "result1",
+                        "result2",
+                        "result3",
+                        "result4",
+                        "result5",
+                        "result6",
+                        "result7"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1141.5 -24.5403"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1246.49 -504.228"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "definePrim_a",
+                    "nodeType": "USD::Prim::create_prim",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-573.015 -476.472"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "definePrim_a_b",
+                    "nodeType": "USD::Prim::create_prim",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-188.696 155.773"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimAtPath_a_stage1",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "152.756 -749.217"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "688.323 -777.424"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimAtPath_a_b_stage1",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "150.771 -322.328"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true1",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "691.639 -322.422"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "not",
+                    "nodeType": "Core::Logic::not",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "422.023 -318.473"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimPath_a_stage1",
+                    "nodeType": "USD::Prim::get_prim_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "425.594 -540.432"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "691.306 -565.391"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimPath_a_b_stage1",
+                    "nodeType": "USD::Prim::get_prim_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "421.351 -88.9557"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal1",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "693.597 -112.048"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimAtPath_a_stage2",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "156.213 157.459"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true2",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "689.489 136.112"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimPath_a_stage2",
+                    "nodeType": "USD::Prim::get_prim_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "425.618 369.673"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimAtPath_a_b_stage2",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "159.945 594.819"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true3",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "691.668 587.684"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal2",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "691.338 345.949"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal3",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "692.394 798.058"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimPath_a_b_stage2",
+                    "nodeType": "USD::Prim::get_prim_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "421.378 821.15"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "build_array.array",
+                    "target": ".failure_msgs"
+                },
+                {
+                    "source": "value.output",
+                    "target": ".test_info"
+                },
+                {
+                    "source": "definePrim_a.out_stage",
+                    "target": "definePrim_a_b.stage"
+                },
+                {
+                    "source": "definePrim_a.out_stage",
+                    "target": "getPrimAtPath_a_stage1.stage"
+                },
+                {
+                    "source": "getPrimAtPath_a_stage1.success",
+                    "target": "expect_true.condition"
+                },
+                {
+                    "source": "definePrim_a.out_stage",
+                    "target": "getPrimAtPath_a_b_stage1.stage"
+                },
+                {
+                    "source": "getPrimAtPath_a_b_stage1.success",
+                    "target": "not.value"
+                },
+                {
+                    "source": "not.output",
+                    "target": "expect_true1.condition"
+                },
+                {
+                    "source": "getPrimAtPath_a_stage1.prim",
+                    "target": "getPrimPath_a_stage1.prim"
+                },
+                {
+                    "source": "getPrimPath_a_stage1.path",
+                    "target": "expect_equal.first"
+                },
+                {
+                    "source": "getPrimPath_a_b_stage1.path",
+                    "target": "expect_equal1.first"
+                },
+                {
+                    "source": "getPrimAtPath_a_b_stage1.prim",
+                    "target": "getPrimPath_a_b_stage1.prim"
+                },
+                {
+                    "source": "expect_true.result",
+                    "target": "build_array.first.result"
+                },
+                {
+                    "source": "expect_equal.result",
+                    "target": "build_array.first.result1"
+                },
+                {
+                    "source": "expect_true1.result",
+                    "target": "build_array.first.result2"
+                },
+                {
+                    "source": "expect_equal1.result",
+                    "target": "build_array.first.result3"
+                },
+                {
+                    "source": "getPrimAtPath_a_stage2.success",
+                    "target": "expect_true2.condition"
+                },
+                {
+                    "source": "getPrimAtPath_a_stage2.prim",
+                    "target": "getPrimPath_a_stage2.prim"
+                },
+                {
+                    "source": "getPrimPath_a_stage2.path",
+                    "target": "expect_equal2.first"
+                },
+                {
+                    "source": "getPrimAtPath_a_b_stage2.prim",
+                    "target": "getPrimPath_a_b_stage2.prim"
+                },
+                {
+                    "source": "getPrimPath_a_b_stage2.path",
+                    "target": "expect_equal3.first"
+                },
+                {
+                    "source": "definePrim_a_b.out_stage",
+                    "target": "getPrimAtPath_a_stage2.stage"
+                },
+                {
+                    "source": "definePrim_a_b.out_stage",
+                    "target": "getPrimAtPath_a_b_stage2.stage"
+                },
+                {
+                    "source": "getPrimAtPath_a_b_stage2.success",
+                    "target": "expect_true3.condition"
+                },
+                {
+                    "source": "expect_true2.result",
+                    "target": "build_array.first.result4"
+                },
+                {
+                    "source": "expect_equal2.result",
+                    "target": "build_array.first.result5"
+                },
+                {
+                    "source": "expect_true3.result",
+                    "target": "build_array.first.result6"
+                },
+                {
+                    "source": "expect_equal3.result",
+                    "target": "build_array.first.result7"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "value.value",
+                    "valueType": "string",
+                    "value": "Create a Stage and route it to two different sub-graphs. Check that modifications made to the Stage by one sub-graph does not affect the Stage routed to another sub-graph."
+                },
+                {
+                    "valueName": "definePrim_a.path",
+                    "valueType": "string",
+                    "value": "/a"
+                },
+                {
+                    "valueName": "definePrim_a_b.path",
+                    "valueType": "string",
+                    "value": "/a/b"
+                },
+                {
+                    "valueName": "getPrimAtPath_a_stage1.path",
+                    "valueType": "string",
+                    "value": "/a"
+                },
+                {
+                    "valueName": "expect_true.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: get_prim_at_path '/a' on stage1 should succeed."
+                },
+                {
+                    "valueName": "getPrimAtPath_a_b_stage1.path",
+                    "valueType": "string",
+                    "value": "/a/b"
+                },
+                {
+                    "valueName": "expect_true1.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: get_prim_at_path '/a/b' on stage1 should fail."
+                },
+                {
+                    "valueName": "expect_equal.second",
+                    "valueType": "string",
+                    "value": "/a"
+                },
+                {
+                    "valueName": "expect_equal.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: get_prim_path for prim '/a' on stage1 should be '/a'."
+                },
+                {
+                    "valueName": "expect_equal1.second",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "expect_equal1.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: get_prim_path for prim '/a/b' on stage1 should be empty."
+                },
+                {
+                    "valueName": "getPrimAtPath_a_stage2.path",
+                    "valueType": "string",
+                    "value": "/a"
+                },
+                {
+                    "valueName": "expect_true2.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: get_prim_at_path '/a' on stage2 should succeed."
+                },
+                {
+                    "valueName": "getPrimAtPath_a_b_stage2.path",
+                    "valueType": "string",
+                    "value": "/a/b"
+                },
+                {
+                    "valueName": "expect_true3.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: get_prim_at_path '/a/b' on stage2 should succeed."
+                },
+                {
+                    "valueName": "expect_equal2.second",
+                    "valueType": "string",
+                    "value": "/a"
+                },
+                {
+                    "valueName": "expect_equal2.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: get_prim_path for prim '/a' on stage2 should be '/a'."
+                },
+                {
+                    "valueName": "expect_equal3.second",
+                    "valueType": "string",
+                    "value": "/a/b"
+                },
+                {
+                    "valueName": "expect_equal3.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: get_prim_path for prim '/a/b' on stage2 should be '/a/b'."
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,1173 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            },
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Attribute::define_usd_attribute",
+            "uriImported": "stream:/bifrostGraphShape1",
+            "metadata": [
+                {
+                    "metaName": "documentation",
+                    "metaType": "string",
+                    "metaValue": "../docs/${language}/define_usd_attribute.md"
+                },
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-1673.78 607.913"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "name"
+                                                },
+                                                {
+                                                    "metaName": "type"
+                                                },
+                                                {
+                                                    "metaName": "enable_value"
+                                                },
+                                                {
+                                                    "metaName": "value"
+                                                },
+                                                {
+                                                    "metaName": "enable_connection"
+                                                },
+                                                {
+                                                    "metaName": "connection_mode"
+                                                },
+                                                {
+                                                    "metaName": "target_prim"
+                                                },
+                                                {
+                                                    "metaName": "target_attribute"
+                                                },
+                                                {
+                                                    "metaName": "enable_primvar"
+                                                },
+                                                {
+                                                    "metaName": "interpolation"
+                                                },
+                                                {
+                                                    "metaName": "custom"
+                                                },
+                                                {
+                                                    "metaName": "use_frame"
+                                                },
+                                                {
+                                                    "metaName": "frame"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "2556.04 167.349"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "attribute_definition"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "NodeValueDisplay",
+                    "metadata": [
+                        {
+                            "metaName": "format",
+                            "metaType": "string",
+                            "metaValue": "Define Attribute {name} ({type})"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,Core::Constants,float"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Attribute,define_usd_attribute"
+                },
+                {
+                    "metaName": "UILayout",
+                    "metaType": "string",
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"name\"\n            },\n            {\n                \"port\": \"custom\"\n            },\n            {\n                \"expanded\": true,\n                \"group\": \"Type\",\n                \"items\": [\n                    {\n                        \"port\": \"type\"\n                    },\n                    {\n                        \"port\": \"enable_value\"\n                    },\n                    {\n                        \"port\": \"value\"\n                    }\n                ]\n            },\n            {\n                \"expanded\": true,\n                \"group\": \"Connections\",\n                \"items\": [\n                    {\n                        \"port\": \"enable_connection\"\n                    },\n                    {\n                        \"port\": \"connection_mode\"\n                    },\n                    {\n                        \"port\": \"target_prim\"\n                    },\n                    {\n                        \"port\": \"target_attribute\"\n                    }\n                ]\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Primvars\",\n                \"items\": [\n                    {\n                        \"port\": \"enable_primvar\"\n                    },\n                    {\n                        \"port\": \"interpolation\"\n                    }\n                ]\n            },\n            {\n                \"group\": \"Time Sample\",\n                \"items\": [\n                    {\n                        \"port\": \"frame\"\n                    },\n                    {\n                        \"port\": \"use_frame\"\n                    }\n                ]\n            }\n        ]\n    }\n}\n"
+                },
+                {
+                    "metaName": "PortExpandedState",
+                    "metadata": [
+                        {
+                            "metaName": "Connections",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-1754 -915.725 4616 3165.45"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-274.074 -632.05"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "name",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "info:id"
+                },
+                {
+                    "portName": "type",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::SdfValueTypeName",
+                    "portDefault": "Token"
+                },
+                {
+                    "portName": "enable_value",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "false"
+                },
+                {
+                    "portName": "value",
+                    "portDirection": "input",
+                    "metadata": [
+                        {
+                            "metaName": "TypeWranglingSuggestedTypes",
+                            "metaType": "string",
+                            "metaValue": "string, float, bool, uchar, int, uint, long, ulong, double, Math::float3, Math::float4, array<float>, array<bool>, array<uchar>, array<int>, array<uint>, array<long>, array<ulong>, array<double>, array<string>, array<Math::float2>, array<Math::float3>, array<Math::float4>"
+                        }
+                    ]
+                },
+                {
+                    "portName": "enable_connection",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "false"
+                },
+                {
+                    "portName": "connection_mode",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::RelationshipTarget",
+                    "portDefault": "Add"
+                },
+                {
+                    "portName": "target_prim",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "target_attribute",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "attribute_definition",
+                    "portDirection": "output"
+                },
+                {
+                    "portName": "enable_primvar",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "false"
+                },
+                {
+                    "portName": "interpolation",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::UsdGeomPrimvarInterpolation",
+                    "portDefault": "PrimVarConstant"
+                },
+                {
+                    "portName": "custom",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "false"
+                },
+                {
+                    "portName": "use_frame",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "false"
+                },
+                {
+                    "portName": "frame",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "0f"
+                }
+            ],
+            "compounds": [
+                {
+                    "name": "resolve_name",
+                    "uriImported": "stream:/bifrostGraphShape1",
+                    "metadata": [
+                        {
+                            "metaName": "io_nodes",
+                            "metadata": [
+                                {
+                                    "metaName": "io_inodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "input",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "name"
+                                                        },
+                                                        {
+                                                            "metaName": "enable_primvar"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "-593.055 -200.875"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "io_onodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "output",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "1230 129"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "output"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "ViewportRect",
+                            "metaType": "string",
+                            "metaValue": "-596.322 -750.294 2225.79 1322.9"
+                        },
+                        {
+                            "metaName": "_recentNode_",
+                            "metaType": "string",
+                            "metaValue": "BifrostGraph,Core::Logic,and"
+                        },
+                        {
+                            "metaName": "_recentNode_",
+                            "metaType": "string",
+                            "metaValue": "BifrostGraph,Core::Logic,equal"
+                        },
+                        {
+                            "metaName": "_recentNode_",
+                            "metaType": "string",
+                            "metaValue": "BifrostGraph,Core::Logic,if"
+                        },
+                        {
+                            "metaName": "_recentNode_",
+                            "metaType": "string",
+                            "metaValue": "BifrostGraph,Core::Constants,one"
+                        },
+                        {
+                            "metaName": "_recentNode_",
+                            "metaType": "string",
+                            "metaValue": "BifrostGraph,Core::Logic,greater"
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "portName": "name",
+                            "portDirection": "input",
+                            "portType": "string"
+                        },
+                        {
+                            "portName": "output",
+                            "portDirection": "output"
+                        },
+                        {
+                            "portName": "enable_primvar",
+                            "portDirection": "input",
+                            "portType": "bool"
+                        }
+                    ],
+                    "compoundNodes": [
+                        {
+                            "nodeName": "value",
+                            "valueType": "string",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "valuenode_defaultvalue",
+                                    "metaType": "string",
+                                    "metaValue": "primvars:"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "-99.8755 99.8923"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "string_starts_with",
+                            "nodeType": "Core::String::string_starts_with",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "165.612 -205.925"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "if",
+                            "nodeType": "Core::Logic::if",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "620 102"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "string_join",
+                            "nodeType": "Core::String::string_join",
+                            "fanInPortNames": {
+                                "strings": [
+                                    "output",
+                                    "name"
+                                ]
+                            },
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "315 269"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "if1",
+                            "nodeType": "Core::Logic::if",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "890.354 -67.5051"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "split_string_namespaces",
+                            "nodeType": "Core::String::split_string",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "-98 -585"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "array_size",
+                            "nodeType": "Core::Array::array_size",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "229 -683"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "value1",
+                            "valueType": "long",
+                            "metadata": [
+                                {
+                                    "metaName": "valuenode_defaultvalue",
+                                    "metaType": "string",
+                                    "metaValue": "0"
+                                },
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "145.898 -498.385"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "equal",
+                            "nodeType": "Core::Logic::equal",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "514.676 -566.69"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "and",
+                            "nodeType": "Core::Logic::and",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "610.013 -326.882"
+                                }
+                            ]
+                        }
+                    ],
+                    "connections": [
+                        {
+                            "source": ".name",
+                            "target": "string_starts_with.string"
+                        },
+                        {
+                            "source": "value.output",
+                            "target": "string_starts_with.prefix"
+                        },
+                        {
+                            "source": "string_starts_with.start_matches",
+                            "target": "if.condition"
+                        },
+                        {
+                            "source": ".name",
+                            "target": "if.true_case"
+                        },
+                        {
+                            "source": "value.output",
+                            "target": "string_join.strings.output"
+                        },
+                        {
+                            "source": ".name",
+                            "target": "string_join.strings.name"
+                        },
+                        {
+                            "source": "string_join.joined",
+                            "target": "if.false_case"
+                        },
+                        {
+                            "source": "if.output",
+                            "target": "if1.true_case"
+                        },
+                        {
+                            "source": ".name",
+                            "target": "if1.false_case"
+                        },
+                        {
+                            "source": "if1.output",
+                            "target": ".output"
+                        },
+                        {
+                            "source": ".name",
+                            "target": "split_string_namespaces.string"
+                        },
+                        {
+                            "source": "split_string_namespaces.split",
+                            "target": "array_size.array"
+                        },
+                        {
+                            "source": "array_size.size",
+                            "target": "equal.first"
+                        },
+                        {
+                            "source": "value1.output",
+                            "target": "equal.second"
+                        },
+                        {
+                            "source": "equal.output",
+                            "target": "and.first"
+                        },
+                        {
+                            "source": ".enable_primvar",
+                            "target": "and.second"
+                        },
+                        {
+                            "source": "and.output",
+                            "target": "if1.condition"
+                        }
+                    ],
+                    "values": [
+                        {
+                            "valueName": "value.value",
+                            "valueType": "string",
+                            "value": "primvars:"
+                        },
+                        {
+                            "valueName": "string_join.separator",
+                            "valueType": "string",
+                            "value": ""
+                        },
+                        {
+                            "valueName": "split_string_namespaces.separator",
+                            "valueType": "string",
+                            "value": ":"
+                        },
+                        {
+                            "valueName": "value1.value",
+                            "valueType": "long",
+                            "value": "1"
+                        }
+                    ],
+                    "reservedNodeNames": [
+                        {
+                            "name": "input"
+                        },
+                        {
+                            "name": "output"
+                        }
+                    ]
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "set_property",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-917.117 222.521"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if_value",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1196.94 339.348"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property1",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-683.515 341.28"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property2",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-192.567 447.635"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "pass",
+                    "nodeType": "Core::Graph::pass",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-260.955 105.52"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if_cnx",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "2060.92 478.093"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property4",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1493.12 687.218"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property5",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1761.45 762.077"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "2396.92 509.843"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property6",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "2132.06 832.532"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "resolve_name",
+                    "nodeType": "resolve_name",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1271.98 236.612"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property7",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "302.108 514.648"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property8",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "549.518 688.423"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property9",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "833.021 835.963"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value",
+                    "valueType": "BifrostUsd::RelationshipTarget",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "966.185 1051.6"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property10",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1301.45 599.947"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "set_property.out_object",
+                    "target": "set_property1.object"
+                },
+                {
+                    "source": "set_property1.out_object",
+                    "target": "if_value.false_case"
+                },
+                {
+                    "source": "set_property1.out_object",
+                    "target": "set_property2.object"
+                },
+                {
+                    "source": "pass.output",
+                    "target": "if_value.condition"
+                },
+                {
+                    "source": "set_property4.out_object",
+                    "target": "set_property5.object"
+                },
+                {
+                    "source": "set_property5.out_object",
+                    "target": "if_cnx.true_case"
+                },
+                {
+                    "source": ".type",
+                    "target": "set_property1.value"
+                },
+                {
+                    "source": ".enable_value",
+                    "target": "pass.input"
+                },
+                {
+                    "source": ".value",
+                    "target": "set_property2.value"
+                },
+                {
+                    "source": ".enable_connection",
+                    "target": "if_cnx.condition"
+                },
+                {
+                    "source": ".target_prim",
+                    "target": "set_property4.value"
+                },
+                {
+                    "source": ".target_attribute",
+                    "target": "set_property5.value"
+                },
+                {
+                    "source": "if_value.output",
+                    "target": "if_cnx.false_case"
+                },
+                {
+                    "source": ".enable_primvar",
+                    "target": "if.condition"
+                },
+                {
+                    "source": "if_cnx.output",
+                    "target": "if.false_case"
+                },
+                {
+                    "source": "if_cnx.output",
+                    "target": "set_property6.object"
+                },
+                {
+                    "source": "set_property6.out_object",
+                    "target": "if.true_case"
+                },
+                {
+                    "source": ".interpolation",
+                    "target": "set_property6.value"
+                },
+                {
+                    "source": "if.output",
+                    "target": ".attribute_definition"
+                },
+                {
+                    "source": ".name",
+                    "target": "resolve_name.name"
+                },
+                {
+                    "source": ".enable_primvar",
+                    "target": "resolve_name.enable_primvar"
+                },
+                {
+                    "source": "resolve_name.output",
+                    "target": "set_property.value"
+                },
+                {
+                    "source": "set_property7.out_object",
+                    "target": "set_property8.object"
+                },
+                {
+                    "source": "set_property8.out_object",
+                    "target": "set_property9.object"
+                },
+                {
+                    "source": "set_property2.out_object",
+                    "target": "set_property7.object"
+                },
+                {
+                    "source": "set_property9.out_object",
+                    "target": "if_value.true_case"
+                },
+                {
+                    "source": ".custom",
+                    "target": "set_property7.value"
+                },
+                {
+                    "source": ".use_frame",
+                    "target": "set_property8.value"
+                },
+                {
+                    "source": ".frame",
+                    "target": "set_property9.value"
+                },
+                {
+                    "source": ".connection_mode",
+                    "target": "value.value"
+                },
+                {
+                    "source": "if_value.output",
+                    "target": "set_property10.object"
+                },
+                {
+                    "source": "value.output",
+                    "target": "set_property10.value"
+                },
+                {
+                    "source": "set_property10.out_object",
+                    "target": "set_property4.object"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "set_property.key",
+                    "valueType": "string",
+                    "value": "name"
+                },
+                {
+                    "valueName": "set_property.value",
+                    "valueType": "string",
+                    "value": "outputs:surface"
+                },
+                {
+                    "valueName": "set_property1.key",
+                    "valueType": "string",
+                    "value": "type"
+                },
+                {
+                    "valueName": "set_property1.value",
+                    "valueType": "BifrostUsd::SdfValueTypeName",
+                    "value": "Bool"
+                },
+                {
+                    "valueName": "set_property2.key",
+                    "valueType": "string",
+                    "value": "value"
+                },
+                {
+                    "valueName": "set_property2.value",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "set_property4.key",
+                    "valueType": "string",
+                    "value": "target_prim"
+                },
+                {
+                    "valueName": "set_property4.value",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "set_property5.key",
+                    "valueType": "string",
+                    "value": "target_attribute"
+                },
+                {
+                    "valueName": "set_property5.value",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "set_property6.key",
+                    "valueType": "string",
+                    "value": "interpolation"
+                },
+                {
+                    "valueName": "set_property6.value",
+                    "valueType": "BifrostUsd::UsdGeomPrimvarInterpolation",
+                    "value": "PrimVarConstant"
+                },
+                {
+                    "valueName": "set_property7.key",
+                    "valueType": "string",
+                    "value": "custom"
+                },
+                {
+                    "valueName": "set_property7.value",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "set_property8.key",
+                    "valueType": "string",
+                    "value": "use_frame"
+                },
+                {
+                    "valueName": "set_property8.value",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "set_property9.key",
+                    "valueType": "string",
+                    "value": "frame"
+                },
+                {
+                    "valueName": "value.value",
+                    "valueType": "BifrostUsd::RelationshipTarget",
+                    "value": "Add"
+                },
+                {
+                    "valueName": "set_property10.key",
+                    "valueType": "string",
+                    "value": "connection_mode"
+                },
+                {
+                    "valueName": "set_property10.value",
+                    "valueType": "string",
+                    "value": ""
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,1220 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            },
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Attribute::create_usd_attribute_from_def",
+            "uriImported": "stream:/stream",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "47.537 -50.495"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "stage"
+                                                },
+                                                {
+                                                    "metaName": "prim_path"
+                                                },
+                                                {
+                                                    "metaName": "usd_value_type"
+                                                },
+                                                {
+                                                    "metaName": "default_and_type"
+                                                },
+                                                {
+                                                    "metaName": "attribute"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1535 269"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "out_stage"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                },
+                {
+                    "metaName": "internal",
+                    "metaValue": "true"
+                },                
+                {
+                    "metaName": "NodeValueDisplay",
+                    "metadata": [
+                        {
+                            "metaName": "format",
+                            "metaType": "string",
+                            "metaValue": "Create {usd_value_type} attribute"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-32 -394.711 1873 1284.42"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-113.531 -241.893"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "stage",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Stage",
+                    "portDefault": {}
+                },
+                {
+                    "portName": "prim_path",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "usd_value_type",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::SdfValueTypeName",
+                    "portDefault": "Float"
+                },
+                {
+                    "portName": "default_and_type",
+                    "portDirection": "input",
+                    "portDefaultType": "float",
+                    "portDefault": "0f",
+                    "metadata": [
+                        {
+                            "metaName": "TypeWranglingSuggestedTypes",
+                            "metaType": "string",
+                            "metaValue": "auto, float, long, uint, bool, string, Math::float2, Math::float3, Math::float4, Math::float3x3, Math::float4x4, Object"
+                        }
+                    ]
+                },
+                {
+                    "portName": "attribute",
+                    "portDirection": "input",
+                    "portType": "Object",
+                    "portDefault": {}
+                },
+                {
+                    "portName": "out_stage",
+                    "portDirection": "output",
+                    "portType": "BifrostUsd::Stage"
+                }
+            ],
+            "compounds": [
+                {
+                    "name": "is_usd_type",
+                    "uriImported": "stream:/stream",
+                    "metadata": [
+                        {
+                            "metaName": "io_nodes",
+                            "metadata": [
+                                {
+                                    "metaName": "io_inodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "input",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "attribute"
+                                                        },
+                                                        {
+                                                            "metaName": "usd_value_type"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "10 155"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "io_onodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "output",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "output"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "925 107"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "ViewportRect",
+                            "metaType": "string",
+                            "metaValue": "-70 -338.506 1301 1041.77"
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "portName": "attribute",
+                            "portDirection": "input",
+                            "portType": "Object"
+                        },
+                        {
+                            "portName": "output",
+                            "portDirection": "output",
+                            "portType": "bool"
+                        },
+                        {
+                            "portName": "usd_value_type",
+                            "portDirection": "input",
+                            "portType": "BifrostUsd::SdfValueTypeName"
+                        }
+                    ],
+                    "compoundNodes": [
+                        {
+                            "nodeName": "equal",
+                            "nodeType": "Core::Logic::equal",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "620 107"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "get_property1",
+                            "nodeType": "Core::Object::get_property",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "315 10"
+                                }
+                            ]
+                        }
+                    ],
+                    "connections": [
+                        {
+                            "source": "equal.output",
+                            "target": ".output"
+                        },
+                        {
+                            "source": "get_property1.value",
+                            "target": "equal.first"
+                        },
+                        {
+                            "source": ".attribute",
+                            "target": "get_property1.object"
+                        },
+                        {
+                            "source": ".usd_value_type",
+                            "target": "equal.second"
+                        }
+                    ],
+                    "values": [
+                        {
+                            "valueName": "get_property1.default_and_type",
+                            "valueType": "BifrostUsd::SdfValueTypeName",
+                            "value": "Bool"
+                        },
+                        {
+                            "valueName": "get_property1.key",
+                            "valueType": "string",
+                            "value": "type"
+                        }
+                    ],
+                    "reservedNodeNames": [
+                        {
+                            "name": "input"
+                        },
+                        {
+                            "name": "output"
+                        }
+                    ]
+                },
+                {
+                    "name": "set_attribute",
+                    "uriImported": "stream:/stream",
+                    "metadata": [
+                        {
+                            "metaName": "io_nodes",
+                            "metadata": [
+                                {
+                                    "metaName": "io_inodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "input",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "10 293"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "stage"
+                                                        },
+                                                        {
+                                                            "metaName": "attribute"
+                                                        },
+                                                        {
+                                                            "metaName": "default_and_type"
+                                                        },
+                                                        {
+                                                            "metaName": "prim_path"
+                                                        },
+                                                        {
+                                                            "metaName": "attribute_name"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "io_onodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "output",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "1230 210"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "out_stage"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "ViewportRect",
+                            "metaType": "string",
+                            "metaValue": "-159.778 -61.4623 1602.79 1099.13"
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "portName": "stage",
+                            "portDirection": "input",
+                            "portType": "BifrostUsd::Stage"
+                        },
+                        {
+                            "portName": "attribute",
+                            "portDirection": "input",
+                            "portType": "Object"
+                        },
+                        {
+                            "portName": "default_and_type",
+                            "portDirection": "input"
+                        },
+                        {
+                            "portName": "prim_path",
+                            "portDirection": "input",
+                            "portType": "string"
+                        },
+                        {
+                            "portName": "attribute_name",
+                            "portDirection": "input"
+                        },
+                        {
+                            "portName": "out_stage",
+                            "portDirection": "output"
+                        }
+                    ],
+                    "compoundNodes": [
+                        {
+                            "nodeName": "get_property2",
+                            "nodeType": "Core::Object::get_property",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "324.414 288.409"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "has_property",
+                            "nodeType": "Core::Object::has_property",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "620 9"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "if1",
+                            "nodeType": "Core::Logic::if",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "925 220"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "set_prim_attribute",
+                            "nodeType": "USD::Attribute::set_prim_attribute",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "634.15 302.286"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "get_property3",
+                            "nodeType": "Core::Object::get_property",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "323.933 535.566"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "get_property4",
+                            "nodeType": "Core::Object::get_property",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "323.522 787.228"
+                                }
+                            ]
+                        }
+                    ],
+                    "connections": [
+                        {
+                            "source": "get_property2.value",
+                            "target": "set_prim_attribute.value"
+                        },
+                        {
+                            "source": "has_property.found",
+                            "target": "if1.condition"
+                        },
+                        {
+                            "source": "if1.output",
+                            "target": ".out_stage"
+                        },
+                        {
+                            "source": "set_prim_attribute.out_stage",
+                            "target": "if1.true_case"
+                        },
+                        {
+                            "source": ".stage",
+                            "target": "if1.false_case"
+                        },
+                        {
+                            "source": ".stage",
+                            "target": "set_prim_attribute.stage"
+                        },
+                        {
+                            "source": ".attribute",
+                            "target": "get_property2.object"
+                        },
+                        {
+                            "source": ".attribute",
+                            "target": "has_property.object"
+                        },
+                        {
+                            "source": ".default_and_type",
+                            "target": "get_property2.default_and_type"
+                        },
+                        {
+                            "source": ".prim_path",
+                            "target": "set_prim_attribute.prim_path"
+                        },
+                        {
+                            "source": ".attribute_name",
+                            "target": "set_prim_attribute.name"
+                        },
+                        {
+                            "source": ".attribute",
+                            "target": "get_property3.object"
+                        },
+                        {
+                            "source": "get_property3.value",
+                            "target": "set_prim_attribute.use_frame"
+                        },
+                        {
+                            "source": ".attribute",
+                            "target": "get_property4.object"
+                        },
+                        {
+                            "source": "get_property4.value",
+                            "target": "set_prim_attribute.frame"
+                        }
+                    ],
+                    "values": [
+                        {
+                            "valueName": "get_property2.default_and_type",
+                            "valueType": "Math::float3",
+                            "value": {
+                                "x": "0f",
+                                "y": "0f",
+                                "z": "0f"
+                            }
+                        },
+                        {
+                            "valueName": "get_property2.key",
+                            "valueType": "string",
+                            "value": "value"
+                        },
+                        {
+                            "valueName": "has_property.key",
+                            "valueType": "string",
+                            "value": "value"
+                        },
+                        {
+                            "valueName": "set_prim_attribute.value",
+                            "valueType": "string",
+                            "value": ""
+                        },
+                        {
+                            "valueName": "get_property3.default_and_type",
+                            "valueType": "bool",
+                            "value": "false"
+                        },
+                        {
+                            "valueName": "get_property3.key",
+                            "valueType": "string",
+                            "value": "use_frame"
+                        },
+                        {
+                            "valueName": "get_property4.default_and_type",
+                            "valueType": "float",
+                            "value": "0f"
+                        },
+                        {
+                            "valueName": "get_property4.key",
+                            "valueType": "string",
+                            "value": "frame"
+                        }
+                    ],
+                    "reservedNodeNames": [
+                        {
+                            "name": "input"
+                        },
+                        {
+                            "name": "output"
+                        }
+                    ]
+                },
+                {
+                    "name": "create_attribute",
+                    "uriImported": "stream:/stream",
+                    "metadata": [
+                        {
+                            "metaName": "io_nodes",
+                            "metadata": [
+                                {
+                                    "metaName": "io_inodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "input",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "10 376"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "stage"
+                                                        },
+                                                        {
+                                                            "metaName": "prim_path"
+                                                        },
+                                                        {
+                                                            "metaName": "attribute_name"
+                                                        },
+                                                        {
+                                                            "metaName": "attribute"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "io_onodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "output",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "1230 210"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "out_stage"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "ViewportRect",
+                            "metaType": "string",
+                            "metaValue": "-69.6136 -100.742 1604.4 1100.22"
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "portName": "stage",
+                            "portDirection": "input",
+                            "portType": "BifrostUsd::Stage"
+                        },
+                        {
+                            "portName": "prim_path",
+                            "portDirection": "input",
+                            "portType": "string"
+                        },
+                        {
+                            "portName": "attribute_name",
+                            "portDirection": "input"
+                        },
+                        {
+                            "portName": "attribute",
+                            "portDirection": "input",
+                            "portType": "Object"
+                        },
+                        {
+                            "portName": "out_stage",
+                            "portDirection": "output"
+                        }
+                    ],
+                    "compoundNodes": [
+                        {
+                            "nodeName": "create_prim_attribute",
+                            "nodeType": "USD::Attribute::create_prim_attribute",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "620 568"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "create_primvar",
+                            "nodeType": "USD::Attribute::create_primvar",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "620 229"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "get_property3",
+                            "nodeType": "Core::Object::get_property",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "315 446"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "get_property4",
+                            "nodeType": "Core::Object::get_property",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "315 203"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "has_interpolation",
+                            "nodeType": "Core::Object::has_property",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "620 10"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "if",
+                            "nodeType": "Core::Logic::if",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "925 220"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "get_property5",
+                            "nodeType": "Core::Object::get_property",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "308.583 709.609"
+                                }
+                            ]
+                        }
+                    ],
+                    "connections": [
+                        {
+                            "source": "create_prim_attribute.out_stage",
+                            "target": "if.false_case"
+                        },
+                        {
+                            "source": "create_primvar.out_stage",
+                            "target": "if.true_case"
+                        },
+                        {
+                            "source": "get_property3.value",
+                            "target": "create_prim_attribute.type_name"
+                        },
+                        {
+                            "source": "get_property3.value",
+                            "target": "create_primvar.type_name"
+                        },
+                        {
+                            "source": "get_property4.value",
+                            "target": "create_primvar.interpolation"
+                        },
+                        {
+                            "source": "has_interpolation.found",
+                            "target": "if.condition"
+                        },
+                        {
+                            "source": "if.output",
+                            "target": ".out_stage"
+                        },
+                        {
+                            "source": ".stage",
+                            "target": "create_prim_attribute.stage"
+                        },
+                        {
+                            "source": ".stage",
+                            "target": "create_primvar.stage"
+                        },
+                        {
+                            "source": ".prim_path",
+                            "target": "create_prim_attribute.prim_path"
+                        },
+                        {
+                            "source": ".prim_path",
+                            "target": "create_primvar.prim_path"
+                        },
+                        {
+                            "source": ".attribute_name",
+                            "target": "create_prim_attribute.name"
+                        },
+                        {
+                            "source": ".attribute_name",
+                            "target": "create_primvar.name"
+                        },
+                        {
+                            "source": ".attribute",
+                            "target": "get_property3.object"
+                        },
+                        {
+                            "source": ".attribute",
+                            "target": "get_property4.object"
+                        },
+                        {
+                            "source": ".attribute",
+                            "target": "has_interpolation.object"
+                        },
+                        {
+                            "source": ".attribute",
+                            "target": "get_property5.object"
+                        },
+                        {
+                            "source": "get_property5.value",
+                            "target": "create_prim_attribute.custom"
+                        }
+                    ],
+                    "values": [
+                        {
+                            "valueName": "create_prim_attribute.type_name",
+                            "valueType": "BifrostUsd::SdfValueTypeName",
+                            "value": "Float3"
+                        },
+                        {
+                            "valueName": "create_primvar.element_size",
+                            "valueType": "int",
+                            "value": "-1L"
+                        },
+                        {
+                            "valueName": "get_property3.default_and_type",
+                            "valueType": "BifrostUsd::SdfValueTypeName",
+                            "value": "Bool"
+                        },
+                        {
+                            "valueName": "get_property3.key",
+                            "valueType": "string",
+                            "value": "type"
+                        },
+                        {
+                            "valueName": "get_property4.default_and_type",
+                            "valueType": "BifrostUsd::UsdGeomPrimvarInterpolation",
+                            "value": "PrimVarConstant"
+                        },
+                        {
+                            "valueName": "get_property4.key",
+                            "valueType": "string",
+                            "value": "interpolation"
+                        },
+                        {
+                            "valueName": "has_interpolation.key",
+                            "valueType": "string",
+                            "value": "interpolation"
+                        },
+                        {
+                            "valueName": "get_property5.default_and_type",
+                            "valueType": "bool",
+                            "value": "false"
+                        },
+                        {
+                            "valueName": "get_property5.key",
+                            "valueType": "string",
+                            "value": "custom"
+                        }
+                    ],
+                    "reservedNodeNames": [
+                        {
+                            "name": "input"
+                        },
+                        {
+                            "name": "output"
+                        }
+                    ]
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "is_usd_type",
+                    "nodeType": "is_usd_type",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "921.496 -102.135"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1230 267"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_property",
+                    "nodeType": "Core::Object::get_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "315 322"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_attribute",
+                    "nodeType": "set_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "925 277"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_attribute",
+                    "nodeType": "create_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "620 86"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "is_usd_type.output",
+                    "target": "if.condition"
+                },
+                {
+                    "source": ".stage",
+                    "target": "if.false_case"
+                },
+                {
+                    "source": ".usd_value_type",
+                    "target": "is_usd_type.usd_value_type"
+                },
+                {
+                    "source": "create_attribute.out_stage",
+                    "target": "set_attribute.stage"
+                },
+                {
+                    "source": "get_property.value",
+                    "target": "set_attribute.attribute_name"
+                },
+                {
+                    "source": "get_property.value",
+                    "target": "create_attribute.attribute_name"
+                },
+                {
+                    "source": ".stage",
+                    "target": "create_attribute.stage"
+                },
+                {
+                    "source": ".default_and_type",
+                    "target": "set_attribute.default_and_type"
+                },
+                {
+                    "source": "set_attribute.out_stage",
+                    "target": "if.true_case"
+                },
+                {
+                    "source": "if.output",
+                    "target": ".out_stage"
+                },
+                {
+                    "source": ".prim_path",
+                    "target": "set_attribute.prim_path"
+                },
+                {
+                    "source": ".prim_path",
+                    "target": "create_attribute.prim_path"
+                },
+                {
+                    "source": ".attribute",
+                    "target": "is_usd_type.attribute"
+                },
+                {
+                    "source": ".attribute",
+                    "target": "get_property.object"
+                },
+                {
+                    "source": ".attribute",
+                    "target": "set_attribute.attribute"
+                },
+                {
+                    "source": ".attribute",
+                    "target": "create_attribute.attribute"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "is_usd_type.usd_value_type",
+                    "valueType": "BifrostUsd::SdfValueTypeName",
+                    "value": "TexCoord2fArray"
+                },
+                {
+                    "valueName": "get_property.default_and_type",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "get_property.key",
+                    "valueType": "string",
+                    "value": "name"
+                },
+                {
+                    "valueName": "set_attribute.attribute",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "set_attribute.prim_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "set_attribute.attribute_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "create_attribute.prim_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "create_attribute.attribute_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "create_attribute.attribute",
+                    "valueType": "Object",
+                    "value": {}
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

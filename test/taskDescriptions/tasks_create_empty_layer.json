@@ -1,0 +1,291 @@
+{
+    "schemaVersion": "1.0.0",
+    "comment": "Test create_layer and export_layer_to_string nodedefs",
+    "options": {
+        "definitionFiles": [
+            "create_empty_layer_test00.json"
+        ],
+        "compound": "USD::Test::Layer::create_empty_layer_test00"
+    },
+    "task": {
+        "type": "sequence",
+        "tasks": [
+            {
+                "type": "single",
+                "name": "<empty>",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": ""
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "/",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "/"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": ".",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "."
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "./",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "./"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "./dir/",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "./dir/"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "..",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": ".."
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "../",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "../"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "./../..",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "./../.."
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "./../../",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "./../../"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "../dir/",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "../dir/"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": ".usd",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": ".usd"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "dir1/dir2/.usd",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "dir1/dir2/.usd"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": ".usda",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": ".usda"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": ".usdc",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": ".usdc"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "../.a.b.c./.usdc",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "../.a.b.c./.usdc"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "abc",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "abc"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "../../dir/.a.b.c.",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "../../dir/.a.b.c."
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "abc.usd",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "abc.usd"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "/dir/abc.usd",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "/dir/abc.usd"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "abc.usda",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "abc.usda"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "../dir/abc..usda",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "../dir/abc..usda"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "abc.usdc",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "abc.usdc"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "../../dir/.abc.usdc",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "save_file",
+                            "value": "../../dir/.abc.usdc"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
