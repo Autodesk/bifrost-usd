@@ -1,0 +1,168 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "types": [
+        {
+            "enumName": "BifrostUsd::ArcType",
+            "enumMembers": [
+                {
+                    "enumKey": "Reference",
+                    "enumValue": "0"
+                },
+                {
+                    "enumKey": "Payload",
+                    "enumValue": "1"
+                },
+                {
+                    "enumKey": "Inherits",
+                    "enumValue": "2"
+                },
+                {
+                    "enumKey": "Specializes",
+                    "enumValue": "3"
+                }
+            ]
+        },
+        {
+            "enumName": "BifrostUsd::PointInstancerDistribution",
+            "enumMembers": [
+                {
+                    "enumKey": "Repeat",
+                    "enumValue": "0"
+                },
+                {
+                    "enumKey": "Proto Index",
+                    "enumValue": "1"
+                },
+                {
+                    "enumKey": "Custom Index Array",
+                    "enumValue": "2"
+                },
+                {
+                    "enumKey": "Random",
+                    "enumValue": "3"
+                }
+            ]
+        },
+        {
+            "enumName": "BifrostUsd::SdfSpecifier",
+            "enumMembers": [
+                {
+                    "enumKey": "Def",
+                    "enumValue": "0"
+                },
+                {
+                    "enumKey": "Over",
+                    "enumValue": "1"
+                },
+                {
+                    "enumKey": "Class",
+                    "enumValue": "2"
+                }
+            ]
+        },
+        {
+            "enumName": "BifrostUsd::ModelKind",
+            "enumMembers": [
+                {
+                    "enumKey": "None",
+                    "enumValue": "0"
+                },
+                {
+                    "enumKey": "Assembly",
+                    "enumValue": "1"
+                },
+                {
+                    "enumKey": "Component",
+                    "enumValue": "2"
+                },
+                {
+                    "enumKey": "Group",
+                    "enumValue": "3"
+                },
+                {
+                    "enumKey": "SubComponent",
+                    "enumValue": "4"
+                }
+            ]
+        },
+        {
+            "enumName": "BifrostUsd::InstanceablePrim",
+            "enumMembers": [
+                {
+                    "enumKey": "None",
+                    "enumValue": "0"
+                },
+                {
+                    "enumKey": "False",
+                    "enumValue": "1"
+                },
+                {
+                    "enumKey": "True",
+                    "enumValue": "2"
+                }
+            ]
+        },
+        {
+            "enumName": "BifrostUsd::ActivatePrim",
+            "enumMembers": [
+                {
+                    "enumKey": "None",
+                    "enumValue": "0"
+                },
+                {
+                    "enumKey": "False",
+                    "enumValue": "1"
+                },
+                {
+                    "enumKey": "True",
+                    "enumValue": "2"
+                }
+            ]
+        },
+        {
+            "enumName": "BifrostUsd::SubdivisionScheme",
+            "enumMembers": [
+                {
+                    "enumKey": "catmullClark",
+                    "enumValue": "0"
+                },
+                {
+                    "enumKey": "loop",
+                    "enumValue": "1"
+                },
+                {
+                    "enumKey": "bilinear",
+                    "enumValue": "2"
+                },
+                {
+                    "enumKey": "none",
+                    "enumValue": "3"
+                }
+            ]
+        },
+        {
+            "enumName": "BifrostUsd::RelationshipTarget",
+            "enumMembers": [
+                {
+                    "enumKey": "Add",
+                    "enumValue": "0"
+                },
+                {
+                    "enumKey": "Remove",
+                    "enumValue": "1"
+                },
+                {
+                    "enumKey": "Clear",
+                    "enumValue": "2"
+                }
+            ]
+        }
+    ]
+}

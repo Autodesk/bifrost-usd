@@ -1,0 +1,313 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Prim::define_usd_reference_from_file",
+            "metadata": [
+                {
+                    "metaName": "documentation",
+                    "metaType": "string",
+                    "metaValue": "../docs/${language}/define_usd_reference_from_file.md"
+                },                
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "file"
+                                                },
+                                                {
+                                                    "metaName": "arc_type"
+                                                },
+                                                {
+                                                    "metaName": "prim_path"
+                                                },
+                                                {
+                                                    "metaName": "layer_offset"
+                                                },
+                                                {
+                                                    "metaName": "layer_scale"
+                                                },
+                                                {
+                                                    "metaName": "position"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "10 174"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "reference_definitions"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "925 104"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                },
+                {
+                    "metaName": "NodeValueDisplay",
+                    "metadata": [
+                        {
+                            "metaName": "format",
+                            "metaType": "string",
+                            "metaValue": "Define {arc_type} From {file}"
+                        }
+                    ]
+                },                
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-70 -264.492 1301 1008.98"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-828.426 -347.996"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "reference_definitions",
+                    "portDirection": "output",
+                    "portType": "Object"
+                },
+                {
+                    "portName": "file",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "browserMode=open;filter=\"USD (*.usd *.usda *.usdc *.usdz);;All (*.*)\""
+                        },
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "FileBrowserWidget"
+                        }
+                    ]
+                },
+                {
+                    "portName": "arc_type",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::ArcType",
+                    "portDefault": "Reference"
+                },
+                {
+                    "portName": "prim_path",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "layer_offset",
+                    "portDirection": "input",
+                    "portType": "double",
+                    "portDefault": "0"
+                },
+                {
+                    "portName": "layer_scale",
+                    "portDirection": "input",
+                    "portType": "double",
+                    "portDefault": "1"
+                },
+                {
+                    "portName": "position",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::UsdListPosition",
+                    "portDefault": "UsdListPositionFrontOfPrependList"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "define_usd_reference",
+                    "nodeType": "USD::Prim::define_usd_reference",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "620 104"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "open_usd_layer",
+                    "nodeType": "USD::Layer::open_usd_layer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "315 10"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "open_usd_layer.layer",
+                    "target": "define_usd_reference.layer"
+                },
+                {
+                    "source": "define_usd_reference.reference_definitions",
+                    "target": ".reference_definitions"
+                },
+                {
+                    "source": ".file",
+                    "target": "open_usd_layer.file"
+                },
+                {
+                    "source": ".arc_type",
+                    "target": "define_usd_reference.arc_type"
+                },
+                {
+                    "source": ".prim_path",
+                    "target": "define_usd_reference.prim_path"
+                },
+                {
+                    "source": ".layer_offset",
+                    "target": "define_usd_reference.layer_offset"
+                },
+                {
+                    "source": ".layer_scale",
+                    "target": "define_usd_reference.layer_scale"
+                },
+                {
+                    "source": ".position",
+                    "target": "define_usd_reference.position"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "define_usd_reference.arc_type",
+                    "valueType": "BifrostUsd::ArcType",
+                    "value": "Reference"
+                },
+                {
+                    "valueName": "define_usd_reference.prim_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_reference.relative_prim_path",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "define_usd_reference.layer",
+                    "valueType": "BifrostUsd::Layer",
+                    "value": {}
+                },
+                {
+                    "valueName": "define_usd_reference.layer_offset",
+                    "valueType": "double",
+                    "value": "0"
+                },
+                {
+                    "valueName": "define_usd_reference.layer_scale",
+                    "valueType": "double",
+                    "value": "1"
+                },
+                {
+                    "valueName": "define_usd_reference.position",
+                    "valueType": "BifrostUsd::UsdListPosition",
+                    "value": "UsdListPositionFrontOfPrependList"
+                },
+                {
+                    "valueName": "open_usd_layer.file",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "open_usd_layer.read_only",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "open_usd_layer.save_file",
+                    "valueType": "string",
+                    "value": ""
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

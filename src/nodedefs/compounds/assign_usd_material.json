@@ -1,0 +1,198 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Utils::assign_usd_material",
+            "metadata": [
+                {
+                    "metaName": "internal",
+                    "metaValue": "true"
+                },                
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "10 142"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "stage"
+                                                },
+                                                {
+                                                    "metaName": "material_path"
+                                                },
+                                                {
+                                                    "metaName": "prim_path"
+                                                },
+                                                {
+                                                    "metaName": "target_position"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "620 10"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "out_stage"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-70 -332.329 996 1040.66"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "1184.95 35.5009"
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "stage",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Stage"
+                },
+                {
+                    "portName": "material_path",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "prim_path",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "target_position",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::UsdListPosition",
+                    "portDefault": "UsdListPositionFrontOfPrependList"
+                },
+                {
+                    "portName": "out_stage",
+                    "portDirection": "output",
+                    "portType": "BifrostUsd::Stage"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "create_prim_relationship",
+                    "nodeType": "USD::Prim::create_prim_relationship",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "312.722 10"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": ".material_path",
+                    "target": "create_prim_relationship.target"
+                },
+                {
+                    "source": "create_prim_relationship.out_stage",
+                    "target": ".out_stage"
+                },
+                {
+                    "source": ".prim_path",
+                    "target": "create_prim_relationship.prim_path"
+                },
+                {
+                    "source": ".target_position",
+                    "target": "create_prim_relationship.target_position"
+                },
+                {
+                    "source": ".stage",
+                    "target": "create_prim_relationship.stage"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "create_prim_relationship.rel_name",
+                    "valueType": "string",
+                    "value": "material:binding"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

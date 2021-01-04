@@ -1,0 +1,1973 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Test::Integration::landscape_generator_test00",
+            "uriImported": "file:///landscape_generator_test00.json",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-1484.4 -256.447"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "root_temp_dir"
+                                                },
+                                                {
+                                                    "metaName": "length"
+                                                },
+                                                {
+                                                    "metaName": "width"
+                                                },
+                                                {
+                                                    "metaName": "grass_radius"
+                                                },
+                                                {
+                                                    "metaName": "tree_radius"
+                                                },
+                                                {
+                                                    "metaName": "seed"
+                                                },
+                                                {
+                                                    "metaName": "min_scale"
+                                                },
+                                                {
+                                                    "metaName": "max_scale"
+                                                },
+                                                {
+                                                    "metaName": "mushrooms_radius"
+                                                },
+                                                {
+                                                    "metaName": "trunk_distance"
+                                                },
+                                                {
+                                                    "metaName": "ground_point_count"
+                                                },
+                                                {
+                                                    "metaName": "ground_face_count"
+                                                },
+                                                {
+                                                    "metaName": "grass_instance_count"
+                                                },
+                                                {
+                                                    "metaName": "tree_instance_count"
+                                                },
+                                                {
+                                                    "metaName": "mushroom_instance_count"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1991.9 -44.9165"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "test_info"
+                                                },
+                                                {
+                                                    "metaName": "failure_msgs"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "color",
+                            "metaType": "string",
+                            "metaValue": "#28b2b2b5"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-232.58 188.858 1652.46 1045.84"
+                        },
+                        {
+                            "metaName": "title",
+                            "metaType": "string",
+                            "metaValue": "Check '/Ground' primitive"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop1",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "color",
+                            "metaType": "string",
+                            "metaValue": "#287cc29f"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-234.727 1192.47 1649.04 852.962"
+                        },
+                        {
+                            "metaName": "title",
+                            "metaType": "string",
+                            "metaValue": "Check '/Grass_instancer' primitive"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop2",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "color",
+                            "metaType": "string",
+                            "metaValue": "#28b2b2b5"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-228.445 2023.99 1645.73 843.652"
+                        },
+                        {
+                            "metaName": "title",
+                            "metaType": "string",
+                            "metaValue": "Check '/Trees_instancer' primitive"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop4",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "color",
+                            "metaType": "string",
+                            "metaValue": "#28b2b2b5"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-228.445 2023.99 1645.73 843.652"
+                        },
+                        {
+                            "metaName": "title",
+                            "metaType": "string",
+                            "metaValue": "Check '/Trees_instancer' primitive"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop5",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "color",
+                            "metaType": "string",
+                            "metaValue": "#287cc29f"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-228.776 2849.97 1648 854.458"
+                        },
+                        {
+                            "metaName": "title",
+                            "metaType": "string",
+                            "metaValue": "Check '/Mushroom_instancer' primitive"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-1875.11 -472.467 1275.98 1078.84"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-965.952 551.935"
+                },
+                {
+                    "metaName": "UILayout",
+                    "metaType": "string",
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"root_temp_dir\"\n            },\n            {\n                \"port\": \"root_directory\"\n            },\n            {\n                \"port\": \"length\"\n            },\n            {\n                \"port\": \"width\"\n            },\n            {\n                \"port\": \"grass_radius\"\n            },\n            {\n                \"port\": \"tree_radius\"\n            },\n            {\n                \"port\": \"seed\"\n            },\n            {\n                \"port\": \"min_scale\"\n            },\n            {\n                \"port\": \"max_scale\"\n            },\n            {\n                \"port\": \"mushrooms_radius\"\n            },\n            {\n                \"port\": \"trunk_distance\"\n            },\n            {\n                \"group\": \"expected_results\",\n                \"items\": [\n                    {\n                        \"port\": \"ground_point_count\"\n                    },\n                    {\n                        \"port\": \"ground_face_count\"\n                    },\n                    {\n                        \"port\": \"grass_instance_count\"\n                    },\n                    {\n                        \"port\": \"tree_instance_count\"\n                    },\n                    {\n                        \"port\": \"mushroom_instance_count\"\n                    }\n                ]\n            }\n        ]\n    }\n}\n"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "root_temp_dir",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "C:\\TEMP",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "FileBrowserWidget"
+                        },
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "browserMode=open;filter=\"USD (*.usd *.usda *.usdc *.usdz);;All (*.*)\""
+                        }
+                    ]
+                },
+                {
+                    "portName": "length",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "10f"
+                },
+                {
+                    "portName": "width",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "20f"
+                },
+                {
+                    "portName": "grass_radius",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "0.100000001f"
+                },
+                {
+                    "portName": "tree_radius",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "1f"
+                },
+                {
+                    "portName": "seed",
+                    "portDirection": "input",
+                    "portType": "long",
+                    "portDefault": "235"
+                },
+                {
+                    "portName": "min_scale",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "0.600000024f"
+                },
+                {
+                    "portName": "max_scale",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "1.39999998f"
+                },
+                {
+                    "portName": "mushrooms_radius",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "0.200000003f"
+                },
+                {
+                    "portName": "trunk_distance",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "2f"
+                },
+                {
+                    "portName": "test_info",
+                    "portDirection": "output",
+                    "portType": "string"
+                },
+                {
+                    "portName": "failure_msgs",
+                    "portDirection": "output",
+                    "portType": "array<string>"
+                },
+                {
+                    "portName": "ground_point_count",
+                    "portDirection": "input",
+                    "portType": "int",
+                    "portDefault": "861L"
+                },
+                {
+                    "portName": "ground_face_count",
+                    "portDirection": "input",
+                    "portType": "int",
+                    "portDefault": "800L"
+                },
+                {
+                    "portName": "grass_instance_count",
+                    "portDirection": "input",
+                    "portType": "int",
+                    "portDefault": "2901L"
+                },
+                {
+                    "portName": "tree_instance_count",
+                    "portDirection": "input",
+                    "portType": "int",
+                    "portDefault": "30L"
+                },
+                {
+                    "portName": "mushroom_instance_count",
+                    "portDirection": "input",
+                    "portType": "int",
+                    "portDefault": "265L"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "landscape_generator_1_0_0",
+                    "nodeType": "USD::Test::Integration::landscape_generator_1_0_0",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "Scattering Settings.Grass",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-925.761 -252.634"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1612.69 -197.191"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true1",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-204.215 -264.57"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "result",
+                        "failure_msgs",
+                        "array1",
+                        "array2",
+                        "array3",
+                        "array4"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1617.35 6.32706"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "add_subdir_name",
+                    "nodeType": "USD::Test::TestUtilities::make_file_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1209.63 319.914"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "open_usd_stage",
+                    "nodeType": "USD::Stage::open_usd_stage",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "Settings",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-569.465 374.562"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimAtPath2",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-206.417 1661.1"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "59.8661 1359.82"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimAtPath1",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-194.517 589.719"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true2",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "96.8266 293.007"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "check_usd_layer_id_and_file_path",
+                    "nodeType": "USD::Test::TestUtilities::check_usd_layer_id_and_file_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-207.229 -39.8511"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_usd_geom_points1",
+                    "nodeType": "USD::Prim::get_usd_geom_points",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "94.1346 516.801"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "array_size",
+                    "nodeType": "Core::Array::array_size",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "332.558 652.854"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "912.677 631.798"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true3",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "333.638 450.392"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value1",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-191.402 377.841"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_prim_type",
+                    "nodeType": "USD::Prim::get_prim_type",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "60.1661 1568.7"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value2",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-203.99 1449.55"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal1",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "317.072 1526.75"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true4",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "607.604 1698.17"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "array_size1",
+                    "nodeType": "Core::Array::array_size",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "601.869 1905.9"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal2",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1167.83 1888.88"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimAttr_positions1",
+                    "nodeType": "USD::Attribute::get_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "55.5834 1790.2"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_prim_attribute_data",
+                    "nodeType": "USD::Attribute::get_prim_attribute_data",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "314.222 1787.74"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimAttr_faceVertexCounts",
+                    "nodeType": "USD::Attribute::get_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "105.698 850.486"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true5",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "602.253 836.961"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_prim_attribute_data2",
+                    "nodeType": "USD::Attribute::get_prim_attribute_data",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "345.692 848.442"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal3",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1132.91 1025.33"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "array_size2",
+                    "nodeType": "Core::Array::array_size",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "610.444 1045.07"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array1",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "result",
+                        "result1",
+                        "result2",
+                        "result3",
+                        "result4"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1180.06 304.703"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array2",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "result",
+                        "result1",
+                        "result2",
+                        "result3"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1168.25 1356.11"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimAttr_positions2",
+                    "nodeType": "USD::Attribute::get_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "45.7997 2643.08"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_prim_attribute_data3",
+                    "nodeType": "USD::Attribute::get_prim_attribute_data",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "304.429 2640.62"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimAtPath3",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-216.211 2513.98"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true6",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "597.819 2551.05"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "array_size3",
+                    "nodeType": "Core::Array::array_size",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "592.079 2758.78"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_prim_type1",
+                    "nodeType": "USD::Prim::get_prim_type",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "50.3797 2421.58"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal4",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "307.279 2379.63"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal5",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1175.93 2736.53"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array3",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "result",
+                        "result1",
+                        "result2",
+                        "result3"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1158.46 2208.99"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value3",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-213.781 2302.43"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true7",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "50.0797 2212.7"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value4",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-200.567 3189.53"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_prim_type2",
+                    "nodeType": "USD::Prim::get_prim_type",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "63.5938 3308.68"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimAtPath4",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-202.996 3401.08"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true8",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "63.2938 3099.8"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal6",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "320.494 3266.73"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true9",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "611.034 3438.15"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrimAttr_positions3",
+                    "nodeType": "USD::Attribute::get_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "59.0139 3530.18"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_prim_attribute_data4",
+                    "nodeType": "USD::Attribute::get_prim_attribute_data",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "317.644 3527.72"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array4",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "result",
+                        "result1",
+                        "result2",
+                        "result3"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1171.7 3096.09"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal7",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1162.36 3618.57"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "array_size4",
+                    "nodeType": "Core::Array::array_size",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "605.294 3645.88"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "add_filename",
+                    "nodeType": "USD::Test::TestUtilities::make_file_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-924.416 320.477"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": ".length",
+                    "target": "landscape_generator_1_0_0.length"
+                },
+                {
+                    "source": ".width",
+                    "target": "landscape_generator_1_0_0.width"
+                },
+                {
+                    "source": ".grass_radius",
+                    "target": "landscape_generator_1_0_0.grass_radius"
+                },
+                {
+                    "source": ".tree_radius",
+                    "target": "landscape_generator_1_0_0.tree_radius"
+                },
+                {
+                    "source": ".seed",
+                    "target": "landscape_generator_1_0_0.seed"
+                },
+                {
+                    "source": ".min_scale",
+                    "target": "landscape_generator_1_0_0.min_scale"
+                },
+                {
+                    "source": ".max_scale",
+                    "target": "landscape_generator_1_0_0.max_scale"
+                },
+                {
+                    "source": ".mushrooms_radius",
+                    "target": "landscape_generator_1_0_0.mushrooms_radius"
+                },
+                {
+                    "source": ".trunk_distance",
+                    "target": "landscape_generator_1_0_0.trunk_distance"
+                },
+                {
+                    "source": "landscape_generator_1_0_0.success",
+                    "target": "expect_true1.condition"
+                },
+                {
+                    "source": "expect_true1.result",
+                    "target": "build_array.first.result"
+                },
+                {
+                    "source": ".root_temp_dir",
+                    "target": "add_subdir_name.directory"
+                },
+                {
+                    "source": "getPrimAtPath2.success",
+                    "target": "expect_true.condition"
+                },
+                {
+                    "source": "getPrimAtPath1.success",
+                    "target": "expect_true2.condition"
+                },
+                {
+                    "source": "check_usd_layer_id_and_file_path.failure_msgs",
+                    "target": "build_array.first.failure_msgs"
+                },
+                {
+                    "source": "landscape_generator_1_0_0.out_layer",
+                    "target": "check_usd_layer_id_and_file_path.layer"
+                },
+                {
+                    "source": "get_usd_geom_points1.points",
+                    "target": "array_size.array"
+                },
+                {
+                    "source": "getPrimAtPath1.prim",
+                    "target": "get_usd_geom_points1.prim"
+                },
+                {
+                    "source": "get_usd_geom_points1.success",
+                    "target": "expect_true3.condition"
+                },
+                {
+                    "source": "value1.output",
+                    "target": "getPrimAtPath1.path"
+                },
+                {
+                    "source": "open_usd_stage.stage",
+                    "target": "getPrimAtPath1.stage"
+                },
+                {
+                    "source": "value2.output",
+                    "target": "getPrimAtPath2.path"
+                },
+                {
+                    "source": "getPrimAtPath2.prim",
+                    "target": "get_prim_type.prim"
+                },
+                {
+                    "source": "get_prim_type.type_name",
+                    "target": "expect_equal1.first"
+                },
+                {
+                    "source": "array_size1.size",
+                    "target": "expect_equal2.first"
+                },
+                {
+                    "source": "getPrimAttr_positions1.attribute",
+                    "target": "get_prim_attribute_data.attribute"
+                },
+                {
+                    "source": "get_prim_attribute_data.success",
+                    "target": "expect_true4.condition"
+                },
+                {
+                    "source": "get_prim_attribute_data.value",
+                    "target": "array_size1.array"
+                },
+                {
+                    "source": "getPrimAtPath1.prim",
+                    "target": "getPrimAttr_faceVertexCounts.prim"
+                },
+                {
+                    "source": "getPrimAttr_faceVertexCounts.attribute",
+                    "target": "get_prim_attribute_data2.attribute"
+                },
+                {
+                    "source": "get_prim_attribute_data2.success",
+                    "target": "expect_true5.condition"
+                },
+                {
+                    "source": "get_prim_attribute_data2.value",
+                    "target": "array_size2.array"
+                },
+                {
+                    "source": "array_size2.size",
+                    "target": "expect_equal3.first"
+                },
+                {
+                    "source": "open_usd_stage.stage",
+                    "target": "getPrimAtPath2.stage"
+                },
+                {
+                    "source": "getPrimAtPath2.prim",
+                    "target": "getPrimAttr_positions1.prim"
+                },
+                {
+                    "source": "expect_true2.result",
+                    "target": "build_array1.first.result"
+                },
+                {
+                    "source": "expect_true3.result",
+                    "target": "build_array1.first.result1"
+                },
+                {
+                    "source": "expect_equal.result",
+                    "target": "build_array1.first.result2"
+                },
+                {
+                    "source": "expect_true5.result",
+                    "target": "build_array1.first.result3"
+                },
+                {
+                    "source": "expect_equal3.result",
+                    "target": "build_array1.first.result4"
+                },
+                {
+                    "source": "build_array1.array",
+                    "target": "build_array.first.array1"
+                },
+                {
+                    "source": "expect_true.result",
+                    "target": "build_array2.first.result"
+                },
+                {
+                    "source": "expect_equal1.result",
+                    "target": "build_array2.first.result1"
+                },
+                {
+                    "source": "expect_true4.result",
+                    "target": "build_array2.first.result2"
+                },
+                {
+                    "source": "expect_equal2.result",
+                    "target": "build_array2.first.result3"
+                },
+                {
+                    "source": "build_array2.array",
+                    "target": "build_array.first.array2"
+                },
+                {
+                    "source": "getPrimAttr_positions2.attribute",
+                    "target": "get_prim_attribute_data3.attribute"
+                },
+                {
+                    "source": "get_prim_attribute_data3.success",
+                    "target": "expect_true6.condition"
+                },
+                {
+                    "source": "get_prim_attribute_data3.value",
+                    "target": "array_size3.array"
+                },
+                {
+                    "source": "getPrimAtPath3.success",
+                    "target": "expect_true7.condition"
+                },
+                {
+                    "source": "getPrimAtPath3.prim",
+                    "target": "get_prim_type1.prim"
+                },
+                {
+                    "source": "getPrimAtPath3.prim",
+                    "target": "getPrimAttr_positions2.prim"
+                },
+                {
+                    "source": "expect_true6.result",
+                    "target": "build_array3.first.result2"
+                },
+                {
+                    "source": "array_size3.size",
+                    "target": "expect_equal5.first"
+                },
+                {
+                    "source": "get_prim_type1.type_name",
+                    "target": "expect_equal4.first"
+                },
+                {
+                    "source": "expect_equal4.result",
+                    "target": "build_array3.first.result1"
+                },
+                {
+                    "source": "expect_equal5.result",
+                    "target": "build_array3.first.result3"
+                },
+                {
+                    "source": "value3.output",
+                    "target": "getPrimAtPath3.path"
+                },
+                {
+                    "source": "expect_true7.result",
+                    "target": "build_array3.first.result"
+                },
+                {
+                    "source": "open_usd_stage.stage",
+                    "target": "getPrimAtPath3.stage"
+                },
+                {
+                    "source": "build_array3.array",
+                    "target": "build_array.first.array3"
+                },
+                {
+                    "source": "value4.output",
+                    "target": "getPrimAtPath4.path"
+                },
+                {
+                    "source": "get_prim_type2.type_name",
+                    "target": "expect_equal6.first"
+                },
+                {
+                    "source": "getPrimAtPath4.success",
+                    "target": "expect_true8.condition"
+                },
+                {
+                    "source": "getPrimAtPath4.prim",
+                    "target": "get_prim_type2.prim"
+                },
+                {
+                    "source": "getPrimAtPath4.prim",
+                    "target": "getPrimAttr_positions3.prim"
+                },
+                {
+                    "source": "expect_true8.result",
+                    "target": "build_array4.first.result"
+                },
+                {
+                    "source": "expect_equal6.result",
+                    "target": "build_array4.first.result1"
+                },
+                {
+                    "source": "expect_true9.result",
+                    "target": "build_array4.first.result2"
+                },
+                {
+                    "source": "getPrimAttr_positions3.attribute",
+                    "target": "get_prim_attribute_data4.attribute"
+                },
+                {
+                    "source": "get_prim_attribute_data4.success",
+                    "target": "expect_true9.condition"
+                },
+                {
+                    "source": "get_prim_attribute_data4.value",
+                    "target": "array_size4.array"
+                },
+                {
+                    "source": "expect_equal7.result",
+                    "target": "build_array4.first.result3"
+                },
+                {
+                    "source": "open_usd_stage.stage",
+                    "target": "getPrimAtPath4.stage"
+                },
+                {
+                    "source": "build_array4.array",
+                    "target": "build_array.first.array4"
+                },
+                {
+                    "source": ".ground_point_count",
+                    "target": "expect_equal.second"
+                },
+                {
+                    "source": ".ground_face_count",
+                    "target": "expect_equal3.second"
+                },
+                {
+                    "source": ".grass_instance_count",
+                    "target": "expect_equal2.second"
+                },
+                {
+                    "source": ".mushroom_instance_count",
+                    "target": "expect_equal7.second"
+                },
+                {
+                    "source": "build_array.array",
+                    "target": ".failure_msgs"
+                },
+                {
+                    "source": "value.output",
+                    "target": ".test_info"
+                },
+                {
+                    "source": "array_size.size",
+                    "target": "expect_equal.first"
+                },
+                {
+                    "source": ".tree_instance_count",
+                    "target": "expect_equal5.second"
+                },
+                {
+                    "source": "array_size4.size",
+                    "target": "expect_equal7.first"
+                },
+                {
+                    "source": "add_subdir_name.path",
+                    "target": "add_filename.directory"
+                },
+                {
+                    "source": "add_filename.path",
+                    "target": "open_usd_stage.file"
+                },
+                {
+                    "source": "add_filename.path",
+                    "target": "check_usd_layer_id_and_file_path.save_pathname"
+                },
+                {
+                    "source": "add_subdir_name.path",
+                    "target": "landscape_generator_1_0_0.root_directory"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "landscape_generator_1_0_0.root_directory",
+                    "valueType": "string",
+                    "value": "/tmp"
+                },
+                {
+                    "valueName": "landscape_generator_1_0_0.length",
+                    "valueType": "float",
+                    "value": "50f"
+                },
+                {
+                    "valueName": "landscape_generator_1_0_0.width",
+                    "valueType": "float",
+                    "value": "25f"
+                },
+                {
+                    "valueName": "landscape_generator_1_0_0.grass_radius",
+                    "valueType": "float",
+                    "value": "0.200000003f"
+                },
+                {
+                    "valueName": "landscape_generator_1_0_0.tree_radius",
+                    "valueType": "float",
+                    "value": "5f"
+                },
+                {
+                    "valueName": "landscape_generator_1_0_0.seed",
+                    "valueType": "long",
+                    "value": "235"
+                },
+                {
+                    "valueName": "landscape_generator_1_0_0.min_scale",
+                    "valueType": "float",
+                    "value": "0.600000024f"
+                },
+                {
+                    "valueName": "landscape_generator_1_0_0.max_scale",
+                    "valueType": "float",
+                    "value": "1.39999998f"
+                },
+                {
+                    "valueName": "landscape_generator_1_0_0.mushrooms_radius",
+                    "valueType": "float",
+                    "value": "0.25f"
+                },
+                {
+                    "valueName": "landscape_generator_1_0_0.trunk_distance",
+                    "valueType": "float",
+                    "value": "4f"
+                },
+                {
+                    "valueName": "value.value",
+                    "valueType": "string",
+                    "value": "Run the landscape_generator compound and check some geometry and instance counts from the resulting root layer."
+                },
+                {
+                    "valueName": "expect_true1.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: landscape_generator compound execution should succeed."
+                },
+                {
+                    "valueName": "add_subdir_name.filename",
+                    "valueType": "string",
+                    "value": "landscape_generator"
+                },
+                {
+                    "valueName": "getPrimAtPath2.path",
+                    "valueType": "string",
+                    "value": "/Grass_instancer"
+                },
+                {
+                    "valueName": "expect_true.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Grass_instancer' primitive should exist."
+                },
+                {
+                    "valueName": "getPrimAtPath1.path",
+                    "valueType": "string",
+                    "value": "/Ground"
+                },
+                {
+                    "valueName": "expect_true2.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Ground' primitive should exist."
+                },
+                {
+                    "valueName": "expect_equal.second",
+                    "valueType": "long",
+                    "value": "5151"
+                },
+                {
+                    "valueName": "expect_equal.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Ground' primitive has the wrong number of points."
+                },
+                {
+                    "valueName": "expect_true3.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Ground' primitive does not have a 'points' attribute."
+                },
+                {
+                    "valueName": "value1.value",
+                    "valueType": "string",
+                    "value": "/Ground"
+                },
+                {
+                    "valueName": "value2.value",
+                    "valueType": "string",
+                    "value": "/Grass_instancer"
+                },
+                {
+                    "valueName": "expect_equal1.second",
+                    "valueType": "string",
+                    "value": "PointInstancer"
+                },
+                {
+                    "valueName": "expect_equal1.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Grass_instancer' primitive should be of type 'PointInstancer'."
+                },
+                {
+                    "valueName": "expect_true4.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Grass_instancer' primitive does not have a 'positions' attribute."
+                },
+                {
+                    "valueName": "expect_equal2.second",
+                    "valueType": "long",
+                    "value": "4534"
+                },
+                {
+                    "valueName": "expect_equal2.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Grass_instancer' primitive has the wrong number of positions."
+                },
+                {
+                    "valueName": "getPrimAttr_positions1.attribute_name",
+                    "valueType": "string",
+                    "value": "positions"
+                },
+                {
+                    "valueName": "get_prim_attribute_data.type",
+                    "valueType": "array<Math::float3>",
+                    "value": []
+                },
+                {
+                    "valueName": "getPrimAttr_faceVertexCounts.attribute_name",
+                    "valueType": "string",
+                    "value": "faceVertexCounts"
+                },
+                {
+                    "valueName": "expect_true5.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Ground' primitive does not have a 'faceVertexCounts' attribute."
+                },
+                {
+                    "valueName": "get_prim_attribute_data2.type",
+                    "valueType": "array<int>",
+                    "value": []
+                },
+                {
+                    "valueName": "expect_equal3.second",
+                    "valueType": "long",
+                    "value": "5000"
+                },
+                {
+                    "valueName": "expect_equal3.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Gound' primitive has the wrong number of faces."
+                },
+                {
+                    "valueName": "getPrimAttr_positions2.attribute_name",
+                    "valueType": "string",
+                    "value": "positions"
+                },
+                {
+                    "valueName": "get_prim_attribute_data3.type",
+                    "valueType": "array<Math::float3>",
+                    "value": []
+                },
+                {
+                    "valueName": "getPrimAtPath3.path",
+                    "valueType": "string",
+                    "value": "/Grass_instancer"
+                },
+                {
+                    "valueName": "expect_true6.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Trees_instancer' primitive does not have a 'positions' attribute."
+                },
+                {
+                    "valueName": "expect_equal4.second",
+                    "valueType": "string",
+                    "value": "PointInstancer"
+                },
+                {
+                    "valueName": "expect_equal4.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Trees_instancer' primitive should be of type 'PointInstancer'."
+                },
+                {
+                    "valueName": "expect_equal5.second",
+                    "valueType": "long",
+                    "value": "6"
+                },
+                {
+                    "valueName": "expect_equal5.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Trees_instancer' primitive has the wrong number of positions."
+                },
+                {
+                    "valueName": "value3.value",
+                    "valueType": "string",
+                    "value": "/Trees_instancer"
+                },
+                {
+                    "valueName": "expect_true7.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Trees_instancer' primitive should exist."
+                },
+                {
+                    "valueName": "value4.value",
+                    "valueType": "string",
+                    "value": "/Mushroom_instancer"
+                },
+                {
+                    "valueName": "getPrimAtPath4.path",
+                    "valueType": "string",
+                    "value": "/Grass_instancer"
+                },
+                {
+                    "valueName": "expect_true8.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Mushroom_instancer' primitive should exist."
+                },
+                {
+                    "valueName": "expect_equal6.second",
+                    "valueType": "string",
+                    "value": "PointInstancer"
+                },
+                {
+                    "valueName": "expect_equal6.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Mushroom_instancer' primitive should be of type 'PointInstancer'."
+                },
+                {
+                    "valueName": "expect_true9.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Mushroom_instancer' primitive does not have a 'positions' attribute."
+                },
+                {
+                    "valueName": "getPrimAttr_positions3.attribute_name",
+                    "valueType": "string",
+                    "value": "positions"
+                },
+                {
+                    "valueName": "get_prim_attribute_data4.type",
+                    "valueType": "array<Math::float3>",
+                    "value": []
+                },
+                {
+                    "valueName": "expect_equal7.second",
+                    "valueType": "long",
+                    "value": "192"
+                },
+                {
+                    "valueName": "expect_equal7.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: '/Mushroom_instancer' primitive has the wrong number of positions."
+                },
+                {
+                    "valueName": "add_filename.directory",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "add_filename.filename",
+                    "valueType": "string",
+                    "value": "landscape.usd"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

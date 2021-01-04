@@ -1,0 +1,234 @@
+{
+    "schemaVersion": "1.0.0",
+    "comment": "Test landscape_generator integration compound",
+    "options": {
+        "definitionFiles": [
+            "landscape_generator_test00.json"
+        ],
+        "compound": "USD::Test::Integration::landscape_generator_test00"
+    },
+    "task": {
+        "type": "sequence",
+        "tasks": [
+            {
+                "type": "single",
+                "name": "Params Set 1",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "length",
+                            "value": "10.f"
+                        },
+                        {
+                            "name": "width",
+                            "value": "20.f"
+                        },
+                        {
+                            "name": "grass_radius",
+                            "value": ".1f"
+                        },
+                        {
+                            "name": "tree_radius",
+                            "value": "1f"
+                        },
+                        {
+                            "name": "seed",
+                            "value": "235"
+                        },
+                        {
+                            "name": "min_scale",
+                            "value": ".6f"
+                        },
+                        {
+                            "name": "max_scale",
+                            "value": "1.4f"
+                        },
+                        {
+                            "name": "mushrooms_radius",
+                            "value": ".2f"
+                        },
+                        {
+                            "name": "trunk_distance",
+                            "value": "2.f"
+                        },
+                        {
+                            "name": "root_temp_dir",
+                            "optionPortName": "root_temporary_dir"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "ground_point_count",
+                            "value": "861"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "ground_face_count",
+                            "value": "800"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "grass_instance_count",
+                            "value": "2901"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "tree_instance_count",
+                            "value": "30"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "mushroom_instance_count",
+                            "value": "265"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "Params Set 2",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "length",
+                            "value": "50.f"
+                        },
+                        {
+                            "name": "width",
+                            "value": "25.f"
+                        },
+                        {
+                            "name": "grass_radius",
+                            "value": ".2f"
+                        },
+                        {
+                            "name": "tree_radius",
+                            "value": "5.f"
+                        },
+                        {
+                            "name": "seed",
+                            "value": "128"
+                        },
+                        {
+                            "name": "min_scale",
+                            "value": ".6f"
+                        },
+                        {
+                            "name": "max_scale",
+                            "value": "1.4f"
+                        },
+                        {
+                            "name": "mushrooms_radius",
+                            "value": ".25f"
+                        },
+                        {
+                            "name": "trunk_distance",
+                            "value": "4.f"
+                        },
+                        {
+                            "name": "root_temp_dir",
+                            "optionPortName": "root_temporary_dir"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "ground_point_count",
+                            "value": "5151"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "ground_face_count",
+                            "value": "5000"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "grass_instance_count",
+                            "value": "4534"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "tree_instance_count",
+                            "value": "6"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "mushroom_instance_count",
+                            "value": "192"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "Params Set 3",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "length",
+                            "value": "200.f"
+                        },
+                        {
+                            "name": "width",
+                            "value": "150.f"
+                        },
+                        {
+                            "name": "grass_radius",
+                            "value": "1.f"
+                        },
+                        {
+                            "name": "tree_radius",
+                            "value": "20.f"
+                        },
+                        {
+                            "name": "seed",
+                            "value": "55"
+                        },
+                        {
+                            "name": "min_scale",
+                            "value": ".8f"
+                        },
+                        {
+                            "name": "max_scale",
+                            "value": "2.8f"
+                        },
+                        {
+                            "name": "mushrooms_radius",
+                            "value": "3.f"
+                        },
+                        {
+                            "name": "trunk_distance",
+                            "value": "10.f"
+                        },
+                        {
+                            "name": "root_temp_dir",
+                            "optionPortName": "root_temporary_dir"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "ground_point_count",
+                            "value": "120701"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "ground_face_count",
+                            "value": "120000"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "grass_instance_count",
+                            "value": "4133"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "tree_instance_count",
+                            "value": "10"
+                        },
+                        {
+                            "comment": "This is an expected result",
+                            "name": "mushroom_instance_count",
+                            "value": "22"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

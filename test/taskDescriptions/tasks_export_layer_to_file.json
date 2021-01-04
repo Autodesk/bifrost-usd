@@ -1,0 +1,35 @@
+{
+    "schemaVersion": "1.0.0",
+    "comment": "Test export_layer_to_file nodedef",
+    "options": {
+        "definitionFiles": [
+            "export_layer_to_file_test00.json"
+        ],
+        "compound": "USD::Test::Layer::export_layer_to_file_test00"
+    },
+    "task": {
+        "type": "sequence",
+        "tasks": [
+            {
+                "type": "single",
+                "name": "Params Set 1",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "root_temp_dir",
+                            "optionPortName": "root_temporary_dir"
+                        },
+                        {
+                            "name": "root_layer_filename",
+                            "value": "rootLayer.usda"
+                        },
+                        {
+                            "name": "sublayer_filename",
+                            "value": "subLayer.usda"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

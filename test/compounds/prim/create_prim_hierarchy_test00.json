@@ -1,0 +1,1629 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Test::Prim::create_prim_hierarchy_test00",
+            "uriImported": "stream:/bifrostGraphShape1",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes"
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "test_info"
+                                                },
+                                                {
+                                                    "metaName": "failure_msgs"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1109 -344"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "text",
+                            "metaType": "string",
+                            "metaValue": "Create primitive paths"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-2520.08 -459.622 822.92 750.757"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop1",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-559 -269.896 1061.6 568.407"
+                        },
+                        {
+                            "metaName": "text",
+                            "metaType": "string",
+                            "metaValue": "Check primitives in stage 0"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop2",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "text",
+                            "metaType": "string",
+                            "metaValue": "Check primitives in stage 1"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-549.765 673.736 842.704 575.004"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-2771.25 -564 4357.16 2578"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-998.112 -74.9352"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "test_info",
+                    "portDirection": "output",
+                    "portType": "string"
+                },
+                {
+                    "portName": "failure_msgs",
+                    "portDirection": "output",
+                    "portType": "array<string>"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "build_array",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "result1",
+                        "result2",
+                        "result3",
+                        "result4"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "509 -194"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "839 -524"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_prim_hierarchy_1_0_0",
+                    "nodeType": "USD::Test::Prim::create_prim_hierarchy_1_0_0",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1029 -519"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "array_size",
+                    "nodeType": "Core::Array::array_size",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-549 -519"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-279 -519"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_stage0",
+                    "nodeType": "Core::Array::get_from_array",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-541 -192"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrim_city_a0",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-271 288"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value1",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2510.08 -419.622"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value2",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2510.08 -209.622"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value3",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2210.08 -119.622"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value4",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2210.08 90.378"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "createPath_country_a",
+                    "nodeType": "USD::Utils::create_child_prim_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2210.08 -359.622"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "createPath_city_a",
+                    "nodeType": "USD::Utils::create_child_prim_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1940.08 -269.622"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "createPath_city_b",
+                    "nodeType": "USD::Utils::create_child_prim_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1940.08 -29.622"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1 288"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_join",
+                    "nodeType": "Core::String::string_join",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-961 346"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value5",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1561 -74"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value6",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1561 136"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array1",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "output",
+                        "path",
+                        "output1"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1261 346"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_stage1",
+                    "nodeType": "Core::Array::get_from_array",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-540.693 913.525"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrim_city_b0",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-271 528"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "not",
+                    "nodeType": "Core::Logic::not",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1 528"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true1",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "269 528"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array2",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "output",
+                        "path",
+                        "output1"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1261 616"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_join1",
+                    "nodeType": "Core::String::string_join",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-961 616"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value7",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1561 346"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_join2",
+                    "nodeType": "Core::String::string_join",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-961 1456"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array3",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "output",
+                        "path",
+                        "output1"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1261 1456"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array4",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "output",
+                        "path",
+                        "output1"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1261 1726"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_join3",
+                    "nodeType": "Core::String::string_join",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-961 1726"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value8",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1561 1036"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrim_city_a1",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-246.302 1406.8"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true2",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "23.698 1406.8"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrim_city_b1",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-246.302 1646.8"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true3",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "23.698 1646.8"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrim_world0",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-271 -192"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrim_country_a0",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-271 48"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true4",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1 -192"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array5",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "output",
+                        "output1",
+                        "output2"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1261 -194"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_join4",
+                    "nodeType": "Core::String::string_join",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-961 -194"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array6",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "output",
+                        "path",
+                        "output1"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1261 76"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_join5",
+                    "nodeType": "Core::String::string_join",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-961 76"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true5",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1 48"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrim_world1",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-246.302 926.791"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true6",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "23.698 926.791"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "getPrim_country_a1",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-246.302 1166.8"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_true7",
+                    "nodeType": "Core::Compound_Tests::expect_true",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "23.698 1166.8"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array7",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "output",
+                        "output1",
+                        "output2"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1261 916"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_join6",
+                    "nodeType": "Core::String::string_join",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-961 916"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array8",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "output",
+                        "path",
+                        "output1"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1261 1186"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_join7",
+                    "nodeType": "Core::String::string_join",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-961 1186"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array9",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "result",
+                        "result1",
+                        "result2",
+                        "result3"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "509 916"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array10",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "result",
+                        "array1",
+                        "array2"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "839 -284"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "value.output",
+                    "target": ".test_info"
+                },
+                {
+                    "source": "create_prim_hierarchy_1_0_0.array",
+                    "target": "array_size.array"
+                },
+                {
+                    "source": "array_size.size",
+                    "target": "expect_equal.first"
+                },
+                {
+                    "source": "create_prim_hierarchy_1_0_0.array",
+                    "target": "get_stage0.array"
+                },
+                {
+                    "source": "value1.output",
+                    "target": "createPath_country_a.parent_path"
+                },
+                {
+                    "source": "value2.output",
+                    "target": "createPath_country_a.name"
+                },
+                {
+                    "source": "createPath_country_a.path",
+                    "target": "createPath_city_a.parent_path"
+                },
+                {
+                    "source": "value3.output",
+                    "target": "createPath_city_a.name"
+                },
+                {
+                    "source": "createPath_country_a.path",
+                    "target": "createPath_city_b.parent_path"
+                },
+                {
+                    "source": "value4.output",
+                    "target": "createPath_city_b.name"
+                },
+                {
+                    "source": "get_stage0.value",
+                    "target": "getPrim_city_a0.stage"
+                },
+                {
+                    "source": "createPath_city_a.path",
+                    "target": "getPrim_city_a0.path"
+                },
+                {
+                    "source": "getPrim_city_a0.success",
+                    "target": "expect_true.condition"
+                },
+                {
+                    "source": "value5.output",
+                    "target": "build_array1.first.output"
+                },
+                {
+                    "source": "createPath_city_a.path",
+                    "target": "build_array1.first.path"
+                },
+                {
+                    "source": "value6.output",
+                    "target": "build_array1.first.output1"
+                },
+                {
+                    "source": "build_array1.array",
+                    "target": "string_join.strings"
+                },
+                {
+                    "source": "string_join.joined",
+                    "target": "expect_true.msg_if_failed"
+                },
+                {
+                    "source": "create_prim_hierarchy_1_0_0.array",
+                    "target": "get_stage1.array"
+                },
+                {
+                    "source": "get_stage0.value",
+                    "target": "getPrim_city_b0.stage"
+                },
+                {
+                    "source": "createPath_city_b.path",
+                    "target": "getPrim_city_b0.path"
+                },
+                {
+                    "source": "getPrim_city_b0.success",
+                    "target": "not.value"
+                },
+                {
+                    "source": "not.output",
+                    "target": "expect_true1.condition"
+                },
+                {
+                    "source": "build_array2.array",
+                    "target": "string_join1.strings"
+                },
+                {
+                    "source": "value5.output",
+                    "target": "build_array2.first.output"
+                },
+                {
+                    "source": "createPath_city_b.path",
+                    "target": "build_array2.first.path"
+                },
+                {
+                    "source": "value7.output",
+                    "target": "build_array2.first.output1"
+                },
+                {
+                    "source": "string_join1.joined",
+                    "target": "expect_true1.msg_if_failed"
+                },
+                {
+                    "source": "build_array3.array",
+                    "target": "string_join2.strings"
+                },
+                {
+                    "source": "build_array4.array",
+                    "target": "string_join3.strings"
+                },
+                {
+                    "source": "value5.output",
+                    "target": "build_array3.first.output"
+                },
+                {
+                    "source": "value5.output",
+                    "target": "build_array4.first.output"
+                },
+                {
+                    "source": "createPath_city_a.path",
+                    "target": "build_array3.first.path"
+                },
+                {
+                    "source": "createPath_city_b.path",
+                    "target": "build_array4.first.path"
+                },
+                {
+                    "source": "value8.output",
+                    "target": "build_array3.first.output1"
+                },
+                {
+                    "source": "value8.output",
+                    "target": "build_array4.first.output1"
+                },
+                {
+                    "source": "getPrim_city_a1.success",
+                    "target": "expect_true2.condition"
+                },
+                {
+                    "source": "get_stage1.value",
+                    "target": "getPrim_city_a1.stage"
+                },
+                {
+                    "source": "get_stage1.value",
+                    "target": "getPrim_city_b1.stage"
+                },
+                {
+                    "source": "string_join2.joined",
+                    "target": "expect_true2.msg_if_failed"
+                },
+                {
+                    "source": "string_join3.joined",
+                    "target": "expect_true3.msg_if_failed"
+                },
+                {
+                    "source": "getPrim_city_b1.success",
+                    "target": "expect_true3.condition"
+                },
+                {
+                    "source": "createPath_city_a.path",
+                    "target": "getPrim_city_a1.path"
+                },
+                {
+                    "source": "createPath_city_b.path",
+                    "target": "getPrim_city_b1.path"
+                },
+                {
+                    "source": "get_stage0.value",
+                    "target": "getPrim_world0.stage"
+                },
+                {
+                    "source": "get_stage0.value",
+                    "target": "getPrim_country_a0.stage"
+                },
+                {
+                    "source": "value1.output",
+                    "target": "getPrim_world0.path"
+                },
+                {
+                    "source": "createPath_country_a.path",
+                    "target": "getPrim_country_a0.path"
+                },
+                {
+                    "source": "getPrim_world0.success",
+                    "target": "expect_true4.condition"
+                },
+                {
+                    "source": "value5.output",
+                    "target": "build_array5.first.output"
+                },
+                {
+                    "source": "value1.output",
+                    "target": "build_array5.first.output1"
+                },
+                {
+                    "source": "value6.output",
+                    "target": "build_array5.first.output2"
+                },
+                {
+                    "source": "build_array5.array",
+                    "target": "string_join4.strings"
+                },
+                {
+                    "source": "string_join4.joined",
+                    "target": "expect_true4.msg_if_failed"
+                },
+                {
+                    "source": "value5.output",
+                    "target": "build_array6.first.output"
+                },
+                {
+                    "source": "createPath_country_a.path",
+                    "target": "build_array6.first.path"
+                },
+                {
+                    "source": "value6.output",
+                    "target": "build_array6.first.output1"
+                },
+                {
+                    "source": "build_array6.array",
+                    "target": "string_join5.strings"
+                },
+                {
+                    "source": "getPrim_country_a0.success",
+                    "target": "expect_true5.condition"
+                },
+                {
+                    "source": "string_join5.joined",
+                    "target": "expect_true5.msg_if_failed"
+                },
+                {
+                    "source": "getPrim_world1.success",
+                    "target": "expect_true6.condition"
+                },
+                {
+                    "source": "getPrim_country_a1.success",
+                    "target": "expect_true7.condition"
+                },
+                {
+                    "source": "value1.output",
+                    "target": "getPrim_world1.path"
+                },
+                {
+                    "source": "createPath_country_a.path",
+                    "target": "getPrim_country_a1.path"
+                },
+                {
+                    "source": "build_array7.array",
+                    "target": "string_join6.strings"
+                },
+                {
+                    "source": "build_array8.array",
+                    "target": "string_join7.strings"
+                },
+                {
+                    "source": "string_join6.joined",
+                    "target": "expect_true6.msg_if_failed"
+                },
+                {
+                    "source": "string_join7.joined",
+                    "target": "expect_true7.msg_if_failed"
+                },
+                {
+                    "source": "get_stage1.value",
+                    "target": "getPrim_world1.stage"
+                },
+                {
+                    "source": "get_stage1.value",
+                    "target": "getPrim_country_a1.stage"
+                },
+                {
+                    "source": "expect_true4.result",
+                    "target": "build_array.first.result1"
+                },
+                {
+                    "source": "expect_true5.result",
+                    "target": "build_array.first.result2"
+                },
+                {
+                    "source": "expect_true.result",
+                    "target": "build_array.first.result3"
+                },
+                {
+                    "source": "expect_true1.result",
+                    "target": "build_array.first.result4"
+                },
+                {
+                    "source": "expect_true6.result",
+                    "target": "build_array9.first.result"
+                },
+                {
+                    "source": "expect_true7.result",
+                    "target": "build_array9.first.result1"
+                },
+                {
+                    "source": "expect_true2.result",
+                    "target": "build_array9.first.result2"
+                },
+                {
+                    "source": "expect_true3.result",
+                    "target": "build_array9.first.result3"
+                },
+                {
+                    "source": "expect_equal.result",
+                    "target": "build_array10.first.result"
+                },
+                {
+                    "source": "build_array.array",
+                    "target": "build_array10.first.array1"
+                },
+                {
+                    "source": "build_array9.array",
+                    "target": "build_array10.first.array2"
+                },
+                {
+                    "source": "build_array10.array",
+                    "target": ".failure_msgs"
+                },
+                {
+                    "source": "value5.output",
+                    "target": "build_array7.first.output"
+                },
+                {
+                    "source": "value5.output",
+                    "target": "build_array8.first.output"
+                },
+                {
+                    "source": "value1.output",
+                    "target": "build_array7.first.output1"
+                },
+                {
+                    "source": "createPath_country_a.path",
+                    "target": "build_array8.first.path"
+                },
+                {
+                    "source": "value8.output",
+                    "target": "build_array7.first.output2"
+                },
+                {
+                    "source": "value8.output",
+                    "target": "build_array8.first.output1"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "value.value",
+                    "valueType": "string",
+                    "value": "Test creating a hierarchy of primitives, first assuming that last_modified_prim is updated and used during primitive creation process, then building another hierarchy and specifying explicit absolute primitive paths."
+                },
+                {
+                    "valueName": "expect_equal.second",
+                    "valueType": "long",
+                    "value": "2"
+                },
+                {
+                    "valueName": "expect_equal.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: create_prim_hierarchy compound should output an array of two stages."
+                },
+                {
+                    "valueName": "get_stage0.index",
+                    "valueType": "long",
+                    "value": "0"
+                },
+                {
+                    "valueName": "value1.value",
+                    "valueType": "string",
+                    "value": "/world"
+                },
+                {
+                    "valueName": "value2.value",
+                    "valueType": "string",
+                    "value": "country_a"
+                },
+                {
+                    "valueName": "value3.value",
+                    "valueType": "string",
+                    "value": "city_a"
+                },
+                {
+                    "valueName": "value4.value",
+                    "valueType": "string",
+                    "value": "city_b"
+                },
+                {
+                    "valueName": "createPath_city_a.parent_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "createPath_city_a.name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "createPath_city_b.parent_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "createPath_city_b.name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "expect_true.msg_if_failed",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "string_join.separator",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "value5.value",
+                    "valueType": "string",
+                    "value": "Error: prim at path `"
+                },
+                {
+                    "valueName": "value6.value",
+                    "valueType": "string",
+                    "value": "` should be in stage 0"
+                },
+                {
+                    "valueName": "get_stage1.index",
+                    "valueType": "long",
+                    "value": "1"
+                },
+                {
+                    "valueName": "string_join1.separator",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "value7.value",
+                    "valueType": "string",
+                    "value": "` should NOT be in stage 0"
+                },
+                {
+                    "valueName": "string_join2.separator",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "string_join3.separator",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "value8.value",
+                    "valueType": "string",
+                    "value": "` should be in stage 1"
+                },
+                {
+                    "valueName": "getPrim_city_a1.path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "expect_true2.msg_if_failed",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "getPrim_city_b1.path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "expect_true3.msg_if_failed",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "expect_true4.msg_if_failed",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "string_join4.separator",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "string_join5.separator",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "expect_true5.msg_if_failed",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "expect_true6.msg_if_failed",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "expect_true7.msg_if_failed",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "string_join6.separator",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "string_join7.separator",
+                    "valueType": "string",
+                    "value": ""
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

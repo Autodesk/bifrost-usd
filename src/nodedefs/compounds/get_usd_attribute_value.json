@@ -1,0 +1,286 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Attribute::get_usd_attribute_value",
+            "uriImported": "stream:/stream",
+            "metadata": [
+                {
+                    "metaName": "documentation",
+                    "metaType": "string",
+                    "metaValue": "../docs/${language}/get_usd_attribute_value.md"
+                },
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-730.927 350.357"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "stage"
+                                                },
+                                                {
+                                                    "metaName": "prim_path"
+                                                },
+                                                {
+                                                    "metaName": "attribute_name"
+                                                },
+                                                {
+                                                    "metaName": "type"
+                                                },
+                                                {
+                                                    "metaName": "frame"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "value"
+                                                },
+                                                {
+                                                    "metaName": "success"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "471.397 168.492"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-811 -469.844 1588 1531.69"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "31.2646 311.853"
+                },
+                {
+                    "metaName": "NodeValueDisplay",
+                    "metadata": [
+                        {
+                            "metaName": "format",
+                            "metaType": "string",
+                            "metaValue": "Get Attribute {attribute_name} in Prim {prim_path}"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                }                
+            ],
+            "ports": [
+                {
+                    "portName": "stage",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Stage",
+                    "portDefault": {}
+                },
+                {
+                    "portName": "prim_path",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "value",
+                    "portDirection": "output"
+                },
+                {
+                    "portName": "attribute_name",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "type",
+                    "portDirection": "input",
+                    "metadata": [
+                        {
+                            "metaName": "TypeWranglingSuggestedTypes",
+                            "metaType": "string",
+                            "metaValue": "string, float, bool, uchar, int, uint, long, ulong, double, Math::float3, Math::float4, array<float>, array<bool>, array<uchar>, array<int>, array<uint>, array<long>, array<ulong>, array<double>, array<string>, array<Math::float2>, array<Math::float3>, array<Math::float4>"
+                        }
+                    ]                    
+                },
+                {
+                    "portName": "frame",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "0f",
+                    "metadata": [
+                        {
+                            "metaName": "quick_create",
+                            "metaType": "string",
+                            "metaValue": "Core::Time::time.frame"
+                        }
+                    ]
+                },
+                {
+                    "portName": "success",
+                    "portDirection": "output"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "get_prim_at_path",
+                    "nodeType": "USD::Prim::get_prim_at_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-376.565 -29.8916"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_prim_attribute",
+                    "nodeType": "USD::Attribute::get_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-138.46 76.476"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_prim_attribute_data",
+                    "nodeType": "USD::Attribute::get_prim_attribute_data",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "136.286 234.604"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": ".stage",
+                    "target": "get_prim_at_path.stage"
+                },
+                {
+                    "source": ".prim_path",
+                    "target": "get_prim_at_path.path"
+                },
+                {
+                    "source": "get_prim_at_path.prim",
+                    "target": "get_prim_attribute.prim"
+                },
+                {
+                    "source": "get_prim_attribute.attribute",
+                    "target": "get_prim_attribute_data.attribute"
+                },
+                {
+                    "source": "get_prim_attribute_data.value",
+                    "target": ".value"
+                },
+                {
+                    "source": ".attribute_name",
+                    "target": "get_prim_attribute.attribute_name"
+                },
+                {
+                    "source": ".type",
+                    "target": "get_prim_attribute_data.type"
+                },
+                {
+                    "source": ".frame",
+                    "target": "get_prim_attribute_data.frame"
+                },
+                {
+                    "source": "get_prim_attribute_data.success",
+                    "target": ".success"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "get_prim_attribute.attribute_name",
+                    "valueType": "string",
+                    "value": "radius"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

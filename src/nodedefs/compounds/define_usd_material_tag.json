@@ -1,0 +1,205 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Shading::define_usd_material_tag",
+            "uriImported": "stream:/bifrostGraphShape1",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "value"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "10 130"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "620 10"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "attribute_definition"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Attribute,define_usd_attribute"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Prim,define_usd_prim"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Prim,define_usd_mesh"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Shading,define_usd_preview_surface"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Stage,add_to_stage"
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-70 -267.311 996 791.621"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "94.4375 791.36"
+                },
+                {
+                    "metaName": "NodeValueDisplay",
+                    "metadata": [
+                        {
+                            "metaName": "format",
+                            "metaType": "string",
+                            "metaValue": "Material Tag: {value}"
+                        },
+                        {
+                            "metaName": "show",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        }
+                    ]
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "attribute_definition",
+                    "portDirection": "output"
+                },
+                {
+                    "portName": "value",
+                    "portDirection": "input",
+                    "portType": "string"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "define_usd_attribute",
+                    "nodeType": "USD::Attribute::define_usd_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "313.152 -49.1353"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "define_usd_attribute.attribute_definition",
+                    "target": ".attribute_definition"
+                },
+                {
+                    "source": ".value",
+                    "target": "define_usd_attribute.value"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "define_usd_attribute.name",
+                    "valueType": "string",
+                    "value": "bifrost:material_tag"
+                },
+                {
+                    "valueName": "define_usd_attribute.type",
+                    "valueType": "BifrostUsd::SdfValueTypeName",
+                    "value": "String"
+                },
+                {
+                    "valueName": "define_usd_attribute.enable_value",
+                    "valueType": "bool",
+                    "value": "true"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

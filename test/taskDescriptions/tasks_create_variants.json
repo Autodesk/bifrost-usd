@@ -1,0 +1,14 @@
+{
+    "schemaVersion": "1.0.0",
+    "comment": "Test add_variant_set and add_variant nodedefs",
+    "options": {
+        "definitionFiles": [
+            "create_variants_test00.json"
+        ],
+        "compound": "USD::Test::VariantSet::create_variants_test00"
+    },
+    "task": {
+        "type": "single",
+        "name": "Use Default Params"
+    }
+}

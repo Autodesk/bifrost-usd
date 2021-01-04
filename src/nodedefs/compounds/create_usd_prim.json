@@ -1,0 +1,190 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Prim::create_usd_prim",
+            "metadata": [
+                {
+                    "metaName": "documentation",
+                    "metaType": "string",
+                    "metaValue": "../docs/${language}/create_usd_prim.md"
+                },
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "stage"
+                                                },
+                                                {
+                                                    "metaName": "path"
+                                                },
+                                                {
+                                                    "metaName": "type"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "10 34"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "out_stage"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "620 10"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-70.449 -95.5614 997.924 460.129"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "532.899 699.034"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                },
+                {
+                    "metaName": "NodeValueDisplay",
+                    "metadata": [
+                        {
+                            "metaName": "format",
+                            "metaType": "string",
+                            "metaValue": "create {type} {path} prim"
+                        }
+                    ]
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "stage",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Stage"
+                },
+                {
+                    "portName": "path",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "type",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "out_stage",
+                    "portDirection": "output",
+                    "portType": "BifrostUsd::Stage"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "create_prim",
+                    "nodeType": "USD::Prim::create_prim",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "315 11"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": ".path",
+                    "target": "create_prim.path"
+                },
+                {
+                    "source": ".type",
+                    "target": "create_prim.type"
+                },
+                {
+                    "source": ".stage",
+                    "target": "create_prim.stage"
+                },
+                {
+                    "source": "create_prim.out_stage",
+                    "target": ".out_stage"
+                }
+            ],
+            "values": [],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

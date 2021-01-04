@@ -1,0 +1,437 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "dependencies": [
+        {
+            "uri": "file:///usd_stage.json"
+        },
+        {
+            "uri": "file:///Math_types.json"
+        },
+        {
+            "uri": "file:///bifrost_object_i.json"
+        },
+        {
+            "uri": "file:///usd_prim.json"
+        },
+        {
+            "uri": "file:///usd_variant_set.json"
+        },
+        {
+            "uri": "file:///usd_attribute.json"
+        },
+        {
+            "uri": "file:///usd_layer.json"
+        },
+        {
+            "uri": "file:///usd_prim_nodedefs.json"
+        },
+        {
+            "uri": "file:///CoreStringOps.json"
+        },
+        {
+            "uri": "file:///create_child_prim_path.json"
+        }
+    ],
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Test::Prim::create_prim_hierarchy_1_0_0",
+            "uriImported": "file:///create_prim_hierarchy_1_0_0.json",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-450 -61"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1808.81 5.52605"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "array"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-530 -238.96 2645 939.92"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-149.537 -58.005"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "array",
+                    "portDirection": "output",
+                    "portType": "array<BifrostUsd::Stage>"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "world",
+                    "nodeType": "USD::Prim::create_prim",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "255.973 -111.924"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "city_a",
+                    "nodeType": "USD::Prim::create_prim",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "907.362 60.2096"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value1",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-19.3016 18.8367"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "/world"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "country_a",
+                    "nodeType": "USD::Prim::create_prim",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "626.503 11.0779"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "city_b",
+                    "nodeType": "USD::Prim::create_prim",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1195.67 228.489"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "14.1709 242.186"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "country_a"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value2",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "255.912 460.637"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "city_b"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_child_prim_path",
+                    "nodeType": "USD::Utils::create_child_prim_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "536.453 284.806"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_child_prim_path1",
+                    "nodeType": "USD::Utils::create_child_prim_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "862.129 372.593"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "output",
+                        "out_stage"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1486.45 29.4033"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "value1.output",
+                    "target": "world.path"
+                },
+                {
+                    "source": "world.out_stage",
+                    "target": "country_a.stage"
+                },
+                {
+                    "source": "country_a.out_stage",
+                    "target": "city_a.stage"
+                },
+                {
+                    "source": "value.output",
+                    "target": "country_a.path"
+                },
+                {
+                    "source": "value1.output",
+                    "target": "create_child_prim_path.parent_path"
+                },
+                {
+                    "source": "value.output",
+                    "target": "create_child_prim_path.name"
+                },
+                {
+                    "source": "create_child_prim_path.path",
+                    "target": "create_child_prim_path1.parent_path"
+                },
+                {
+                    "source": "value2.output",
+                    "target": "create_child_prim_path1.name"
+                },
+                {
+                    "source": "create_child_prim_path1.path",
+                    "target": "city_b.path"
+                },
+                {
+                    "source": "city_a.out_stage",
+                    "target": "city_b.stage"
+                },
+                {
+                    "source": "city_b.out_stage",
+                    "target": "build_array.first.out_stage"
+                },
+                {
+                    "source": "build_array.array",
+                    "target": ".array"
+                },
+                {
+                    "source": "city_a.out_stage",
+                    "target": "build_array.first.output"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "world.path",
+                    "valueType": "string",
+                    "value": "/world"
+                },
+                {
+                    "valueName": "world.type",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "city_a.path",
+                    "valueType": "string",
+                    "value": "city_a"
+                },
+                {
+                    "valueName": "city_a.type",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "value1.value",
+                    "valueType": "string",
+                    "value": "/world"
+                },
+                {
+                    "valueName": "country_a.path",
+                    "valueType": "string",
+                    "value": "country_a"
+                },
+                {
+                    "valueName": "country_a.type",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "city_b.path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "city_b.type",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "value.value",
+                    "valueType": "string",
+                    "value": "country_a"
+                },
+                {
+                    "valueName": "value2.value",
+                    "valueType": "string",
+                    "value": "city_b"
+                },
+                {
+                    "valueName": "create_child_prim_path1.parent_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "create_child_prim_path1.name",
+                    "valueType": "string",
+                    "value": ""
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

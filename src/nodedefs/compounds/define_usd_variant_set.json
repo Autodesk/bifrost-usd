@@ -1,0 +1,235 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::VariantSet::define_usd_variant_set",
+            "uriImported": "file:///define_usd_variant_set.json",
+            "metadata": [
+                {
+                    "metaName": "documentation",
+                    "metaType": "string",
+                    "metaValue": "../docs/${language}/define_usd_variant_set.md"
+                },
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "10 191"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "variant_set_name"
+                                                },
+                                                {
+                                                    "metaName": "selection"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "925 95"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "variant_set_definition"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "PortExpandedState",
+                    "metadata": [
+                        {
+                            "metaName": "variant_names",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-681 -431 1362 862"
+                },
+                {
+                    "metaName": "NodeValueDisplay",
+                    "metadata": [
+                        {
+                            "metaName": "format",
+                            "metaType": "string",
+                            "metaValue": "Define VariantSet {variant_set_name} (selection: {selection})"
+                        },
+                        {
+                            "metaName": "show",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "687.285 537.553"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "variant_set_name",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "variant_set_definition",
+                    "portDirection": "output",
+                    "portType": "Object"
+                },
+                {
+                    "portName": "selection",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "set_property1",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "315.058 10.0583"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property3",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "620 96"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": ".variant_set_name",
+                    "target": "set_property1.value"
+                },
+                {
+                    "source": "set_property3.out_object",
+                    "target": ".variant_set_definition"
+                },
+                {
+                    "source": ".selection",
+                    "target": "set_property3.value"
+                },
+                {
+                    "source": "set_property1.out_object",
+                    "target": "set_property3.object"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "set_property1.key",
+                    "valueType": "string",
+                    "value": "name"
+                },
+                {
+                    "valueName": "set_property1.value",
+                    "valueType": "string",
+                    "value": "foo"
+                },
+                {
+                    "valueName": "set_property3.key",
+                    "valueType": "string",
+                    "value": "selection"
+                },
+                {
+                    "valueName": "set_property3.value",
+                    "valueType": "string",
+                    "value": ""
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

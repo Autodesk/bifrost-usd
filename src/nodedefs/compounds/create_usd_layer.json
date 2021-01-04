@@ -1,0 +1,470 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Layer::create_usd_layer",
+            "metadata": [
+                {
+                    "metaName": "documentation",
+                    "metaType": "string",
+                    "metaValue": "../docs/${language}/create_usd_layer.md"
+                },
+                {
+                    "metaName": "NodeValueDisplay",
+                    "metadata": [
+                        {
+                            "metaName": "format",
+                            "metaType": "string",
+                            "metaValue": "Create Layer {layer}"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "layer"
+                                                },
+                                                {
+                                                    "metaName": "sublayers"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-26.2631 108.365"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "823.567 55.4205"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "new_layer"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,Core::String,string_empty"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,Core::Logic,if"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Layer,create_usd_layer"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Layer,add_sublayer"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Layer,layer"
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-332.612 -728.266 1333.33 1521.59"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-100.79 -3.13715"
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                }
+            ],
+            "isDefaultOverload": "true",
+            "ports": [
+                {
+                    "portName": "new_layer",
+                    "portDirection": "output",
+                    "portType": "BifrostUsd::Layer"
+                },
+                {
+                    "portName": "layer",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "browserMode=save;filter=\"USD (*.usd *.usda *.usdc);;All (*.*)\""
+                        },
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "FileBrowserWidget"
+                        },
+                        {
+                            "metaName": "quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Layer::open_usd_layer"
+                        }
+                    ]
+                },
+                {
+                    "portName": "sublayers",
+                    "portDirection": "input",
+                    "portType": "array<BifrostUsd::Layer>",
+                    "portDefault": [],
+                    "isDefaultFanIn": "true",
+                    "metadata": [
+                        {
+                            "metaName": "quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Layer::create_usd_layer;USD::Layer::open_usd_layer"
+                        }
+                    ]
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "add_sublayer",
+                    "nodeType": "USD::Layer::add_sublayer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "533.019 98.2836"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_layer",
+                    "nodeType": "USD::Layer::create_layer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "282.046 -13.8388"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "add_sublayer.new_layer",
+                    "target": ".new_layer"
+                },
+                {
+                    "source": ".sublayers",
+                    "target": "add_sublayer.sub_layer"
+                },
+                {
+                    "source": ".layer",
+                    "target": "create_layer.save_file"
+                },
+                {
+                    "source": "create_layer.layer",
+                    "target": "add_sublayer.layer"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "add_sublayer.sub_layer",
+                    "valueType": "array<BifrostUsd::Layer>",
+                    "value": []
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        },
+        {
+            "name": "USD::Layer::create_usd_layer",
+            "metadata": [
+                {
+                    "metaName": "NodeValueDisplay",
+                    "metadata": [
+                        {
+                            "metaName": "format",
+                            "metaType": "string",
+                            "metaValue": "Create Layer: {layer}"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "layer"
+                                                },
+                                                {
+                                                    "metaName": "sublayers"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-26.2631 108.365"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "823.567 55.4205"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "new_layer"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,Core::String,string_empty"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,Core::Logic,if"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Layer,create_usd_layer"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Layer,add_sublayer"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Layer,layer"
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-106 -558.258 1236 1410.52"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-100.79 -3.13715"
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "new_layer",
+                    "portDirection": "output",
+                    "portType": "BifrostUsd::Layer"
+                },
+                {
+                    "portName": "layer",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Layer",
+                    "portDefault": {},
+                    "metadata": [
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "browserMode=save;filter=\"USD (*.usd *.usda *.usdc);;All (*.*)\""
+                        },
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "FileBrowserWidget"
+                        },
+                        {
+                            "metaName": "quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Layer::open_usd_layer"
+                        }
+                    ]
+                },
+                {
+                    "portName": "sublayers",
+                    "portDirection": "input",
+                    "portType": "array<BifrostUsd::Layer>",
+                    "portDefault": [],
+                    "isDefaultFanIn": "true",
+                    "metadata": [
+                        {
+                            "metaName": "quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Layer::create_usd_layer;USD::Layer::open_usd_layer"
+                        }
+                    ]
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "add_sublayer",
+                    "nodeType": "USD::Layer::add_sublayer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "533.019 98.2836"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "add_sublayer.new_layer",
+                    "target": ".new_layer"
+                },
+                {
+                    "source": ".sublayers",
+                    "target": "add_sublayer.sub_layer"
+                },
+                {
+                    "source": ".layer",
+                    "target": "add_sublayer.layer"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "add_sublayer.sub_layer",
+                    "valueType": "array<BifrostUsd::Layer>",
+                    "value": []
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

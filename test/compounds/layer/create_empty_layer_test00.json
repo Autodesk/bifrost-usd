@@ -1,0 +1,344 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Test::Layer::create_empty_layer_test00",
+            "uriImported": "stream:/bifrostGraphShape1",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-570.825 102.496"
+                                        },
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "save_file"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1346.52 13.8551"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "test_info"
+                                                },
+                                                {
+                                                    "metaName": "failure_msgs"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-650.667 -681.193 2302.67 1227.05"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "763.217 -69.7774"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "save_file",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "..",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "FileBrowserWidget"
+                        },
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "browserMode=save;filter=\"USD (*.usd *.usda *.usdc);;All (*.*)\""
+                        }
+                    ]
+                },
+                {
+                    "portName": "test_info",
+                    "portDirection": "output",
+                    "portType": "string"
+                },
+                {
+                    "portName": "failure_msgs",
+                    "portDirection": "output",
+                    "portType": "array<string>"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "build_array",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "failure_msg",
+                        "result",
+                        "failure_msgs"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "928.472 33.4536"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_layer",
+                    "nodeType": "USD::Layer::create_layer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-286.674 -113.895"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_equal1",
+                    "nodeType": "Core::Compound_Tests::expect_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "617.547 -221.94"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "export_layer_to_string",
+                    "nodeType": "USD::Layer::export_layer_to_string",
+                    "metadata": [
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "2.89151 -338.326"
+                        },
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "string_length",
+                    "nodeType": "Core::String::string_length",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "310.685 -197.521"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "986.396 -172.279"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "check_usda_header",
+                    "nodeType": "USD::Test::TestUtilities::check_usda_header",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "306.489 -465.298"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "check_usd_layer_id_and_file_path",
+                    "nodeType": "USD::Test::TestUtilities::check_usd_layer_id_and_file_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "309.811 79.8213"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "build_array.array",
+                    "target": ".failure_msgs"
+                },
+                {
+                    "source": ".save_file",
+                    "target": "create_layer.save_file"
+                },
+                {
+                    "source": "create_layer.layer",
+                    "target": "export_layer_to_string.layer"
+                },
+                {
+                    "source": "string_length.length",
+                    "target": "expect_equal1.first"
+                },
+                {
+                    "source": "export_layer_to_string.result",
+                    "target": "string_length.string"
+                },
+                {
+                    "source": "value.output",
+                    "target": ".test_info"
+                },
+                {
+                    "source": "expect_equal1.result",
+                    "target": "build_array.first.result"
+                },
+                {
+                    "source": "export_layer_to_string.result",
+                    "target": "check_usda_header.usd_content"
+                },
+                {
+                    "source": "check_usda_header.failure_msg",
+                    "target": "build_array.first.failure_msg"
+                },
+                {
+                    "source": "create_layer.layer",
+                    "target": "check_usd_layer_id_and_file_path.layer"
+                },
+                {
+                    "source": ".save_file",
+                    "target": "check_usd_layer_id_and_file_path.save_pathname"
+                },
+                {
+                    "source": "check_usd_layer_id_and_file_path.failure_msgs",
+                    "target": "build_array.first.failure_msgs"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "expect_equal1.second",
+                    "valueType": "long",
+                    "value": "11"
+                },
+                {
+                    "valueName": "expect_equal1.msg_if_failed",
+                    "valueType": "string",
+                    "value": "Error: Result of export_layer_to_string has wrong string length"
+                },
+                {
+                    "valueName": "value.value",
+                    "valueType": "string",
+                    "value": "Create an empty layer, with an optional save_file layer name, then check the result of exporting the layer to a string."
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,5 @@
+# This file has been auto-generated.
+
+set(BIFROST_USD_PACK_MAJOR_VERSION 1)
+set(BIFROST_USD_PACK_MINOR_VERSION 0)
+set(BIFROST_USD_PACK_PATCH_LEVEL   0)

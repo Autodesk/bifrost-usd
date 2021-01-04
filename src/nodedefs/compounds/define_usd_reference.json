@@ -1,0 +1,960 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Prim::define_usd_reference",
+            "uriImported": "file:///define_usd_reference.json",
+            "metadata": [
+                {
+                    "metaName": "documentation",
+                    "metaType": "string",
+                    "metaValue": "../docs/${language}/define_usd_reference.md"
+                },
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "10 436"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "arc_type"
+                                                },
+                                                {
+                                                    "metaName": "prim_path"
+                                                },
+                                                {
+                                                    "metaName": "relative_prim_path"
+                                                },
+                                                {
+                                                    "metaName": "layer"
+                                                },
+                                                {
+                                                    "metaName": "layer_offset"
+                                                },
+                                                {
+                                                    "metaName": "layer_scale"
+                                                },
+                                                {
+                                                    "metaName": "position"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "2450 490"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "reference_definitions"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "NodeValueDisplay",
+                    "metadata": [
+                        {
+                            "metaName": "format",
+                            "metaType": "string",
+                            "metaValue": "Define {arc_type} ({prim_path})"
+                        },
+                        {
+                            "metaName": "show",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,Core::Logic,if"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,Core::String,string_empty"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Prim,get_prim_path"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,Core::Array,first_in_array"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Prim,get_prim_children"
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-70 -577.674 2826 1921.35"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-621.392 78.4293"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "arc_type",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::ArcType",
+                    "portDefault": "Reference"
+                },
+                {
+                    "portName": "prim_path",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "reference_definitions",
+                    "portDirection": "output",
+                    "portType": "Object"
+                },
+                {
+                    "portName": "relative_prim_path",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "false"
+                },
+                {
+                    "portName": "layer",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Layer",
+                    "portDefault": {},
+                    "metadata": [
+                        {
+                            "metaName": "quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Layer::open_usd_layer"
+                        }
+                    ]
+                },
+                {
+                    "portName": "layer_offset",
+                    "portDirection": "input",
+                    "portType": "double",
+                    "portDefault": "0"
+                },
+                {
+                    "portName": "layer_scale",
+                    "portDirection": "input",
+                    "portType": "double",
+                    "portDefault": "1"
+                },
+                {
+                    "portName": "position",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::UsdListPosition",
+                    "portDefault": "UsdListPositionFrontOfPrependList"
+                }
+            ],
+            "compounds": [
+                {
+                    "name": "resolve_prim_path",
+                    "uriImported": "file:///define_usd_reference.json",
+                    "metadata": [
+                        {
+                            "metaName": "io_nodes",
+                            "metadata": [
+                                {
+                                    "metaName": "io_inodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "input",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "prim_path"
+                                                        },
+                                                        {
+                                                            "metaName": "layer"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "10 262"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "io_onodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "output",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "output"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "925 173"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "ViewportRect",
+                            "metaType": "string",
+                            "metaValue": "-928 -643 1857 1287"
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "portName": "prim_path",
+                            "portDirection": "input",
+                            "portType": "string"
+                        },
+                        {
+                            "portName": "output",
+                            "portDirection": "output"
+                        },
+                        {
+                            "portName": "layer",
+                            "portDirection": "input",
+                            "portType": "BifrostUsd::Layer"
+                        }
+                    ],
+                    "compounds": [
+                        {
+                            "name": "get_default_or_first_prim",
+                            "uriImported": "file:///define_usd_reference.json",
+                            "metadata": [
+                                {
+                                    "metaName": "io_nodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "io_inodes",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "input",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "DisplayMode",
+                                                            "metaType": "string",
+                                                            "metaValue": "2"
+                                                        },
+                                                        {
+                                                            "metaName": "io_ports",
+                                                            "metadata": [
+                                                                {
+                                                                    "metaName": "layer"
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "metaName": "LayoutPos",
+                                                            "metaType": "string",
+                                                            "metaValue": "10 312"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "io_onodes",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "output",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "DisplayMode",
+                                                            "metaType": "string",
+                                                            "metaValue": "2"
+                                                        },
+                                                        {
+                                                            "metaName": "io_ports",
+                                                            "metadata": [
+                                                                {
+                                                                    "metaName": "prim_path"
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "metaName": "LayoutPos",
+                                                            "metaType": "string",
+                                                            "metaValue": "1840 229"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "_recentNode_",
+                                    "metaType": "string",
+                                    "metaValue": "BifrostGraph,USD::Stage,open_stage_from_layer"
+                                },
+                                {
+                                    "metaName": "_recentNode_",
+                                    "metaType": "string",
+                                    "metaValue": "BifrostGraph,Core::Logic,if"
+                                },
+                                {
+                                    "metaName": "_recentNode_",
+                                    "metaType": "string",
+                                    "metaValue": "BifrostGraph,Core::String,string_empty"
+                                },
+                                {
+                                    "metaName": "_recentNode_",
+                                    "metaType": "string",
+                                    "metaValue": "BifrostGraph,USD::Prim,get_prim_path"
+                                },
+                                {
+                                    "metaName": "_recentNode_",
+                                    "metaType": "string",
+                                    "metaValue": "BifrostGraph,Core::Array,first_in_array"
+                                },
+                                {
+                                    "metaName": "ViewportRect",
+                                    "metaType": "string",
+                                    "metaValue": "-70 -495.403 2216 1535.81"
+                                }
+                            ],
+                            "ports": [
+                                {
+                                    "portName": "prim_path",
+                                    "portDirection": "output"
+                                },
+                                {
+                                    "portName": "layer",
+                                    "portDirection": "input",
+                                    "portType": "BifrostUsd::Layer"
+                                }
+                            ],
+                            "compoundNodes": [
+                                {
+                                    "nodeName": "first_in_array",
+                                    "nodeType": "Core::Array::first_in_array",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "925 337"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nodeName": "get_default_prim",
+                                    "nodeType": "USD::Stage::get_default_prim",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "925 142"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nodeName": "get_prim_children",
+                                    "nodeType": "USD::Prim::get_prim_children",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "620 299"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nodeName": "get_prim_path",
+                                    "nodeType": "USD::Prim::get_prim_path",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1230 204"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nodeName": "if",
+                                    "nodeType": "Core::Logic::if",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1535 193"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nodeName": "string_empty",
+                                    "nodeType": "Core::String::string_empty",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1230 9"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nodeName": "open_stage_from_layer",
+                                    "nodeType": "USD::Stage::open_stage_from_layer",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "315 288"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "connections": [
+                                {
+                                    "source": "first_in_array.first",
+                                    "target": "get_prim_path.prim"
+                                },
+                                {
+                                    "source": "get_default_prim.prim_path",
+                                    "target": "string_empty.string"
+                                },
+                                {
+                                    "source": "get_default_prim.prim_path",
+                                    "target": "if.false_case"
+                                },
+                                {
+                                    "source": "get_prim_children.children",
+                                    "target": "first_in_array.array"
+                                },
+                                {
+                                    "source": "get_prim_path.path",
+                                    "target": "if.true_case"
+                                },
+                                {
+                                    "source": "if.output",
+                                    "target": ".prim_path"
+                                },
+                                {
+                                    "source": "string_empty.empty",
+                                    "target": "if.condition"
+                                },
+                                {
+                                    "source": ".layer",
+                                    "target": "open_stage_from_layer.root_layer"
+                                },
+                                {
+                                    "source": "open_stage_from_layer.stage",
+                                    "target": "get_default_prim.stage"
+                                },
+                                {
+                                    "source": "open_stage_from_layer.stage",
+                                    "target": "get_prim_children.stage"
+                                }
+                            ],
+                            "values": [
+                                {
+                                    "valueName": "get_prim_children.prim_path",
+                                    "valueType": "string",
+                                    "value": "/"
+                                }
+                            ],
+                            "reservedNodeNames": [
+                                {
+                                    "name": "input"
+                                },
+                                {
+                                    "name": "output"
+                                }
+                            ]
+                        }
+                    ],
+                    "compoundNodes": [
+                        {
+                            "nodeName": "get_default_or_first_prim",
+                            "nodeType": "get_default_or_first_prim",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "315 205"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "if",
+                            "nodeType": "Core::Logic::if",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "620 173"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "string_empty",
+                            "nodeType": "Core::String::string_empty",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "315 10"
+                                }
+                            ]
+                        }
+                    ],
+                    "connections": [
+                        {
+                            "source": "get_default_or_first_prim.prim_path",
+                            "target": "if.true_case"
+                        },
+                        {
+                            "source": "string_empty.empty",
+                            "target": "if.condition"
+                        },
+                        {
+                            "source": ".prim_path",
+                            "target": "if.false_case"
+                        },
+                        {
+                            "source": "if.output",
+                            "target": ".output"
+                        },
+                        {
+                            "source": ".prim_path",
+                            "target": "string_empty.string"
+                        },
+                        {
+                            "source": ".layer",
+                            "target": "get_default_or_first_prim.layer"
+                        }
+                    ],
+                    "values": [],
+                    "reservedNodeNames": [
+                        {
+                            "name": "input"
+                        },
+                        {
+                            "name": "output"
+                        }
+                    ]
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "set_property",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "315 10"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property1",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "620 147"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property2",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "925 223"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property3",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1230 273"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property4",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1535 332"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property5",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1840 392"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "resolve_prim_path",
+                    "nodeType": "resolve_prim_path",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "315 253"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property6",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "2145 490"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "set_property.out_object",
+                    "target": "set_property1.object"
+                },
+                {
+                    "source": "set_property1.out_object",
+                    "target": "set_property2.object"
+                },
+                {
+                    "source": ".layer_offset",
+                    "target": "set_property2.value"
+                },
+                {
+                    "source": ".layer_scale",
+                    "target": "set_property3.value"
+                },
+                {
+                    "source": "set_property2.out_object",
+                    "target": "set_property3.object"
+                },
+                {
+                    "source": "set_property3.out_object",
+                    "target": "set_property4.object"
+                },
+                {
+                    "source": ".position",
+                    "target": "set_property4.value"
+                },
+                {
+                    "source": "set_property4.out_object",
+                    "target": "set_property5.object"
+                },
+                {
+                    "source": ".arc_type",
+                    "target": "set_property5.value"
+                },
+                {
+                    "source": ".prim_path",
+                    "target": "resolve_prim_path.prim_path"
+                },
+                {
+                    "source": "resolve_prim_path.output",
+                    "target": "set_property1.value"
+                },
+                {
+                    "source": "set_property5.out_object",
+                    "target": "set_property6.object"
+                },
+                {
+                    "source": "set_property6.out_object",
+                    "target": ".reference_definitions"
+                },
+                {
+                    "source": ".relative_prim_path",
+                    "target": "set_property6.value"
+                },
+                {
+                    "source": ".layer",
+                    "target": "set_property.value"
+                },
+                {
+                    "source": ".layer",
+                    "target": "resolve_prim_path.layer"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "set_property.key",
+                    "valueType": "string",
+                    "value": "layer"
+                },
+                {
+                    "valueName": "set_property.value",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "set_property1.key",
+                    "valueType": "string",
+                    "value": "prim_path"
+                },
+                {
+                    "valueName": "set_property1.value",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "set_property2.key",
+                    "valueType": "string",
+                    "value": "layer_offset"
+                },
+                {
+                    "valueName": "set_property2.value",
+                    "valueType": "double",
+                    "value": "0"
+                },
+                {
+                    "valueName": "set_property3.key",
+                    "valueType": "string",
+                    "value": "layer_scale"
+                },
+                {
+                    "valueName": "set_property3.value",
+                    "valueType": "double",
+                    "value": "0"
+                },
+                {
+                    "valueName": "set_property4.key",
+                    "valueType": "string",
+                    "value": "layer_position"
+                },
+                {
+                    "valueName": "set_property4.value",
+                    "valueType": "BifrostUsd::UsdListPosition",
+                    "value": "UsdListPositionFrontOfPrependList"
+                },
+                {
+                    "valueName": "set_property5.key",
+                    "valueType": "string",
+                    "value": "arc_type"
+                },
+                {
+                    "valueName": "set_property5.value",
+                    "valueType": "BifrostUsd::ArcType",
+                    "value": "Reference"
+                },
+                {
+                    "valueName": "resolve_prim_path.prim_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "set_property6.key",
+                    "valueType": "string",
+                    "value": "is_relative_prim_path"
+                },
+                {
+                    "valueName": "set_property6.value",
+                    "valueType": "bool",
+                    "value": "false"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

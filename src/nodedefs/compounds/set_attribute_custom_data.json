@@ -1,0 +1,213 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Attribute::set_attribute_custom_data",
+            "uriImported": "stream:/bifrostGraphShape1",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "stage"
+                                                },
+                                                {
+                                                    "metaName": "prim_path"
+                                                },
+                                                {
+                                                    "metaName": "attribute_name"
+                                                },
+                                                {
+                                                    "metaName": "value"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-557 -60.5"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "332 -60.5"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "out_stage"
+                                                },
+                                                {
+                                                    "metaName": "success"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-782 -567 1564 1135"
+                },
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "403.19 33.8602"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "stage",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Stage",
+                    "portDefault": {}
+                },
+                {
+                    "portName": "prim_path",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "attribute_name",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "value",
+                    "portDirection": "input",
+                    "portType": "Object",
+                    "portDefault": {}
+                },
+                {
+                    "portName": "out_stage",
+                    "portDirection": "output",
+                    "portType": "BifrostUsd::Stage"
+                },
+                {
+                    "portName": "success",
+                    "portDirection": "output",
+                    "portType": "bool"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "set_attribute_metadata",
+                    "nodeType": "USD::Attribute::set_attribute_metadata",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-104.5 -87"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": ".stage",
+                    "target": "set_attribute_metadata.stage"
+                },
+                {
+                    "source": ".value",
+                    "target": "set_attribute_metadata.value"
+                },
+                {
+                    "source": "set_attribute_metadata.out_stage",
+                    "target": ".out_stage"
+                },
+                {
+                    "source": "set_attribute_metadata.success",
+                    "target": ".success"
+                },
+                {
+                    "source": ".prim_path",
+                    "target": "set_attribute_metadata.prim_path"
+                },
+                {
+                    "source": ".attribute_name",
+                    "target": "set_attribute_metadata.attribute_name"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "set_attribute_metadata.key",
+                    "valueType": "string",
+                    "value": "customData"
+                },
+                {
+                    "valueName": "set_attribute_metadata.value",
+                    "valueType": "Object",
+                    "value": {}
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}
