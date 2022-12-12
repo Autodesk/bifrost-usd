@@ -73,3 +73,4 @@ in order to get the USD nodes from your USD Pack build available from the tab me
 
 ## If you did not build with -DMAYA_RUNTIME_LOCATION
 If you built without `-DMAYA_RUNTIME_LOCATION` then you can load the USD nodes in a Bifrost environment just by setting `BIFROST_LIB_CONFIG_FILES` to `<your install path>/usd_pack-1.0.0/usd_pack/usd_pack_config.json`.
+
