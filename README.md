@@ -23,7 +23,6 @@ You must provide the following variables to the cmake command:
 * MAYA_RUNTIME_LOCATION : (optional) The full path to the root directory of your Maya development installation that contains, among others, the `bin`, `include` and `lib` subdirectories.
 * BIFUSD_OSX_ACTIVE_SDK : (optional) Can be set to choose a specific macOS SDK. If not set, the currently available SDK will be used.
 * BIFUSD_OSX_MIN_OS : (optional) Can be set to choose the minimum macOS deployement target. If not set, macOS 11.0 will be used.
-* BIFUSD_OSX_BUILD_UB2: (optional) If set to 1 then on macOS it will produce Universal Binaries (x86_64;arm64). If not set, the target architecture is x86_64.
 
 __Python 3 version is assumed.__
 
@@ -63,7 +62,7 @@ rm `find . -name "*.usd"`
 ctest . -V
 ```
 
-## Versionning
+## Versioning
 The USD Pack version is set in the cmake/version.info file. Such version number is prepended to your USD Pack name.
 
 ## Loading the USD Pack in Bifrost Extension for Maya
