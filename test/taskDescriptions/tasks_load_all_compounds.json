@@ -1,0 +1,19 @@
+{
+    "schemaVersion": "1.0.0",
+    "comment": [
+        "Test load_all_compounds_test00 compound.",
+        "Until each Bifrost USD compound has a proper unit test, this simple",
+        "test will at least ensure that all of those compounds are loading",
+        "correctly in Bifrost."
+    ],
+    "options": {
+        "definitionFiles": [
+            "load_all_compounds_test00.json"
+        ],
+        "compound": "USD::Test::Integration::load_all_compounds_test00"
+    },
+    "task": {
+        "type": "single",
+        "name": "Use Default Params"
+    }
+}
