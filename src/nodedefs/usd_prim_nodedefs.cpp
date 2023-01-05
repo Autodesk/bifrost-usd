@@ -260,6 +260,38 @@ void USD::Prim::override_prim(BifrostUsd::Stage& stage,
     }
 }
 
+bool USD::Prim::add_applied_schema(BifrostUsd::Stage&   stage,
+                                   const Amino::String& prim_path,
+                                   const Amino::String& applied_schema_name) {
+    if (!stage) return false;
+    try {
+        auto pxr_prim = USDUtils::get_prim_or_throw(prim_path, stage);
+        VariantEditContext ctx(stage);
+        stage.last_modified_prim = pxr_prim.GetPath().GetText();
+        return pxr_prim.AddAppliedSchema(
+            pxr::TfToken(applied_schema_name.c_str()));
+    } catch (std::exception& e) {
+        log_exception("add_applied_schema", e);
+    }
+    return false;
+}
+
+bool USD::Prim::remove_applied_schema(BifrostUsd::Stage&   stage,
+                                   const Amino::String& prim_path,
+                                   const Amino::String& applied_schema_name) {
+    if (!stage) return false;
+    try {
+        auto pxr_prim = USDUtils::get_prim_or_throw(prim_path, stage);
+        VariantEditContext ctx(stage);
+        stage.last_modified_prim = pxr_prim.GetPath().GetText();
+        return pxr_prim.RemoveAppliedSchema(
+            pxr::TfToken(applied_schema_name.c_str()));
+    } catch (std::exception& e) {
+        log_exception("remove_applied_schema", e);
+    }
+    return false;
+}
+
 bool USD::Prim::add_reference_prim(
     BifrostUsd::Stage&                stage,
     const Amino::String&                prim_path,

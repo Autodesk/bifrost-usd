@@ -156,6 +156,46 @@ void override_prim(BifrostUsd::Stage& stage USDPORT_INOUT("out_stage"),
     USDNODE_DOC_ICON("override_prim", "override_prim", "usd.svg");
 
 /// \ingroup Prim
+/// \defgroup add_applied_schema add_applied_schema node
+///
+/// \brief Adds the applied API schema to the prim.
+///
+/// \param [in] stage The USD stage holding the prim.
+/// \param [in] prim_path The path to the prim the schema will be added to.
+/// \param [in] applied_schema_name The applied schema name.
+///             This does not require that the name token refer to
+///              a valid API schema type.
+/// \returns true if the schema is added successfully or if
+///          it is already applied in current edit target.
+USD_NODEDEF_DECL
+bool add_applied_schema(BifrostUsd::Stage& stage USDPORT_INOUT("out_stage"),
+                        const Amino::String&     prim_path,
+                        const Amino::String&     applied_schema_name)
+    USDNODE_DOC_ICON_X("add_applied_schema",
+                       "add_applied_schema",
+                       "usd.svg",
+                       "outName=success");
+
+/// \ingroup Prim
+/// \defgroup remove_applied_schema remove_applied_schema node
+///
+/// \brief Removes the applied API schema from the prim.
+///
+/// \param [in] stage The USD stage holding the prim.
+/// \param [in] prim_path The path to the prim the schema will be removed from.
+/// \param [in] applied_schema_name The applied schema name.
+/// \returns true if the schema is removed successfully or if
+///               it is already deleted in current edit target.
+USD_NODEDEF_DECL
+bool remove_applied_schema(BifrostUsd::Stage& stage USDPORT_INOUT("out_stage"),
+                           const Amino::String&     prim_path,
+                           const Amino::String&     applied_schema_name)
+    USDNODE_DOC_ICON_X("remove_applied_schema",
+                       "remove_applied_schema",
+                       "usd.svg",
+                       "outName=success");
+
+/// \ingroup Prim
 /// \defgroup add_reference_prim add_reference_prim node
 ///
 /// \brief Adds a prim reference in the given stage.
