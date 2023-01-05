@@ -20,7 +20,7 @@ You must provide the following variables to the cmake command:
 * CMAKE_INSTALL_PREFIX : Where you want to install the bifrost-usd-pack library
 * BIFROST_LOCATION : The full path to the root directory of your Bifrost installation that contains, among others, the `sdk` subdirectory. The USD Pack will be built against this `sdk` subdirectory of your Bifrost installation.
 * USD_LOCATION : The full path to the root directory of your USD library installation that contains, among others, the `cmake`, `include`, `lib`, `plugin` and `share` subdirectories.
-* MAYA_RUNTIME_LOCATION : (optional) The full path to the root directory of your Maya development installation that contains, among others, the `bin`, `include` and `lib` subdirectories.
+* MAYA_RUNTIME_LOCATION : (for the Maya extension only) The full path to the root directory of your Maya development installation that contains, among others, the `bin`, `include` and `lib` subdirectories.
 * BIFUSD_OSX_ACTIVE_SDK : (optional) Can be set to choose a specific macOS SDK. If not set, the currently available SDK will be used.
 * BIFUSD_OSX_MIN_OS : (optional) Can be set to choose the minimum macOS deployement target. If not set, macOS 11.0 will be used.
 
@@ -67,8 +67,12 @@ The USD Pack version is set in the cmake/version.info file. Such version number 
 
 ## Loading the USD Pack in Bifrost Extension for Maya
 You will need to disable the USD Pack shipped with Bifrost by setting the BIFROST_DISABLE_PACKS environment variable to "usd_pack" (`export BIFROST_DISABLE_PACKS=usd_pack`).
-Then you will need to set `BIFROST_LIB_CONFIG_FILES` to `<your install path>/<BIFUSD_PACKAGE_NAME>-1.0.0/plugin_config.json`
-in order to get the USD nodes from your USD Pack build available from the tab menu in the Bifrost Graph Editor.
+Then you will need to set `BIFROST_LIB_CONFIG_FILES` to `<your install path>/<BIFUSD_PACKAGE_NAME>-1.0.0/plugin_config.json`.
 
-## If you did not build with -DMAYA_RUNTIME_LOCATION
-If you built without `-DMAYA_RUNTIME_LOCATION` then you can load the USD nodes in a Bifrost environment just by setting `BIFROST_LIB_CONFIG_FILES` to `<your install path>/usd_pack-1.0.0/usd_pack/usd_pack_config.json`.
+`plugin_config.json` includes:
+* `usd_pack_config.json`: Adds the USD nodes (available from the tab menu in the Bifrost Graph Editor).
+* `usd_maya_translation.json`: Adds the Bifrost to Maya type translation (used to pass the USD stage from Bifrost to the mayaUsdProxyShape)  
+
+
+## If you only need the Bifrost USD nodes
+For example, if you only need to run the Bifrost standalone [bifcmd tool](https://help.autodesk.com/view/BIFROST/ENU/?guid=Bifrost_Common_bifcmd_Using_bifcmd_html) or if you built without -DMAYA_RUNTIME_LOCATION then you can load the USD nodes in a Bifrost environment just by setting BIFROST_LIB_CONFIG_FILES to <your install path>/usd_pack-1.0.0/usd_pack/usd_pack_config.json.
