@@ -165,6 +165,40 @@ TEST(PrimNodeDefs, create_class_prim) {
     ASSERT_EQ(prim.GetSpecifier(), pxr::SdfSpecifierClass);
 }
 
+TEST(PrimNodeDefs, add_applied_schema) {
+    BifrostUsd::Stage stage;
+    auto              primPath = pxr::SdfPath("/S");
+    auto              prim     = stage->DefinePrim(primPath);
+
+    ASSERT_EQ(prim.GetAppliedSchemas().size(), 0);
+
+    Amino::String appliedSchemaName = "SkelBindingAPI";
+
+    bool success = USD::Prim::add_applied_schema(stage, primPath.GetText(),
+                                                 appliedSchemaName);
+    EXPECT_TRUE(success);
+
+    prim = stage->GetPrimAtPath(primPath);
+    EXPECT_EQ(prim.GetAppliedSchemas().size(), 1);
+    EXPECT_EQ(prim.GetAppliedSchemas()[0], pxr::TfToken{"SkelBindingAPI"});
+}
+
+TEST(PrimNodeDefs, remove_applied_schema) {
+    BifrostUsd::Stage stage;
+    auto              primPath          = pxr::SdfPath("/S");
+    auto              prim              = stage->DefinePrim(primPath);
+    Amino::String     appliedSchemaName = "SkelBindingAPI";
+    ASSERT_TRUE(prim.AddAppliedSchema(pxr::TfToken{appliedSchemaName.c_str()}));
+    ASSERT_EQ(prim.GetAppliedSchemas().size(), 1);
+
+    bool success = USD::Prim::remove_applied_schema(stage, primPath.GetText(),
+                                                    appliedSchemaName);
+    EXPECT_TRUE(success);
+
+    prim = stage->GetPrimAtPath(primPath);
+    EXPECT_EQ(prim.GetAppliedSchemas().size(), 0);
+}
+
 TEST(PrimNodeDefs, add_reference_prim) {
     BifrostUsd::Stage stage;
     auto                primPath = pxr::SdfPath("/a");
