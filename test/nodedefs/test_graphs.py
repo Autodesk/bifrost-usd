@@ -343,6 +343,7 @@ class TestGraphs(unittest.TestCase):
         task_desc_files = [
             # Integration Tests:
             "tasks_landscape_generator.json",
+            "tasks_load_all_compounds.json",
             # IO Tests:
             "tasks_read_usd_curves.json",
             "tasks_read_usd_meshes.json",
