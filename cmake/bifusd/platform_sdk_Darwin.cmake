@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2023 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,10 +30,23 @@ if( nb_languages )
 endif()
 
 # Setup OSX specific flags.
-if (BIFUSD_OSX_BUILD_UB2)
+# If binary arch not set explicitaly use same as system
+if (NOT BIFUSD_OSX_BINARY_ARCH)
+    if ("${CMAKE_HOST_SYSTEM_PROCESSOR}" STREQUAL "arm64")
+        set(BIFUSD_OSX_BINARY_ARCH "arm64")
+    else()
+        set(BIFUSD_OSX_BINARY_ARCH "x64")
+    endif()
+endif()
+
+if ("${BIFUSD_OSX_BINARY_ARCH}" STREQUAL "ub2")
     bifusd_reset_cache_entry(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
-else()
+elseif ("${BIFUSD_OSX_BINARY_ARCH}" STREQUAL "x64")
     bifusd_reset_cache_entry(CMAKE_OSX_ARCHITECTURES "x86_64")
+elseif ("${BIFUSD_OSX_BINARY_ARCH}" STREQUAL "arm64")
+    bifusd_reset_cache_entry(CMAKE_OSX_ARCHITECTURES "arm64")
+else()
+    message(FATAL_ERROR "Binary architecture ${BIFUSD_OSX_BINARY_ARCH} not supported.")
 endif()
 
 # Set target min OS - will be adjusted.
