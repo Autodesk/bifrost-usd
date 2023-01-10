@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2023 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -70,15 +70,20 @@ endif()
 
 
 # Use -O3 instead of -O2 to match the release build default.
+if (NOT "${BIFUSD_OSX_BINARY_ARCH}" STREQUAL "arm64")
+    set(x86_64_only_options "-msse4.2")
+endif()
 set(cxx_flags_release
     -g
     -O3
-    -msse4.2
+    ${x86_64_only_options}
     ${cxx_warning_flags}
 )
-# Setting target architecture on non Universal Binary 2 build. 
-if (NOT BIFUSD_OSX_BUILD_UB2)
-    list(APPEND cxx_flags_release -march=westmere)
+
+# On OSX, we pass this only if we are building for X64.
+# on Other platforms we always generate for westmere.
+if ((NOT BIFUSD_IS_OSX) OR ("${BIFUSD_OSX_BINARY_ARCH}" STREQUAL "x64"))
+     list(APPEND cxx_flags_release -march=westmere)
 endif()
 
 string(REPLACE ";" " " cxx_flags_relwithasserts "${cxx_flags_release}")
