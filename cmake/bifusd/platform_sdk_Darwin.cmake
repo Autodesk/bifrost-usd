@@ -57,7 +57,7 @@ else()
 endif()
 
 if ( NOT BIFUSD_OSX_ACTIVE_SDK )
-    execute_process(COMMAND "xcrun" "--show-sdk-path"
+    execute_process(COMMAND "xcrun" "--sdk" "macosx" "--show-sdk-path"
             OUTPUT_VARIABLE sdk_location
             OUTPUT_STRIP_TRAILING_WHITESPACE
             RESULT_VARIABLE retcode
@@ -67,7 +67,7 @@ if ( NOT BIFUSD_OSX_ACTIVE_SDK )
         message(FATAL_ERROR "Could not find OSX active SDK.")
     endif()
 
-    execute_process(COMMAND "xcrun" "--show-sdk-version"
+    execute_process(COMMAND "xcrun" "--sdk" "macosx" "--show-sdk-version"
             OUTPUT_VARIABLE ACTIVE_SDK
             OUTPUT_STRIP_TRAILING_WHITESPACE
             RESULT_VARIABLE retcode
