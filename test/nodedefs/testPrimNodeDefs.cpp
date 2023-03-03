@@ -159,6 +159,26 @@ TEST(PrimNodeDefs, get_all_attribute_names) {
     EXPECT_EQ((*result)[0], "attrName");
 }
 
+TEST(PrimNodeDefs, get_authored_attribute_names) {
+    auto stage_mut = Amino::newMutablePtr<BifrostUsd::Stage>();
+    auto pxr_prim  = stage_mut->get().DefinePrim(pxr::SdfPath("/a"),
+                                                 pxr::TfToken("Capsule"));
+    ASSERT_TRUE(pxr_prim);
+
+    BifrostUsd::Prim prim{pxr_prim, std::move(stage_mut)};
+    Amino::MutablePtr<Amino::Array<Amino::String>> result;
+    USD::Prim::get_authored_attribute_names(prim, result);
+    ASSERT_EQ(result->size(), 0);
+
+    auto attr = pxr_prim.CreateAttribute(pxr::TfToken("radius"),
+                                         pxr::SdfValueTypeNames->Float, false);
+    attr.Set(3.14);
+
+    USD::Prim::get_authored_attribute_names(prim, result);
+    ASSERT_EQ(result->size(), 1);
+    EXPECT_EQ((*result)[0], "radius");
+}
+
 TEST(PrimNodeDefs, create_prim) {
     Amino::String path = "/A";
     Amino::String type = "Scope";

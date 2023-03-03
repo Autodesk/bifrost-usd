@@ -130,6 +130,21 @@ void get_all_attribute_names(const BifrostUsd::Prim&                         pri
                      "usd.svg");
 
 /// \ingroup Prim
+/// \defgroup get_authored_attribute_names get_authored_attribute_names node
+///
+/// \brief Returns a list of authored attribute names in a USD prim.
+///
+/// \param [in] prim The USD prim.
+/// \param [out] names An array of strings containing the USD prim's attributes' names.
+USD_NODEDEF_DECL
+void get_authored_attribute_names(
+    const BifrostUsd::Prim&                         prim,
+    Amino::MutablePtr<Amino::Array<Amino::String>>& names)
+    USDNODE_DOC_ICON("get_authored_attribute_names",
+                     "get_authored_attribute_names",
+                     "usd.svg");
+
+/// \ingroup Prim
 /// \defgroup create_prim create_prim node
 ///
 /// \brief Creates a prim of the given type (optional) at the given prim path

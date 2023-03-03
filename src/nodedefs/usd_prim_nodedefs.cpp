@@ -222,6 +222,24 @@ void USD::Prim::get_all_attribute_names(const BifrostUsd::Prim&                 
     }
 }
 
+void USD::Prim::get_authored_attribute_names(
+    const BifrostUsd::Prim&                         prim,
+    Amino::MutablePtr<Amino::Array<Amino::String>>& names) {
+    names = Amino::newMutablePtr<Amino::Array<Amino::String>>();
+    try {
+        if (prim) {
+            std::vector<pxr::UsdAttribute> usdAttributes =
+                prim->GetAuthoredAttributes();
+            names->resize(usdAttributes.size());
+            for (size_t i = 0; i < usdAttributes.size(); ++i) {
+                (*names)[i] = usdAttributes[i].GetName().GetText();
+            }
+        }
+    } catch (std::exception& e) {
+        log_exception("get_authored_attribute_names", e);
+    }
+}
+
 void USD::Prim::create_prim(BifrostUsd::Stage& stage,
                             const Amino::String& path,
                             const Amino::String& type) {
