@@ -151,7 +151,19 @@
                         "x": "0f",
                         "y": "0f",
                         "z": "0f"
-                    }
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "UiSoftMin",
+                            "metaType": "string",
+                            "metaValue": "{-180, -180, -180}"
+                        },
+                        {
+                            "metaName": "UiSoftMax",
+                            "metaType": "string",
+                            "metaValue": "{180, 180, 180}"
+                        }
+                    ]
                 },
                 {
                     "portName": "scale",

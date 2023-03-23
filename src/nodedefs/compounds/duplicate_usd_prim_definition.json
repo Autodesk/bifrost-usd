@@ -189,7 +189,14 @@
                     "portName": "count",
                     "portDirection": "input",
                     "portType": "long",
-                    "portDefault": "14"
+                    "portDefault": "14",
+                    "metadata": [
+                        {
+                            "metaName": "UiSoftMin",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        }
+                    ]
                 },
                 {
                     "portName": "prim_definitions",
