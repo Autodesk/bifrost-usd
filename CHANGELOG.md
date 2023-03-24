@@ -1,4 +1,4 @@
-## [1.1.1] - xxxx-xx-xx
+## [1.2.0] - xxxx-xx-xx
 
 ### Build
 
@@ -45,4 +45,4 @@
 
 ## [1.0.0] - 2022-12-12
 
-Initial release
+ - Initial release
