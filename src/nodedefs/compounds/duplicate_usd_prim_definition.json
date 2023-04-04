@@ -228,6 +228,16 @@
                             "metaName": "TypeWranglingSuggestedTypes",
                             "metaType": "string",
                             "metaValue": "float, string, Math::float3, Core::Fields::ScalarField, Core::Fields::VectorField, array<Math::float3>"
+                        },
+                        {
+                            "metaName": "UiSoftMin",
+                            "metaType": "string",
+                            "metaValue": "-180"
+                        },
+                        {
+                            "metaName": "UiSoftMax",
+                            "metaType": "string",
+                            "metaValue": "180"
                         }
                     ]
                 },
