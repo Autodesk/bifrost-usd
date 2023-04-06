@@ -347,6 +347,7 @@ class TestGraphs(unittest.TestCase):
             # IO Tests:
             "tasks_read_usd_curves.json",
             "tasks_read_usd_meshes.json",
+            "tasks_read_usd_meshes_with_color.json",
             # Layer Tests:
             "tasks_create_empty_layer.json",
             "tasks_export_layer_to_file.json",
