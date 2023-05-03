@@ -94,6 +94,18 @@ bool get_prim_metadata_impl(const BifrostUsd::Stage& stage,
     return false;
 }
 
+std::string get_part_after_anchor_path(const std::string& anchor_path,
+                                    const std::string& identifier) {
+    std::string resolved_identifier = identifier;
+    if (anchor_path.length() > 0 &&
+        identifier.length() > anchor_path.length()) {
+        if (identifier.find(anchor_path, 0) == 0) {
+            resolved_identifier = identifier.substr(anchor_path.length() + 1);
+        }
+    }
+    return resolved_identifier;
+}
+
 } // namespace
 
 bool USD::Prim::get_prim_at_path(Amino::Ptr<BifrostUsd::Stage>        stage,
@@ -333,7 +345,8 @@ bool USD::Prim::add_reference_prim(
     const Amino::String&                reference_prim_path,
     const double                        layer_offset,
     const double                        layer_scale,
-    const BifrostUsd::UsdListPosition reference_position) {
+    const BifrostUsd::UsdListPosition reference_position,
+    const Amino::String& anchor_path) {
     if (!stage) return false;
     try {
         auto pxr_prim = USDUtils::get_prim_or_throw(prim_path, stage);
@@ -348,6 +361,8 @@ bool USD::Prim::add_reference_prim(
                 GetUsdListPosition(reference_position));
         } else {
             std::string identifier = reference_layer->GetIdentifier().c_str();
+            identifier = get_part_after_anchor_path(anchor_path.c_str(), identifier);
+
             if (reference_prim_path.empty()) {
                 return pxr_prim.GetReferences().AddReference(
                     identifier, pxr::SdfLayerOffset(layer_offset, layer_scale),
@@ -443,7 +458,8 @@ bool USD::Prim::add_payload_prim(
     const Amino::String&                payload_prim_path,
     const double                        layer_offset,
     const double                        layer_scale,
-    const BifrostUsd::UsdListPosition payload_position) {
+    const BifrostUsd::UsdListPosition payload_position,
+    const Amino::String& anchor_path) {
     if (!stage) return false;
     try {
         auto pxr_prim = USDUtils::get_prim_or_throw(prim_path, stage);
@@ -458,6 +474,8 @@ bool USD::Prim::add_payload_prim(
                 GetUsdListPosition(payload_position));
         } else {
             std::string identifier = payload_layer->GetIdentifier().c_str();
+            identifier = get_part_after_anchor_path(anchor_path.c_str(), identifier);
+            
             if (payload_prim_path.empty()) {
                 return pxr_prim.GetPayloads().AddPayload(
                     identifier, pxr::SdfLayerOffset(layer_offset, layer_scale),
