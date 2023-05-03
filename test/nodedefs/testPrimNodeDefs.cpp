@@ -26,10 +26,10 @@
 BIFUSD_WARNING_PUSH
 BIFUSD_WARNING_DISABLE_MSC(4003)
 #include <pxr/usd/usd/inherits.h>
+#include <pxr/usd/usd/modelAPI.h>
 #include <pxr/usd/usd/variantSets.h>
 #include <pxr/usd/usdGeom/mesh.h>
 #include <pxr/usd/usdGeom/xformCommonAPI.h>
-#include <pxr/usd/usd/modelAPI.h>
 BIFUSD_WARNING_POP
 
 #include <cstdlib>
@@ -129,7 +129,7 @@ TEST(PrimNodeDefs, get_prim_path) {
     Amino::Ptr<BifrostUsd::Stage> stage = std::move(stage_mut);
 
     BifrostUsd::Prim prim{pxr_prim, stage};
-    Amino::String      result;
+    Amino::String    result;
     USD::Prim::get_prim_path(prim, result);
     ASSERT_EQ(result, primPath.GetText());
 }
@@ -141,7 +141,7 @@ TEST(PrimNodeDefs, get_prim_type) {
     Amino::Ptr<BifrostUsd::Stage> stage = std::move(stage_mut);
 
     BifrostUsd::Prim prim{pxr_prim, stage};
-    Amino::String      result;
+    Amino::String    result;
     USD::Prim::get_prim_type(prim, result);
     ASSERT_EQ(result, "Scope");
 }
@@ -150,7 +150,8 @@ TEST(PrimNodeDefs, get_all_attribute_names) {
     auto stage_mut = Amino::newMutablePtr<BifrostUsd::Stage>();
     auto pxr_prim =
         stage_mut->get().DefinePrim(pxr::SdfPath("/a"), pxr::TfToken("Scope"));
-    pxr_prim.CreateAttribute(pxr::TfToken("attrName"), pxr::SdfValueTypeNames->String, false);
+    pxr_prim.CreateAttribute(pxr::TfToken("attrName"),
+                             pxr::SdfValueTypeNames->String, false);
 
     BifrostUsd::Prim prim{pxr_prim, std::move(stage_mut)};
     Amino::MutablePtr<Amino::Array<Amino::String>> result;
@@ -190,7 +191,7 @@ TEST(PrimNodeDefs, create_prim) {
 
 TEST(PrimNodeDefs, create_class_prim) {
     BifrostUsd::Stage stage;
-    Amino::String       path = "/A";
+    Amino::String     path = "/A";
     USD::Prim::create_class_prim(stage, path);
 
     auto prim = stage->GetPrimAtPath(pxr::SdfPath(path.c_str()));
@@ -233,27 +234,68 @@ TEST(PrimNodeDefs, remove_applied_schema) {
 }
 
 TEST(PrimNodeDefs, add_reference_prim) {
-    BifrostUsd::Stage stage;
-    auto                primPath = pxr::SdfPath("/a");
-    auto                prim     = stage->DefinePrim(primPath);
+    auto primPath = pxr::SdfPath("/a");
 
+    // Create a non-editable layer to not create an anonymous referenced layer.
     BifrostUsd::Layer referenceLayer{getResourcePath("Mushroom1.usd").c_str(),
-                                       ""};
-    Amino::String       referencePrimPath = "/Mushroom1";
-    double              layerOffset       = 0.0;
-    double              layerOffsetScale  = 1.0;
+                                     /*tag=*/"", /*savefilePath=*/"",
+                                     /*isEditable=*/false};
+    Amino::String     referencePrimPath = "/Mushroom1";
+    double            layerOffset       = 0.0;
+    double            layerOffsetScale  = 1.0;
 
     BifrostUsd::UsdListPosition referencePosition =
         BifrostUsd::UsdListPositionFrontOfPrependList;
 
-    ASSERT_FALSE(pxr::UsdGeomMesh(prim));
-    bool success = USD::Prim::add_reference_prim(
-        stage, primPath.GetText(), referenceLayer, referencePrimPath,
-        layerOffset, layerOffsetScale, referencePosition);
-    ASSERT_TRUE(success);
+    // Test with absolute path
+    {
+        BifrostUsd::Stage stage;
+        auto              prim = stage->DefinePrim(primPath);
+        ASSERT_FALSE(pxr::UsdGeomMesh(prim));
 
-    prim = stage->GetPrimAtPath(primPath);
-    ASSERT_TRUE(pxr::UsdGeomMesh(prim));
+        bool success = USD::Prim::add_reference_prim(
+            stage, primPath.GetText(), referenceLayer, referencePrimPath,
+            layerOffset, layerOffsetScale, referencePosition);
+        EXPECT_TRUE(success);
+
+        prim = stage->GetPrimAtPath(primPath);
+        ASSERT_TRUE(pxr::UsdGeomMesh(prim));
+
+        auto primSpec = stage->GetRootLayer()->GetPrimAtPath(primPath);
+        ASSERT_TRUE(primSpec);
+
+        auto field = primSpec->GetField(pxr::SdfFieldKeys->References);
+
+        std::string resourceDir = getEnv("USD_TEST_RESOURCES_DIR").c_str();
+        std::string referenceFilePath = resourceDir + "/Mushroom1.usd";
+        ASSERT_NE(pxr::TfStringify(field).find(referenceFilePath),
+                  std::string::npos);
+    }
+
+    // Test with relative path
+    {
+        BifrostUsd::Stage stage;
+        auto              prim = stage->DefinePrim(primPath);
+        ASSERT_FALSE(pxr::UsdGeomMesh(prim));
+
+        bool success = USD::Prim::add_reference_prim(
+            stage, primPath.GetText(), referenceLayer, referencePrimPath,
+            layerOffset, layerOffsetScale, referencePosition,
+            /*anchorPath*/ getEnv("USD_TEST_RESOURCES_DIR"));
+        EXPECT_TRUE(success);
+
+        prim = stage->GetPrimAtPath(primPath);
+        ASSERT_TRUE(pxr::UsdGeomMesh(prim));
+
+        auto primSpec = stage->GetRootLayer()->GetPrimAtPath(primPath);
+        ASSERT_TRUE(primSpec);
+
+        auto field = primSpec->GetField(pxr::SdfFieldKeys->References);
+
+        std::string referenceFilePath = "(Mushroom1.usd";
+        ASSERT_NE(pxr::TfStringify(field).find(referenceFilePath.c_str()),
+                  std::string::npos);
+    }
 }
 
 TEST(PrimNodeDefs, remove_reference_prim) {
@@ -281,12 +323,12 @@ TEST(PrimNodeDefs, remove_reference_prim) {
     }
     {
         BifrostUsd::Stage stage;
-        auto                primPath = pxr::SdfPath("/a");
-        auto                prim     = stage->DefinePrim(primPath);
+        auto              primPath = pxr::SdfPath("/a");
+        auto              prim     = stage->DefinePrim(primPath);
 
-        Amino::String       referenceIdentifier = "AnonLayer.usd";
+        Amino::String     referenceIdentifier = "AnonLayer.usd";
         BifrostUsd::Layer referenceLayer{referenceIdentifier};
-        auto                referenceStage =
+        auto              referenceStage =
             Amino::newMutablePtr<BifrostUsd::Stage>(referenceLayer);
         auto          referencePrimPath = pxr::SdfPath("/b");
         Amino::String referencePrimType = "Capsule";
@@ -313,9 +355,9 @@ TEST(PrimNodeDefs, remove_reference_prim) {
 
         bool clear_all = false;
         success        = USD::Prim::remove_reference_prim(
-            stage, primPath.GetText(),
-            referenceStage->get().GetRootLayer()->GetIdentifier().c_str(),
-            referencePrimPath.GetText(), layerOffset, clear_all);
+                   stage, primPath.GetText(),
+                   referenceStage->get().GetRootLayer()->GetIdentifier().c_str(),
+                   referencePrimPath.GetText(), layerOffset, clear_all);
         ASSERT_TRUE(success);
         prim = stage->GetPrimAtPath(primPath);
         ASSERT_EQ(prim.GetTypeName(), pxr::TfToken(""));
@@ -324,8 +366,8 @@ TEST(PrimNodeDefs, remove_reference_prim) {
 
 TEST(PrimNodeDefs, add_reference_prim_in_variant) {
     BifrostUsd::Stage stage;
-    auto                prim = stage->DefinePrim(pxr::SdfPath("/top"));
-    auto                vset = prim.GetVariantSets().AddVariantSet("vset");
+    auto              prim = stage->DefinePrim(pxr::SdfPath("/top"));
+    auto              vset = prim.GetVariantSets().AddVariantSet("vset");
     vset.AddVariant("no_ref");
     vset.AddVariant("with_ref");
 
@@ -338,10 +380,10 @@ TEST(PrimNodeDefs, add_reference_prim_in_variant) {
     prim                   = stage->DefinePrim(primInVariantPath);
 
     BifrostUsd::Layer referenceLayer{getResourcePath("Mushroom1.usd").c_str(),
-                                       ""};
-    Amino::String       referencePrimPath = "/Mushroom1";
-    double              layerOffset       = 0.0;
-    double              layerOffsetScale  = 1.0;
+                                     ""};
+    Amino::String     referencePrimPath = "/Mushroom1";
+    double            layerOffset       = 0.0;
+    double            layerOffsetScale  = 1.0;
 
     BifrostUsd::UsdListPosition referencePosition =
         BifrostUsd::UsdListPositionFrontOfPrependList;
@@ -364,34 +406,76 @@ TEST(PrimNodeDefs, add_reference_prim_in_variant) {
 }
 
 TEST(PrimNodeDefs, add_payload_prim) {
-    BifrostUsd::Stage stage;
-    auto                primPath = pxr::SdfPath("/a");
-    auto                prim     = stage->DefinePrim(primPath);
+    auto primPath = pxr::SdfPath("/a");
 
+    // Create a non-editable layer to not create an anonymous referenced layer.
     BifrostUsd::Layer payloadLayer{getResourcePath("Mushroom1.usd").c_str(),
-                                     ""};
-    Amino::String       payloadPrimPath  = "/Mushroom1";
-    double              layerOffset      = 0.0;
-    double              layerOffsetScale = 1.0;
+                                   /*tag=*/ "", /*savefilePath=*/ "",
+                                   /*isEditable=*/ false};
+
+    Amino::String payloadPrimPath  = "/Mushroom1";
+    double        layerOffset      = 0.0;
+    double        layerOffsetScale = 1.0;
 
     BifrostUsd::UsdListPosition payloadPosition =
         BifrostUsd::UsdListPositionFrontOfPrependList;
 
-    ASSERT_FALSE(prim.HasPayload());
-    ASSERT_FALSE(pxr::UsdGeomMesh(prim));
-    bool success = USD::Prim::add_payload_prim(
-        stage, primPath.GetText(), payloadLayer, payloadPrimPath, layerOffset,
-        layerOffsetScale, payloadPosition);
-    ASSERT_TRUE(success);
+    // Test with absolute path
+    {
+        BifrostUsd::Stage stage;
+        auto              prim = stage->DefinePrim(primPath);
+        ASSERT_FALSE(prim.HasPayload());
+        ASSERT_FALSE(pxr::UsdGeomMesh(prim));
+        bool success = USD::Prim::add_payload_prim(
+            stage, primPath.GetText(), payloadLayer, payloadPrimPath,
+            layerOffset, layerOffsetScale, payloadPosition);
+        ASSERT_TRUE(success);
 
-    prim = stage->GetPrimAtPath(primPath);
-    ASSERT_TRUE(prim.HasPayload());
-    ASSERT_TRUE(pxr::UsdGeomMesh(prim));
+        prim = stage->GetPrimAtPath(primPath);
+        ASSERT_TRUE(prim.HasPayload());
+        ASSERT_TRUE(pxr::UsdGeomMesh(prim));
+
+        auto primSpec = stage->GetRootLayer()->GetPrimAtPath(primPath);
+        EXPECT_TRUE(primSpec);
+
+        auto field = primSpec->GetField(pxr::SdfFieldKeys->Payload);
+
+        std::string resourceDir = getEnv("USD_TEST_RESOURCES_DIR").c_str();
+        std::string referenceFilePath = resourceDir + "/Mushroom1.usd";
+        EXPECT_NE(pxr::TfStringify(field).find(referenceFilePath),
+                  std::string::npos);
+    }
+
+    // Test with relative path
+    {
+        BifrostUsd::Stage stage;
+        auto              prim = stage->DefinePrim(primPath);
+        ASSERT_FALSE(prim.HasPayload());
+        ASSERT_FALSE(pxr::UsdGeomMesh(prim));
+        bool success = USD::Prim::add_payload_prim(
+            stage, primPath.GetText(), payloadLayer, payloadPrimPath,
+            layerOffset, layerOffsetScale, payloadPosition,
+            /*anchorPath*/ getEnv("USD_TEST_RESOURCES_DIR"));
+        ASSERT_TRUE(success);
+
+        prim = stage->GetPrimAtPath(primPath);
+        ASSERT_TRUE(prim.HasPayload());
+        ASSERT_TRUE(pxr::UsdGeomMesh(prim));
+
+        auto primSpec = stage->GetRootLayer()->GetPrimAtPath(primPath);
+        EXPECT_TRUE(primSpec);
+
+        auto field = primSpec->GetField(pxr::SdfFieldKeys->Payload);
+
+        std::string referenceFilePath = "Mushroom1.usd";
+        EXPECT_NE(pxr::TfStringify(field).find(referenceFilePath.c_str()),
+                  std::string::npos);
+    }
 }
 
 TEST(PrimNodeDefs, add_inherit_prim) {
     BifrostUsd::Stage stage;
-    auto                clsPath = pxr::SdfPath("/cls");
+    auto              clsPath = pxr::SdfPath("/cls");
     stage->CreateClassPrim(clsPath);
 
     auto primPath = pxr::SdfPath("/a");
@@ -409,7 +493,7 @@ TEST(PrimNodeDefs, add_inherit_prim) {
 
 TEST(PrimNodeDefs, add_specialize_prim) {
     BifrostUsd::Stage stage;
-    auto                clsPath = pxr::SdfPath("/cls");
+    auto              clsPath = pxr::SdfPath("/cls");
     stage->CreateClassPrim(clsPath);
 
     auto primPath = pxr::SdfPath("/a");
@@ -637,8 +721,8 @@ TEST(PrimNodeDefs, get_forwarded_relationship_targets) {
     auto attrPrimPath = pxr::SdfPath("/a");
     auto attrPrim     = stage->DefinePrim(attrPrimPath);
     auto attr         = attrPrim.CreateAttribute(pxr::TfToken("a"),
-                                         pxr::SdfValueTypeNames->String,
-                                         /* custom */ false);
+                                                 pxr::SdfValueTypeNames->String,
+                                                 /* custom */ false);
 
     auto          relPrimPath = pxr::SdfPath("/b");
     auto          relPrim     = stage->DefinePrim(relPrimPath);
@@ -735,8 +819,8 @@ TEST(PrimNodeDefs, create_prim_relationship_in_variant) {
 
 TEST(PrimNodeDefs, set_prim_active) {
     BifrostUsd::Stage stage;
-    auto                primPath = pxr::SdfPath("/a");
-    auto                prim     = stage->DefinePrim(primPath);
+    auto              primPath = pxr::SdfPath("/a");
+    auto              prim     = stage->DefinePrim(primPath);
     ASSERT_TRUE(prim.IsActive());
 
     bool success = USD::Prim::set_prim_active(stage, primPath.GetText(), false);
@@ -783,7 +867,7 @@ TEST(PrimNodeDefs, prim_metadata) {
     {
         Amino::long_t int64Value = 3223372036854775807;
         bool          success    = USD::Prim::set_prim_metadata(stage, primPath,
-                                                    "customData", int64Value);
+                                                                "customData", int64Value);
         ASSERT_TRUE(success);
         ASSERT_TRUE(stage);
         Amino::long_t int64Default = 0;
@@ -853,9 +937,9 @@ TEST(PrimNodeDefs, prim_metadata) {
 
 TEST(PrimNodeDefs, int64_metadata_export) {
     BifrostUsd::Stage stage;
-    auto                primPath    = Amino::String{"/a"};
-    auto                pxrPrimPath = pxr::SdfPath(primPath.c_str());
-    auto                prim        = stage->DefinePrim(pxrPrimPath);
+    auto              primPath    = Amino::String{"/a"};
+    auto              pxrPrimPath = pxr::SdfPath(primPath.c_str());
+    auto              prim        = stage->DefinePrim(pxrPrimPath);
     ASSERT_TRUE(prim);
     auto          objValue   = Bifrost::createObject();
     Amino::long_t int64Value = 5223372036854775808;

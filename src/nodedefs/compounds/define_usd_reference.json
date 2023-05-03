@@ -61,8 +61,16 @@
                                                 },
                                                 {
                                                     "metaName": "position"
+                                                },
+                                                {
+                                                    "metaName": "anchor_path"
                                                 }
                                             ]
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "38.000000"
                                         }
                                     ]
                                 }
@@ -80,17 +88,22 @@
                                             "metaValue": "2"
                                         },
                                         {
-                                            "metaName": "LayoutPos",
-                                            "metaType": "string",
-                                            "metaValue": "2450 490"
-                                        },
-                                        {
                                             "metaName": "io_ports",
                                             "metadata": [
                                                 {
                                                     "metaName": "reference_definitions"
                                                 }
                                             ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "2683.74 545.279"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "40.000000"
                                         }
                                     ]
                                 }
@@ -114,6 +127,21 @@
                     ]
                 },
                 {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,Core::Object,set_property"
+                },
+                {
+                    "metaName": "_recentNode_",
+                    "metaType": "string",
+                    "metaValue": "BifrostGraph,USD::Prim,add_reference_prim"
+                },
+                {
                     "metaName": "_recentNode_",
                     "metaType": "string",
                     "metaValue": "BifrostGraph,Core::Logic,if"
@@ -129,34 +157,24 @@
                     "metaValue": "BifrostGraph,USD::Prim,get_prim_path"
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Array,first_in_array"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Prim,get_prim_children"
-                },
-                {
-                    "metaName": "icon",
-                    "metaType": "string",
-                    "metaValue": "../icons/usd.svg"
-                },
-                {
                     "metaName": "ViewportRect",
                     "metaType": "string",
-                    "metaValue": "-70 -577.674 2826 1921.35"
-                },
-                {
-                    "metaName": "LayoutPos",
-                    "metaType": "string",
-                    "metaValue": "-621.392 78.4293"
+                    "metaValue": "-70 -1016.13 3060 2857.27"
                 },
                 {
                     "metaName": "DisplayMode",
                     "metaType": "string",
                     "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-98.5 -109"
+                },
+                {
+                    "metaName": "zValue",
+                    "metaType": "string",
+                    "metaValue": "35.000000"
                 }
             ],
             "ports": [
@@ -213,6 +231,24 @@
                     "portDirection": "input",
                     "portType": "BifrostUsd::UsdListPosition",
                     "portDefault": "UsdListPositionFrontOfPrependList"
+                },
+                {
+                    "portName": "anchor_path",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "FileBrowserWidget"
+                        },
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "browserType=folder"
+                        }
+                    ]
                 }
             ],
             "compounds": [
@@ -688,6 +724,11 @@
                             "metaName": "LayoutPos",
                             "metaType": "string",
                             "metaValue": "315 10"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "31.000000"
                         }
                     ]
                 },
@@ -704,6 +745,11 @@
                             "metaName": "LayoutPos",
                             "metaType": "string",
                             "metaValue": "620 147"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "32.000000"
                         }
                     ]
                 },
@@ -720,6 +766,11 @@
                             "metaName": "LayoutPos",
                             "metaType": "string",
                             "metaValue": "925 223"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "33.000000"
                         }
                     ]
                 },
@@ -736,6 +787,11 @@
                             "metaName": "LayoutPos",
                             "metaType": "string",
                             "metaValue": "1230 273"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "34.000000"
                         }
                     ]
                 },
@@ -752,6 +808,11 @@
                             "metaName": "LayoutPos",
                             "metaType": "string",
                             "metaValue": "1535 332"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "35.000000"
                         }
                     ]
                 },
@@ -768,6 +829,11 @@
                             "metaName": "LayoutPos",
                             "metaType": "string",
                             "metaValue": "1840 392"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "36.000000"
                         }
                     ]
                 },
@@ -784,6 +850,11 @@
                             "metaName": "LayoutPos",
                             "metaType": "string",
                             "metaValue": "315 253"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "37.000000"
                         }
                     ]
                 },
@@ -799,7 +870,33 @@
                         {
                             "metaName": "LayoutPos",
                             "metaType": "string",
-                            "metaValue": "2145 490"
+                            "metaValue": "2084.46 495.265"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "39.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property7",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "2352.88 591.223"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "42.000000"
                         }
                     ]
                 }
@@ -854,10 +951,6 @@
                     "target": "set_property6.object"
                 },
                 {
-                    "source": "set_property6.out_object",
-                    "target": ".reference_definitions"
-                },
-                {
                     "source": ".relative_prim_path",
                     "target": "set_property6.value"
                 },
@@ -868,6 +961,18 @@
                 {
                     "source": ".layer",
                     "target": "resolve_prim_path.layer"
+                },
+                {
+                    "source": ".anchor_path",
+                    "target": "set_property7.value"
+                },
+                {
+                    "source": "set_property6.out_object",
+                    "target": "set_property7.object"
+                },
+                {
+                    "source": "set_property7.out_object",
+                    "target": ".reference_definitions"
                 }
             ],
             "values": [
@@ -945,6 +1050,16 @@
                     "valueName": "set_property6.value",
                     "valueType": "bool",
                     "value": "false"
+                },
+                {
+                    "valueName": "set_property7.key",
+                    "valueType": "string",
+                    "value": "anchor_path"
+                },
+                {
+                    "valueName": "set_property7.value",
+                    "valueType": "string",
+                    "value": ""
                 }
             ],
             "reservedNodeNames": [

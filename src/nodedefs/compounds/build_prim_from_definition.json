@@ -73,6 +73,11 @@
                                                     "metaName": "prim_def"
                                                 }
                                             ]
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "34.000000"
                                         }
                                     ]
                                 }
@@ -90,6 +95,11 @@
                                             "metaValue": "2"
                                         },
                                         {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1230 244"
+                                        },
+                                        {
                                             "metaName": "io_ports",
                                             "metadata": [
                                                 {
@@ -98,9 +108,9 @@
                                             ]
                                         },
                                         {
-                                            "metaName": "LayoutPos",
+                                            "metaName": "zValue",
                                             "metaType": "string",
-                                            "metaValue": "1230 244"
+                                            "metaValue": "35.000000"
                                         }
                                     ]
                                 }
@@ -111,7 +121,7 @@
                 {
                     "metaName": "ViewportRect",
                     "metaType": "string",
-                    "metaValue": "-70 -313.372 1606.37 1092.14"
+                    "metaValue": "-70 -516.799 1606 1499.6"
                 },
                 {
                     "metaName": "DisplayMode",
@@ -121,7 +131,12 @@
                 {
                     "metaName": "LayoutPos",
                     "metaType": "string",
-                    "metaValue": "311.515 43.4873"
+                    "metaValue": "-46.0266 285.483"
+                },
+                {
+                    "metaName": "zValue",
+                    "metaType": "string",
+                    "metaValue": "52.000000"
                 }
             ],
             "ports": [
@@ -148,11 +163,6 @@
                     "name": "add_arcs",
                     "uriImported": "file:///build_prim_from_definition.json",
                     "metadata": [
-                        {
-                            "metaName": "ViewportRect",
-                            "metaType": "string",
-                            "metaValue": "-70 -183.764 1301 884.527"
-                        },
                         {
                             "metaName": "io_nodes",
                             "metadata": [
@@ -182,6 +192,11 @@
                                                             "metaName": "prim_def"
                                                         }
                                                     ]
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "34.000000"
                                                 }
                                             ]
                                         }
@@ -210,12 +225,22 @@
                                                             "metaName": "out_stage"
                                                         }
                                                     ]
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "35.000000"
                                                 }
                                             ]
                                         }
                                     ]
                                 }
                             ]
+                        },
+                        {
+                            "metaName": "ViewportRect",
+                            "metaType": "string",
+                            "metaValue": "-70 -348.903 1301 1214.81"
                         }
                     ],
                     "ports": [
@@ -239,11 +264,6 @@
                             "name": "create_arcs",
                             "uriImported": "file:///build_prim_from_definition.json",
                             "metadata": [
-                                {
-                                    "metaName": "ViewportRect",
-                                    "metaType": "string",
-                                    "metaValue": "-70 -196.264 1301 884.527"
-                                },
                                 {
                                     "metaName": "io_nodes",
                                     "metadata": [
@@ -273,6 +293,11 @@
                                                                     "metaName": "value"
                                                                 }
                                                             ]
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "34.000000"
                                                         }
                                                     ]
                                                 }
@@ -301,12 +326,22 @@
                                                                     "metaName": "out_stage"
                                                                 }
                                                             ]
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "35.000000"
                                                         }
                                                     ]
                                                 }
                                             ]
                                         }
                                     ]
+                                },
+                                {
+                                    "metaName": "ViewportRect",
+                                    "metaType": "string",
+                                    "metaValue": "-70 -361.403 1301 1214.81"
                                 }
                             ],
                             "ports": [
@@ -372,11 +407,6 @@
                                             "metaValue": "BifrostGraph,USD::Utils,populate_stage"
                                         },
                                         {
-                                            "metaName": "ViewportRect",
-                                            "metaType": "string",
-                                            "metaValue": "-514.59 -117 2740.18 1863"
-                                        },
-                                        {
                                             "metaName": "io_nodes",
                                             "metadata": [
                                                 {
@@ -408,6 +438,11 @@
                                                                             "metaName": "value"
                                                                         }
                                                                     ]
+                                                                },
+                                                                {
+                                                                    "metaName": "zValue",
+                                                                    "metaType": "string",
+                                                                    "metaValue": "47.000000"
                                                                 }
                                                             ]
                                                         }
@@ -436,12 +471,22 @@
                                                                             "metaName": "stage1"
                                                                         }
                                                                     ]
+                                                                },
+                                                                {
+                                                                    "metaName": "zValue",
+                                                                    "metaType": "string",
+                                                                    "metaValue": "48.000000"
                                                                 }
                                                             ]
                                                         }
                                                     ]
                                                 }
                                             ]
+                                        },
+                                        {
+                                            "metaName": "ViewportRect",
+                                            "metaType": "string",
+                                            "metaValue": "-251.73 35.5691 1972.52 1841.83"
                                         }
                                     ],
                                     "ports": [
@@ -939,6 +984,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "315.309 -77.1673"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "31.000000"
                                                 }
                                             ]
                                         },
@@ -955,6 +1005,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "323.83 743.174"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "32.000000"
                                                 }
                                             ]
                                         },
@@ -971,6 +1026,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "1230 252"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "33.000000"
                                                 }
                                             ]
                                         },
@@ -987,6 +1047,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "315 179.991"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "34.000000"
                                                 }
                                             ]
                                         },
@@ -1003,6 +1068,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "1535 244"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "35.000000"
                                                 }
                                             ]
                                         },
@@ -1019,6 +1089,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "925 630"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "36.000000"
                                                 }
                                             ]
                                         },
@@ -1035,6 +1110,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "1230 9"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "37.000000"
                                                 }
                                             ]
                                         },
@@ -1051,6 +1131,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "647.429 1142.97"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "38.000000"
                                                 }
                                             ]
                                         },
@@ -1067,6 +1152,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "628.83 1433.52"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "39.000000"
                                                 }
                                             ]
                                         },
@@ -1083,6 +1173,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "663.828 314.16"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "40.000000"
                                                 }
                                             ]
                                         },
@@ -1099,6 +1194,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "1293.58 615"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "41.000000"
                                                 }
                                             ]
                                         },
@@ -1115,6 +1215,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "616.468 880.092"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "42.000000"
                                                 }
                                             ]
                                         },
@@ -1131,6 +1236,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "925 993"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "43.000000"
                                                 }
                                             ]
                                         },
@@ -1147,6 +1257,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "292.262 488.559"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "44.000000"
                                                 }
                                             ]
                                         },
@@ -1163,6 +1278,11 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "305.422 970.511"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "45.000000"
                                                 }
                                             ]
                                         },
@@ -1179,6 +1299,32 @@
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "293.351 1219.98"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "49.000000"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "nodeName": "get_property9",
+                                            "nodeType": "Core::Object::get_property",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "53.000000"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "290.842 1493.23"
                                                 }
                                             ]
                                         }
@@ -1347,6 +1493,18 @@
                                         {
                                             "source": ".value",
                                             "target": "get_property8.object"
+                                        },
+                                        {
+                                            "source": ".value",
+                                            "target": "get_property9.object"
+                                        },
+                                        {
+                                            "source": "get_property9.value",
+                                            "target": "add_payload_prim.anchor_path"
+                                        },
+                                        {
+                                            "source": "get_property9.value",
+                                            "target": "add_reference_prim.anchor_path"
                                         }
                                     ],
                                     "values": [
@@ -1459,6 +1617,16 @@
                                             "valueName": "get_property8.key",
                                             "valueType": "string",
                                             "value": "layer_position"
+                                        },
+                                        {
+                                            "valueName": "get_property9.default_and_type",
+                                            "valueType": "string",
+                                            "value": ""
+                                        },
+                                        {
+                                            "valueName": "get_property9.key",
+                                            "valueType": "string",
+                                            "value": "anchor_path"
                                         }
                                     ],
                                     "reservedNodeNames": [
@@ -1494,6 +1662,11 @@
                                             "metaName": "LayoutPos",
                                             "metaType": "string",
                                             "metaValue": "315 258"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "31.000000"
                                         }
                                     ]
                                 },
@@ -1510,6 +1683,11 @@
                                             "metaName": "LayoutPos",
                                             "metaType": "string",
                                             "metaValue": "620 10"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "36.000000"
                                         }
                                     ]
                                 },
@@ -1526,6 +1704,11 @@
                                             "metaName": "LayoutPos",
                                             "metaType": "string",
                                             "metaValue": "315 15"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "33.000000"
                                         }
                                     ]
                                 }
@@ -1773,6 +1956,11 @@
                                     "metaName": "LayoutPos",
                                     "metaType": "string",
                                     "metaValue": "315 253"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "36.000000"
                                 }
                             ]
                         },
@@ -1789,6 +1977,11 @@
                                     "metaName": "LayoutPos",
                                     "metaType": "string",
                                     "metaValue": "315 10"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "32.000000"
                                 }
                             ]
                         },
@@ -1805,6 +1998,11 @@
                                     "metaName": "LayoutPos",
                                     "metaType": "string",
                                     "metaValue": "620 215"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "33.000000"
                                 }
                             ]
                         }
@@ -8952,6 +9150,11 @@
                             "metaName": "LayoutPos",
                             "metaType": "string",
                             "metaValue": "925 208"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "36.000000"
                         }
                     ]
                 },
@@ -8968,6 +9171,11 @@
                             "metaName": "LayoutPos",
                             "metaType": "string",
                             "metaValue": "315 10"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "32.000000"
                         }
                     ]
                 },
@@ -8984,6 +9192,11 @@
                             "metaName": "LayoutPos",
                             "metaType": "string",
                             "metaValue": "620 86"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "33.000000"
                         }
                     ]
                 }
