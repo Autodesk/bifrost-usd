@@ -1,4 +1,4 @@
-## [1.2.0] - xxxx-xx-xx
+## [1.2.0] - 2023-05-12
 
 ### Build
 
@@ -6,11 +6,22 @@
 
 ### Feature
 
- - BIFROST-6771 - Slider and color picker assignments
+ - BIFROST 8452 - Add color support to the _read_usd_curve_ and improve _define_usd_curves_ UI
+    - Add option in _read_usd_curves_ to import _displayColor_ attribute as _point_color_ geo property.
+    - Add Combo Box in _define_usd_curves_ to set basis and type parameters.
 
- - BIFROST-8319 - Add get_authored_attribute_names node
+ - BIFROST-8452 - Add option in _read_usd_meshes_ to import _displayColor_ attribute as _point_color_ geo property
 
- - BIFROST-8100 - Add node to get all prim attributes names
+ - BIFROST-6771 - Add soft min-max sliders and color pickers widgets in following compounds
+    - _define_usd_display_color_
+    - _define_usd_point_instancer_
+    - _define_usd_preview_surface_
+    - _define_usd_transform_
+    - _duplicate_usd_prim_definition_
+
+ - BIFROST-8319 - Add _get_authored_attribute_names_ node, to get all authored attributes names 
+
+ - BIFROST-8100 - Add _get_all_attribute_names_ node, to get all prim attributes names
 
 ### Bugfix
 
