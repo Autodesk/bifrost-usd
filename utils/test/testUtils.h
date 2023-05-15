@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,11 +26,6 @@
 
 #include <cstdlib>
 
-#if defined(BIFUSD_WINDOWS)
-#include <direct.h> // for _chdir (see BIFROST-7309)
-#else
-#include <unistd.h> // for chdir (see BIFROST-7309)
-#endif
 #include "testUtils_export.h"
 
 namespace BifrostUsd {
@@ -76,14 +71,6 @@ inline Amino::String getResourcePath(const Amino::Array<Amino::String>& names) {
         path = Bifrost::FileUtils::filePath(path, name);
     }
     return path;
-}
-
-inline int changeDir(const Amino::String& dirpath) {
-#if defined(BIFUSD_WINDOWS)
-    return _chdir(dirpath.c_str());
-#else
-    return chdir(dirpath.c_str());
-#endif
 }
 
 /// Helper to FindOrOpen some SdfLayers and add them as sublayers to the

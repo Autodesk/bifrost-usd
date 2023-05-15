@@ -116,10 +116,10 @@
                                             "metaName": "io_ports",
                                             "metadata": [
                                                 {
-                                                    "metaName": "variant_set_name"
+                                                    "metaName": "variant_name"
                                                 },
                                                 {
-                                                    "metaName": "variant_name"
+                                                    "metaName": "variant_set_name"
                                                 }
                                             ]
                                         }
@@ -160,7 +160,7 @@
                 {
                     "metaName": "UILayout",
                     "metaType": "string",
-                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"path\"\n            },\n            {\n                \"port\": \"variant_set_definitions\"\n            },\n            {\n                \"port\": \"reference_definitions\"\n            },\n            {\n                \"port\": \"attribute_definitions\"\n            },\n            {\n                \"port\": \"children\"\n            },\n            {\n                \"port\": \"relationship_definitions\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"General\",\n                \"items\": [\n                    {\n                        \"port\": \"type\"\n                    },\n                    {\n                        \"port\": \"specifier\"\n                    },\n                    {\n                        \"port\": \"kind\"\n                    },\n                    {\n                        \"port\": \"purpose\"\n                    },\n                    {\n                        \"port\": \"active\"\n                    },\n                    {\n                        \"port\": \"instanceable\"\n                    },\n                    {\n                        \"expanded\": false,\n                        \"group\": \"Variant Selection\",\n                        \"items\": [\n                            {\n                                \"port\": \"variant_set_prim_path\"\n                            },\n                            {\n                                \"port\": \"variant_set_name\"\n                            },\n                            {\n                                \"port\": \"variant_name\"\n                            }\n                        ]\n                    },\n                    {\n                        \"port\": \"material\"\n                    }\n                ]\n            }\n        ]\n    }\n}\n"
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"path\"\n            },\n            {\n                \"port\": \"variant_set_definitions\"\n            },\n            {\n                \"port\": \"reference_definitions\"\n            },\n            {\n                \"port\": \"attribute_definitions\"\n            },\n            {\n                \"port\": \"children\"\n            },\n            {\n                \"port\": \"relationship_definitions\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"General\",\n                \"items\": [\n                    {\n                        \"port\": \"type\"\n                    },\n                    {\n                        \"port\": \"specifier\"\n                    },\n                    {\n                        \"port\": \"kind\"\n                    },\n                    {\n                        \"port\": \"purpose\"\n                    },\n                    {\n                        \"port\": \"active\"\n                    },\n                    {\n                        \"port\": \"instanceable\"\n                    },\n                    {\n                        \"expanded\": false,\n                        \"group\": \"Variant Selection\",\n                        \"items\": [\n                            {\n                                \"port\": \"variant_set_prim_path\"\n                            },\n                            {\n                                \"port\": \"variant_name\"\n                            },\n                            {\n                                \"port\": \"variant_set_name\"\n                            }\n                        ]\n                    },\n                    {\n                        \"port\": \"material\"\n                    }\n                ]\n            }\n        ]\n    }\n}\n"
                 },
                 {
                     "metaName": "PortExpandedState",
@@ -340,13 +340,13 @@
                     "portDefault": {}
                 },
                 {
-                    "portName": "variant_set_name",
+                    "portName": "variant_name",
                     "portDirection": "input",
                     "portType": "string",
                     "portDefault": ""
                 },
                 {
-                    "portName": "variant_name",
+                    "portName": "variant_set_name",
                     "portDirection": "input",
                     "portType": "string",
                     "portDefault": ""
@@ -7789,10 +7789,10 @@
                                                     "metaName": "io_ports",
                                                     "metadata": [
                                                         {
-                                                            "metaName": "variant_set_name"
+                                                            "metaName": "variant_name"
                                                         },
                                                         {
-                                                            "metaName": "variant_name"
+                                                            "metaName": "variant_set_name"
                                                         },
                                                         {
                                                             "metaName": "prim"
@@ -7841,12 +7841,12 @@
                     ],
                     "ports": [
                         {
-                            "portName": "variant_set_name",
+                            "portName": "variant_name",
                             "portDirection": "input",
                             "portType": "string"
                         },
                         {
-                            "portName": "variant_name",
+                            "portName": "variant_set_name",
                             "portDirection": "input",
                             "portType": "string"
                         },
@@ -7917,10 +7917,10 @@
                                                             "metaName": "io_ports",
                                                             "metadata": [
                                                                 {
-                                                                    "metaName": "variant_set_name"
+                                                                    "metaName": "variant_name"
                                                                 },
                                                                 {
-                                                                    "metaName": "variant_name"
+                                                                    "metaName": "variant_set_name"
                                                                 }
                                                             ]
                                                         }
@@ -7961,12 +7961,12 @@
                             ],
                             "ports": [
                                 {
-                                    "portName": "variant_set_name",
+                                    "portName": "variant_name",
                                     "portDirection": "input",
                                     "portType": "string"
                                 },
                                 {
-                                    "portName": "variant_name",
+                                    "portName": "variant_set_name",
                                     "portDirection": "input",
                                     "portType": "string"
                                 },
@@ -8079,12 +8079,12 @@
                                     "target": ".output"
                                 },
                                 {
-                                    "source": ".variant_set_name",
-                                    "target": "string_empty.string"
-                                },
-                                {
                                     "source": ".variant_name",
                                     "target": "string_empty1.string"
+                                },
+                                {
+                                    "source": ".variant_set_name",
+                                    "target": "string_empty.string"
                                 }
                             ],
                             "values": [],
@@ -8157,10 +8157,10 @@
                                                                     "metaName": "prim"
                                                                 },
                                                                 {
-                                                                    "metaName": "variant_set_name"
+                                                                    "metaName": "variant_name"
                                                                 },
                                                                 {
-                                                                    "metaName": "variant_name"
+                                                                    "metaName": "variant_set_name"
                                                                 }
                                                             ]
                                                         }
@@ -8205,12 +8205,12 @@
                                     "portDirection": "input"
                                 },
                                 {
-                                    "portName": "variant_set_name",
+                                    "portName": "variant_name",
                                     "portDirection": "input",
                                     "portType": "string"
                                 },
                                 {
-                                    "portName": "variant_name",
+                                    "portName": "variant_set_name",
                                     "portDirection": "input",
                                     "portType": "string"
                                 },
@@ -8288,12 +8288,12 @@
                                     "target": "set_property5.object"
                                 },
                                 {
-                                    "source": ".variant_set_name",
-                                    "target": "set_property1.value"
-                                },
-                                {
                                     "source": ".variant_name",
                                     "target": "set_property3.value"
+                                },
+                                {
+                                    "source": ".variant_set_name",
+                                    "target": "set_property1.value"
                                 }
                             ],
                             "values": [

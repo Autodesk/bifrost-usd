@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -384,27 +384,27 @@ bool Layer::exportToFile(const Amino::String& filePath,
     // Replace anonymous sublayer identifier by real layer file path
     for (int i = 0; i < static_cast<int>(m_subLayers.size()); ++i) {
         const auto& layer = m_subLayers[i];
-        Amino::String layerPath = layer.m_filePath.empty() ?
+        Amino::String sdfLayerIdentifier = layer.m_filePath.empty() ?
             layer.m_originalFilePath : layer.m_filePath;
         if (relativePath) {
             Amino::String relPath = "";
             if (Bifrost::FileUtils::getRelativePath(
-                    layerPath,
+                    sdfLayerIdentifier,
                     Bifrost::FileUtils::extractParentPath(outFilePath.c_str())
                         .c_str(),
                     relPath)) {
-                layerPath = relPath;
-                std::replace(layerPath.begin(), layerPath.end(), '\\', '/');
+                sdfLayerIdentifier = relPath;
+                std::replace(sdfLayerIdentifier.begin(), sdfLayerIdentifier.end(), '\\', '/');
             }
         }
-        if (layerPath.empty()) {
+        if (sdfLayerIdentifier.empty()) {
             return false;
         }
 
-        layer.exportToFile(layerPath, relativePath);
+        layer.exportToFile(layer.m_filePath, relativePath);
 
         outLayer->RemoveSubLayerPath(i);
-        outLayer->InsertSubLayerPath(layerPath.c_str(), i);
+        outLayer->InsertSubLayerPath(sdfLayerIdentifier.c_str(), i);
     }
 
     return outLayer->Save();
