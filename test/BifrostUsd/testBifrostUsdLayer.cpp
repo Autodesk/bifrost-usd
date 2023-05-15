@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -198,11 +198,6 @@ TEST(BifrostUsdTests, createLayer) {
 
     // new layer from file tests with one sublayer
     {
-        // Change working directory to the test output one so we can
-        // save the sublayer using a relative path.
-        // ARF: Do you really need to do this?  This is quite a "side effect!"
-        ASSERT_EQ(changeDir(getTestOutputDir().c_str()), 0);
-
         auto expectedName = Amino::String("layer_with_sub_layers_v2.usda");
         auto savePath     = getTestOutputPath(expectedName);
 
@@ -395,7 +390,7 @@ TEST(BifrostUsdTests, createLayerWithSubLayer) {
     // Export and check sublayer is present.
     std::string exportString = layer.exportToString().c_str();
     EXPECT_NE(exportString.find(subLayerName.c_str()), std::string::npos)
-        << "Exported sublayer:\n"
+        << "Exported layer:\n"
         << exportString << "\n does not contain expected sublayer `"
         << subLayerName.c_str() << "`\n";
 }

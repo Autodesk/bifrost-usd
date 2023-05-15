@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -144,6 +144,39 @@ TEST(PrimNodeDefs, get_prim_type) {
     Amino::String      result;
     USD::Prim::get_prim_type(prim, result);
     ASSERT_EQ(result, "Scope");
+}
+
+TEST(PrimNodeDefs, get_all_attribute_names) {
+    auto stage_mut = Amino::newMutablePtr<BifrostUsd::Stage>();
+    auto pxr_prim =
+        stage_mut->get().DefinePrim(pxr::SdfPath("/a"), pxr::TfToken("Scope"));
+    pxr_prim.CreateAttribute(pxr::TfToken("attrName"), pxr::SdfValueTypeNames->String, false);
+
+    BifrostUsd::Prim prim{pxr_prim, std::move(stage_mut)};
+    Amino::MutablePtr<Amino::Array<Amino::String>> result;
+    USD::Prim::get_all_attribute_names(prim, result);
+    ASSERT_EQ(result->size(), 3);
+    EXPECT_EQ((*result)[0], "attrName");
+}
+
+TEST(PrimNodeDefs, get_authored_attribute_names) {
+    auto stage_mut = Amino::newMutablePtr<BifrostUsd::Stage>();
+    auto pxr_prim  = stage_mut->get().DefinePrim(pxr::SdfPath("/a"),
+                                                 pxr::TfToken("Capsule"));
+    ASSERT_TRUE(pxr_prim);
+
+    BifrostUsd::Prim prim{pxr_prim, std::move(stage_mut)};
+    Amino::MutablePtr<Amino::Array<Amino::String>> result;
+    USD::Prim::get_authored_attribute_names(prim, result);
+    ASSERT_EQ(result->size(), 0);
+
+    auto attr = pxr_prim.CreateAttribute(pxr::TfToken("radius"),
+                                         pxr::SdfValueTypeNames->Float, false);
+    attr.Set(3.14);
+
+    USD::Prim::get_authored_attribute_names(prim, result);
+    ASSERT_EQ(result->size(), 1);
+    EXPECT_EQ((*result)[0], "radius");
 }
 
 TEST(PrimNodeDefs, create_prim) {

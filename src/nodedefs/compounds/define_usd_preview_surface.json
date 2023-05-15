@@ -188,12 +188,12 @@
                         {
                             "metaName": "UiSoftMin",
                             "metaType": "string",
-                            "metaValue": "0"
+                            "metaValue": "{0, 0, 0}"
                         },
                         {
                             "metaName": "UiSoftMax",
                             "metaType": "string",
-                            "metaValue": "1"
+                            "metaValue": "{1, 1, 1}"
                         }
                     ]
                 },
@@ -215,12 +215,12 @@
                         {
                             "metaName": "UiSoftMin",
                             "metaType": "string",
-                            "metaValue": "0"
+                            "metaValue": "{0, 0, 0}"
                         },
                         {
                             "metaName": "UiSoftMax",
                             "metaType": "string",
-                            "metaValue": "1"
+                            "metaValue": "{1, 1, 1}"
                         }
                     ]
                 },

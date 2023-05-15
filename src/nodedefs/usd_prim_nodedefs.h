@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -114,6 +114,35 @@ bool get_last_modified_prim(Amino::Ptr<BifrostUsd::Stage>       stage,
 USD_NODEDEF_DECL
 void get_prim_type(const BifrostUsd::Prim& prim, Amino::String& type_name)
     USDNODE_DOC_ICON("get_prim_type", "get_prim_type", "usd.svg");
+
+/// \ingroup Prim
+/// \defgroup get_all_attribute_names get_all_attribute_names node
+///
+/// \brief Returns a list of all attribute names in a USD prim.
+///
+/// \param [in] prim The USD prim.
+/// \param [out] names An array of strings containing the USD prim's attributes' names.
+USD_NODEDEF_DECL
+void get_all_attribute_names(const BifrostUsd::Prim&                         prim,
+                             Amino::MutablePtr<Amino::Array<Amino::String>>& names)
+    USDNODE_DOC_ICON("get_all_attribute_names",
+                     "get_all_attribute_names",
+                     "usd.svg");
+
+/// \ingroup Prim
+/// \defgroup get_authored_attribute_names get_authored_attribute_names node
+///
+/// \brief Returns a list of authored attribute names in a USD prim.
+///
+/// \param [in] prim The USD prim.
+/// \param [out] names An array of strings containing the USD prim's attributes' names.
+USD_NODEDEF_DECL
+void get_authored_attribute_names(
+    const BifrostUsd::Prim&                         prim,
+    Amino::MutablePtr<Amino::Array<Amino::String>>& names)
+    USDNODE_DOC_ICON("get_authored_attribute_names",
+                     "get_authored_attribute_names",
+                     "usd.svg");
 
 /// \ingroup Prim
 /// \defgroup create_prim create_prim node

@@ -1,0 +1,14 @@
+{
+    "schemaVersion": "1.0.0",
+    "comment": "Test read_usd_meshes_with_color compound",
+    "options": {
+        "definitionFiles": [
+            "read_usd_meshes_with_color_test00.json"
+        ],
+        "compound": "USD::Test::IO::read_usd_meshes_with_color_test00"
+    },
+    "task": {
+        "type": "single",
+        "name": "Use Default Params"
+    }
+}

@@ -1,6 +1,6 @@
 # `define_usd_curves`
 
-Creates a Bifrost-USD curve definition based on strands. This creates a `NurbsCurves` prim in a stage when you connect the output into an `add_to_stage` node downstream. This node is a specialized compound based on `define_usd_prim`.
+Creates a Bifrost-USD curve definition based on strands. This creates a USD `BasisCurves` prim in a stage when you connect the output into an `add_to_stage` node downstream. This node is a specialized compound based on `define_usd_prim`.
 
 ## Inputs
 
@@ -27,6 +27,20 @@ Optionally, connect one or more children for the new prim.  You can right-click 
 ## `relationship definitions`
 
 Optionally, connect one or more relationship definitions for the new prim. You can right-click on the port and choose **Connect Node** to quickly add and connect a `define_usd_relationship` node.
+
+## `basis`
+
+The basis specifies the vstep and matrix used for cubic interpolation.
+Only used when `type` is not linear. It is used to interpolate the vertices of the cubic basis curves. Each individual curve is composed of one or more segments. Each segment is defined by four vertices for cubic curves and two vertices for linear curves.
+
+Allowed Values:	bezier, bspline, catmullRom
+
+## `type`
+
+Linear curves interpolate linearly between two vertices.
+Cubic curves use a basis matrix with four vertices to interpolate a segment.
+
+Allowed Values: linear, cubic
 
 ## `material`
 
