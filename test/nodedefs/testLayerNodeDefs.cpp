@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,13 +15,15 @@
 //+
 
 #include <Amino/Core/String.h>
-#include <gtest/gtest.h>
+#include <Bifrost/FileUtils/FileUtils.h>
+
 #include <nodedefs/usd_pack/usd_layer_nodedefs.h>
 #include <nodedefs/usd_pack/usd_prim_nodedefs.h>
 #include <nodedefs/usd_pack/usd_stage_nodedefs.h>
 #include <nodedefs/usd_pack/usd_utils.h>
 #include <utils/test/testUtils.h>
 
+#include <gtest/gtest.h>
 #include <fstream>
 #include <regex>
 #include <sstream>
@@ -599,12 +601,12 @@ TEST(LayerNodeDefs, add_sublayer_array) {
     }
 }
 
-TEST(LayerNodeDefs, export_to_file_edit_target) {
+TEST(LayerNodeDefs, export_to_file_with_edit_layer) {
     std::vector<bool> relPathArgs = {false, true};
     std::string temp;
     for(bool useRelPath : relPathArgs) {
         // Create the sublayer
-        temp = "exportEditTargetSubLayer_using";
+        temp = "export_to_file_with_edit_layer_SUBLAYER_";
         temp += (useRelPath ? "Rel" : "Abs");
         temp += "Path.usda";
         auto editTargetSubLayerPath = getTestOutputPath(temp.c_str());
@@ -616,31 +618,29 @@ TEST(LayerNodeDefs, export_to_file_edit_target) {
             ASSERT_TRUE(success);
         }
         BifrostUsd::Layer editTargetSublayer{editTargetSubLayerPath.c_str(), ""};
+        editTargetSublayer.setFilePath(editTargetSubLayerPath.c_str());
         ASSERT_TRUE(editTargetSublayer);
 
-        // Create the main layer and add the sublayer
-        BifrostUsd::Layer mainLayer{getResourcePath("helloworld.usd").c_str(),
+        // Create the root layer and add the sublayer
+        BifrostUsd::Layer rootLayer{getResourcePath("helloworld.usd").c_str(),
                                     ""};
-        ASSERT_TRUE(mainLayer);
-        USD::Layer::add_sublayer(editTargetSublayer, mainLayer);
-        ASSERT_TRUE(mainLayer);
+        ASSERT_TRUE(rootLayer);
+        USD::Layer::add_sublayer(editTargetSublayer, rootLayer);
+        ASSERT_TRUE(rootLayer);
 
-        // Open the main layer set the edit target
-        BifrostUsd::Stage stage{mainLayer};
+        // Create a stage and set the edit target
+        BifrostUsd::Stage stage{rootLayer};
         ASSERT_TRUE(stage);
         USD::Stage::set_edit_layer(stage, 0);
         ASSERT_TRUE(stage);
 
         // Create a new prim on the edit target Layer
-        temp = "/testingSublayerTargetExport_using";
-        temp += (useRelPath ? "Rel" : "Abs");
-        temp += "Path";
-        auto primPath = pxr::SdfPath(temp);
+        auto primPath = pxr::SdfPath("/obj");
         auto newprim  = stage->DefinePrim(primPath);
-        EXPECT_TRUE(newprim.IsValid());
+        ASSERT_TRUE(newprim.IsValid());
 
         // Export the root layer and its sublayer
-        temp = "exportEditTargetMainLayer_using";
+        temp = "export_to_file_with_edit_layer_ROOT_";
         temp += (useRelPath ? "Rel" : "Abs");
         temp += "Path.usda";
         bool success = USD::Layer::export_layer_to_file(
@@ -654,6 +654,203 @@ TEST(LayerNodeDefs, export_to_file_edit_target) {
             Amino::newClassPtr<BifrostUsd::Stage>(editTargetSubLayerPath.c_str());
         auto sublayerprim = sublayerStage->get().GetPrimAtPath(primPath);
         EXPECT_TRUE(sublayerprim.IsValid());
+    }
+}
+
+TEST(LayerNodeDefs, export_layer_to_file_multicases) {
+    // All different locations to be tested for the sublayer directory:
+    const std::vector<std::string> sublayerDirs = {
+        "", "./", "../", "../../", "../../dir1/", "../dir2/",
+        "../newdir1/", "newdir2/", "./newdir3/"
+    };
+    // This is the common test directory where all exported files should be
+    // written. Whether we test RELATIVE or ABSOLUTE options, the files
+    // will all be saved below this directory level.
+    // So we expect that RELATIVE paths to sublayers MUST NOT contain this
+    // directory name, but ABSOLUTE paths to sublayers MUST contain it:
+    const std::string commonTestDir{"export_layer_to_file_multicases"};
+
+    for(bool relativeFilePath : std::vector<bool>{false, true}) {
+        // Build either a relative or absolute path for the root layer's
+        // directory to use in this test:
+        const std::string absTestDir = Bifrost::FileUtils::makePreferred(
+            getTestOutputDir()).c_str();
+        std::string rootDir = Bifrost::FileUtils::filePath(
+            relativeFilePath ? "." : absTestDir.c_str(),
+            commonTestDir.c_str()).c_str();
+        rootDir += relativeFilePath ? "/relFilePathCases/" : "/absFilePathCases/";
+        rootDir += "dir1/dir2/"; // subdirs required so we can use ../.. in some tests
+
+        size_t caseId = 0;
+        for(std::string sublayerDir : sublayerDirs) {
+            // When we use ABSOLUTE FilePaths in root and sublayer, then
+            // we can export layers using either RELATIVE or ABSOLUTE paths.
+            // When we use RELATIVE FilePaths in root and sublayer, then
+            // we can only export layers using RELATIVE paths.
+            std::vector<bool> exportRelativePathArgs{true};
+            if (!relativeFilePath)
+                exportRelativePathArgs.push_back(false);
+
+            for(bool exportRelativePath : exportRelativePathArgs) {
+                auto suffix = [caseId, relativeFilePath, exportRelativePath]() -> std::string {
+                    std::string letter =
+                        relativeFilePath ? "a" : (exportRelativePath ? "b" : "c");
+                    return std::string("_Case") + std::to_string(caseId) + letter
+                        + "_export" + (exportRelativePath ? "Rel" : "Abs");
+                };
+
+                const std::string rootFilename = std::string("ROOT")
+                    + suffix() + ".usda";
+                const std::string rootFilePath = Bifrost::FileUtils::filePath(
+                    rootDir.c_str(), rootFilename.c_str()).c_str();
+
+                const std::string subLayerFilename = std::string("SUBLAYER")
+                    + suffix() + ".usda";
+                const std::string subFilePath = Bifrost::FileUtils::filePath(
+                    (rootDir + sublayerDir).c_str(),
+                    subLayerFilename.c_str()).c_str();
+
+                // Create root layer and a stage
+                Amino::MutablePtr<BifrostUsd::Stage> ptrStage;
+                {
+                    // Create root layer
+                    BifrostUsd::Layer rootLayer{rootFilename.c_str()};
+                    rootLayer.setFilePath(rootFilePath.c_str());
+
+                    // Create and add a sublayer
+                    BifrostUsd::Layer sublayer{subLayerFilename.c_str()};
+                    sublayer.setFilePath(subFilePath.c_str());
+
+                    EXPECT_TRUE(rootLayer.insertSubLayer(sublayer))
+                        << "insertSubLayer() failed for"
+                        << subLayerFilename << "\n";
+
+                    // Create a stage
+                    ptrStage = Amino::newMutablePtr<BifrostUsd::Stage>(rootLayer);
+                    ASSERT_TRUE(ptrStage && ptrStage->isValid());
+                }
+
+                // Set the edit layer target to the sublayer
+                USD::Stage::set_edit_layer(*ptrStage, 0);
+                EXPECT_TRUE(ptrStage->isValid());
+
+                // Create a new prim on current edit layer target
+                const Amino::String primPath("/a_space_capsule");
+                const Amino::String primType{"Capsule"};
+                USD::Prim::create_prim(*ptrStage, primPath, primType);
+                {
+                    auto ptrStageConst = ptrStage.toImmutable();
+                    Amino::MutablePtr<BifrostUsd::Prim> ptrPrim;
+                    EXPECT_TRUE(USD::Prim::get_prim_at_path(ptrStageConst,
+                        primPath, ptrPrim));
+                    EXPECT_TRUE(ptrPrim && *ptrPrim);
+                    ptrStage = ptrStageConst.toMutable();
+                }
+
+                // Export root and sublayer to files and make sure layer files
+                // are present on disk:
+                {
+                    Amino::Ptr<BifrostUsd::Layer> ptrRootLayer;
+                    USD::Layer::get_root_layer(*ptrStage, ptrRootLayer);
+                    ASSERT_TRUE(ptrRootLayer && ptrRootLayer->isValid());
+                    bool success = USD::Layer::export_layer_to_file(
+                        *ptrRootLayer, "", exportRelativePath);
+                    EXPECT_TRUE(success)
+                        << "export_layer_to_file failed for root layer "
+                        << rootFilename << "\n";
+                    EXPECT_TRUE(Bifrost::FileUtils::filePathExists(rootFilePath.c_str()))
+                        << "filePathExists() returned false for root layer at path:\n"
+                        << rootFilePath << "\n";
+                    EXPECT_TRUE(Bifrost::FileUtils::filePathExists(subFilePath.c_str()))
+                        << "filePathExists() returned false for subLayer at path:\n"
+                        << subFilePath << "\n";
+                    if (success) {
+                        // Read file content of root layer and check that sublayer ids
+                        // that it contains are either relative or absolute as expected:
+                        std::ifstream     layerStream(rootFilePath.c_str());
+                        std::stringstream layerBuffer;
+                        layerBuffer << layerStream.rdbuf();
+                        const std::string layerContent = layerBuffer.str();
+                        bool foundDir = (layerContent.find(commonTestDir) < layerContent.length());
+                        if (exportRelativePath) {
+                            EXPECT_FALSE(foundDir)
+                                << "Exported root layer at:\n"
+                                << rootFilePath
+                                << "\n contains ABSOLUTE path(s) to sublayer(s)\n";
+                        } else {
+                            EXPECT_TRUE(foundDir)
+                                << "Exported root layer at:\n"
+                                << rootFilePath
+                                << "\n does not contain ABSOLUTE path(s) to sublayer(s)\n";
+                        }
+                    }
+                    if (success) {
+                        // Read file content of sublayer and check that it
+                        // defines the expected primitive:
+                        std::ifstream     layerStream(subFilePath.c_str());
+                        std::stringstream layerBuffer;
+                        layerBuffer << layerStream.rdbuf();
+                        const std::string layerContent = layerBuffer.str();
+                        bool foundPrim = (layerContent.find(primType.c_str()) < layerContent.length());
+                        EXPECT_TRUE(foundPrim)
+                            << "Exported sublayer at:\n"
+                            << subFilePath
+                            << "\n does not define a primitive of type '"
+                            << primType.c_str() << "'\n";
+                    }
+                }
+
+                // Open the exported root layer from disk
+                {
+                    Amino::MutablePtr<BifrostUsd::Layer> ptrRootLayer;
+                    USD::Layer::open_layer(rootFilePath.c_str(), "",
+                        true/*read_only*/, ptrRootLayer);
+                    EXPECT_TRUE(ptrRootLayer && ptrRootLayer->isValid());
+                    if (ptrRootLayer && ptrRootLayer->isValid()) {
+                        const Amino::Array<BifrostUsd::Layer>& expSublayers =
+                            ptrRootLayer->getSubLayers();
+                        EXPECT_GT(expSublayers.size(), 0)
+                            << "Exported root layer at:\n"
+                            << rootFilePath
+                            << "\n has no sublayers\n";
+                        if (expSublayers.size() > 0) {
+                            const BifrostUsd::Layer& expSublayer = expSublayers.at(0);
+                            EXPECT_TRUE(expSublayer.isValid());
+                            if (expSublayer.isValid()) {
+                                Amino::String id;
+                                USD::Layer::get_layer_identifier(expSublayer, id);
+                                EXPECT_LT(id.find(subLayerFilename.c_str()), id.length())
+                                    << "Exported root layer at:\n"
+                                    << rootFilePath
+                                    << "\n does not contain expected sublayer `"
+                                    << subLayerFilename << "`\n";
+                            }
+                        }
+                    }
+                }
+
+                // Create a new stage by re-importing the sublayer and make
+                // sure it contains the expected primitive:
+                {
+                    Amino::Ptr<BifrostUsd::Stage> ptrStage2 =
+                        Amino::newClassPtr<BifrostUsd::Stage>(subFilePath.c_str());
+                    EXPECT_TRUE(ptrStage2 && ptrStage2->isValid())
+                        << "Unable to create a new stage from exported sublayer at:\n"
+                        << subFilePath
+                        << "\n";
+                    if (ptrStage2 && ptrStage2->isValid()) {
+                        Amino::MutablePtr<BifrostUsd::Prim> ptrPrim;
+                        EXPECT_TRUE(USD::Prim::get_prim_at_path(ptrStage2, primPath, ptrPrim));
+                        EXPECT_TRUE(ptrPrim && *ptrPrim)
+                            << "New stage from exported sublayer at:\n"
+                            << rootFilePath
+                            << "\n does not contain expected primitive at path `"
+                            << primPath.c_str() << "`\n";
+                    }
+                }
+            }
+            caseId++;
+        }
     }
 }
 

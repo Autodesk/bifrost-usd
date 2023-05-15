@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -203,6 +203,40 @@ void USD::Prim::get_prim_type(const BifrostUsd::Prim& prim,
         }
     } catch (std::exception& e) {
         log_exception("get_prim_type", e);
+    }
+}
+
+void USD::Prim::get_all_attribute_names(const BifrostUsd::Prim&                         prim,
+                                        Amino::MutablePtr<Amino::Array<Amino::String>>& names) {
+    names = Amino::newMutablePtr<Amino::Array<Amino::String>>();
+    try {
+        if (prim) {
+            std::vector<pxr::UsdAttribute> usdAttributes = prim->GetAttributes();
+            names->resize(usdAttributes.size());
+            for (size_t i = 0; i < usdAttributes.size(); ++i) {
+                (*names)[i] = usdAttributes[i].GetName().GetText();
+            }
+        }
+    } catch (std::exception& e) {
+        log_exception("get_all_attribute_names", e);
+    }
+}
+
+void USD::Prim::get_authored_attribute_names(
+    const BifrostUsd::Prim&                         prim,
+    Amino::MutablePtr<Amino::Array<Amino::String>>& names) {
+    names = Amino::newMutablePtr<Amino::Array<Amino::String>>();
+    try {
+        if (prim) {
+            std::vector<pxr::UsdAttribute> usdAttributes =
+                prim->GetAuthoredAttributes();
+            names->resize(usdAttributes.size());
+            for (size_t i = 0; i < usdAttributes.size(); ++i) {
+                (*names)[i] = usdAttributes[i].GetName().GetText();
+            }
+        }
+    } catch (std::exception& e) {
+        log_exception("get_authored_attribute_names", e);
     }
 }
 
@@ -1017,11 +1051,11 @@ void USD::Prim::get_prim_asset_info(const BifrostUsd::Stage& stage,
         pxr::SdfAssetPath asset_path;
         modelAPI.GetAssetIdentifier(&asset_path);
         asset_identifier = asset_path.GetAssetPath().c_str();
-        
+
         std::string name;
         modelAPI.GetAssetName(&name);
         asset_name = name.c_str();
-        
+
         std::string version;
         modelAPI.GetAssetVersion(&version);
         asset_version = version.c_str();

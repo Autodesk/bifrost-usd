@@ -189,7 +189,14 @@
                     "portName": "count",
                     "portDirection": "input",
                     "portType": "long",
-                    "portDefault": "14"
+                    "portDefault": "14",
+                    "metadata": [
+                        {
+                            "metaName": "UiSoftMin",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        }
+                    ]
                 },
                 {
                     "portName": "prim_definitions",
@@ -221,6 +228,16 @@
                             "metaName": "TypeWranglingSuggestedTypes",
                             "metaType": "string",
                             "metaValue": "float, string, Math::float3, Core::Fields::ScalarField, Core::Fields::VectorField, array<Math::float3>"
+                        },
+                        {
+                            "metaName": "UiSoftMin",
+                            "metaType": "string",
+                            "metaValue": "-180"
+                        },
+                        {
+                            "metaName": "UiSoftMax",
+                            "metaType": "string",
+                            "metaValue": "180"
                         }
                     ]
                 },

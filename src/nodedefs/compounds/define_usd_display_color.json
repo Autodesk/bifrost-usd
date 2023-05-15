@@ -98,7 +98,7 @@
                     "metaName": "icon",
                     "metaType": "string",
                     "metaValue": "../icons/usd.svg"
-                }                
+                }
             ],
             "ports": [
                 {
@@ -119,6 +119,16 @@
                             "metaName": "UIWidget",
                             "metaType": "string",
                             "metaValue": "ColorPicker"
+                        },
+                        {
+                            "metaName": "UiSoftMin",
+                            "metaType": "string",
+                            "metaValue": "{0, 0, 0}"
+                        },
+                        {
+                            "metaName": "UiSoftMax",
+                            "metaType": "string",
+                            "metaValue": "{1, 1, 1}"
                         }
                     ]
                 }

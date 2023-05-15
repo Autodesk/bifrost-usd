@@ -17,19 +17,19 @@
                     "inputPorts": [
                         {
                             "name": "length",
-                            "value": "10.f"
+                            "value": "10."
                         },
                         {
                             "name": "width",
-                            "value": "20.f"
+                            "value": "20."
                         },
                         {
                             "name": "grass_radius",
-                            "value": ".1f"
+                            "value": ".1"
                         },
                         {
                             "name": "tree_radius",
-                            "value": "1f"
+                            "value": "1"
                         },
                         {
                             "name": "seed",
@@ -37,19 +37,19 @@
                         },
                         {
                             "name": "min_scale",
-                            "value": ".6f"
+                            "value": ".6"
                         },
                         {
                             "name": "max_scale",
-                            "value": "1.4f"
+                            "value": "1.4"
                         },
                         {
                             "name": "mushrooms_radius",
-                            "value": ".2f"
+                            "value": ".2"
                         },
                         {
                             "name": "trunk_distance",
-                            "value": "2.f"
+                            "value": "2."
                         },
                         {
                             "name": "root_temp_dir",
@@ -90,19 +90,19 @@
                     "inputPorts": [
                         {
                             "name": "length",
-                            "value": "50.f"
+                            "value": "50."
                         },
                         {
                             "name": "width",
-                            "value": "25.f"
+                            "value": "25."
                         },
                         {
                             "name": "grass_radius",
-                            "value": ".2f"
+                            "value": ".2"
                         },
                         {
                             "name": "tree_radius",
-                            "value": "5.f"
+                            "value": "5."
                         },
                         {
                             "name": "seed",
@@ -110,19 +110,19 @@
                         },
                         {
                             "name": "min_scale",
-                            "value": ".6f"
+                            "value": ".6"
                         },
                         {
                             "name": "max_scale",
-                            "value": "1.4f"
+                            "value": "1.4"
                         },
                         {
                             "name": "mushrooms_radius",
-                            "value": ".25f"
+                            "value": ".25"
                         },
                         {
                             "name": "trunk_distance",
-                            "value": "4.f"
+                            "value": "4."
                         },
                         {
                             "name": "root_temp_dir",
@@ -163,19 +163,19 @@
                     "inputPorts": [
                         {
                             "name": "length",
-                            "value": "200.f"
+                            "value": "200."
                         },
                         {
                             "name": "width",
-                            "value": "150.f"
+                            "value": "150."
                         },
                         {
                             "name": "grass_radius",
-                            "value": "1.f"
+                            "value": "1."
                         },
                         {
                             "name": "tree_radius",
-                            "value": "20.f"
+                            "value": "20."
                         },
                         {
                             "name": "seed",
@@ -183,19 +183,19 @@
                         },
                         {
                             "name": "min_scale",
-                            "value": ".8f"
+                            "value": ".8"
                         },
                         {
                             "name": "max_scale",
-                            "value": "2.8f"
+                            "value": "2.8"
                         },
                         {
                             "name": "mushrooms_radius",
-                            "value": "3.f"
+                            "value": "3."
                         },
                         {
                             "name": "trunk_distance",
-                            "value": "10.f"
+                            "value": "10."
                         },
                         {
                             "name": "root_temp_dir",
