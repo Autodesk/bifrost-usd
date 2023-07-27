@@ -1,6 +1,6 @@
 # This file has been auto-generated.
 
-set(BIFROST_USD_PACK_MINOR_VERSION 1)
+set(BIFROST_USD_PACK_MAJOR_VERSION 1)
 
 set(BIFROST_USD_PACK_MINOR_VERSION 2)
 
