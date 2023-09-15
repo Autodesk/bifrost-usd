@@ -20,7 +20,7 @@
 
 #include <Amino/Cpp/ClassDefine.h>
 
-/// \todo BIFROST-6874 remove pxr::Work_EnsureDetachedTaskProgress();
+/// \todo BIFROST-6874 remove PXR_NS::Work_EnsureDetachedTaskProgress();
 #include <pxr/base/work/detachedTask.h>
 
 // Note: To silence warnings coming from USD library
@@ -100,16 +100,16 @@ Amino::String getFilenameWithValidUsdFileFormat(const Amino::String& filename = 
 BifrostUsd::Layer const s_invalidLayer{BifrostUsd::Layer::Invalid{}};
 
 struct Sublayer {
-    pxr::SdfLayerRefPtr sublayer;
+    PXR_NS::SdfLayerRefPtr sublayer;
     Amino::String       sublayerPath;
 };
 
-Amino::Array<Sublayer> getSublayers(const pxr::SdfLayerRefPtr layer) {
+Amino::Array<Sublayer> getSublayers(const PXR_NS::SdfLayerRefPtr layer) {
     Amino::Array<Sublayer> layers;
     if (layer) {
         auto subLayerPaths = layer->GetSubLayerPaths();
         for (size_t i = 0; i < subLayerPaths.size(); ++i) {
-            auto sublayer = pxr::SdfLayer::FindOrOpenRelativeToLayer(
+            auto sublayer = PXR_NS::SdfLayer::FindOrOpenRelativeToLayer(
                 layer, subLayerPaths[i]);
             std::string sublayerPath = subLayerPaths[i];
             if (sublayer) {
@@ -128,7 +128,7 @@ Layer::Layer(Layer::Invalid) { assert(!isValid()); }
 
 Layer::Layer(const Amino::String& tag) {
     m_tag = getTagWithValidUsdFileFormat(tag);
-    m_layer = pxr::SdfLayer::CreateAnonymous(m_tag.c_str());
+    m_layer = PXR_NS::SdfLayer::CreateAnonymous(m_tag.c_str());
 }
 
 Layer::Layer(const Amino::String& filePath,
@@ -151,10 +151,10 @@ Layer::Layer(const Amino::String& filePath,
 
     // Temporary Stage that will help in loading relative files and give us
     // access to the sublayers
-    auto stage = pxr::UsdStage::Open(m_originalFilePath.c_str());
+    auto stage = PXR_NS::UsdStage::Open(m_originalFilePath.c_str());
     if (stage) {
         if (isEditable) {
-            m_layer = pxr::SdfLayer::CreateAnonymous(m_tag.c_str());
+            m_layer = PXR_NS::SdfLayer::CreateAnonymous(m_tag.c_str());
             m_layer->TransferContent(stage->GetRootLayer());
             auto sublayers = getSublayers(stage->GetRootLayer());
             // Clear the sublayerPaths
@@ -180,7 +180,7 @@ Layer::Layer(const Amino::String& filePath,
     }
 }
 
-Layer::Layer(const pxr::SdfLayerRefPtr layer,
+Layer::Layer(const PXR_NS::SdfLayerRefPtr layer,
              const bool                isEditable,
              const Amino::String&      originalFilePath) {
     auto validOriginalPath = originalFilePath.empty() ? "" :
@@ -203,7 +203,7 @@ Layer::Layer(const pxr::SdfLayerRefPtr layer,
     }
     auto sublayers = getSublayers(layer);
     if (isEditable) {
-        m_layer = pxr::SdfLayer::CreateAnonymous(m_tag.c_str());
+        m_layer = PXR_NS::SdfLayer::CreateAnonymous(m_tag.c_str());
         m_layer->TransferContent(layer);
         // Clear the sublayerPaths
         m_layer->SetSubLayerPaths(std::vector<std::string>());
@@ -239,7 +239,7 @@ Layer::Layer(const Layer& other, const Amino::String& savefilePath)
     }
 
     if (other.m_layer->PermissionToEdit()) {
-        m_layer = pxr::SdfLayer::CreateAnonymous(m_tag.c_str());
+        m_layer = PXR_NS::SdfLayer::CreateAnonymous(m_tag.c_str());
         m_layer->TransferContent(other.m_layer);
 
         // Replace sublayers coming from the other layer by the one created by
@@ -375,7 +375,7 @@ bool Layer::exportToFile(const Amino::String& filePath,
         return false;
     }
 
-    auto outLayer = pxr::SdfLayer::CreateNew(outFilePath);
+    auto outLayer = PXR_NS::SdfLayer::CreateNew(outFilePath);
     if (!outLayer) {
         return false;
     }
@@ -411,7 +411,7 @@ bool Layer::exportToFile(const Amino::String& filePath,
 }
 
 Amino::String Layer::exportToString(bool exportSubLayers) const {
-    auto outLayer = pxr::SdfLayer::CreateAnonymous(
+    auto outLayer = PXR_NS::SdfLayer::CreateAnonymous(
         getTagWithValidUsdFileFormat().c_str());
     outLayer->TransferContent(m_layer);
 
@@ -473,8 +473,8 @@ Amino::Ptr<BifrostUsd::Layer> Amino::createDefaultClass() {
     // Destructor of USD instances are lauching threads. This result in
     // a deadlock on windows when unloading the library (which destroys the
     // default constructed object held in static variables).
-    /// \todo BIFROST-6874 remove pxr::Work_EnsureDetachedTaskProgress();
-    pxr::Work_EnsureDetachedTaskProgress();
+    /// \todo BIFROST-6874 remove PXR_NS::Work_EnsureDetachedTaskProgress();
+    PXR_NS::Work_EnsureDetachedTaskProgress();
     return Amino::newClassPtr<BifrostUsd::Layer>(
         BifrostUsd::Layer::Invalid{});
 }

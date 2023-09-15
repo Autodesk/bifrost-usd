@@ -87,7 +87,7 @@ inline Amino::String getResourcePath(const Amino::Array<Amino::String>& names) {
 ///              root layer; false otherwise.
 USD_TESTUTILS_DECL
 bool addSubLayers(
-    pxr::SdfLayerRefPtr                 sdfRootLayer,
+    PXR_NS::SdfLayerRefPtr                 sdfRootLayer,
     const Amino::Array<Amino::String>&  subNames,
     Amino::String&                      errorMsg);
 
@@ -118,7 +118,7 @@ bool createBifrostLayers(
 ///         given USD names; false otherwise.
 USD_TESTUTILS_DECL
 bool checkSdfSublayerPaths(
-    const pxr::SdfLayer&                sdfRootLayer,
+    const PXR_NS::SdfLayer&                sdfRootLayer,
     const Amino::Array<Amino::String>&  subNames,
     Amino::String&                      errorMsg);
 

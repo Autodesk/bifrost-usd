@@ -129,8 +129,8 @@ TEST(BifrostUsdTests, Stage_ctors) {
     std::vector<BifrostUsd::InitialLoadSet> loadSetArgs = {
         BifrostUsd::InitialLoadSet::LoadAll,
         BifrostUsd::InitialLoadSet::LoadNone};
-    std::vector<pxr::SdfPath> maskPaths = {pxr::SdfPath("/grp1"),
-                                           pxr::SdfPath("/grp2")};
+    std::vector<PXR_NS::SdfPath> maskPaths = {PXR_NS::SdfPath("/grp1"),
+                                           PXR_NS::SdfPath("/grp2")};
 
     // default ctor
     {
@@ -179,8 +179,8 @@ TEST(BifrostUsdTests, Stage_ctors) {
     // ctor with BifrostUSD::Layer + InitialLoadSet
     for (bool editable : editableArgs) {
         for (BifrostUsd::InitialLoadSet loadSet : loadSetArgs) {
-            pxr::SdfLayerRefPtr sdfRootLayer =
-                pxr::SdfLayer::FindOrOpen(rootName.c_str());
+            PXR_NS::SdfLayerRefPtr sdfRootLayer =
+                PXR_NS::SdfLayer::FindOrOpen(rootName.c_str());
             ASSERT_NE(sdfRootLayer, nullptr);
             Amino::String errorMsg;
             addSubLayers(sdfRootLayer, subNames, errorMsg);
@@ -206,8 +206,8 @@ TEST(BifrostUsdTests, Stage_ctors) {
     // ctor with BifrostUSD::Layer + PopulationMask + InitialLoadSet
     for (bool editable : editableArgs) {
         for (BifrostUsd::InitialLoadSet loadSet : loadSetArgs) {
-            pxr::SdfLayerRefPtr sdfRootLayer =
-                pxr::SdfLayer::FindOrOpen(rootName.c_str());
+            PXR_NS::SdfLayerRefPtr sdfRootLayer =
+                PXR_NS::SdfLayer::FindOrOpen(rootName.c_str());
             ASSERT_NE(sdfRootLayer, nullptr);
             Amino::String errorMsg;
             addSubLayers(sdfRootLayer, subNames, errorMsg);
@@ -218,7 +218,7 @@ TEST(BifrostUsdTests, Stage_ctors) {
             EXPECT_EQ(layer.getSubLayers().size(), numSubNames);
 
             BifrostUsd::Stage stage{
-                layer, pxr::UsdStagePopulationMask(maskPaths), loadSet};
+                layer, PXR_NS::UsdStagePopulationMask(maskPaths), loadSet};
             EXPECT_TRUE(stage); // VALID
 
             for (int index = -2; index < numSubNames; ++index) {
@@ -253,7 +253,7 @@ TEST(BifrostUsdTests, Stage_ctors) {
     // ctor with filepath + PopulationMask + InitialLoadSet
     for (BifrostUsd::InitialLoadSet loadSet : loadSetArgs) {
         BifrostUsd::Stage stage{getResourcePath("layer_with_sub_layers.usda"),
-                                pxr::UsdStagePopulationMask(maskPaths),
+                                PXR_NS::UsdStagePopulationMask(maskPaths),
                                 loadSet};
         EXPECT_TRUE(stage); // VALID
         ASSERT_NE(nullptr, stage.getRootLayer());

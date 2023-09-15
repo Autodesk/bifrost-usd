@@ -83,7 +83,7 @@ TEST(BifrostUsdTests, Layer_ctors) {
     for (std::string filename : sourceFilenames) {
         for (bool editable : editableArgs) {
             Amino::String path = getResourcePath(filename.c_str());
-            pxr::SdfLayerRefPtr pxrLayer = pxr::SdfLayer::FindOrOpen(
+            PXR_NS::SdfLayerRefPtr pxrLayer = PXR_NS::SdfLayer::FindOrOpen(
                 path.c_str());
             EXPECT_NE(nullptr, pxrLayer);
 
@@ -221,7 +221,7 @@ TEST(BifrostUsdTests, createLayer) {
 
     // new layer from pxr layer
     {
-        auto pxrLayer = pxr::SdfLayer::FindOrOpen(
+        auto pxrLayer = PXR_NS::SdfLayer::FindOrOpen(
             getResourcePath("helloworld.usd").c_str());
         auto layer = Amino::newClassPtr<BifrostUsd::Layer>(pxrLayer, false);
         ASSERT_TRUE(*layer);
@@ -243,7 +243,7 @@ TEST(BifrostUsdTests, createLayer) {
             {"abc.usdc",    "abc.usdc"}
         };
         for(auto& test : tests) {
-            auto pxrLayer = pxr::SdfLayer::CreateAnonymous(test.first);
+            auto pxrLayer = PXR_NS::SdfLayer::CreateAnonymous(test.first);
             EXPECT_NE(pxrLayer, nullptr) << "Error creating anonymous SdfLayer with tag=`"
                 << test.first << "`";
             if (pxrLayer) {
@@ -267,7 +267,7 @@ TEST(BifrostUsdTests, createLayer) {
     // new layer from a read only pxr layer with a sublayer (to check that the
     // sublayer can't be edited if comming from a non-anonymous layer)
     {
-        auto stage = pxr::UsdStage::Open(
+        auto stage = PXR_NS::UsdStage::Open(
             getResourcePath("layer_with_sub_layers.usda").c_str());
 
         auto layer = Amino::newClassPtr<BifrostUsd::Layer>(
@@ -285,7 +285,7 @@ TEST(BifrostUsdTests, createLayer) {
     // Open read-only layer that has sublayers
     {
         // Test opening read only SdfLayer.
-        auto pxr_layer = pxr::SdfLayer::FindOrOpen(
+        auto pxr_layer = PXR_NS::SdfLayer::FindOrOpen(
             getResourcePath("layer_with_sub_layers.usda").c_str());
         ASSERT_TRUE(pxr_layer);
         pxr_layer->SetPermissionToEdit(false);
@@ -299,7 +299,7 @@ TEST(BifrostUsdTests, createLayer) {
     // Open layer that has sublayers
     {
         // Test opening read only SdfLayer.
-        auto pxr_layer = pxr::SdfLayer::FindOrOpen(
+        auto pxr_layer = PXR_NS::SdfLayer::FindOrOpen(
             getResourcePath("layer_with_sub_layers.usda").c_str());
         ASSERT_TRUE(pxr_layer);
         ASSERT_TRUE(pxr_layer->PermissionToEdit());
@@ -336,27 +336,27 @@ TEST(BifrostUsdTests, createLayer) {
 
         // modify source layer
         {
-            auto stage = pxr::UsdStage::Open(source_layer.getLayerPtr());
+            auto stage = PXR_NS::UsdStage::Open(source_layer.getLayerPtr());
             ASSERT_TRUE(stage);
             // Modify source layer
-            auto prim = stage->GetPrimAtPath(pxr::SdfPath("/hello/world"));
+            auto prim = stage->GetPrimAtPath(PXR_NS::SdfPath("/hello/world"));
             ASSERT_TRUE(prim);
-            prim.GetAttribute(pxr::TfToken("testAttr")).Set(456);
+            prim.GetAttribute(PXR_NS::TfToken("testAttr")).Set(456);
             int value = 0;
             ASSERT_TRUE(
-                prim.GetAttribute(pxr::TfToken("testAttr")).Get(&value));
+                prim.GetAttribute(PXR_NS::TfToken("testAttr")).Get(&value));
             ASSERT_EQ(value, 456);
         }
 
         // check that copied layer is not modified
         {
-            auto stage = pxr::UsdStage::Open(new_layer.getLayerPtr());
+            auto stage = PXR_NS::UsdStage::Open(new_layer.getLayerPtr());
             ASSERT_TRUE(stage);
-            auto prim = stage->GetPrimAtPath(pxr::SdfPath("/hello/world"));
+            auto prim = stage->GetPrimAtPath(PXR_NS::SdfPath("/hello/world"));
             ASSERT_TRUE(prim);
             int value = 0;
             ASSERT_TRUE(
-                prim.GetAttribute(pxr::TfToken("testAttr")).Get(&value));
+                prim.GetAttribute(PXR_NS::TfToken("testAttr")).Get(&value));
             ASSERT_EQ(value, 123);
         }
 
@@ -401,7 +401,7 @@ TEST(BifrostUsdTests, getSubLayer) {
     const Amino::Array<Amino::String> subNames = {
         "Grass1.usd", "Mushroom1.usd", "Tree1.usd"}; // weakest to strongest
     const int numSubNames = static_cast<int>(subNames.size());
-    pxr::SdfLayerRefPtr sdfRootLayer = pxr::SdfLayer::FindOrOpen(rootName.c_str());
+    PXR_NS::SdfLayerRefPtr sdfRootLayer = PXR_NS::SdfLayer::FindOrOpen(rootName.c_str());
     ASSERT_NE(sdfRootLayer, nullptr);
     Amino::String errorMsg;
     addSubLayers(sdfRootLayer, subNames, errorMsg);
@@ -477,7 +477,7 @@ TEST(BifrostUsdTests, insertSubLayer) {
     const Amino::Array<Amino::String> subNames = {
         "Grass1.usd", "Mushroom1.usd", "Tree1.usd"}; // weakest to strongest
     const int numSubNames = static_cast<int>(subNames.size());
-    pxr::SdfLayerRefPtr sdfRootLayer = pxr::SdfLayer::FindOrOpen(rootName.c_str());
+    PXR_NS::SdfLayerRefPtr sdfRootLayer = PXR_NS::SdfLayer::FindOrOpen(rootName.c_str());
     ASSERT_NE(sdfRootLayer, nullptr);
     Amino::String errorMsg;
     addSubLayers(sdfRootLayer, subNames, errorMsg);
@@ -715,7 +715,7 @@ TEST(BifrostUsdTests, replaceSubLayer) {
     const Amino::Array<Amino::String> subNames = {
         "Grass1.usd", "Mushroom1.usd", "Tree1.usd"}; // weakest to strongest
     const int numSubNames = static_cast<int>(subNames.size());
-    pxr::SdfLayerRefPtr sdfRootLayer = pxr::SdfLayer::FindOrOpen(rootName.c_str());
+    PXR_NS::SdfLayerRefPtr sdfRootLayer = PXR_NS::SdfLayer::FindOrOpen(rootName.c_str());
     ASSERT_NE(sdfRootLayer, nullptr);
     Amino::String errorMsg;
     addSubLayers(sdfRootLayer, subNames, errorMsg);

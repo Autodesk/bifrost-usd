@@ -51,7 +51,7 @@ class AMINO_ANNOTATE("Amino::Class") USD_DECL Prim {
 public:
 #ifndef DISABLE_PXR_HEADERS
     Prim() = default;
-    Prim(pxr::UsdPrim prim, Amino::Ptr<Stage> stage);
+    Prim(PXR_NS::UsdPrim prim, Amino::Ptr<Stage> stage);
 
     Prim(const Prim&)      = default;
     Prim(Prim &&) noexcept = default;
@@ -66,16 +66,16 @@ public:
         return stage_ptr != nullptr;
     }
 
-    pxr::UsdPrim const*       operator->() const { return &pxr_prim; }
+    PXR_NS::UsdPrim const*       operator->() const { return &pxr_prim; }
     Amino::Ptr<Stage> const& getStage() const { return stage_ptr; }
 
-    // This accessor is dangerous because pxr::UsdPrim has copy constructors
+    // This accessor is dangerous because PXR_NS::UsdPrim has copy constructors
     // and copy assignement operators which can "cast aways" the constness.
     // This should be used with extreme caution...
-    pxr::UsdPrim const& getPxrPrim() const { return pxr_prim; }
+    PXR_NS::UsdPrim const& getPxrPrim() const { return pxr_prim; }
 
 private:
-    pxr::UsdPrim pxr_prim;
+    PXR_NS::UsdPrim pxr_prim;
 
     // We need to keep a pointer to the stage since Prims can only exist on
     // stages and if we don't then Bifrost will cleanup the stages if they are

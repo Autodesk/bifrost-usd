@@ -45,10 +45,10 @@ bool USD::Shading::get_material_path(
     Amino::String&                     path) {
 
     auto materialBindingAPI =
-        pxr::UsdShadeMaterialBindingAPI::Apply(prim.getPxrPrim());
+        PXR_NS::UsdShadeMaterialBindingAPI::Apply(prim.getPxrPrim());
     if (materialBindingAPI) {
         auto materialPurpose = USDUtils::GetMaterialPurpose(material_purpose);
-        auto materialPath    = pxr::SdfPath{};
+        auto materialPath    = PXR_NS::SdfPath{};
         if (compute_bound_material) {
             materialPath =
                 materialBindingAPI.ComputeBoundMaterial(materialPurpose)
@@ -81,7 +81,7 @@ bool USD::Shading::bind_material(
 
         VariantEditContext ctx(stage);
 
-        auto material = pxr::UsdShadeMaterial::Get(stage.getStagePtr(),
+        auto material = PXR_NS::UsdShadeMaterial::Get(stage.getStagePtr(),
                                                    pxr_mat_prim.GetPath());
         if (!material) {
             auto msg = "material_path " + pxr_mat_prim.GetPath().GetString() +
@@ -92,7 +92,7 @@ bool USD::Shading::bind_material(
         auto materialPurpose = USDUtils::GetMaterialPurpose(material_purpose);
 
         auto materialBindingAPI =
-            pxr::UsdShadeMaterialBindingAPI::Apply(pxr_geo_prim);
+            PXR_NS::UsdShadeMaterialBindingAPI::Apply(pxr_geo_prim);
         if (collection_name.empty()) {
             return materialBindingAPI.Bind(
                 material,
@@ -103,8 +103,8 @@ bool USD::Shading::bind_material(
                 collection_prim_path.empty()
                     ? pxr_geo_prim
                     : USDUtils::get_prim_or_throw(collection_prim_path, stage);
-            auto collectionAPI = pxr::UsdCollectionAPI::Get(
-                pxr_collection_prim, pxr::TfToken{collection_name.c_str()});
+            auto collectionAPI = PXR_NS::UsdCollectionAPI::Get(
+                pxr_collection_prim, PXR_NS::TfToken{collection_name.c_str()});
             if (!collectionAPI) {
                 auto msg =
                     "No collection " + std::string{collection_name.c_str()} +
@@ -113,7 +113,7 @@ bool USD::Shading::bind_material(
             }
 
             return materialBindingAPI.Bind(
-                collectionAPI, material, pxr::TfToken{binding_name.c_str()},
+                collectionAPI, material, PXR_NS::TfToken{binding_name.c_str()},
                 USDUtils::GetMaterialBindingStrength(binding_strength),
                 materialPurpose);
         }
@@ -138,14 +138,14 @@ bool USD::Shading::unbind_material(
 
         VariantEditContext ctx(stage);
         auto               materialBindingAPI =
-            pxr::UsdShadeMaterialBindingAPI::Apply(pxr_geo_prim);
+            PXR_NS::UsdShadeMaterialBindingAPI::Apply(pxr_geo_prim);
 
         auto materialPurpose = USDUtils::GetMaterialPurpose(material_purpose);
         if (binding_name.empty()) {
             return materialBindingAPI.UnbindDirectBinding(materialPurpose);
         } else {
             return materialBindingAPI.UnbindCollectionBinding(
-                pxr::TfToken{binding_name.c_str()}, materialPurpose);
+                PXR_NS::TfToken{binding_name.c_str()}, materialPurpose);
         }
     } catch (std::exception& e) {
         log_exception("USD::Shading::unbind_material", e);

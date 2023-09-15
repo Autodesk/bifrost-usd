@@ -36,7 +36,7 @@ bool StageCache::addStageToCache(const Amino::Ptr<BifrostUsd::Stage>& stage,
     if (stage) {
         auto usdStagePtr =
             const_cast<Stage&>(*stage).getStagePtr();
-        auto id = pxr::UsdUtilsStageCache::Get().Insert(usdStagePtr);
+        auto id = PXR_NS::UsdUtilsStageCache::Get().Insert(usdStagePtr);
 
         if (id && id.IsValid()) {
             // Note: on the USD side, this is implemented as a long int
@@ -54,11 +54,11 @@ bool StageCache::removeStageFromCache(int64_t id) {
         // Which is platform dependent.  We interface ith a 64 bit int.
         // So we cast.
         assert(id <= std::numeric_limits<int>::max());
-        return pxr::UsdUtilsStageCache::Get().Erase(
-            pxr::UsdStageCache::Id::FromLongInt(static_cast<int>(id)));
+        return PXR_NS::UsdUtilsStageCache::Get().Erase(
+            PXR_NS::UsdStageCache::Id::FromLongInt(static_cast<int>(id)));
 #else
-        return pxr::UsdUtilsStageCache::Get().Erase(
-            pxr::UsdStageCache::Id::FromLongInt(id));
+        return PXR_NS::UsdUtilsStageCache::Get().Erase(
+            PXR_NS::UsdStageCache::Id::FromLongInt(id));
 #endif
 }
 

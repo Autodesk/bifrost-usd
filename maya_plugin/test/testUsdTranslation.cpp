@@ -37,7 +37,7 @@ TEST(UsdTranslationTests, addStageToCache) {
 
     // On windows we need to cast to long int, otheriwse its a warning as error
     ASSERT_TRUE(
-        pxr::UsdUtilsStageCache::Get().Find(pxr::UsdStageCache::Id::FromLongInt(
+        PXR_NS::UsdUtilsStageCache::Get().Find(PXR_NS::UsdStageCache::Id::FromLongInt(
             static_cast<long int>(cacheId))) ==
         const_cast<BifrostUsd::Stage&>(*stage).getStagePtr());
 
@@ -56,8 +56,8 @@ TEST(UsdTranslationTests, portRemoved) {
     translator->portRemoved("somestage", "someproxy");
 
     // On windows we need to cast to long int, otheriwse its a warning as error
-    ASSERT_FALSE(pxr::UsdUtilsStageCache::Get().Find(
-        pxr::UsdStageCache::Id::FromLongInt(static_cast<long int>(cacheId))));
+    ASSERT_FALSE(PXR_NS::UsdUtilsStageCache::Get().Find(
+        PXR_NS::UsdStageCache::Id::FromLongInt(static_cast<long int>(cacheId))));
 
     delete translator;
 }

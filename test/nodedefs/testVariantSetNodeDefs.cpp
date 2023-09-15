@@ -29,7 +29,7 @@ namespace {
 auto addVariantSet(BifrostUsd::Stage& stage,
                    const Amino::String& prim_path,
                    const Amino::String& name) {
-    auto primPath = pxr::SdfPath(prim_path.c_str());
+    auto primPath = PXR_NS::SdfPath(prim_path.c_str());
     auto prim     = stage->DefinePrim(primPath);
     USD::VariantSet::add_variant_set(stage, primPath.GetText(), name);
     return prim;

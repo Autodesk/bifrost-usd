@@ -49,12 +49,12 @@ bool USD::Collection::get_or_create_collection(
 
         VariantEditContext ctx(stage);
 
-        auto collectionAPI = pxr::UsdCollectionAPI::Get(
-            prim, pxr::TfToken{collection_name.c_str()});
+        auto collectionAPI = PXR_NS::UsdCollectionAPI::Get(
+            prim, PXR_NS::TfToken{collection_name.c_str()});
         if (!collectionAPI) {
             std::string whyNot;
-            bool        result = pxr::UsdCollectionAPI::CanApply(
-                prim, pxr::TfToken{collection_name.c_str()}, &whyNot);
+            bool        result = PXR_NS::UsdCollectionAPI::CanApply(
+                prim, PXR_NS::TfToken{collection_name.c_str()}, &whyNot);
             if (!result) {
                 auto msg =
                     "It is not valid to apply CollectionAPI schema to "
@@ -64,8 +64,8 @@ bool USD::Collection::get_or_create_collection(
                     whyNot + "`)";
                 throw std::runtime_error(std::move(msg));
             }
-            collectionAPI = pxr::UsdCollectionAPI::Apply(
-                prim, pxr::TfToken{collection_name.c_str()});
+            collectionAPI = PXR_NS::UsdCollectionAPI::Apply(
+                prim, PXR_NS::TfToken{collection_name.c_str()});
             if (!collectionAPI) {
                 auto msg =
                     "An unexpected error occurred while applying CollectionAPI "
@@ -77,9 +77,9 @@ bool USD::Collection::get_or_create_collection(
         }
 
         if (rule != BifrostUsd::ExpansionRule::Default) {
-            pxr::TfToken      token = USDUtils::GetExpansionRule(rule);
-            pxr::UsdAttribute attr =
-                collectionAPI.CreateExpansionRuleAttr(pxr::VtValue{token});
+            PXR_NS::TfToken      token = USDUtils::GetExpansionRule(rule);
+            PXR_NS::UsdAttribute attr =
+                collectionAPI.CreateExpansionRuleAttr(PXR_NS::VtValue{token});
             if (!attr) {
                 auto msg = "Unable to set expansion rule " +
                             std::string{token.GetText()} +
@@ -90,7 +90,7 @@ bool USD::Collection::get_or_create_collection(
         }
         for (size_t i = 0; i < include_paths.size(); ++i) {
             if (!collectionAPI.IncludePath(
-                    pxr::SdfPath{include_paths[i].c_str()})) {
+                    PXR_NS::SdfPath{include_paths[i].c_str()})) {
                 auto msg = "Can not add include path " +
                             std::string{include_paths[i].c_str()} +
                             " to collection " +
@@ -101,7 +101,7 @@ bool USD::Collection::get_or_create_collection(
 
         for (size_t i = 0; i < exclude_paths.size(); ++i) {
             if (!collectionAPI.ExcludePath(
-                    pxr::SdfPath{exclude_paths[i].c_str()})) {
+                    PXR_NS::SdfPath{exclude_paths[i].c_str()})) {
                 auto msg = "Can not add exclude path " +
                             std::string{exclude_paths[i].c_str()} +
                             " to collection " +
@@ -128,7 +128,7 @@ void USD::Collection::get_all_collection_names(
     }
 
     auto allCollections =
-        pxr::UsdCollectionAPI::GetAllCollections(prim.getPxrPrim());
+        PXR_NS::UsdCollectionAPI::GetAllCollections(prim.getPxrPrim());
 
     const size_t numCollections = allCollections.size();
     names->resize(numCollections);
@@ -147,10 +147,10 @@ void USD::Collection::get_includes_paths(
         return;
     }
 
-    auto collection = pxr::UsdCollectionAPI::Get(
-        prim.getPxrPrim(), pxr::TfToken{collection_name.c_str()});
+    auto collection = PXR_NS::UsdCollectionAPI::Get(
+        prim.getPxrPrim(), PXR_NS::TfToken{collection_name.c_str()});
 
-    pxr::SdfPathVector targets;
+    PXR_NS::SdfPathVector targets;
     if (collection.GetIncludesRel().GetTargets(&targets)) {
         const size_t numIncludesPaths = targets.size();
         paths->resize(numIncludesPaths);
@@ -170,10 +170,10 @@ void USD::Collection::get_excludes_paths(
         return;
     }
 
-    auto collection = pxr::UsdCollectionAPI::Get(
-        prim.getPxrPrim(), pxr::TfToken{collection_name.c_str()});
+    auto collection = PXR_NS::UsdCollectionAPI::Get(
+        prim.getPxrPrim(), PXR_NS::TfToken{collection_name.c_str()});
 
-    pxr::SdfPathVector targets;
+    PXR_NS::SdfPathVector targets;
     if (collection.GetExcludesRel().GetTargets(&targets)) {
         const size_t numExcludesPaths = targets.size();
         paths->resize(numExcludesPaths);

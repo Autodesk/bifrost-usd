@@ -39,13 +39,13 @@ namespace USDTypeConverters {
     MACRO(Amino::float_t, float)                \
     MACRO(Amino::double_t, double)              \
     MACRO(Amino::String, std::string)           \
-    MACRO(Bifrost::Math::float2, pxr::GfVec2f)  \
-    MACRO(Bifrost::Math::float3, pxr::GfVec3f)  \
-    MACRO(Bifrost::Math::float4, pxr::GfVec4f)  \
-    MACRO(Bifrost::Math::double2, pxr::GfVec2d) \
-    MACRO(Bifrost::Math::double3, pxr::GfVec3d) \
-    MACRO(Bifrost::Math::double4, pxr::GfVec4d) \
-    MACRO(Bifrost::Math::double4x4, pxr::GfMatrix4d)
+    MACRO(Bifrost::Math::float2, PXR_NS::GfVec2f)  \
+    MACRO(Bifrost::Math::float3, PXR_NS::GfVec3f)  \
+    MACRO(Bifrost::Math::float4, PXR_NS::GfVec4f)  \
+    MACRO(Bifrost::Math::double2, PXR_NS::GfVec2d) \
+    MACRO(Bifrost::Math::double3, PXR_NS::GfVec3d) \
+    MACRO(Bifrost::Math::double4, PXR_NS::GfVec4d) \
+    MACRO(Bifrost::Math::double4x4, PXR_NS::GfMatrix4d)
 
 template <typename T>
 struct type_identity { // std::type_identity in C++20
@@ -71,16 +71,16 @@ FOR_EACH_TYPE_PAIR(DEFINE_TRAITS)
 #undef DEFINE_TRAITS
 
 template <>
-struct PxrType<Bifrost::Object> : public type_identity<pxr::VtDictionary> {};
+struct PxrType<Bifrost::Object> : public type_identity<PXR_NS::VtDictionary> {};
 template <>
-struct BfType<pxr::VtDictionary>
+struct BfType<PXR_NS::VtDictionary>
     : public type_identity<Amino::MutablePtr<Bifrost::Object>> {};
 
 template <typename T>
 struct PxrType<Amino::Array<T>>
-    : public type_identity<pxr::VtArray<PxrType_t<T>>> {};
+    : public type_identity<PXR_NS::VtArray<PxrType_t<T>>> {};
 template <typename T>
-struct BfType<pxr::VtArray<T>>
+struct BfType<PXR_NS::VtArray<T>>
     : public type_identity<Amino::Array<BfType_t<T>>> {};
 
 // Type conversions from Pxr types to Bifrost/Amino types, and vice versa.
@@ -94,31 +94,31 @@ inline BfType_t<std::string> fromPxr(const std::string& src) {
     return src.c_str();
 }
 template <>
-inline BfType_t<pxr::GfVec2f> fromPxr(const pxr::GfVec2f& src) {
+inline BfType_t<PXR_NS::GfVec2f> fromPxr(const PXR_NS::GfVec2f& src) {
     return {src[0], src[1]};
 }
 template <>
-inline BfType_t<pxr::GfVec3f> fromPxr(const pxr::GfVec3f& src) {
+inline BfType_t<PXR_NS::GfVec3f> fromPxr(const PXR_NS::GfVec3f& src) {
     return {src[0], src[1], src[2]};
 }
 template <>
-inline BfType_t<pxr::GfVec4f> fromPxr(const pxr::GfVec4f& src) {
+inline BfType_t<PXR_NS::GfVec4f> fromPxr(const PXR_NS::GfVec4f& src) {
     return {src[0], src[1], src[2], src[3]};
 }
 template <>
-inline BfType_t<pxr::GfVec2d> fromPxr(const pxr::GfVec2d& src) {
+inline BfType_t<PXR_NS::GfVec2d> fromPxr(const PXR_NS::GfVec2d& src) {
     return {src[0], src[1]};
 }
 template <>
-inline BfType_t<pxr::GfVec3d> fromPxr(const pxr::GfVec3d& src) {
+inline BfType_t<PXR_NS::GfVec3d> fromPxr(const PXR_NS::GfVec3d& src) {
     return {src[0], src[1], src[2]};
 }
 template <>
-inline BfType_t<pxr::GfVec4d> fromPxr(const pxr::GfVec4d& src) {
+inline BfType_t<PXR_NS::GfVec4d> fromPxr(const PXR_NS::GfVec4d& src) {
     return {src[0], src[1], src[2], src[3]};
 }
 template <>
-inline BfType_t<pxr::GfMatrix4d> fromPxr(const pxr::GfMatrix4d& src) {
+inline BfType_t<PXR_NS::GfMatrix4d> fromPxr(const PXR_NS::GfMatrix4d& src) {
     double data[4][4];
     src.Get(data);
     return {{data[0][0], data[0][1], data[0][2], data[0][3]},
@@ -127,12 +127,12 @@ inline BfType_t<pxr::GfMatrix4d> fromPxr(const pxr::GfMatrix4d& src) {
              {data[3][0], data[3][1], data[3][2], data[3][3]}};
 }
 template <>
-inline BfType_t<pxr::VtDictionary> fromPxr(const pxr::VtDictionary& src) {
+inline BfType_t<PXR_NS::VtDictionary> fromPxr(const PXR_NS::VtDictionary& src) {
     return USDUtils::VtDictionaryToBifrostObject(src);
 }
 template <typename T>
-inline BfType_t<pxr::VtArray<T>> fromPxr(const pxr::VtArray<T>& src) {
-    BfType_t<pxr::VtArray<T>> dest;
+inline BfType_t<PXR_NS::VtArray<T>> fromPxr(const PXR_NS::VtArray<T>& src) {
+    BfType_t<PXR_NS::VtArray<T>> dest;
     dest.resize(src.size());
     for (size_t i = 0; i < src.size(); i++) {
         dest[i] = fromPxr(src[i]);

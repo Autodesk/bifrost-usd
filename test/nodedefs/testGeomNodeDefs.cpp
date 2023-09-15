@@ -39,9 +39,9 @@ using namespace BifrostUsd::TestUtils;
 TEST(GeomNodeDefs, get_xform_vectors) {
     auto kitchenPropsFilePath = getResourcePath(
         Amino::Array<Amino::String>{"kitchen_set", "kitchen_props.usd"});
-    auto pxrStage = pxr::UsdStage::Open(kitchenPropsFilePath.c_str());
+    auto pxrStage = PXR_NS::UsdStage::Open(kitchenPropsFilePath.c_str());
     auto pxrPrim =
-        pxrStage->GetPrimAtPath(pxr::SdfPath("/Props_grp/MeasuringSpoon"));
+        pxrStage->GetPrimAtPath(PXR_NS::SdfPath("/Props_grp/MeasuringSpoon"));
     ASSERT_TRUE(pxrPrim);
     auto layer =
         Amino::newClassPtr<BifrostUsd::Layer>(pxrStage->GetRootLayer());
@@ -79,8 +79,8 @@ TEST(GeomNodeDefs, get_xform_vectors) {
 TEST(GeomNodeDefs, usd_boundable) {
     auto bottleFilePath = getResourcePath(Amino::Array<Amino::String>{
         "kitchen_set", "assets", "Bottle", "Bottle.usd"});
-    auto pxrStage       = pxr::UsdStage::Open(bottleFilePath.c_str());
-    auto pxrPrim = pxrStage->GetPrimAtPath(pxr::SdfPath("/Bottle/Geom/Bottle"));
+    auto pxrStage       = PXR_NS::UsdStage::Open(bottleFilePath.c_str());
+    auto pxrPrim = pxrStage->GetPrimAtPath(PXR_NS::SdfPath("/Bottle/Geom/Bottle"));
     ASSERT_TRUE(pxrPrim);
     auto layer =
         Amino::newClassPtr<BifrostUsd::Layer>(pxrStage->GetRootLayer());
@@ -98,10 +98,10 @@ TEST(GeomNodeDefs, usd_boundable) {
     ASSERT_EQ(2, extent->size());
 
     // compute boundable using pxr API to compare with our result
-    auto              boundable = pxr::UsdGeomBoundable(pxrPrim);
-    pxr::VtVec3fArray pxr_extent;
-    ASSERT_TRUE(pxr::UsdGeomBoundable::ComputeExtentFromPlugins(
-        boundable, pxr::UsdTimeCode::Default(), &pxr_extent));
+    auto              boundable = PXR_NS::UsdGeomBoundable(pxrPrim);
+    PXR_NS::VtVec3fArray pxr_extent;
+    ASSERT_TRUE(PXR_NS::UsdGeomBoundable::ComputeExtentFromPlugins(
+        boundable, PXR_NS::UsdTimeCode::Default(), &pxr_extent));
 
     ASSERT_EQ((*extent)[0].x, pxr_extent[0][0]);
     ASSERT_EQ((*extent)[0].y, pxr_extent[0][1]);
@@ -125,18 +125,18 @@ TEST(GeomNodeDefs, translate_prim) {
 
     ASSERT_TRUE(stage);
 
-    auto prim = stage->GetPrimAtPath(pxr::SdfPath("/Tree2"));
+    auto prim = stage->GetPrimAtPath(PXR_NS::SdfPath("/Tree2"));
     ASSERT_TRUE(prim);
 
-    auto xform_api = pxr::UsdGeomXformCommonAPI(prim);
+    auto xform_api = PXR_NS::UsdGeomXformCommonAPI(prim);
     ASSERT_TRUE(xform_api);
 
-    pxr::GfVec3d                              translation;
-    pxr::GfVec3f                              rotation;
-    pxr::GfVec3f                              scale;
-    pxr::GfVec3f                              pivot;
-    pxr::UsdGeomXformCommonAPI::RotationOrder rotOrder;
-    pxr::UsdTimeCode                          time;
+    PXR_NS::GfVec3d                              translation;
+    PXR_NS::GfVec3f                              rotation;
+    PXR_NS::GfVec3f                              scale;
+    PXR_NS::GfVec3f                              pivot;
+    PXR_NS::UsdGeomXformCommonAPI::RotationOrder rotOrder;
+    PXR_NS::UsdTimeCode                          time;
 
     ASSERT_TRUE(xform_api.GetXformVectors(&translation, &rotation, &scale,
                                           &pivot, &rotOrder, time));

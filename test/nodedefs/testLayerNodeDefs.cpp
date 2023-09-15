@@ -56,7 +56,7 @@ TEST(LayerNodeDefs, get_layer) {
     const Amino::Array<Amino::String> subNames = {
         "Grass1.usd", "Mushroom1.usd", "Tree1.usd"}; // weakest to strongest
     const size_t numSubNames = subNames.size();
-    pxr::SdfLayerRefPtr sdfRootLayer = pxr::SdfLayer::FindOrOpen(rootName.c_str());
+    PXR_NS::SdfLayerRefPtr sdfRootLayer = PXR_NS::SdfLayer::FindOrOpen(rootName.c_str());
     ASSERT_NE(sdfRootLayer, nullptr);
     Amino::String errorMsg;
     addSubLayers(sdfRootLayer, subNames, errorMsg);
@@ -137,7 +137,7 @@ TEST(LayerNodeDefs, open_layer) {
                                /*read_only*/ false, layer);
         ASSERT_TRUE(layer);
         ASSERT_TRUE(*layer);
-        ASSERT_TRUE(layer->get().GetPrimAtPath(pxr::SdfPath("hello")));
+        ASSERT_TRUE(layer->get().GetPrimAtPath(PXR_NS::SdfPath("hello")));
 
         layer.reset();
         USD::Layer::open_layer("", "", false, layer);
@@ -150,7 +150,7 @@ TEST(LayerNodeDefs, open_layer) {
                                /*read_only*/ true, layer);
         ASSERT_TRUE(layer);
         ASSERT_TRUE(*layer);
-        ASSERT_TRUE(layer->get().GetPrimAtPath(pxr::SdfPath("hello")));
+        ASSERT_TRUE(layer->get().GetPrimAtPath(PXR_NS::SdfPath("hello")));
         ASSERT_FALSE(layer->get().PermissionToEdit());
     }
     {
@@ -301,7 +301,7 @@ TEST(LayerNodeDefs, get_sublayer_paths) {
     auto edits = std::vector<bool>{true,false};
     for(auto itEdit = edits.begin(); itEdit != edits.end(); ++itEdit) {
         // Open an SdfLayer with no sublayer in it:
-        pxr::SdfLayerRefPtr sdfRootLayer = pxr::SdfLayer::FindOrOpen(rootName.c_str());
+        PXR_NS::SdfLayerRefPtr sdfRootLayer = PXR_NS::SdfLayer::FindOrOpen(rootName.c_str());
         EXPECT_NE(sdfRootLayer, nullptr);
         if(!sdfRootLayer)
             continue;
@@ -338,7 +338,7 @@ TEST(LayerNodeDefs, get_sublayer_paths) {
     // Case 2: root layer has multiple sublayers
     for(auto itEdit = edits.begin(); itEdit != edits.end(); ++itEdit) {
         // Open an SdfLayer with some sublayers in it:
-        pxr::SdfLayerRefPtr sdfRootLayer = pxr::SdfLayer::FindOrOpen(rootName.c_str());
+        PXR_NS::SdfLayerRefPtr sdfRootLayer = PXR_NS::SdfLayer::FindOrOpen(rootName.c_str());
         EXPECT_NE(sdfRootLayer, nullptr);
         if(!sdfRootLayer)
             continue;
@@ -481,7 +481,7 @@ TEST(LayerNodeDefs, add_sublayer_array) {
     const Amino::Array<Amino::String> subNames_Start = {
         "Grass1.usd", "Grass2.usd", "Mushroom1.usd"}; // weakest to strongest
     const size_t numSubNames_Start = subNames_Start.size();
-    pxr::SdfLayerRefPtr sdfRootLayer = pxr::SdfLayer::FindOrOpen(rootName.c_str());
+    PXR_NS::SdfLayerRefPtr sdfRootLayer = PXR_NS::SdfLayer::FindOrOpen(rootName.c_str());
     ASSERT_NE(sdfRootLayer, nullptr);
     Amino::String errorMsg;
     addSubLayers(sdfRootLayer, subNames_Start, errorMsg);
@@ -635,7 +635,7 @@ TEST(LayerNodeDefs, export_to_file_with_edit_layer) {
         ASSERT_TRUE(stage);
 
         // Create a new prim on the edit target Layer
-        auto primPath = pxr::SdfPath("/obj");
+        auto primPath = PXR_NS::SdfPath("/obj");
         auto newprim  = stage->DefinePrim(primPath);
         ASSERT_TRUE(newprim.IsValid());
 
@@ -860,7 +860,7 @@ TEST(LayerNodeDefs, replace_layer) {
     const Amino::Array<Amino::String> subNames = {
         "Grass1.usd", "Grass2.usd", "Mushroom1.usd"}; // weakest to strongest
     const int numSubNames = static_cast<int>(subNames.size());
-    pxr::SdfLayerRefPtr sdfRootLayer = pxr::SdfLayer::FindOrOpen(rootName.c_str());
+    PXR_NS::SdfLayerRefPtr sdfRootLayer = PXR_NS::SdfLayer::FindOrOpen(rootName.c_str());
     ASSERT_NE(sdfRootLayer, nullptr);
     Amino::String errorMsg;
     addSubLayers(sdfRootLayer, subNames, errorMsg);
@@ -909,7 +909,7 @@ TEST(LayerNodeDefs, replace_layer) {
 
                     // Check that actual stage's EditTarget is the right one:
                     EXPECT_EQ(stage.getEditLayerIndex(), reversedEditIndex);
-                    const pxr::SdfLayerHandle& sdfEditLayer =
+                    const PXR_NS::SdfLayerHandle& sdfEditLayer =
                         stage.get().GetEditTarget().GetLayer();
                     EXPECT_TRUE(sdfEditLayer)
                         << title
@@ -1000,7 +1000,7 @@ TEST(LayerNodeDefs, replace_layer) {
 
                     // Check that actual stage's EditTarget is unchanged:
                     EXPECT_EQ(stage.getEditLayerIndex(), reversedEditIndex);
-                    const pxr::SdfLayerHandle& sdfEditLayer =
+                    const PXR_NS::SdfLayerHandle& sdfEditLayer =
                         stage.get().GetEditTarget().GetLayer();
                     EXPECT_TRUE(sdfEditLayer)
                         << title
