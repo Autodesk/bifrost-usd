@@ -64,7 +64,7 @@ public:
                    const Amino::String& savefilePath = "",
                    const bool           isEditable   = true);
 
-    explicit Layer(const pxr::SdfLayerRefPtr layer,
+    explicit Layer(const PXR_NS::SdfLayerRefPtr layer,
                    const bool                isEditable       = true,
                    const Amino::String&      originalFilePath = "");
 
@@ -90,25 +90,25 @@ public:
     bool     isValid() const { return m_layer != nullptr; }
     explicit operator bool() const { return isValid(); }
 
-    /// \brief Accessors to the underlying pxr::SdfLayer.
+    /// \brief Accessors to the underlying PXR_NS::SdfLayer.
     ///
     /// These accessor should be used instead of getting the underlying
-    /// pxr::SdfLayerRefPtr directly, because they propagate constness to the
-    /// pxr::SdfLayer pointer.
+    /// PXR_NS::SdfLayerRefPtr directly, because they propagate constness to the
+    /// PXR_NS::SdfLayer pointer.
     ///
     /// This helps avoiding unintentionally creating side effects in other
     /// pointers to the same \ref BifrostUsd::Layer.
     /// \{
-    pxr::SdfLayer&       get() { return *m_layer; }
-    pxr::SdfLayer&       operator*() { return *m_layer; }
-    pxr::SdfLayer*       operator->() { return m_layer.operator->(); }
-    pxr::SdfLayer const& get() const { return *m_layer; }
-    pxr::SdfLayer const& operator*() const { return *m_layer; }
-    pxr::SdfLayer const* operator->() const { return m_layer.operator->(); }
+    PXR_NS::SdfLayer&       get() { return *m_layer; }
+    PXR_NS::SdfLayer&       operator*() { return *m_layer; }
+    PXR_NS::SdfLayer*       operator->() { return m_layer.operator->(); }
+    PXR_NS::SdfLayer const& get() const { return *m_layer; }
+    PXR_NS::SdfLayer const& operator*() const { return *m_layer; }
+    PXR_NS::SdfLayer const* operator->() const { return m_layer.operator->(); }
     /// \}
 
     // This function is purposefully non-const. Be careful with it.
-    pxr::SdfLayerRefPtr getLayerPtr() { return m_layer; }
+    PXR_NS::SdfLayerRefPtr getLayerPtr() { return m_layer; }
 
     void                       setFilePath(const Amino::String& filePath);
     const Amino::String&       getFilePath() const;
@@ -221,7 +221,7 @@ private:
     friend Stage;
 
     /// The underlying anonymous sdf layer.
-    pxr::SdfLayerRefPtr m_layer;
+    PXR_NS::SdfLayerRefPtr m_layer;
 
     /// The file path where to save this Layer.
     /// Can be an empty string, which will disable file export if no other

@@ -51,7 +51,7 @@ class AMINO_ANNOTATE("Amino::Class") USD_DECL Attribute {
 public:
 #ifndef DISABLE_PXR_HEADERS
     Attribute() = default;
-    Attribute(pxr::UsdAttribute attribute, Amino::Ptr<Prim> prim);
+    Attribute(PXR_NS::UsdAttribute attribute, Amino::Ptr<Prim> prim);
 
     Attribute(const Attribute&)      = default;
     Attribute(Attribute &&) noexcept = default;
@@ -67,11 +67,11 @@ public:
         return prim_ptr != nullptr;
     }
 
-    pxr::UsdAttribute const* operator->() const { return &pxr_attribute; }
+    PXR_NS::UsdAttribute const* operator->() const { return &pxr_attribute; }
     Amino::Ptr<Prim> const& getPrim() const { return prim_ptr; }
 
 private:
-    pxr::UsdAttribute pxr_attribute;
+    PXR_NS::UsdAttribute pxr_attribute;
 
     // We need to keep a pointer to the prims since attributes can only exist on
     // prims and if we don't then Bifrost will cleanup the prims if they are

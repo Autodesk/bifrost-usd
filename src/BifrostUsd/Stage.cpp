@@ -33,7 +33,7 @@ BIFUSD_WARNING_DISABLE_MSC(4800)
 #include <pxr/usd/usd/prim.h>
 #include <pxr/usd/usd/stage.h>
 
-/// \todo BIFROST-6874 remove pxr::Work_EnsureDetachedTaskProgress();
+/// \todo BIFROST-6874 remove PXR_NS::Work_EnsureDetachedTaskProgress();
 #include <pxr/base/work/detachedTask.h>
 
 BIFUSD_WARNING_POP
@@ -42,11 +42,11 @@ BIFUSD_WARNING_POP
 
 namespace {
 
-pxr::UsdStage::InitialLoadSet GetPxrInitialLoadSet(
+PXR_NS::UsdStage::InitialLoadSet GetPxrInitialLoadSet(
     BifrostUsd::InitialLoadSet load) {
     return load == BifrostUsd::InitialLoadSet::LoadAll
-               ? pxr::UsdStage::InitialLoadSet::LoadAll
-               : pxr::UsdStage::InitialLoadSet::LoadNone;
+               ? PXR_NS::UsdStage::InitialLoadSet::LoadAll
+               : PXR_NS::UsdStage::InitialLoadSet::LoadNone;
 }
 
 } // namespace
@@ -55,36 +55,36 @@ namespace BifrostUsd {
 
 Stage::Stage()
     : m_rootLayer(Amino::newClassPtr<Layer>()),
-      m_stage(pxr::UsdStage::Open(m_rootLayer->m_layer)) {}
+      m_stage(PXR_NS::UsdStage::Open(m_rootLayer->m_layer)) {}
 
 Stage::Stage(Invalid) { assert(!isValid()); }
 
 Stage::Stage(const Layer& rootLayer, const InitialLoadSet load)
     : m_rootLayer(Amino::newClassPtr<Layer>(rootLayer)),
       m_stage(
-          pxr::UsdStage::Open(m_rootLayer->m_layer, GetPxrInitialLoadSet(load)))
+          PXR_NS::UsdStage::Open(m_rootLayer->m_layer, GetPxrInitialLoadSet(load)))
 
 {}
 
 Stage::Stage(const Layer&                       rootLayer,
-             const pxr::UsdStagePopulationMask& mask,
+             const PXR_NS::UsdStagePopulationMask& mask,
              const InitialLoadSet               load)
     : m_rootLayer(Amino::newClassPtr<Layer>(rootLayer)),
-      m_stage(pxr::UsdStage::OpenMasked(
+      m_stage(PXR_NS::UsdStage::OpenMasked(
           m_rootLayer->m_layer, mask, GetPxrInitialLoadSet(load)))
 
 {}
 
 Stage::Stage(const Amino::String& filePath, const InitialLoadSet load)
     : m_rootLayer(Amino::newClassPtr<Layer>(filePath, "")),
-      m_stage(pxr::UsdStage::Open(m_rootLayer->m_layer,
+      m_stage(PXR_NS::UsdStage::Open(m_rootLayer->m_layer,
                                   GetPxrInitialLoadSet(load))) {}
 
 Stage::Stage(const Amino::String&               filePath,
-             const pxr::UsdStagePopulationMask& mask,
+             const PXR_NS::UsdStagePopulationMask& mask,
              const InitialLoadSet               load)
     : m_rootLayer(Amino::newClassPtr<Layer>(filePath, "")),
-      m_stage(pxr::UsdStage::OpenMasked(
+      m_stage(PXR_NS::UsdStage::OpenMasked(
           m_rootLayer->m_layer, mask, GetPxrInitialLoadSet(load))) {}
 
 Stage::Stage(const Stage& other) : Stage(*other.m_rootLayer) {
@@ -101,7 +101,7 @@ Stage::Stage(const Stage& other) : Stage(*other.m_rootLayer) {
 
 Stage& Stage::operator=(const Stage& other) {
     m_rootLayer = Amino::newClassPtr<Layer>(*other.m_rootLayer);
-    m_stage     = pxr::UsdStage::Open(m_rootLayer->m_layer);
+    m_stage     = PXR_NS::UsdStage::Open(m_rootLayer->m_layer);
 
     // The newly created UsdStage has the root layer as its default EditTarget.
     // We can't just copy the m_editLayerIndex, but must set the desired
@@ -148,7 +148,7 @@ bool Stage::setEditLayerIndex(const int layerIndex,
         const size_t numLayers = subLayerPaths.size();
         if (static_cast<size_t>(layerIndex) < numLayers) {
             // Find the sublayer
-            auto layer = pxr::SdfLayer::FindOrOpen(subLayerPaths[layerIndex]);
+            auto layer = PXR_NS::SdfLayer::FindOrOpen(subLayerPaths[layerIndex]);
             if (layer) {
                 m_stage->SetEditTarget(layer);
                 m_editLayerIndex = layerIndex;
@@ -166,11 +166,11 @@ bool Stage::setEditLayerIndex(const int layerIndex,
     return false;
 }
 
-pxr::UsdVariantSet Stage::getLastModifedVariantSet() const {
-    pxr::UsdPrim variant_prim;
+PXR_NS::UsdVariantSet Stage::getLastModifedVariantSet() const {
+    PXR_NS::UsdPrim variant_prim;
     if (this->hasLastModifiedVariantSetPrim()) {
         variant_prim = m_stage->GetPrimAtPath(
-            pxr::SdfPath(this->last_modified_variant_set_prim.c_str()));
+            PXR_NS::SdfPath(this->last_modified_variant_set_prim.c_str()));
     }
     return variant_prim.GetVariantSet(
         this->last_modified_variant_set_name.c_str());
@@ -189,8 +189,8 @@ Amino::Ptr<BifrostUsd::Stage> Amino::createDefaultClass() {
     // Destructor of USD instances are lauching threads. This result in
     // a deadlock on windows when unloading the library (which destroys the
     // default constructed object held in static variables).
-    /// \todo BIFROST-6874 remove pxr::Work_EnsureDetachedTaskProgress();
-    pxr::Work_EnsureDetachedTaskProgress();
+    /// \todo BIFROST-6874 remove PXR_NS::Work_EnsureDetachedTaskProgress();
+    PXR_NS::Work_EnsureDetachedTaskProgress();
     return Amino::newClassPtr<BifrostUsd::Stage>();
 }
 AMINO_DEFINE_DEFAULT_CLASS(BifrostUsd::Stage);

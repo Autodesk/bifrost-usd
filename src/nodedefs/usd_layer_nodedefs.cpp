@@ -153,7 +153,7 @@ void USD::Layer::open_layer(const Amino::String&                    file,
             return Amino::newMutablePtr<BifrostUsd::Layer>("empty");
         }
         if (read_only) {
-            auto pxr_layer = pxr::SdfLayer::FindOrOpen(file.c_str());
+            auto pxr_layer = PXR_NS::SdfLayer::FindOrOpen(file.c_str());
             if (pxr_layer) {
                 return Amino::newMutablePtr<BifrostUsd::Layer>(pxr_layer,
                                                                  false);

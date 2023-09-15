@@ -50,35 +50,35 @@ namespace {
 // Create a stage with two geos, a material and a collection of
 // those geos.
 auto create_pxr_stage_with_collection() {
-    auto stage = pxr::UsdStage::CreateInMemory();
+    auto stage = PXR_NS::UsdStage::CreateInMemory();
 
-    auto city = stage->DefinePrim(pxr::SdfPath{"/city"}, pxr::TfToken{"Xform"});
-    auto geom = stage->DefinePrim(pxr::SdfPath{"/city/geom"});
-    auto house1    = stage->DefinePrim(pxr::SdfPath{"/city/geom/house1"},
-                                       pxr::TfToken{"Capsule"});
-    auto house2    = stage->DefinePrim(pxr::SdfPath{"/city/geom/house2"},
-                                       pxr::TfToken{"Sphere"});
-    auto materials = stage->DefinePrim(pxr::SdfPath{"/city/materials"});
+    auto city = stage->DefinePrim(PXR_NS::SdfPath{"/city"}, PXR_NS::TfToken{"Xform"});
+    auto geom = stage->DefinePrim(PXR_NS::SdfPath{"/city/geom"});
+    auto house1    = stage->DefinePrim(PXR_NS::SdfPath{"/city/geom/house1"},
+                                       PXR_NS::TfToken{"Capsule"});
+    auto house2    = stage->DefinePrim(PXR_NS::SdfPath{"/city/geom/house2"},
+                                       PXR_NS::TfToken{"Sphere"});
+    auto materials = stage->DefinePrim(PXR_NS::SdfPath{"/city/materials"});
 
-    auto material = pxr::UsdShadeMaterial::Define(
-        stage, pxr::SdfPath{"/city/materials/red_mat"});
-    auto shader = pxr::UsdShadeShader::Define(
-        stage, pxr::SdfPath{"/city/materials/red_mat/surface"});
-    shader.CreateIdAttr(pxr::VtValue{pxr::TfToken{"UsdPreviewSurface"}});
+    auto material = PXR_NS::UsdShadeMaterial::Define(
+        stage, PXR_NS::SdfPath{"/city/materials/red_mat"});
+    auto shader = PXR_NS::UsdShadeShader::Define(
+        stage, PXR_NS::SdfPath{"/city/materials/red_mat/surface"});
+    shader.CreateIdAttr(PXR_NS::VtValue{PXR_NS::TfToken{"UsdPreviewSurface"}});
 
     material.CreateSurfaceOutput().ConnectToSource(shader.ConnectableAPI(),
-                                                   pxr::TfToken{"surface"});
+                                                   PXR_NS::TfToken{"surface"});
     shader
-        .CreateInput(pxr::TfToken{"diffuseColor"},
-                     pxr::SdfValueTypeNames->Color3f)
-        .Set(pxr::VtValue{pxr::GfVec3f{1.f, 0.f, 0.f}});
+        .CreateInput(PXR_NS::TfToken{"diffuseColor"},
+                     PXR_NS::SdfValueTypeNames->Color3f)
+        .Set(PXR_NS::VtValue{PXR_NS::GfVec3f{1.f, 0.f, 0.f}});
 
     auto collectionAPI =
-        pxr::UsdCollectionAPI::Apply(geom, pxr::TfToken{"houses"});
+        PXR_NS::UsdCollectionAPI::Apply(geom, PXR_NS::TfToken{"houses"});
 
     auto includeRelationship = collectionAPI.CreateIncludesRel();
-    includeRelationship.AddTarget(pxr::SdfPath{"/city/geom/house1"});
-    includeRelationship.AddTarget(pxr::SdfPath{"/city/geom/house2"});
+    includeRelationship.AddTarget(PXR_NS::SdfPath{"/city/geom/house1"});
+    includeRelationship.AddTarget(PXR_NS::SdfPath{"/city/geom/house2"});
 
     return stage;
 }
@@ -86,10 +86,10 @@ auto create_pxr_stage_with_collection() {
 } // end unnamed namespace
 
 TEST(MaterialBindingNodeDefs, bind_material) {
-    auto pxrStage = pxr::UsdStage::CreateInMemory();
+    auto pxrStage = PXR_NS::UsdStage::CreateInMemory();
 
-    auto gp  = pxrStage->OverridePrim(pxr::SdfPath{"/gp"});
-    auto mat = pxr::UsdShadeMaterial::Define(pxrStage, pxr::SdfPath{"/mat"});
+    auto gp  = pxrStage->OverridePrim(PXR_NS::SdfPath{"/gp"});
+    auto mat = PXR_NS::UsdShadeMaterial::Define(pxrStage, PXR_NS::SdfPath{"/mat"});
 
     auto invalid_stage = BifrostUsd::Stage(BifrostUsd::Stage::Invalid());
     EXPECT_FALSE(USD::Shading::bind_material(
@@ -132,8 +132,8 @@ TEST(MaterialBindingNodeDefs, bind_material) {
         /*collection_prim_path*/ "",
         /*collection_name*/ "", /*binding_name*/ ""));
 
-    gp                      = stage->GetPrimAtPath(pxr::SdfPath{"/gp"});
-    auto materialBindingAPI = pxr::UsdShadeMaterialBindingAPI::Apply(gp);
+    gp                      = stage->GetPrimAtPath(PXR_NS::SdfPath{"/gp"});
+    auto materialBindingAPI = PXR_NS::UsdShadeMaterialBindingAPI::Apply(gp);
 
     ASSERT_EQ(materialBindingAPI.GetDirectBinding().GetMaterialPath(),
               mat.GetPath());
@@ -191,20 +191,20 @@ TEST(MaterialBindingNodeDefs, bind_collection_from_same_prim) {
         /*binding_name*/ ""));
 
     // get the geom prim from the stage authored by Bifrost
-    auto geom = stage->GetPrimAtPath(pxr::SdfPath{"/city/geom"});
+    auto geom = stage->GetPrimAtPath(PXR_NS::SdfPath{"/city/geom"});
 
-    auto materialBindingAPI = pxr::UsdShadeMaterialBindingAPI::Apply(geom);
+    auto materialBindingAPI = PXR_NS::UsdShadeMaterialBindingAPI::Apply(geom);
     ASSERT_TRUE(materialBindingAPI);
 
     auto collectionBindingRels = materialBindingAPI.GetCollectionBindingRels();
     ASSERT_EQ(collectionBindingRels.size(), 1);
 
-    pxr::SdfPathVector targets;
+    PXR_NS::SdfPathVector targets;
     ASSERT_TRUE(collectionBindingRels[0].GetTargets(&targets));
     ASSERT_EQ(targets.size(), 2);
 
-    ASSERT_EQ(targets[0], pxr::SdfPath{"/city/geom.collection:houses"});
-    ASSERT_EQ(targets[1], pxr::SdfPath{"/city/materials/red_mat"});   
+    ASSERT_EQ(targets[0], PXR_NS::SdfPath{"/city/geom.collection:houses"});
+    ASSERT_EQ(targets[1], PXR_NS::SdfPath{"/city/materials/red_mat"});   
 }
 TEST(MaterialBindingNodeDefs, bind_collection_from_different_prim) {
     auto pxrStage = create_pxr_stage_with_collection();
@@ -225,29 +225,29 @@ TEST(MaterialBindingNodeDefs, bind_collection_from_different_prim) {
         /*binding_name*/ ""));
 
     // get the geom prim from the stage authored by Bifrost
-    auto city = stage->GetPrimAtPath(pxr::SdfPath{"/city"});
+    auto city = stage->GetPrimAtPath(PXR_NS::SdfPath{"/city"});
 
-    auto materialBindingAPI = pxr::UsdShadeMaterialBindingAPI::Apply(city);
+    auto materialBindingAPI = PXR_NS::UsdShadeMaterialBindingAPI::Apply(city);
     ASSERT_TRUE(materialBindingAPI);
 
     auto collectionBindingRels = materialBindingAPI.GetCollectionBindingRels();
     ASSERT_EQ(collectionBindingRels.size(), 1);
 
-    pxr::SdfPathVector targets;
+    PXR_NS::SdfPathVector targets;
     ASSERT_TRUE(collectionBindingRels[0].GetTargets(&targets));
     ASSERT_EQ(targets.size(), 2);
 
-    ASSERT_EQ(targets[0], pxr::SdfPath{"/city/geom.collection:houses"});
-    ASSERT_EQ(targets[1], pxr::SdfPath{"/city/materials/red_mat"});
+    ASSERT_EQ(targets[0], PXR_NS::SdfPath{"/city/geom.collection:houses"});
+    ASSERT_EQ(targets[1], PXR_NS::SdfPath{"/city/materials/red_mat"});
 }
 
 TEST(MaterialBindingNodeDefs, unbind_direct_binding) {
-    auto pxrStage = pxr::UsdStage::CreateInMemory();
+    auto pxrStage = PXR_NS::UsdStage::CreateInMemory();
 
-    auto gp  = pxrStage->OverridePrim(pxr::SdfPath{"/gp"});
-    auto mat = pxr::UsdShadeMaterial::Define(pxrStage, pxr::SdfPath{"/mat"});
+    auto gp  = pxrStage->OverridePrim(PXR_NS::SdfPath{"/gp"});
+    auto mat = PXR_NS::UsdShadeMaterial::Define(pxrStage, PXR_NS::SdfPath{"/mat"});
 
-    auto materialBindingAPI = pxr::UsdShadeMaterialBindingAPI::Apply(gp);
+    auto materialBindingAPI = PXR_NS::UsdShadeMaterialBindingAPI::Apply(gp);
     materialBindingAPI.Bind(mat);
 
     auto binding = materialBindingAPI.GetDirectBinding();
@@ -275,8 +275,8 @@ TEST(MaterialBindingNodeDefs, unbind_direct_binding) {
         /*material_purpose*/ BifrostUsd::MaterialPurpose::All,
         /*binding_name*/ ""));
 
-    gp                 = stage->GetPrimAtPath(pxr::SdfPath{"/gp"});
-    materialBindingAPI = pxr::UsdShadeMaterialBindingAPI::Apply(gp);
+    gp                 = stage->GetPrimAtPath(PXR_NS::SdfPath{"/gp"});
+    materialBindingAPI = PXR_NS::UsdShadeMaterialBindingAPI::Apply(gp);
 
     binding = materialBindingAPI.GetDirectBinding();
     ASSERT_FALSE(binding.GetMaterial());
@@ -285,13 +285,13 @@ TEST(MaterialBindingNodeDefs, unbind_direct_binding) {
 TEST(MaterialBindingNodeDefs, unbind_collection_binding) {
     auto pxrStage = create_pxr_stage_with_collection();
 
-    auto geom     = pxrStage->GetPrimAtPath(pxr::SdfPath{"/city/geom"});
-    auto material = pxr::UsdShadeMaterial::Get(
-        pxrStage, pxr::SdfPath{"/city/materials/red_mat"});
+    auto geom     = pxrStage->GetPrimAtPath(PXR_NS::SdfPath{"/city/geom"});
+    auto material = PXR_NS::UsdShadeMaterial::Get(
+        pxrStage, PXR_NS::SdfPath{"/city/materials/red_mat"});
 
-    auto materialBindingAPI = pxr::UsdShadeMaterialBindingAPI::Apply(geom);
+    auto materialBindingAPI = PXR_NS::UsdShadeMaterialBindingAPI::Apply(geom);
 
-    auto collection = pxr::UsdCollectionAPI::Get(geom, pxr::TfToken{"houses"});
+    auto collection = PXR_NS::UsdCollectionAPI::Get(geom, PXR_NS::TfToken{"houses"});
 
     materialBindingAPI.Bind(collection, material);
 
@@ -318,8 +318,8 @@ TEST(MaterialBindingNodeDefs, unbind_collection_binding) {
         /*material_purpose*/ BifrostUsd::MaterialPurpose::All,
         /*binding_name*/ "houses"));
 
-    geom                    = stage->GetPrimAtPath(pxr::SdfPath{"/city/geom"});
-    materialBindingAPI      = pxr::UsdShadeMaterialBindingAPI::Apply(geom);
+    geom                    = stage->GetPrimAtPath(PXR_NS::SdfPath{"/city/geom"});
+    materialBindingAPI      = PXR_NS::UsdShadeMaterialBindingAPI::Apply(geom);
     collectionBindingVector = materialBindingAPI.GetCollectionBindings();
     ASSERT_EQ(collectionBindingVector.size(), 0);
 }
@@ -330,18 +330,18 @@ TEST(MaterialBindingNodeDefs, get_material_path) {
     // TestUsdShadeMaterialBinding.test_DirectBindingAncestorChild available in
     // pxr/usd/usdShade/testenv/testUsdShadeMaterialBinding.py of Pixar USD
     // repository.
-    auto pxrStage = pxr::UsdStage::CreateInMemory();
+    auto pxrStage = PXR_NS::UsdStage::CreateInMemory();
 
-    auto gp     = pxrStage->OverridePrim(pxr::SdfPath{"/gp"});
-    auto parent = pxrStage->OverridePrim(pxr::SdfPath{"/gp/parent"});
-    auto child  = pxrStage->OverridePrim(pxr::SdfPath{"/gp/parent/child"});
+    auto gp     = pxrStage->OverridePrim(PXR_NS::SdfPath{"/gp"});
+    auto parent = pxrStage->OverridePrim(PXR_NS::SdfPath{"/gp/parent"});
+    auto child  = pxrStage->OverridePrim(PXR_NS::SdfPath{"/gp/parent/child"});
 
-    auto mat1 = pxr::UsdShadeMaterial::Define(pxrStage, pxr::SdfPath{"/mat1"});
-    auto mat2 = pxr::UsdShadeMaterial::Define(pxrStage, pxr::SdfPath{"/mat2"});
+    auto mat1 = PXR_NS::UsdShadeMaterial::Define(pxrStage, PXR_NS::SdfPath{"/mat1"});
+    auto mat2 = PXR_NS::UsdShadeMaterial::Define(pxrStage, PXR_NS::SdfPath{"/mat2"});
 
-    auto gpBindingAPI     = pxr::UsdShadeMaterialBindingAPI::Apply(gp);
-    auto parentBindingAPI = pxr::UsdShadeMaterialBindingAPI::Apply(parent);
-    auto childBindingAPI  = pxr::UsdShadeMaterialBindingAPI::Apply(child);
+    auto gpBindingAPI     = PXR_NS::UsdShadeMaterialBindingAPI::Apply(gp);
+    auto parentBindingAPI = PXR_NS::UsdShadeMaterialBindingAPI::Apply(parent);
+    auto childBindingAPI  = PXR_NS::UsdShadeMaterialBindingAPI::Apply(child);
 
     // First, binding different materials to the three prims
     // gp, parent and child and verify proper inheritance along
