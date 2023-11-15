@@ -209,7 +209,7 @@ USD_NODEDEF_DECL
 bool rotate_prim(BifrostUsd::Stage& stage USDPORT_INOUT("out_stage"),
                  const Amino::String&       prim_path,
                  const Bifrost::Math::rotation_order& rotation_order,
-                 const Bifrost::Math::float3&         rotation,
+                 const Bifrost::Math::float3&         rotation AMINO_ANNOTATE("Amino::Port metadata=[{UiSoftMin, string, -180}, {UiSoftMax, string, 180}]"),
                  const bool                           enable_time,
                  const float                          frame) //
     USDNODE_DOC_ICON_X("rotate_prim",

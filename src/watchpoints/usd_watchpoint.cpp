@@ -177,7 +177,7 @@ bool isArrayType(Amino::Type const& type) {
 
 std::string convertToString(bool boolean) { return boolean ? "true" : "false"; }
 
-std::string convertToString(const pxr::VtValue& value) {
+std::string convertToString(const PXR_NS::VtValue& value) {
     std::string result;
     if (value.IsHolding<int>()) {
         result = std::to_string(value.UncheckedGet<int>());
@@ -223,8 +223,8 @@ private:
 };
 
 void addXmlElement(std::ostringstream& oss,
-                   const Amino::String name,
-                   const std::string   value) {
+                   const Amino::String& name,
+                   const std::string&   value) {
     auto openXMLElement = [&oss](const char* tagName) {
         oss << kBeginXMLOpenElement << tagName << kEndXMLElement;
     };
@@ -246,7 +246,7 @@ void USDWPClientData::record(AttributePtr const& attributePtr) {
         addXmlElement(oss, kTypeName,
                       attribute->GetTypeName().GetAsToken().GetText());
 
-        pxr::VtValue vtVal;
+        PXR_NS::VtValue vtVal;
         if (attribute->Get(&vtVal)) {
             addXmlElement(oss, kValue, convertToString(vtVal));
         }
@@ -359,9 +359,9 @@ void USDWPClientData::record(StagePtr const& stage) {
 
         /// Is TraverseAll() really non const?
         for (const auto& prim :
-             const_cast<pxr::UsdStage&>(stage->get()).TraverseAll()) {
+             const_cast<PXR_NS::UsdStage&>(stage->get()).TraverseAll()) {
             prim_count++;
-            const pxr::UsdPrimTypeInfo& prim_typeinfo = prim.GetPrimTypeInfo();
+            const PXR_NS::UsdPrimTypeInfo& prim_typeinfo = prim.GetPrimTypeInfo();
             std::string                 type_name = prim_typeinfo.GetTypeName();
             if (!type_name.empty()) {
                 if (prim_types.find(type_name) == prim_types.end()) {
@@ -371,7 +371,7 @@ void USDWPClientData::record(StagePtr const& stage) {
                 }
             }
 
-            const pxr::TfTokenVector& applied_schemas =
+            const PXR_NS::TfTokenVector& applied_schemas =
                 prim_typeinfo.GetAppliedAPISchemas();
             for (std::string const& schema : applied_schemas) {
                 if (!schema.empty() && schema != type_name) {
@@ -440,7 +440,7 @@ void USDWPClientData::record(PrimPtr const& primPtr) {
 
         // Attributes of prim
         std::ostringstream             attr_ss;
-        std::vector<pxr::UsdAttribute> attributes = prim->GetAttributes();
+        std::vector<PXR_NS::UsdAttribute> attributes = prim->GetAttributes();
         for (auto const& attribute : attributes) {
             attr_ss << attribute.GetName().GetText() << ": "
                     << attribute.GetTypeName().GetAsToken().GetText()

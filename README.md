@@ -55,6 +55,11 @@ To build doxygen doc (require doxygen 1.8.14):
 cmake --build <build directory path> --target usd_pack_apidoc
 ```
 
+To run clang-tidy
+```
+cmake --build <build directory path> --target bifrost_usd_clang_tidy
+```
+
 ## Testing
 
 ```

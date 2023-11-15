@@ -88,7 +88,7 @@ void open_stage_from_layer(const BifrostUsd::Layer&                 root_layer,
 ///
 /// \param [out] stage The USD stage.
 USD_NODEDEF_DECL
-void open_stage_from_cache(const Amino::long_t              id,
+void open_stage_from_cache(const Amino::long_t              id AMINO_ANNOTATE("Amino::Port metadata=[{UiSoftMin, string, 0}]"),
                            const int                        layer_index
                                AMINO_ANNOTATE("Amino::Port value=-1"),
                            Amino::Ptr<BifrostUsd::Stage>&   stage)

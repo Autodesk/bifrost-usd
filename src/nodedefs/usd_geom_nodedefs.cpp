@@ -17,7 +17,6 @@
 #include "usd_geom_nodedefs.h"
 
 #include <Amino/Core/String.h>
-#include <Bifrost/FileUtils/FileUtils.h>
 #include <pxr/usd/sdf/copyUtils.h>
 #include <pxr/usd/usd/editContext.h>
 #include <pxr/usd/usd/inherits.h>
@@ -58,13 +57,13 @@ bool USD::Prim::get_usd_geom_xform_vectors(
 
     try {
         if (prim) {
-            pxr::UsdGeomXformCommonAPI xform_api =
-                pxr::UsdGeomXformCommonAPI(prim.getPxrPrim());
+            PXR_NS::UsdGeomXformCommonAPI xform_api =
+                PXR_NS::UsdGeomXformCommonAPI(prim.getPxrPrim());
             if (xform_api) {
-                pxr::GfVec3d pxr_translation;
-                pxr::GfVec3f pxr_rotation, pxr_scale, pxr_pivot;
-                pxr::UsdGeomXformCommonAPI::RotationOrder pxr_rotOrder;
-                auto time = pxr::UsdTimeCode(static_cast<double>(frame));
+                PXR_NS::GfVec3d pxr_translation;
+                PXR_NS::GfVec3f pxr_rotation, pxr_scale, pxr_pivot;
+                PXR_NS::UsdGeomXformCommonAPI::RotationOrder pxr_rotOrder;
+                auto time = PXR_NS::UsdTimeCode(static_cast<double>(frame));
 
                 success = xform_api.GetXformVectors(
                     &pxr_translation, &pxr_rotation, &pxr_scale, &pxr_pivot,
@@ -108,26 +107,26 @@ bool USD::Prim::compute_usdgeom_extent(
 
     bool success = false;
     try {
-        auto boundable = pxr::UsdGeomBoundable(prim.getPxrPrim());
+        auto boundable = PXR_NS::UsdGeomBoundable(prim.getPxrPrim());
         if (!boundable) return false;
 
-        pxr::VtVec3fArray pxr_extent;
-        auto              time = pxr::UsdTimeCode(static_cast<double>(frame));
+        PXR_NS::VtVec3fArray pxr_extent;
+        auto              time = PXR_NS::UsdTimeCode(static_cast<double>(frame));
 
         if (local) {
-            success = pxr::UsdGeomBoundable::ComputeExtentFromPlugins(
+            success = PXR_NS::UsdGeomBoundable::ComputeExtentFromPlugins(
                 boundable, time, &pxr_extent);
         } else {
-            auto xform_api = pxr::UsdGeomXformCommonAPI(prim.getPxrPrim());
+            auto xform_api = PXR_NS::UsdGeomXformCommonAPI(prim.getPxrPrim());
             if (xform_api) {
-                auto xformCache = pxr::UsdGeomXformCache(time);
+                auto xformCache = PXR_NS::UsdGeomXformCache(time);
                 auto xform =
                     xformCache.GetLocalToWorldTransform(prim.getPxrPrim());
 
-                success = pxr::UsdGeomBoundable::ComputeExtentFromPlugins(
+                success = PXR_NS::UsdGeomBoundable::ComputeExtentFromPlugins(
                     boundable, time, xform, &pxr_extent);
             } else {
-                success = pxr::UsdGeomBoundable::ComputeExtentFromPlugins(
+                success = PXR_NS::UsdGeomBoundable::ComputeExtentFromPlugins(
                     boundable, time, &pxr_extent);
             }
         }
@@ -164,61 +163,61 @@ bool USD::Prim::usd_point_instancer(
 
     bool success = false;
     try {
-        auto instancer = pxr::UsdGeomPointInstancer::Define(
-            stage.getStagePtr(), pxr::SdfPath(prim_path.c_str()));
+        auto instancer = PXR_NS::UsdGeomPointInstancer::Define(
+            stage.getStagePtr(), PXR_NS::SdfPath(prim_path.c_str()));
         if (instancer) {
             success = true;
             // Add the prototypes
-            if (prototypes.size() > 0) {
-                pxr::SdfPathVector targets = {};
+            if (!prototypes.empty()) {
+                PXR_NS::SdfPathVector targets = {};
                 for (size_t i = 0; i < prototypes.size(); ++i) {
-                    targets.push_back(pxr::SdfPath(prototypes[i].c_str()));
+                    targets.push_back(PXR_NS::SdfPath(prototypes[i].c_str()));
                 }
                 auto prototypes_rel = instancer.CreatePrototypesRel();
                 success = success && prototypes_rel.SetTargets(targets);
             }
             // Add the protoindices
-            if (protoindices.size() > 0) {
-                pxr::VtIntArray pxr_protoindices;
-                copy_array<Amino::Array<int>, pxr::VtIntArray>(
+            if (!protoindices.empty()) {
+                PXR_NS::VtIntArray pxr_protoindices;
+                copy_array<Amino::Array<int>, PXR_NS::VtIntArray>(
                     protoindices, pxr_protoindices);
                 auto protoindices_attr = instancer.CreateProtoIndicesAttr();
                 success = success && protoindices_attr.Set(pxr_protoindices);
             }
             // Add the positions
-            if (positions.size() > 0) {
-                pxr::VtVec3fArray pxr_positions;
+            if (!positions.empty()) {
+                PXR_NS::VtVec3fArray pxr_positions;
                 copy_array(positions, pxr_positions);
                 auto positions_attr = instancer.CreatePositionsAttr();
                 success = success && positions_attr.Set(pxr_positions);
             }
             // Add the orientations
-            if (orientations.size() > 0) {
-                pxr::VtQuathArray pxr_orientations;
+            if (!orientations.empty()) {
+                PXR_NS::VtQuathArray pxr_orientations;
                 copy_array(orientations, pxr_orientations);
                 auto orientations_attr = instancer.CreateOrientationsAttr();
                 success = success && orientations_attr.Set(pxr_orientations);
-            } else if (positions.size() > 0) { // Add default orientations
-                pxr::VtQuathArray pxr_orientations;
+            } else if (!positions.empty()) { // Add default orientations
+                PXR_NS::VtQuathArray pxr_orientations;
                 pxr_orientations.resize(positions.size());
                 for (size_t i = 0; i < pxr_orientations.size(); ++i) {
-                    pxr_orientations[i].SetReal(pxr::pxr_half::half(0.f));
-                    pxr_orientations[i].SetImaginary(pxr::pxr_half::half(0.f),
-                                                     pxr::pxr_half::half(0.f),
-                                                     pxr::pxr_half::half(0.f));
+                    pxr_orientations[i].SetReal(PXR_NS::pxr_half::half(0.f));
+                    pxr_orientations[i].SetImaginary(PXR_NS::pxr_half::half(0.f),
+                                                     PXR_NS::pxr_half::half(0.f),
+                                                     PXR_NS::pxr_half::half(0.f));
                 }
                 auto orientations_attr = instancer.CreateOrientationsAttr();
                 success = success && orientations_attr.Set(pxr_orientations);
             }
             // Add the scales
-            if (scales.size() > 0) {
-                pxr::VtVec3fArray pxr_scales;
+            if (!scales.empty()) {
+                PXR_NS::VtVec3fArray pxr_scales;
                 pxr_scales.resize(scales.size());
                 copy_array(scales, pxr_scales);
                 auto scales_attr = instancer.CreateScalesAttr();
                 success          = success && scales_attr.Set(pxr_scales);
-            } else if (positions.size() > 0) { // Add default scales
-                pxr::VtVec3fArray pxr_scales;
+            } else if (!positions.empty()) { // Add default scales
+                PXR_NS::VtVec3fArray pxr_scales;
                 pxr_scales.resize(positions.size());
                 for (size_t i = 0; i < pxr_scales.size(); ++i) {
                     pxr_scales[i][0] = 1.0f;
@@ -229,22 +228,22 @@ bool USD::Prim::usd_point_instancer(
                 success          = success && scales_attr.Set(pxr_scales);
             }
             // Add the velocities
-            if (velocities.size() > 0) {
-                pxr::VtVec3fArray pxr_velocities;
+            if (!velocities.empty()) {
+                PXR_NS::VtVec3fArray pxr_velocities;
                 copy_array(velocities, pxr_velocities);
                 auto velocities_attr = instancer.CreateVelocitiesAttr();
                 success = success && velocities_attr.Set(pxr_velocities);
             }
             // Add the accelerations
-            if (accelerations.size() > 0) {
-                pxr::VtVec3fArray pxr_accelerations;
+            if (!accelerations.empty()) {
+                PXR_NS::VtVec3fArray pxr_accelerations;
                 copy_array(accelerations, pxr_accelerations);
                 auto accelerations_attr = instancer.CreateAccelerationsAttr();
                 success = success && accelerations_attr.Set(pxr_accelerations);
             }
             // Add the angular velocities
-            if (angular_velocities.size() > 0) {
-                pxr::VtVec3fArray pxr_angular_velocities;
+            if (!angular_velocities.empty()) {
+                PXR_NS::VtVec3fArray pxr_angular_velocities;
                 copy_array(angular_velocities, pxr_angular_velocities);
                 auto angular_velocities_attr =
                     instancer.CreateAngularVelocitiesAttr();
@@ -252,9 +251,9 @@ bool USD::Prim::usd_point_instancer(
                           angular_velocities_attr.Set(pxr_angular_velocities);
             }
             // Add the invisible ids
-            if (invisible_ids.size() > 0) {
-                pxr::VtInt64Array pxr_invisible_ids;
-                copy_array<Amino::Array<long long>, pxr::VtInt64Array>(
+            if (!invisible_ids.empty()) {
+                PXR_NS::VtInt64Array pxr_invisible_ids;
+                copy_array<Amino::Array<long long>, PXR_NS::VtInt64Array>(
                     invisible_ids, pxr_invisible_ids);
                 auto invisible_ids_attr = instancer.CreateInvisibleIdsAttr();
                 success = success && invisible_ids_attr.Set(pxr_invisible_ids);
@@ -285,39 +284,39 @@ bool USD::Prim::usd_volume(
             throw std::runtime_error(
                 "field_names size must be equal to file_paths");
         }
-        if (relationship_names.size() > 0 &&
+        if (!relationship_names.empty() &&
             relationship_names.size() != field_names.size()) {
             throw std::runtime_error(
                 "relationship_names should be empty or same size than "
                 "field_names");
         }
 
-        pxr::SdfPath volumePath(pxr::SdfPath(prim_path.c_str()));
+        PXR_NS::SdfPath volumePath(PXR_NS::SdfPath(prim_path.c_str()));
         auto         volume =
-            pxr::UsdVolVolume::Define(stage.getStagePtr(), volumePath);
+            PXR_NS::UsdVolVolume::Define(stage.getStagePtr(), volumePath);
         if (volume) {
             for (size_t i = 0; i < field_names.size(); ++i) {
-                pxr::TfToken fieldPathName(field_names[i].c_str());
-                pxr::SdfPath fieldPath = volumePath.AppendChild(fieldPathName);
+                PXR_NS::TfToken fieldPathName(field_names[i].c_str());
+                PXR_NS::SdfPath fieldPath = volumePath.AppendChild(fieldPathName);
 
-                pxr::TfToken fieldName(field_names[i].c_str());
-                pxr::TfToken relationshipName(fieldName);
-                if (relationship_names.size() > 0) {
+                PXR_NS::TfToken fieldName(field_names[i].c_str());
+                PXR_NS::TfToken relationshipName(fieldName);
+                if (!relationship_names.empty()) {
                     relationshipName =
-                        pxr::TfToken(relationship_names[i].c_str());
+                        PXR_NS::TfToken(relationship_names[i].c_str());
                 }
 
-                pxr::SdfAssetPath file_path(file_paths[i].c_str());
+                PXR_NS::SdfAssetPath file_path(file_paths[i].c_str());
 
                 if (file_format == BifrostUsd::VolumeFieldFormat::OpenVDB) {
-                    auto fieldPrim = pxr::UsdVolOpenVDBAsset::Define(
+                    auto fieldPrim = PXR_NS::UsdVolOpenVDBAsset::Define(
                         stage.getStagePtr(), fieldPath);
 
                     set_volume_field_relationship(
                         fieldPrim, fieldName, relationshipName, file_path,
                         volume, static_cast<double>(frame));
                 } else if (file_format == BifrostUsd::VolumeFieldFormat::Field3D) {
-                    auto fieldPrim = pxr::UsdVolField3DAsset::Define(
+                    auto fieldPrim = PXR_NS::UsdVolField3DAsset::Define(
                         stage.getStagePtr(), fieldPath);
 
                     set_volume_field_relationship(
@@ -352,17 +351,17 @@ bool USD::Prim::translate_prim(BifrostUsd::Stage&          stage,
                                      std::string(prim_path.c_str()));
         }
 
-        auto time = pxr::UsdTimeCode::Default();
+        auto time = PXR_NS::UsdTimeCode::Default();
         if (enable_time) {
-            time = pxr::UsdTimeCode(static_cast<double>(frame));
+            time = PXR_NS::UsdTimeCode(static_cast<double>(frame));
         }
 
-        auto xform_api = pxr::UsdGeomXformCommonAPI(pxr_prim);
+        auto xform_api = PXR_NS::UsdGeomXformCommonAPI(pxr_prim);
         if (xform_api) {
             success = xform_api.SetTranslate(GetVec3d(position), time);
         } else {
-            auto                xformable = pxr::UsdGeomXformable(pxr_prim);
-            pxr::UsdGeomXformOp op;
+            auto                xformable = PXR_NS::UsdGeomXformable(pxr_prim);
+            PXR_NS::UsdGeomXformOp op;
             if (xformable) {
                 op = xformable.AddTranslateOp();
             } else {
@@ -404,19 +403,19 @@ bool USD::Prim::rotate_prim(BifrostUsd::Stage&                 stage,
                                      std::string(prim_path.c_str()));
         }
 
-        auto time = pxr::UsdTimeCode::Default();
+        auto time = PXR_NS::UsdTimeCode::Default();
         if (enable_time) {
-            time = pxr::UsdTimeCode(static_cast<double>(frame));
+            time = PXR_NS::UsdTimeCode(static_cast<double>(frame));
         }
 
-        pxr::UsdGeomXformCommonAPI xform_api =
-            pxr::UsdGeomXformCommonAPI(pxr_prim);
+        PXR_NS::UsdGeomXformCommonAPI xform_api =
+            PXR_NS::UsdGeomXformCommonAPI(pxr_prim);
         if (xform_api) {
             success = xform_api.SetRotate(
                 GetVec3f(rotation), GetUsdRotationOrder(rotation_order), time);
         } else {
-            auto                xformable = pxr::UsdGeomXformable(pxr_prim);
-            pxr::UsdGeomXformOp op;
+            auto                xformable = PXR_NS::UsdGeomXformable(pxr_prim);
+            PXR_NS::UsdGeomXformOp op;
             if (xformable) {
                 switch (rotation_order) {
                     case Bifrost::Math::rotation_order::XYZ:
@@ -465,18 +464,18 @@ bool USD::Prim::scale_prim(BifrostUsd::Stage&         stage,
         auto pxr_prim = USDUtils::get_prim_at_path(prim_path, stage);
         if (!pxr_prim) return false;
 
-        auto time = pxr::UsdTimeCode::Default();
+        auto time = PXR_NS::UsdTimeCode::Default();
         if (enable_time) {
-            time = pxr::UsdTimeCode(static_cast<double>(frame));
+            time = PXR_NS::UsdTimeCode(static_cast<double>(frame));
         }
 
-        pxr::UsdGeomXformCommonAPI xform_api =
-            pxr::UsdGeomXformCommonAPI(pxr_prim);
+        PXR_NS::UsdGeomXformCommonAPI xform_api =
+            PXR_NS::UsdGeomXformCommonAPI(pxr_prim);
         if (xform_api) {
             success = xform_api.SetScale(GetVec3f(scale), time);
         } else {
-            auto                xformable = pxr::UsdGeomXformable(pxr_prim);
-            pxr::UsdGeomXformOp op;
+            auto                xformable = PXR_NS::UsdGeomXformable(pxr_prim);
+            PXR_NS::UsdGeomXformOp op;
             if (xformable) op = xformable.AddScaleOp();
             if (op) {
                 success = op.Set(GetVec3f(scale), time);
@@ -502,8 +501,8 @@ bool USD::Prim::set_prim_pivot(BifrostUsd::Stage&         stage,
 
         VariantEditContext ctx(stage);
 
-        pxr::UsdGeomXformCommonAPI xform_api =
-            pxr::UsdGeomXformCommonAPI(pxr_prim);
+        PXR_NS::UsdGeomXformCommonAPI xform_api =
+            PXR_NS::UsdGeomXformCommonAPI(pxr_prim);
         if (xform_api) {
             success = xform_api.SetPivot(GetVec3f(pivot));
         }
@@ -526,25 +525,25 @@ bool USD::Prim::get_usd_geom_points(
     bool success = false;
     try {
         auto points_attribute =
-            prim.getPxrPrim().GetAttribute(pxr::UsdGeomTokens->points);
+            prim.getPxrPrim().GetAttribute(PXR_NS::UsdGeomTokens->points);
         if (!points_attribute) {
             return false;
         }
 
-        pxr::VtArray<pxr::GfVec3f> pxr_points;
+        PXR_NS::VtArray<PXR_NS::GfVec3f> pxr_points;
         success = points_attribute.Get(&pxr_points, static_cast<double>(frame));
         if (!success) return false;
 
         if (!local_space) {
-            auto xform_api = pxr::UsdGeomXformCommonAPI(prim.getPxrPrim());
+            auto xform_api = PXR_NS::UsdGeomXformCommonAPI(prim.getPxrPrim());
             if (xform_api) {
-                pxr::GfMatrix4d xform;
+                PXR_NS::GfMatrix4d xform;
                 auto            xformCache =
-                    pxr::UsdGeomXformCache(static_cast<double>(frame));
+                    PXR_NS::UsdGeomXformCache(static_cast<double>(frame));
                 xform = xformCache.GetLocalToWorldTransform(prim.getPxrPrim());
 
                 for (size_t i = 0; i < pxr_points.size(); ++i) {
-                    pxr::GfVec4f global_point(pxr_points[i][0],
+                    PXR_NS::GfVec4f global_point(pxr_points[i][0],
                                               pxr_points[i][1],
                                               pxr_points[i][2], 1.f);
                     global_point     = global_point * xform;

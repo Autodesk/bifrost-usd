@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ using namespace USDTypeConverters;
 
 namespace {
 
-pxr::UsdAttribute get_attribute_or_throw(Amino::String const& prim_path,
+PXR_NS::UsdAttribute get_attribute_or_throw(Amino::String const& prim_path,
                                          const Amino::String& attribute_name,
                                          BifrostUsd::Stage const& stage) {
     auto pxr_prim = get_prim_at_path(prim_path, stage);
@@ -45,7 +45,7 @@ pxr::UsdAttribute get_attribute_or_throw(Amino::String const& prim_path,
         throw std::runtime_error(std::move(msg));
     }
     auto pxr_attribute =
-        pxr_prim.GetAttribute(pxr::TfToken(attribute_name.c_str()));
+        pxr_prim.GetAttribute(PXR_NS::TfToken(attribute_name.c_str()));
     if (!pxr_attribute) {
         auto msg = "Invalid attribute name: " + std::string(prim_path.c_str());
         throw std::runtime_error(std::move(msg));
@@ -121,7 +121,7 @@ bool USD::Attribute::create_prim_attribute(
         if (!pxr_prim) return false;
 
         auto attrib = pxr_prim.CreateAttribute(
-            pxr::TfToken(name.c_str()), GetSdfValueTypeName(type_name), custom,
+            PXR_NS::TfToken(name.c_str()), GetSdfValueTypeName(type_name), custom,
             GetSdfVariability(variablity));
         return attrib.IsValid();
 
@@ -139,7 +139,7 @@ bool USD::Attribute::clear_attribute(BifrostUsd::Stage& stage,
         auto pxr_prim = get_prim_at_path(prim_path, stage);
         if (!pxr_prim) return false;
 
-        auto attrib = pxr_prim.GetAttribute(pxr::TfToken(name.c_str()));
+        auto attrib = pxr_prim.GetAttribute(PXR_NS::TfToken(name.c_str()));
         if (attrib) return attrib.Clear();
 
     } catch (std::exception& e) {
@@ -156,7 +156,7 @@ void USD::Attribute::block_attribute(BifrostUsd::Stage& stage,
         auto pxr_prim = get_prim_at_path(prim_path, stage);
         if (!pxr_prim) return;
 
-        auto attrib = pxr_prim.GetAttribute(pxr::TfToken(name.c_str()));
+        auto attrib = pxr_prim.GetAttribute(PXR_NS::TfToken(name.c_str()));
         if (attrib) {
             attrib.Block();
         }
@@ -181,9 +181,9 @@ bool USD::Attribute::create_primvar(
         auto pxr_prim = get_prim_at_path(prim_path, stage);
         if (!pxr_prim) return false;
 
-        auto                primvar_api = pxr::UsdGeomPrimvarsAPI(pxr_prim);
-        pxr::UsdGeomPrimvar primvar     = primvar_api.CreatePrimvar(
-            pxr::TfToken(name.c_str()), GetSdfValueTypeName(type_name),
+        auto                primvar_api = PXR_NS::UsdGeomPrimvarsAPI(pxr_prim);
+        PXR_NS::UsdGeomPrimvar primvar     = primvar_api.CreatePrimvar(
+            PXR_NS::TfToken(name.c_str()), GetSdfValueTypeName(type_name),
             GetUsdGeomPrimvarInterpolation(interpolation), element_size);
 
         if (primvar) return true;
@@ -204,7 +204,7 @@ bool USD::Attribute::get_prim_attribute(
 
     try {
         auto pxr_attribute =
-            (*prim)->GetAttribute(pxr::TfToken(attribute_name.c_str()));
+            (*prim)->GetAttribute(PXR_NS::TfToken(attribute_name.c_str()));
         if (!pxr_attribute) return false;
 
         *attribute = {pxr_attribute, std::move(prim)};
@@ -232,13 +232,13 @@ bool get_attribute_data(const BifrostUsd::Attribute& attribute,
                         Amino::String&                 value) {
     value          = Amino::String(); // set default
     auto type_name = attribute->GetTypeName();
-    if (type_name == pxr::SdfValueTypeNames->Asset) {
-        pxr::SdfAssetPath result;
+    if (type_name == PXR_NS::SdfValueTypeNames->Asset) {
+        PXR_NS::SdfAssetPath result;
         bool success = attribute->Get(&result, static_cast<double>(frame));
         if (success) value = result.GetAssetPath().c_str();
         return success;
-    } else if (type_name == pxr::SdfValueTypeNames->Token) {
-        pxr::TfToken result;
+    } else if (type_name == PXR_NS::SdfValueTypeNames->Token) {
+        PXR_NS::TfToken result;
         bool success = attribute->Get(&result, static_cast<double>(frame));
         if (success) value = result.GetText();
         return success;
@@ -255,8 +255,8 @@ bool get_attribute_data(const BifrostUsd::Attribute& attribute,
     value          = Amino::Array<Amino::String>(); // set default
     auto type_name = attribute->GetTypeName();
     // get as asset array, token array or regular string array
-    if (type_name == pxr::SdfValueTypeNames->AssetArray) {
-        pxr::VtArray<pxr::SdfAssetPath> result;
+    if (type_name == PXR_NS::SdfValueTypeNames->AssetArray) {
+        PXR_NS::VtArray<PXR_NS::SdfAssetPath> result;
         bool success = attribute->Get(&result, static_cast<double>(frame));
         if (success) {
             auto out = Amino::Array<Amino::String>(result.size());
@@ -266,8 +266,8 @@ bool get_attribute_data(const BifrostUsd::Attribute& attribute,
             value = out;
         }
         return success;
-    } else if (type_name == pxr::SdfValueTypeNames->TokenArray) {
-        pxr::VtTokenArray result;
+    } else if (type_name == PXR_NS::SdfValueTypeNames->TokenArray) {
+        PXR_NS::VtTokenArray result;
         bool success = attribute->Get(&result, static_cast<double>(frame));
         if (success) {
             auto out = Amino::Array<Amino::String>(result.size());
@@ -286,12 +286,149 @@ bool get_attribute_data(const BifrostUsd::Attribute& attribute,
 }
 template <>
 bool get_attribute_data(const BifrostUsd::Attribute& attribute,
-                        const float                    frame,
-                        Bifrost::Math::float4&         value) {
+                        const float                  frame,
+                        float&                       value) {
+    value          = float(); // set default
+    auto type_name = attribute->GetTypeName();
+    if (type_name == PXR_NS::SdfValueTypeNames->Half) {
+        PXR_NS::GfHalf result;
+        bool success = attribute->Get(&result, static_cast<double>(frame));
+        if (success) value = result;
+        return success;
+    }
+
+    PxrType_t<float> result;
+    bool success = attribute->Get(&result, static_cast<double>(frame));
+    if (success) value = fromPxr(result);
+    return success;
+}
+template <>
+bool get_attribute_data(const BifrostUsd::Attribute& attribute,
+                        const float                  frame,
+                        Amino::Array<float>&         value) {
+    value          = Amino::Array<float>(); // set default
+    auto type_name = attribute->GetTypeName();
+    if (type_name == PXR_NS::SdfValueTypeNames->HalfArray) {
+        PXR_NS::VtHalfArray result;
+        bool success = attribute->Get(&result, static_cast<double>(frame));
+        if (success) {
+            auto out = Amino::Array<float>(result.size());
+            for (unsigned i = 0; i < result.size(); ++i)
+                out[i] = result[i];
+            value = out;
+        }
+        return success;
+    }
+
+    PxrType_t<Amino::Array<float>> result;
+    bool success = attribute->Get(&result, static_cast<double>(frame));
+    if (success) value = fromPxr(result);
+    return success;
+}
+template <>
+bool get_attribute_data(const BifrostUsd::Attribute& attribute,
+                        const float                  frame,
+                        Bifrost::Math::float2&       value) {
+    value          = Bifrost::Math::float2(); // set default
+    auto type_name = attribute->GetTypeName();
+    if (type_name == PXR_NS::SdfValueTypeNames->Half2) {
+        PXR_NS::GfVec2h result;
+        bool success = attribute->Get(&result, static_cast<double>(frame));
+        if (success) {
+            value.x = result[0];
+            value.y = result[1];
+        }
+        return success;
+    }
+
+    PxrType_t<Bifrost::Math::float2> result;
+    bool success = attribute->Get(&result, static_cast<double>(frame));
+    if (success) value = fromPxr(result);
+    return success;
+}
+template <>
+bool get_attribute_data(const BifrostUsd::Attribute&         attribute,
+                        const float                          frame,
+                        Amino::Array<Bifrost::Math::float2>& value) {
+    value          = Amino::Array<Bifrost::Math::float2>(); // set default
+    auto type_name = attribute->GetTypeName();
+    if (type_name == PXR_NS::SdfValueTypeNames->Half2Array) {
+        PXR_NS::VtVec2hArray result;
+        bool success = attribute->Get(&result, static_cast<double>(frame));
+        if (success) {
+            auto out = Amino::Array<Bifrost::Math::float2>(result.size());
+            for (unsigned i = 0; i < result.size(); ++i) {
+                auto const& src = result[i];
+                out[i].x = src[0];
+                out[i].y = src[1];
+            }
+            value = out;
+        }
+        return success;
+    }
+
+    PxrType_t<Amino::Array<Bifrost::Math::float2>> result;
+    bool success = attribute->Get(&result, static_cast<double>(frame));
+    if (success) value = fromPxr(result);
+    return success;
+}
+template <>
+bool get_attribute_data(const BifrostUsd::Attribute& attribute,
+                        const float                  frame,
+                        Bifrost::Math::float3&       value) {
+    value          = Bifrost::Math::float3(); // set default
+    auto type_name = attribute->GetTypeName();
+    if (type_name == PXR_NS::SdfValueTypeNames->Half3) {
+        PXR_NS::GfVec3h result;
+        bool success = attribute->Get(&result, static_cast<double>(frame));
+        if (success) {
+            value.x = result[0];
+            value.y = result[1];
+            value.z = result[2];
+        }
+        return success;
+    }
+
+    PxrType_t<Bifrost::Math::float3> result;
+    bool success = attribute->Get(&result, static_cast<double>(frame));
+    if (success) value = fromPxr(result);
+    return success;
+}
+template <>
+bool get_attribute_data(const BifrostUsd::Attribute&         attribute,
+                        const float                          frame,
+                        Amino::Array<Bifrost::Math::float3>& value) {
+    value          = Amino::Array<Bifrost::Math::float3>(); // set default
+    auto type_name = attribute->GetTypeName();
+    if (type_name == PXR_NS::SdfValueTypeNames->Half3Array) {
+        PXR_NS::VtVec3hArray result;
+        bool success = attribute->Get(&result, static_cast<double>(frame));
+        if (success) {
+            auto out = Amino::Array<Bifrost::Math::float3>(result.size());
+            for (unsigned i = 0; i < result.size(); ++i) {
+                auto const& src = result[i];
+                out[i].x = src[0];
+                out[i].y = src[1];
+                out[i].z = src[2];
+            }
+            value = out;
+        }
+        return success;
+    }
+
+    PxrType_t<Amino::Array<Bifrost::Math::float3>> result;
+    bool success = attribute->Get(&result, static_cast<double>(frame));
+    if (success) value = fromPxr(result);
+    return success;
+}
+template <>
+bool get_attribute_data(const BifrostUsd::Attribute& attribute,
+                        const float                  frame,
+                        Bifrost::Math::float4&       value) {
     value          = Bifrost::Math::float4(); // set default
     auto type_name = attribute->GetTypeName();
-    if (type_name == pxr::SdfValueTypeNames->Quatf) {
-        pxr::GfQuatf result;
+    if (type_name == PXR_NS::SdfValueTypeNames->Quatf) {
+        PXR_NS::GfQuatf result;
         bool success = attribute->Get(&result, static_cast<double>(frame));
         if (success) {
             auto const& imaginary = result.GetImaginary();
@@ -302,8 +439,8 @@ bool get_attribute_data(const BifrostUsd::Attribute& attribute,
         }
         return success;
 
-    } else if (type_name == pxr::SdfValueTypeNames->Quath) {
-        pxr::GfQuath result;
+    } else if (type_name == PXR_NS::SdfValueTypeNames->Quath) {
+        PXR_NS::GfQuath result;
         bool success = attribute->Get(&result, static_cast<double>(frame));
         if (success) {
             auto const& imaginary = result.GetImaginary();
@@ -313,20 +450,31 @@ bool get_attribute_data(const BifrostUsd::Attribute& attribute,
             value.z               = imaginary[2];
         }
         return success;
+    } else if (type_name == PXR_NS::SdfValueTypeNames->Half4) {
+        PXR_NS::GfVec4h result;
+        bool success = attribute->Get(&result, static_cast<double>(frame));
+        if (success) {
+            value.x = result[0];
+            value.y = result[1];
+            value.z = result[2];
+            value.w = result[3];
+        }
+        return success;
     }
+
     PxrType_t<Bifrost::Math::float4> result;
     bool success = attribute->Get(&result, static_cast<double>(frame));
     if (success) value = fromPxr(result);
     return success;
 }
 template <>
-bool get_attribute_data(const BifrostUsd::Attribute&       attribute,
+bool get_attribute_data(const BifrostUsd::Attribute&         attribute,
                         const float                          frame,
                         Amino::Array<Bifrost::Math::float4>& value) {
     value          = Amino::Array<Bifrost::Math::float4>(); // set default
     auto type_name = attribute->GetTypeName();
-    if (type_name == pxr::SdfValueTypeNames->QuatfArray) {
-        pxr::VtQuatfArray result;
+    if (type_name == PXR_NS::SdfValueTypeNames->QuatfArray) {
+        PXR_NS::VtQuatfArray result;
         bool success = attribute->Get(&result, static_cast<double>(frame));
         if (success) {
             auto out = Amino::Array<Bifrost::Math::float4>(result.size());
@@ -341,8 +489,8 @@ bool get_attribute_data(const BifrostUsd::Attribute&       attribute,
             value = out;
         }
         return success;
-    } else if (type_name == pxr::SdfValueTypeNames->QuathArray) {
-        pxr::VtQuathArray result;
+    } else if (type_name == PXR_NS::SdfValueTypeNames->QuathArray) {
+        PXR_NS::VtQuathArray result;
         bool success = attribute->Get(&result, static_cast<double>(frame));
         if (success) {
             auto out = Amino::Array<Bifrost::Math::float4>(result.size());
@@ -353,6 +501,21 @@ bool get_attribute_data(const BifrostUsd::Attribute&       attribute,
                 out[i].x              = imaginary[0];
                 out[i].y              = imaginary[1];
                 out[i].z              = imaginary[2];
+            }
+            value = out;
+        }
+        return success;
+    } else if (type_name == PXR_NS::SdfValueTypeNames->Half4Array) {
+        PXR_NS::VtVec4hArray result;
+        bool success = attribute->Get(&result, static_cast<double>(frame));
+        if (success) {
+            auto out = Amino::Array<Bifrost::Math::float4>(result.size());
+            for (unsigned i = 0; i < result.size(); ++i) {
+                auto const& src = result[i];
+                out[i].x = src[0];
+                out[i].y = src[1];
+                out[i].z = src[2];
+                out[i].w = src[3];
             }
             value = out;
         }
@@ -370,8 +533,8 @@ bool get_attribute_data(const BifrostUsd::Attribute& attribute,
                         Bifrost::Math::double4&        value) {
     value          = Bifrost::Math::double4(); // set default
     auto type_name = attribute->GetTypeName();
-    if (type_name == pxr::SdfValueTypeNames->Quatd) {
-        pxr::GfQuatd result;
+    if (type_name == PXR_NS::SdfValueTypeNames->Quatd) {
+        PXR_NS::GfQuatd result;
         bool success = attribute->Get(&result, static_cast<double>(frame));
         if (success) {
             auto const& imaginary = result.GetImaginary();
@@ -394,8 +557,8 @@ bool get_attribute_data(const BifrostUsd::Attribute&        attribute,
                         Amino::Array<Bifrost::Math::double4>& value) {
     value          = Amino::Array<Bifrost::Math::double4>(); // set default
     auto type_name = attribute->GetTypeName();
-    if (type_name == pxr::SdfValueTypeNames->QuatdArray) {
-        pxr::VtQuatdArray result;
+    if (type_name == PXR_NS::SdfValueTypeNames->QuatdArray) {
+        PXR_NS::VtQuatdArray result;
         bool success = attribute->Get(&result, static_cast<double>(frame));
         if (success) {
             auto out = Amino::Array<Bifrost::Math::double4>(result.size());
@@ -461,109 +624,202 @@ FOR_EACH_SUPPORTED_ARRAY_ATTRIBUTE(IMPLEMENT_GET_PRIM_ATTRIBUTE_DATA)
 
 namespace {
 template <typename TYPE>
-bool set_attribute(pxr::UsdAttribute& pxr_attribute,
+bool set_attribute(PXR_NS::UsdAttribute& pxr_attribute,
                    const TYPE&        value,
-                   pxr::UsdTimeCode   time) {
+                   PXR_NS::UsdTimeCode   time) {
     return pxr_attribute.Set(toPxr(value), time);
 }
 template <>
-bool set_attribute(pxr::UsdAttribute&   pxr_attribute,
+bool set_attribute(PXR_NS::UsdAttribute&   pxr_attribute,
                    const Amino::String& value,
-                   pxr::UsdTimeCode     time) {
+                   PXR_NS::UsdTimeCode     time) {
     auto type_name = pxr_attribute.GetTypeName();
     // set as asset, token or regular string
-    if (type_name == pxr::SdfValueTypeNames->Asset) {
-        return pxr_attribute.Set(pxr::SdfAssetPath(value.c_str()), time);
-    } else if (type_name == pxr::SdfValueTypeNames->Token) {
-        return pxr_attribute.Set(pxr::TfToken(value.c_str()), time);
+    if (type_name == PXR_NS::SdfValueTypeNames->Asset) {
+        return pxr_attribute.Set(PXR_NS::SdfAssetPath(value.c_str()), time);
+    } else if (type_name == PXR_NS::SdfValueTypeNames->Token) {
+        return pxr_attribute.Set(PXR_NS::TfToken(value.c_str()), time);
     }
     return pxr_attribute.Set(toPxr(value), time);
 }
 template <>
-bool set_attribute(pxr::UsdAttribute&                 pxr_attribute,
+bool set_attribute(PXR_NS::UsdAttribute&                 pxr_attribute,
                    const Amino::Array<Amino::String>& value,
-                   pxr::UsdTimeCode                   time) {
+                   PXR_NS::UsdTimeCode                   time) {
     auto type_name = pxr_attribute.GetTypeName();
     // set as asset array, token array or regular string array
-    if (type_name == pxr::SdfValueTypeNames->AssetArray) {
+    if (type_name == PXR_NS::SdfValueTypeNames->AssetArray) {
         // Create the new attribute
-        pxr::VtArray<pxr::SdfAssetPath> pxr_array{value.size()};
+        PXR_NS::VtArray<PXR_NS::SdfAssetPath> pxr_array(value.size());
         for (size_t i = 0; i < value.size(); i++) {
-            pxr_array[i] = pxr::SdfAssetPath(value[i].c_str());
+            pxr_array[i] = PXR_NS::SdfAssetPath(value[i].c_str());
         }
         return pxr_attribute.Set(pxr_array, time);
-    } else if (type_name == pxr::SdfValueTypeNames->TokenArray) {
+    } else if (type_name == PXR_NS::SdfValueTypeNames->TokenArray) {
         // Create the new attribute
-        pxr::VtTokenArray pxr_array{value.size()};
+        PXR_NS::VtTokenArray pxr_array(value.size());
         for (size_t i = 0; i < value.size(); i++) {
-            pxr_array[i] = pxr::TfToken(value[i].c_str());
+            pxr_array[i] = PXR_NS::TfToken(value[i].c_str());
         }
         return pxr_attribute.Set(pxr_array, time);
     }
     return pxr_attribute.Set(toPxr(value), time);
 }
 template <>
-bool set_attribute(pxr::UsdAttribute&           pxr_attribute,
+bool set_attribute(PXR_NS::UsdAttribute& pxr_attribute,
+                   const float&       value,
+                   PXR_NS::UsdTimeCode   time) {
+    auto type_name = pxr_attribute.GetTypeName();
+    // Set as half or other float types
+    if (type_name == PXR_NS::SdfValueTypeNames->Half) {
+        auto pxr_value = PXR_NS::GfHalf(value);
+        return pxr_attribute.Set(pxr_value, time);
+    }
+    return pxr_attribute.Set(toPxr(value), time);
+}
+template <>
+bool set_attribute(PXR_NS::UsdAttribute&         pxr_attribute,
+                   const Amino::Array<float>& value,
+                   PXR_NS::UsdTimeCode           time) {
+    auto type_name = pxr_attribute.GetTypeName();
+    // Set as HalfArray or regular floatArray
+    if ( type_name == PXR_NS::SdfValueTypeNames->HalfArray) {
+        PXR_NS::VtHalfArray pxr_array(value.size());
+        for (unsigned i = 0; i < value.size(); ++i) {
+            pxr_array[i] = PXR_NS::GfHalf(value[i]);
+        }
+        return pxr_attribute.Set(pxr_array, time);
+    }
+    return pxr_attribute.Set(toPxr(value), time);
+}
+template <>
+bool set_attribute(PXR_NS::UsdAttribute&           pxr_attribute,
+                   const Bifrost::Math::float2& value,
+                   PXR_NS::UsdTimeCode             time) {
+    auto type_name = pxr_attribute.GetTypeName();
+    if (type_name == PXR_NS::SdfValueTypeNames->Half2) {
+        auto pxr_value = PXR_NS::GfVec2h(value.x, value.y);
+        return pxr_attribute.Set(pxr_value, time);
+    }
+    return pxr_attribute.Set(toPxr(value), time);
+}
+template <>
+bool set_attribute(PXR_NS::UsdAttribute&                         pxr_attribute,
+                   const Amino::Array<Bifrost::Math::float2>& value,
+                   PXR_NS::UsdTimeCode                           time) {
+    auto type_name = pxr_attribute.GetTypeName();
+    // Set as half2 or other float2 array based types
+    if ( type_name == PXR_NS::SdfValueTypeNames->Half2Array) {
+        PXR_NS::VtVec2hArray pxr_array(value.size());
+        for (unsigned i = 0; i < value.size(); ++i) {
+            auto const& src = value[i];
+            pxr_array[i]    = PXR_NS::GfVec2h(src.x, src.y);
+        }
+        return pxr_attribute.Set(pxr_array, time);
+    }
+    return pxr_attribute.Set(toPxr(value), time);
+}
+template <>
+bool set_attribute(PXR_NS::UsdAttribute&           pxr_attribute,
+                   const Bifrost::Math::float3& value,
+                   PXR_NS::UsdTimeCode             time) {
+    auto type_name = pxr_attribute.GetTypeName();
+    // Set as half3 or other float3 based types
+    if (type_name == PXR_NS::SdfValueTypeNames->Half3) {
+        auto pxr_value = PXR_NS::GfVec3h(value.x, value.y, value.z);
+        return pxr_attribute.Set(pxr_value, time);
+    }
+    return pxr_attribute.Set(toPxr(value), time);
+}
+template <>
+bool set_attribute(PXR_NS::UsdAttribute&                         pxr_attribute,
+                   const Amino::Array<Bifrost::Math::float3>& value,
+                   PXR_NS::UsdTimeCode                           time) {
+    auto type_name = pxr_attribute.GetTypeName();
+    // Set as half3Array or other float3 array based types
+    if ( type_name == PXR_NS::SdfValueTypeNames->Half3Array) {
+        PXR_NS::VtVec3hArray pxr_array(value.size());
+        for (unsigned i = 0; i < value.size(); ++i) {
+            auto const& src = value[i];
+            pxr_array[i]    = PXR_NS::GfVec3h(src.x, src.y, src.z);
+        }
+        return pxr_attribute.Set(pxr_array, time);
+    }
+    return pxr_attribute.Set(toPxr(value), time);
+}
+template <>
+bool set_attribute(PXR_NS::UsdAttribute&           pxr_attribute,
                    const Bifrost::Math::float4& value,
-                   pxr::UsdTimeCode             time) {
+                   PXR_NS::UsdTimeCode             time) {
     auto type_name = pxr_attribute.GetTypeName();
     // set as quaternion or regular vec4 array
-    if (type_name == pxr::SdfValueTypeNames->Quatf) {
-        auto pxr_value = pxr::GfQuatf(value.w, value.x, value.y, value.z);
+    if (type_name == PXR_NS::SdfValueTypeNames->Quatf) {
+        auto pxr_value = PXR_NS::GfQuatf(value.w, value.x, value.y, value.z);
         return pxr_attribute.Set(pxr_value, time);
-    } else if (type_name == pxr::SdfValueTypeNames->Quath) {
-        auto pxr_value = pxr::GfQuath(value.w, value.x, value.y, value.z);
+    } else if (type_name == PXR_NS::SdfValueTypeNames->Quath) {
+        auto pxr_value = PXR_NS::GfQuath(value.w, value.x, value.y, value.z);
+        return pxr_attribute.Set(pxr_value, time);
+    } else if (type_name == PXR_NS::SdfValueTypeNames->Half4) {
+        auto pxr_value = PXR_NS::GfVec4h(value.x, value.y, value.z, value.w);
         return pxr_attribute.Set(pxr_value, time);
     }
     return pxr_attribute.Set(toPxr(value), time);
 }
 template <>
-bool set_attribute(pxr::UsdAttribute&                         pxr_attribute,
+bool set_attribute(PXR_NS::UsdAttribute&                         pxr_attribute,
                    const Amino::Array<Bifrost::Math::float4>& value,
-                   pxr::UsdTimeCode                           time) {
+                   PXR_NS::UsdTimeCode                           time) {
     auto type_name = pxr_attribute.GetTypeName();
     // set as quaternion or regular vec4 array
-    if (type_name == pxr::SdfValueTypeNames->QuatfArray) {
-        pxr::VtQuatfArray pxr_array{value.size()};
+    if (type_name == PXR_NS::SdfValueTypeNames->QuatfArray) {
+        PXR_NS::VtQuatfArray pxr_array(value.size());
         for (unsigned i = 0; i < value.size(); ++i) {
             auto const& src = value[i];
-            pxr_array[i]    = pxr::GfQuatf(src.w, src.x, src.y, src.z);
+            pxr_array[i]    = PXR_NS::GfQuatf(src.w, src.x, src.y, src.z);
         }
         return pxr_attribute.Set(pxr_array, time);
-    } else if (type_name == pxr::SdfValueTypeNames->QuathArray) {
-        pxr::VtQuathArray pxr_array{value.size()};
+    } else if (type_name == PXR_NS::SdfValueTypeNames->QuathArray) {
+        PXR_NS::VtQuathArray pxr_array(value.size());
         for (unsigned i = 0; i < value.size(); ++i) {
             auto const& src = value[i];
-            pxr_array[i]    = pxr::GfQuath(src.w, src.x, src.y, src.z);
+            pxr_array[i]    = PXR_NS::GfQuath(src.w, src.x, src.y, src.z);
         }
         return pxr_attribute.Set(pxr_array, time);
-    } else if (type_name == pxr::SdfValueTypeNames->Float4Array) {
+    } else if ( type_name == PXR_NS::SdfValueTypeNames->Half4Array) {
+        PXR_NS::VtVec4hArray pxr_array(value.size());
+        for (unsigned i = 0; i < value.size(); ++i) {
+            auto const& src = value[i];
+            pxr_array[i]    = PXR_NS::GfVec4h(src.x, src.y, src.z, src.w);
+        }
+        return pxr_attribute.Set(pxr_array, time);
+    } else if (type_name == PXR_NS::SdfValueTypeNames->Float4Array) {
         return pxr_attribute.Set(toPxr(value), time);
     }
     return false;
 }
 template <>
-bool set_attribute(pxr::UsdAttribute&            pxr_attribute,
+bool set_attribute(PXR_NS::UsdAttribute&            pxr_attribute,
                    const Bifrost::Math::double4& value,
-                   pxr::UsdTimeCode              time) {
+                   PXR_NS::UsdTimeCode              time) {
     auto type_name = pxr_attribute.GetTypeName();
     // set as quaternion or regular vec4 array
-    if (type_name == pxr::SdfValueTypeNames->Quatd) {
-        auto pxr_value = pxr::GfQuatd(value.w, value.x, value.y, value.z);
+    if (type_name == PXR_NS::SdfValueTypeNames->Quatd) {
+        auto pxr_value = PXR_NS::GfQuatd(value.w, value.x, value.y, value.z);
         return pxr_attribute.Set(pxr_value, time);
     }
     return pxr_attribute.Set(toPxr(value), time);
 }
-bool set_attribute(pxr::UsdAttribute&                          pxr_attribute,
+template <>
+bool set_attribute(PXR_NS::UsdAttribute&                          pxr_attribute,
                    const Amino::Array<Bifrost::Math::double4>& value,
-                   pxr::UsdTimeCode                            time) {
+                   PXR_NS::UsdTimeCode                            time) {
     auto type_name = pxr_attribute.GetTypeName();
     // set as quaternion or regular vec4 array
-    if (type_name == pxr::SdfValueTypeNames->QuatdArray) {
-        pxr::VtQuatdArray pxr_array{value.size()};
+    if (type_name == PXR_NS::SdfValueTypeNames->QuatdArray) {
+        PXR_NS::VtQuatdArray pxr_array(value.size());
         for (unsigned i = 0; i < value.size(); ++i) {
             auto const& src = value[i];
-            pxr_array[i]    = pxr::GfQuatd(src.w, src.x, src.y, src.z);
+            pxr_array[i]    = PXR_NS::GfQuatd(src.w, src.x, src.y, src.z);
         }
         return pxr_attribute.Set(pxr_array, time);
     }
@@ -582,10 +838,10 @@ bool set_prim_attribute_impl(const Amino::String& prim_path,
 
         auto pxr_prim = get_prim_at_path(prim_path, stage);
         if (!pxr_prim) return false;
-        auto pxr_attribute = pxr_prim.GetAttribute(pxr::TfToken(name.c_str()));
+        auto pxr_attribute = pxr_prim.GetAttribute(PXR_NS::TfToken(name.c_str()));
         if (!pxr_attribute) return false;
-        auto time = use_frame ? pxr::UsdTimeCode(static_cast<double>(frame))
-                              : pxr::UsdTimeCode::Default();
+        auto time = use_frame ? PXR_NS::UsdTimeCode(static_cast<double>(frame))
+                              : PXR_NS::UsdTimeCode::Default();
         return set_attribute(pxr_attribute, value, time);
     } catch (std::exception& e) {
         log_exception("get_prim_attribute_data", e);
@@ -641,7 +897,7 @@ bool USD::Attribute::add_attribute_connection(
         VariantEditContext ctx(stage);
         auto               pxr_attribute =
             get_attribute_or_throw(prim_path, attribute_name, stage);
-        return pxr_attribute.AddConnection(pxr::SdfPath(source.c_str()),
+        return pxr_attribute.AddConnection(PXR_NS::SdfPath(source.c_str()),
                                            GetUsdListPosition(position));
 
     } catch (std::exception& e) {
@@ -660,7 +916,7 @@ bool USD::Attribute::remove_attribute_connection(
         VariantEditContext ctx(stage);
         auto               pxr_attribute =
             get_attribute_or_throw(prim_path, attribute_name, stage);
-        return pxr_attribute.RemoveConnection(pxr::SdfPath(source.c_str()));
+        return pxr_attribute.RemoveConnection(PXR_NS::SdfPath(source.c_str()));
 
     } catch (std::exception& e) {
         log_exception("remove_attribute_connection", e);
@@ -846,7 +1102,7 @@ bool USD::Attribute::get_attribute_metadata(
         VariantEditContext ctx(stage);
         auto               pxr_attribute =
             get_attribute_or_throw(prim_path, attribute_name, stage);
-        pxr::VtDictionary temp;
+        PXR_NS::VtDictionary temp;
         if (pxr_attribute.GetMetadata(GetSdfFieldKey(key), &temp)) {
             value = fromPxr(temp);
             return true;

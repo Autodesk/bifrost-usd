@@ -1,0 +1,22 @@
+#usda 1.0
+(
+    startFrame = 1
+    endFrame = 2
+)
+
+def Xform "Asset"
+{
+    def GenerativeProcedural "BifrostGraph" (
+        prepend apiSchemas = ["HydraGenerativeProceduralAPI"]
+    )
+    {
+        token primvars:hdGp:proceduralType = "BifrostGraph"
+        token primvars:bifrost:graph = "Hydra::Testing::create_mesh_array"
+
+        # Inputs parameters
+        float primvars:size = 0.5
+
+        # Outputs parameter
+        string primvars:bifrost:output = "meshes"
+    }
+}

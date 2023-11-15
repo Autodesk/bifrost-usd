@@ -24,7 +24,7 @@ namespace BifrostUsd {
 namespace TestUtils {
 
 bool addSubLayers(
-    pxr::SdfLayerRefPtr                 sdfRootLayer,
+    PXR_NS::SdfLayerRefPtr                 sdfRootLayer,
     const Amino::Array<Amino::String>&  subNames,
     Amino::String&                      errorMsg) {
 
@@ -39,7 +39,7 @@ bool addSubLayers(
     int i = 0;
     for(auto it = subNames.begin(); it != subNames.end(); ++i, ++it) {
         const std::string name(it->c_str());
-        pxr::SdfLayerRefPtr sdfSublayer{pxr::SdfLayer::FindOrOpen(name)};
+        PXR_NS::SdfLayerRefPtr sdfSublayer{PXR_NS::SdfLayer::FindOrOpen(name)};
         if(sdfSublayer == nullptr) {
             std::ostringstream stream;
             stream << "SdfLayer::FindOrOpen() failed [i="
@@ -110,13 +110,13 @@ bool createBifrostLayers(
 }
 
 bool checkSdfSublayerPaths(
-    const pxr::SdfLayer&                sdfRootLayer,
+    const PXR_NS::SdfLayer&                sdfRootLayer,
     const Amino::Array<Amino::String>&  subNames,
     Amino::String&                      errorMsg) {
     errorMsg.clear();
     // Retrieve the asset paths of all sublayers.
     // These Pixar asset paths are in order from STRONGEST to WEAKEST.
-    const pxr::SdfSubLayerProxy sdfSublayerPaths =
+    const PXR_NS::SdfSubLayerProxy sdfSublayerPaths =
         sdfRootLayer.GetSubLayerPaths();
     const size_t numSubLayers = sdfSublayerPaths.size();
     if(numSubLayers != subNames.size()) {

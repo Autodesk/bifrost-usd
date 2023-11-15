@@ -37,15 +37,15 @@ BIFUSD_WARNING_POP
 using namespace BifrostUsd::TestUtils;
 
 TEST(CollectionNodeDefs, create_collection) {
-    auto pxrStage = pxr::UsdStage::CreateInMemory();
+    auto pxrStage = PXR_NS::UsdStage::CreateInMemory();
 
-    auto city   = pxrStage->DefinePrim(pxr::SdfPath{"/city"});
-    auto geom   = pxrStage->DefinePrim(pxr::SdfPath{"/city/geom"});
-    auto house1 = pxrStage->DefinePrim(pxr::SdfPath{"/city/geom/house1"});
-    auto house2 = pxrStage->DefinePrim(pxr::SdfPath{"/city/geom/house2"});
+    auto city   = pxrStage->DefinePrim(PXR_NS::SdfPath{"/city"});
+    auto geom   = pxrStage->DefinePrim(PXR_NS::SdfPath{"/city/geom"});
+    auto house1 = pxrStage->DefinePrim(PXR_NS::SdfPath{"/city/geom/house1"});
+    auto house2 = pxrStage->DefinePrim(PXR_NS::SdfPath{"/city/geom/house2"});
 
-    auto house2_a = pxrStage->DefinePrim(pxr::SdfPath{"/city/geom/house2/a"});
-    auto house2_b = pxrStage->DefinePrim(pxr::SdfPath{"/city/geom/house2/b"});
+    auto house2_a = pxrStage->DefinePrim(PXR_NS::SdfPath{"/city/geom/house2/a"});
+    auto house2_b = pxrStage->DefinePrim(PXR_NS::SdfPath{"/city/geom/house2/b"});
 
     auto stage =
         BifrostUsd::Stage(pxrStage->GetRootLayer()->GetIdentifier().c_str());
@@ -64,50 +64,50 @@ TEST(CollectionNodeDefs, create_collection) {
         /*rule*/ BifrostUsd::ExpansionRule::Default, include_paths,
         exclude_paths));
 
-    geom = stage->GetPrimAtPath(pxr::SdfPath{"/city/geom"});
+    geom = stage->GetPrimAtPath(PXR_NS::SdfPath{"/city/geom"});
     auto collectionAPI =
-        pxr::UsdCollectionAPI::Get(geom, pxr::TfToken{"houses"});
+        PXR_NS::UsdCollectionAPI::Get(geom, PXR_NS::TfToken{"houses"});
     ASSERT_TRUE(collectionAPI);
 
     auto               includesRel = collectionAPI.GetIncludesRel();
-    pxr::SdfPathVector includesTargetsPaths;
+    PXR_NS::SdfPathVector includesTargetsPaths;
     ASSERT_TRUE(includesRel.GetTargets(&includesTargetsPaths));
 
-    auto expectedIncludesTargetsPaths = pxr::SdfPathVector{
-        pxr::SdfPath{"/city/geom/house1"}, pxr::SdfPath{"/city/geom/house2"}};
+    auto expectedIncludesTargetsPaths = PXR_NS::SdfPathVector{
+        PXR_NS::SdfPath{"/city/geom/house1"}, PXR_NS::SdfPath{"/city/geom/house2"}};
     ASSERT_EQ(includesTargetsPaths, expectedIncludesTargetsPaths);
 
     auto               excludesRel = collectionAPI.GetExcludesRel();
-    pxr::SdfPathVector excludesTargetsPaths;
+    PXR_NS::SdfPathVector excludesTargetsPaths;
     ASSERT_TRUE(excludesRel.GetTargets(&excludesTargetsPaths));
 
     auto expectedExcludesTargetsPaths =
-        pxr::SdfPathVector{pxr::SdfPath{"/city/geom/house2/a"}};
+        PXR_NS::SdfPathVector{PXR_NS::SdfPath{"/city/geom/house2/a"}};
     ASSERT_EQ(excludesTargetsPaths, expectedExcludesTargetsPaths);
 }
 
 TEST(CollectionNodeDefs, get_existing_collection_and_add_input_path) {
-    auto pxrStage = pxr::UsdStage::CreateInMemory();
+    auto pxrStage = PXR_NS::UsdStage::CreateInMemory();
 
     auto city =
-        pxrStage->DefinePrim(pxr::SdfPath{"/city"}, pxr::TfToken{"Xform"});
-    auto geom   = pxrStage->DefinePrim(pxr::SdfPath{"/city/geom"});
-    auto house1 = pxrStage->DefinePrim(pxr::SdfPath{"/city/geom/house1"});
-    auto house2 = pxrStage->DefinePrim(pxr::SdfPath{"/city/geom/house2"});
+        pxrStage->DefinePrim(PXR_NS::SdfPath{"/city"}, PXR_NS::TfToken{"Xform"});
+    auto geom   = pxrStage->DefinePrim(PXR_NS::SdfPath{"/city/geom"});
+    auto house1 = pxrStage->DefinePrim(PXR_NS::SdfPath{"/city/geom/house1"});
+    auto house2 = pxrStage->DefinePrim(PXR_NS::SdfPath{"/city/geom/house2"});
 
     auto collectionAPI =
-        pxr::UsdCollectionAPI::Apply(geom, pxr::TfToken{"houses"});
+        PXR_NS::UsdCollectionAPI::Apply(geom, PXR_NS::TfToken{"houses"});
     ASSERT_TRUE(collectionAPI);
 
     auto includeRelationship = collectionAPI.CreateIncludesRel();
     ASSERT_TRUE(
-        includeRelationship.AddTarget(pxr::SdfPath{"/city/geom/house1"}));
+        includeRelationship.AddTarget(PXR_NS::SdfPath{"/city/geom/house1"}));
 
     auto               includesRel = collectionAPI.GetIncludesRel();
-    pxr::SdfPathVector includesTargetsPaths;
+    PXR_NS::SdfPathVector includesTargetsPaths;
     ASSERT_TRUE(includesRel.GetTargets(&includesTargetsPaths));
     auto expectedIncludesTargetsPathsBeforeBifrost =
-        pxr::SdfPathVector{pxr::SdfPath{"/city/geom/house1"}};
+        PXR_NS::SdfPathVector{PXR_NS::SdfPath{"/city/geom/house1"}};
     EXPECT_EQ(includesTargetsPaths, expectedIncludesTargetsPathsBeforeBifrost);
 
     // Test the get_or_create_collection node
@@ -132,8 +132,8 @@ TEST(CollectionNodeDefs, get_existing_collection_and_add_input_path) {
         /*rule*/ BifrostUsd::ExpansionRule::Default, include_paths,
         exclude_paths));
 
-    geom          = stage->GetPrimAtPath(pxr::SdfPath{"/city/geom"});
-    collectionAPI = pxr::UsdCollectionAPI::Get(geom, pxr::TfToken{"houses"});
+    geom          = stage->GetPrimAtPath(PXR_NS::SdfPath{"/city/geom"});
+    collectionAPI = PXR_NS::UsdCollectionAPI::Get(geom, PXR_NS::TfToken{"houses"});
 
     ASSERT_TRUE(collectionAPI);
 
@@ -141,15 +141,15 @@ TEST(CollectionNodeDefs, get_existing_collection_and_add_input_path) {
     includesTargetsPaths.clear();
     ASSERT_TRUE(includesRel.GetTargets(&includesTargetsPaths));
 
-    auto expectedIncludesTargetsPathsAfterBiforst = pxr::SdfPathVector{
-        pxr::SdfPath{"/city/geom/house1"}, pxr::SdfPath{"/city/geom/house2"}};
+    auto expectedIncludesTargetsPathsAfterBiforst = PXR_NS::SdfPathVector{
+        PXR_NS::SdfPath{"/city/geom/house1"}, PXR_NS::SdfPath{"/city/geom/house2"}};
     ASSERT_EQ(includesTargetsPaths, expectedIncludesTargetsPathsAfterBiforst);
 }
 
 TEST(CollectionNodeDefs, create_collection_with_expansion_rule) {
-    auto pxrStage = pxr::UsdStage::CreateInMemory();
+    auto pxrStage = PXR_NS::UsdStage::CreateInMemory();
 
-    auto obj = pxrStage->DefinePrim(pxr::SdfPath{"/obj"});
+    auto obj = pxrStage->DefinePrim(PXR_NS::SdfPath{"/obj"});
 
     // Test the get_or_create_collection node
     auto stage =
@@ -166,25 +166,25 @@ TEST(CollectionNodeDefs, create_collection_with_expansion_rule) {
         /*rule*/ BifrostUsd::ExpansionRule::ExplicitOnly, include_paths,
         exclude_paths));
 
-    obj                = stage->GetPrimAtPath(pxr::SdfPath{"/obj"});
-    auto collectionAPI = pxr::UsdCollectionAPI::Get(obj, pxr::TfToken{"foo"});
+    obj                = stage->GetPrimAtPath(PXR_NS::SdfPath{"/obj"});
+    auto collectionAPI = PXR_NS::UsdCollectionAPI::Get(obj, PXR_NS::TfToken{"foo"});
 
     auto attr = collectionAPI.GetExpansionRuleAttr();
     ASSERT_TRUE(attr);
 
-    pxr::TfToken rule;
+    PXR_NS::TfToken rule;
     ASSERT_TRUE(attr.Get(&rule));
 
-    EXPECT_EQ(rule, pxr::TfToken{"explicitOnly"});
+    EXPECT_EQ(rule, PXR_NS::TfToken{"explicitOnly"});
 }
 
 TEST(CollectionNodeDefs, get_all_collection_names) {
-    auto pxrStage = pxr::UsdStage::CreateInMemory();
+    auto pxrStage = PXR_NS::UsdStage::CreateInMemory();
 
-    auto prim = pxrStage->DefinePrim(pxr::SdfPath{"/obj"});
+    auto prim = pxrStage->DefinePrim(PXR_NS::SdfPath{"/obj"});
 
-    pxr::UsdCollectionAPI::Apply(prim, pxr::TfToken{"first"});
-    pxr::UsdCollectionAPI::Apply(prim, pxr::TfToken{"second"});
+    PXR_NS::UsdCollectionAPI::Apply(prim, PXR_NS::TfToken{"first"});
+    PXR_NS::UsdCollectionAPI::Apply(prim, PXR_NS::TfToken{"second"});
 
     auto stage = Amino::newClassPtr<BifrostUsd::Stage>(
         pxrStage->GetRootLayer()->GetIdentifier().c_str());
@@ -203,18 +203,18 @@ TEST(CollectionNodeDefs, get_all_collection_names) {
 }
 
 TEST(CollectionNodeDefs, get_includes_paths) {
-    auto pxrStage = pxr::UsdStage::CreateInMemory();
+    auto pxrStage = PXR_NS::UsdStage::CreateInMemory();
 
-    pxrStage->DefinePrim(pxr::SdfPath{"/obj1"});
-    pxrStage->DefinePrim(pxr::SdfPath{"/obj2"});
+    pxrStage->DefinePrim(PXR_NS::SdfPath{"/obj1"});
+    pxrStage->DefinePrim(PXR_NS::SdfPath{"/obj2"});
 
-    auto prim = pxrStage->DefinePrim(pxr::SdfPath{"/grp"});
+    auto prim = pxrStage->DefinePrim(PXR_NS::SdfPath{"/grp"});
 
     auto collectionAPI =
-        pxr::UsdCollectionAPI::Apply(prim, pxr::TfToken{"obj1_and_obj2"});
+        PXR_NS::UsdCollectionAPI::Apply(prim, PXR_NS::TfToken{"obj1_and_obj2"});
     auto includeRelationship = collectionAPI.CreateIncludesRel();
-    includeRelationship.AddTarget(pxr::SdfPath{"/obj1"});
-    includeRelationship.AddTarget(pxr::SdfPath{"/obj2"});
+    includeRelationship.AddTarget(PXR_NS::SdfPath{"/obj1"});
+    includeRelationship.AddTarget(PXR_NS::SdfPath{"/obj2"});
 
     auto stage = Amino::newClassPtr<BifrostUsd::Stage>(
         pxrStage->GetRootLayer()->GetIdentifier().c_str());
@@ -232,15 +232,15 @@ TEST(CollectionNodeDefs, get_includes_paths) {
 }
 
 TEST(CollectionNodeDefs, get_excludes_paths) {
-    auto pxrStage = pxr::UsdStage::CreateInMemory();
+    auto pxrStage = PXR_NS::UsdStage::CreateInMemory();
 
-    auto prim = pxrStage->DefinePrim(pxr::SdfPath{"/grp"});
+    auto prim = pxrStage->DefinePrim(PXR_NS::SdfPath{"/grp"});
 
     auto collectionAPI =
-        pxr::UsdCollectionAPI::Apply(prim, pxr::TfToken{"exclude_obj"});
+        PXR_NS::UsdCollectionAPI::Apply(prim, PXR_NS::TfToken{"exclude_obj"});
 
     auto excludeRelationship = collectionAPI.CreateExcludesRel();
-    excludeRelationship.AddTarget(pxr::SdfPath{"/obj"});
+    excludeRelationship.AddTarget(PXR_NS::SdfPath{"/obj"});
 
     auto stage = Amino::newClassPtr<BifrostUsd::Stage>(
         pxrStage->GetRootLayer()->GetIdentifier().c_str());

@@ -34,7 +34,7 @@ using namespace BifrostUsd::TestUtils;
 
 TEST(AttributeNodeDefs, create_prim_attribute) {
     BifrostUsd::Stage stage;
-    auto                primPath = pxr::SdfPath("/a");
+    auto                primPath = PXR_NS::SdfPath("/a");
     stage->DefinePrim(primPath);
 
     const auto name       = Amino::String{"my_float"};
@@ -47,21 +47,21 @@ TEST(AttributeNodeDefs, create_prim_attribute) {
     ASSERT_TRUE(success);
 
     auto prim = stage->GetPrimAtPath(primPath);
-    auto attr = prim.GetAttribute(pxr::TfToken("my_float"));
+    auto attr = prim.GetAttribute(PXR_NS::TfToken("my_float"));
     ASSERT_TRUE(attr);
-    ASSERT_EQ(attr.GetTypeName(), pxr::SdfValueTypeNames->Float);
+    ASSERT_EQ(attr.GetTypeName(), PXR_NS::SdfValueTypeNames->Float);
 }
 
 TEST(AttributeNodeDefs, clear_attribute) {
     BifrostUsd::Stage stage;
-    auto                primPath = pxr::SdfPath("/a");
+    auto                primPath = PXR_NS::SdfPath("/a");
     auto                prim     = stage->DefinePrim(primPath);
-    auto                attr     = prim.CreateAttribute(pxr::TfToken("foo"),
-                                     pxr::SdfValueTypeNames->Token);
-    attr.Set(pxr::TfToken("bar"));
-    pxr::TfToken result;
+    auto                attr     = prim.CreateAttribute(PXR_NS::TfToken("foo"),
+                                     PXR_NS::SdfValueTypeNames->Token);
+    attr.Set(PXR_NS::TfToken("bar"));
+    PXR_NS::TfToken result;
     attr.Get(&result);
-    ASSERT_EQ(result, pxr::TfToken("bar"));
+    ASSERT_EQ(result, PXR_NS::TfToken("bar"));
 
     const auto name = Amino::String{"foo"};
     auto       success =
@@ -69,27 +69,27 @@ TEST(AttributeNodeDefs, clear_attribute) {
     ASSERT_TRUE(success);
 
     prim = stage->GetPrimAtPath(primPath);
-    attr = prim.GetAttribute(pxr::TfToken("foo"));
-    pxr::TfToken empty;
+    attr = prim.GetAttribute(PXR_NS::TfToken("foo"));
+    PXR_NS::TfToken empty;
     ASSERT_FALSE(attr.Get(&empty));
     ASSERT_TRUE(empty.IsEmpty());
 }
 
 TEST(AttributeNodeDefs, block_attribute) {
     BifrostUsd::Stage stage;
-    auto                primPath = pxr::SdfPath("/Sphere");
+    auto                primPath = PXR_NS::SdfPath("/Sphere");
     auto                prim     = stage->DefinePrim(primPath);
 
-    const auto defAttrTk = pxr::TfToken("size");
+    const auto defAttrTk = PXR_NS::TfToken("size");
     auto       defAttr =
-        prim.CreateAttribute(defAttrTk, pxr::SdfValueTypeNames->Double);
+        prim.CreateAttribute(defAttrTk, PXR_NS::SdfValueTypeNames->Double);
     defAttr.Set<double>(1.0);
 
-    auto localRefPrimPath = pxr::SdfPath("/SphereOver");
+    auto localRefPrimPath = PXR_NS::SdfPath("/SphereOver");
     auto localRefPrim     = stage->OverridePrim(localRefPrimPath);
     localRefPrim.GetReferences().AddInternalReference(primPath);
     auto localRefAttr =
-        localRefPrim.CreateAttribute(defAttrTk, pxr::SdfValueTypeNames->Double);
+        localRefPrim.CreateAttribute(defAttrTk, PXR_NS::SdfValueTypeNames->Double);
 
     double localRefAttrValue;
     localRefAttr.Get(&localRefAttrValue);
@@ -110,7 +110,7 @@ TEST(AttributeNodeDefs, block_attribute) {
 
 TEST(AttributeNodeDefs, create_primvar) {
     BifrostUsd::Stage stage;
-    auto                primPath = pxr::SdfPath("/Sphere");
+    auto                primPath = PXR_NS::SdfPath("/Sphere");
     auto                prim     = stage->DefinePrim(primPath);
 
     auto success = USD::Attribute::create_primvar(
@@ -119,18 +119,18 @@ TEST(AttributeNodeDefs, create_primvar) {
     ASSERT_TRUE(success);
 
     prim      = stage->GetPrimAtPath(primPath);
-    auto attr = prim.GetAttribute(pxr::TfToken("primvars:density"));
+    auto attr = prim.GetAttribute(PXR_NS::TfToken("primvars:density"));
     ASSERT_TRUE(attr);
 }
 
 TEST(AttributeNodeDefs, get_prim_attribute) {
     auto stage    = Amino::newMutablePtr<BifrostUsd::Stage>();
-    auto primPath = pxr::SdfPath("/a");
+    auto primPath = PXR_NS::SdfPath("/a");
     auto prim     = stage->get().DefinePrim(primPath);
 
-    auto attr = prim.CreateAttribute(pxr::TfToken("foo"),
-                                     pxr::SdfValueTypeNames->Token);
-    attr.Set(pxr::TfToken("bar"));
+    auto attr = prim.CreateAttribute(PXR_NS::TfToken("foo"),
+                                     PXR_NS::SdfValueTypeNames->Token);
+    attr.Set(PXR_NS::TfToken("bar"));
 
     auto primInterface =
         Amino::newClassPtr<BifrostUsd::Prim>(prim, std::move(stage));
@@ -141,113 +141,113 @@ TEST(AttributeNodeDefs, get_prim_attribute) {
     ASSERT_TRUE(attribute);
 
     prim = primInterface->getPxrPrim();
-    attr = prim.GetAttribute(pxr::TfToken("foo"));
-    pxr::TfToken result;
+    attr = prim.GetAttribute(PXR_NS::TfToken("foo"));
+    PXR_NS::TfToken result;
     ASSERT_TRUE(attr.Get(&result));
-    ASSERT_EQ(result, pxr::TfToken("bar"));
+    ASSERT_EQ(result, PXR_NS::TfToken("bar"));
 }
 
 TEST(AttributeNodeDefs, set_and_get_prim_attribute) {
     auto stage_mut = Amino::newMutablePtr<BifrostUsd::Stage>();
-    auto primPath  = pxr::SdfPath("/a");
+    auto primPath  = PXR_NS::SdfPath("/a");
     auto prim      = stage_mut->get().DefinePrim(primPath);
 
     // create supported USD attributes
-    prim.CreateAttribute(pxr::TfToken("my_asset"),
-                         pxr::SdfValueTypeNames->Asset);
-    prim.CreateAttribute(pxr::TfToken("my_bool"), pxr::SdfValueTypeNames->Bool);
-    prim.CreateAttribute(pxr::TfToken("my_color3f"),
-                         pxr::SdfValueTypeNames->Color3f);
-    prim.CreateAttribute(pxr::TfToken("my_double"),
-                         pxr::SdfValueTypeNames->Double);
-    prim.CreateAttribute(pxr::TfToken("my_double2"),
-                         pxr::SdfValueTypeNames->Double2);
-    prim.CreateAttribute(pxr::TfToken("my_double3"),
-                         pxr::SdfValueTypeNames->Double3);
-    prim.CreateAttribute(pxr::TfToken("my_double4"),
-                         pxr::SdfValueTypeNames->Double4);
-    prim.CreateAttribute(pxr::TfToken("my_float"),
-                         pxr::SdfValueTypeNames->Float);
-    prim.CreateAttribute(pxr::TfToken("my_float2"),
-                         pxr::SdfValueTypeNames->Float2);
-    prim.CreateAttribute(pxr::TfToken("my_float3"),
-                         pxr::SdfValueTypeNames->Float3);
-    prim.CreateAttribute(pxr::TfToken("my_float4"),
-                         pxr::SdfValueTypeNames->Float4);
-    prim.CreateAttribute(pxr::TfToken("my_int"), pxr::SdfValueTypeNames->Int);
-    prim.CreateAttribute(pxr::TfToken("my_int64"),
-                         pxr::SdfValueTypeNames->Int64);
-    prim.CreateAttribute(pxr::TfToken("my_normal3f"),
-                         pxr::SdfValueTypeNames->Normal3f);
-    prim.CreateAttribute(pxr::TfToken("my_quatd"),
-                         pxr::SdfValueTypeNames->Quatd);
-    prim.CreateAttribute(pxr::TfToken("my_quatf"),
-                         pxr::SdfValueTypeNames->Quatf);
-    prim.CreateAttribute(pxr::TfToken("my_quath"),
-                         pxr::SdfValueTypeNames->Quath);
-    prim.CreateAttribute(pxr::TfToken("my_string"),
-                         pxr::SdfValueTypeNames->String);
-    prim.CreateAttribute(pxr::TfToken("my_texcoord2f"),
-                         pxr::SdfValueTypeNames->TexCoord2f);
-    prim.CreateAttribute(pxr::TfToken("my_token"),
-                         pxr::SdfValueTypeNames->Token);
-    prim.CreateAttribute(pxr::TfToken("my_uchar"),
-                         pxr::SdfValueTypeNames->UChar);
-    prim.CreateAttribute(pxr::TfToken("my_uint"), pxr::SdfValueTypeNames->UInt);
-    prim.CreateAttribute(pxr::TfToken("my_uint64"),
-                         pxr::SdfValueTypeNames->UInt64);
-    prim.CreateAttribute(pxr::TfToken("my_double4x4"),
-                         pxr::SdfValueTypeNames->Matrix4d);
+    prim.CreateAttribute(PXR_NS::TfToken("my_asset"),
+                         PXR_NS::SdfValueTypeNames->Asset);
+    prim.CreateAttribute(PXR_NS::TfToken("my_bool"), PXR_NS::SdfValueTypeNames->Bool);
+    prim.CreateAttribute(PXR_NS::TfToken("my_color3f"),
+                         PXR_NS::SdfValueTypeNames->Color3f);
+    prim.CreateAttribute(PXR_NS::TfToken("my_double"),
+                         PXR_NS::SdfValueTypeNames->Double);
+    prim.CreateAttribute(PXR_NS::TfToken("my_double2"),
+                         PXR_NS::SdfValueTypeNames->Double2);
+    prim.CreateAttribute(PXR_NS::TfToken("my_double3"),
+                         PXR_NS::SdfValueTypeNames->Double3);
+    prim.CreateAttribute(PXR_NS::TfToken("my_double4"),
+                         PXR_NS::SdfValueTypeNames->Double4);
+    prim.CreateAttribute(PXR_NS::TfToken("my_float"),
+                         PXR_NS::SdfValueTypeNames->Float);
+    prim.CreateAttribute(PXR_NS::TfToken("my_float2"),
+                         PXR_NS::SdfValueTypeNames->Float2);
+    prim.CreateAttribute(PXR_NS::TfToken("my_float3"),
+                         PXR_NS::SdfValueTypeNames->Float3);
+    prim.CreateAttribute(PXR_NS::TfToken("my_float4"),
+                         PXR_NS::SdfValueTypeNames->Float4);
+    prim.CreateAttribute(PXR_NS::TfToken("my_int"), PXR_NS::SdfValueTypeNames->Int);
+    prim.CreateAttribute(PXR_NS::TfToken("my_int64"),
+                         PXR_NS::SdfValueTypeNames->Int64);
+    prim.CreateAttribute(PXR_NS::TfToken("my_normal3f"),
+                         PXR_NS::SdfValueTypeNames->Normal3f);
+    prim.CreateAttribute(PXR_NS::TfToken("my_quatd"),
+                         PXR_NS::SdfValueTypeNames->Quatd);
+    prim.CreateAttribute(PXR_NS::TfToken("my_quatf"),
+                         PXR_NS::SdfValueTypeNames->Quatf);
+    prim.CreateAttribute(PXR_NS::TfToken("my_quath"),
+                         PXR_NS::SdfValueTypeNames->Quath);
+    prim.CreateAttribute(PXR_NS::TfToken("my_string"),
+                         PXR_NS::SdfValueTypeNames->String);
+    prim.CreateAttribute(PXR_NS::TfToken("my_texcoord2f"),
+                         PXR_NS::SdfValueTypeNames->TexCoord2f);
+    prim.CreateAttribute(PXR_NS::TfToken("my_token"),
+                         PXR_NS::SdfValueTypeNames->Token);
+    prim.CreateAttribute(PXR_NS::TfToken("my_uchar"),
+                         PXR_NS::SdfValueTypeNames->UChar);
+    prim.CreateAttribute(PXR_NS::TfToken("my_uint"), PXR_NS::SdfValueTypeNames->UInt);
+    prim.CreateAttribute(PXR_NS::TfToken("my_uint64"),
+                         PXR_NS::SdfValueTypeNames->UInt64);
+    prim.CreateAttribute(PXR_NS::TfToken("my_double4x4"),
+                         PXR_NS::SdfValueTypeNames->Matrix4d);
 
     // create supported USD attributes arrays
-    prim.CreateAttribute(pxr::TfToken("my_assetArray"),
-                         pxr::SdfValueTypeNames->AssetArray);
-    prim.CreateAttribute(pxr::TfToken("my_boolArray"),
-                         pxr::SdfValueTypeNames->BoolArray);
-    prim.CreateAttribute(pxr::TfToken("my_color3fArray"),
-                         pxr::SdfValueTypeNames->Color3fArray);
-    prim.CreateAttribute(pxr::TfToken("my_doubleArray"),
-                         pxr::SdfValueTypeNames->DoubleArray);
-    prim.CreateAttribute(pxr::TfToken("my_double2Array"),
-                         pxr::SdfValueTypeNames->Double2Array);
-    prim.CreateAttribute(pxr::TfToken("my_double3Array"),
-                         pxr::SdfValueTypeNames->Double3Array);
-    prim.CreateAttribute(pxr::TfToken("my_double4Array"),
-                         pxr::SdfValueTypeNames->Double4Array);
-    prim.CreateAttribute(pxr::TfToken("my_floatArray"),
-                         pxr::SdfValueTypeNames->FloatArray);
-    prim.CreateAttribute(pxr::TfToken("my_float2Array"),
-                         pxr::SdfValueTypeNames->Float2Array);
-    prim.CreateAttribute(pxr::TfToken("my_float3Array"),
-                         pxr::SdfValueTypeNames->Float3Array);
-    prim.CreateAttribute(pxr::TfToken("my_float4Array"),
-                         pxr::SdfValueTypeNames->Float4Array);
-    prim.CreateAttribute(pxr::TfToken("my_intArray"),
-                         pxr::SdfValueTypeNames->IntArray);
-    prim.CreateAttribute(pxr::TfToken("my_int64Array"),
-                         pxr::SdfValueTypeNames->Int64Array);
-    prim.CreateAttribute(pxr::TfToken("my_normal3fArray"),
-                         pxr::SdfValueTypeNames->Normal3fArray);
-    prim.CreateAttribute(pxr::TfToken("my_quatdArray"),
-                         pxr::SdfValueTypeNames->QuatdArray);
-    prim.CreateAttribute(pxr::TfToken("my_quatfArray"),
-                         pxr::SdfValueTypeNames->QuatfArray);
-    prim.CreateAttribute(pxr::TfToken("my_quathArray"),
-                         pxr::SdfValueTypeNames->QuathArray);
-    prim.CreateAttribute(pxr::TfToken("my_stringArray"),
-                         pxr::SdfValueTypeNames->StringArray);
-    prim.CreateAttribute(pxr::TfToken("my_texcoord2fArray"),
-                         pxr::SdfValueTypeNames->TexCoord2fArray);
-    prim.CreateAttribute(pxr::TfToken("my_tokenArray"),
-                         pxr::SdfValueTypeNames->TokenArray);
-    prim.CreateAttribute(pxr::TfToken("my_ucharArray"),
-                         pxr::SdfValueTypeNames->UCharArray);
-    prim.CreateAttribute(pxr::TfToken("my_uintArray"),
-                         pxr::SdfValueTypeNames->UIntArray);
-    prim.CreateAttribute(pxr::TfToken("my_uint64Array"),
-                         pxr::SdfValueTypeNames->UInt64Array);
-    prim.CreateAttribute(pxr::TfToken("my_double4x4Array"),
-                         pxr::SdfValueTypeNames->Matrix4dArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_assetArray"),
+                         PXR_NS::SdfValueTypeNames->AssetArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_boolArray"),
+                         PXR_NS::SdfValueTypeNames->BoolArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_color3fArray"),
+                         PXR_NS::SdfValueTypeNames->Color3fArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_doubleArray"),
+                         PXR_NS::SdfValueTypeNames->DoubleArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_double2Array"),
+                         PXR_NS::SdfValueTypeNames->Double2Array);
+    prim.CreateAttribute(PXR_NS::TfToken("my_double3Array"),
+                         PXR_NS::SdfValueTypeNames->Double3Array);
+    prim.CreateAttribute(PXR_NS::TfToken("my_double4Array"),
+                         PXR_NS::SdfValueTypeNames->Double4Array);
+    prim.CreateAttribute(PXR_NS::TfToken("my_floatArray"),
+                         PXR_NS::SdfValueTypeNames->FloatArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_float2Array"),
+                         PXR_NS::SdfValueTypeNames->Float2Array);
+    prim.CreateAttribute(PXR_NS::TfToken("my_float3Array"),
+                         PXR_NS::SdfValueTypeNames->Float3Array);
+    prim.CreateAttribute(PXR_NS::TfToken("my_float4Array"),
+                         PXR_NS::SdfValueTypeNames->Float4Array);
+    prim.CreateAttribute(PXR_NS::TfToken("my_intArray"),
+                         PXR_NS::SdfValueTypeNames->IntArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_int64Array"),
+                         PXR_NS::SdfValueTypeNames->Int64Array);
+    prim.CreateAttribute(PXR_NS::TfToken("my_normal3fArray"),
+                         PXR_NS::SdfValueTypeNames->Normal3fArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_quatdArray"),
+                         PXR_NS::SdfValueTypeNames->QuatdArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_quatfArray"),
+                         PXR_NS::SdfValueTypeNames->QuatfArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_quathArray"),
+                         PXR_NS::SdfValueTypeNames->QuathArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_stringArray"),
+                         PXR_NS::SdfValueTypeNames->StringArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_texcoord2fArray"),
+                         PXR_NS::SdfValueTypeNames->TexCoord2fArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_tokenArray"),
+                         PXR_NS::SdfValueTypeNames->TokenArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_ucharArray"),
+                         PXR_NS::SdfValueTypeNames->UCharArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_uintArray"),
+                         PXR_NS::SdfValueTypeNames->UIntArray);
+    prim.CreateAttribute(PXR_NS::TfToken("my_uint64Array"),
+                         PXR_NS::SdfValueTypeNames->UInt64Array);
+    prim.CreateAttribute(PXR_NS::TfToken("my_double4x4Array"),
+                         PXR_NS::SdfValueTypeNames->Matrix4dArray);
 
     auto useFrame = false;
     auto frame    = 1.0f;
@@ -422,7 +422,7 @@ TEST(AttributeNodeDefs, set_and_get_prim_attribute) {
 
     auto test_get_attribute = [&](const Amino::String& attribName,
                                   auto& attribValue, auto& attribValueResult) {
-        auto attribute = prim.GetAttribute(pxr::TfToken(attribName.c_str()));
+        auto attribute = prim.GetAttribute(PXR_NS::TfToken(attribName.c_str()));
         const auto primInterface =
             Amino::newClassPtr<BifrostUsd::Prim>(prim, stage);
         BifrostUsd::Attribute attributeInterface(attribute, primInterface);
@@ -440,7 +440,7 @@ TEST(AttributeNodeDefs, set_and_get_prim_attribute) {
     auto test_get_scalar2_attribute = [&](const Amino::String& attribName,
                                           auto&                attribValue,
                                           auto& attribValueResult) {
-        auto attribute = prim.GetAttribute(pxr::TfToken(attribName.c_str()));
+        auto attribute = prim.GetAttribute(PXR_NS::TfToken(attribName.c_str()));
         const auto primInterface =
             Amino::newClassPtr<BifrostUsd::Prim>(prim, stage);
         BifrostUsd::Attribute attributeInterface{attribute, primInterface};
@@ -457,7 +457,7 @@ TEST(AttributeNodeDefs, set_and_get_prim_attribute) {
     auto test_get_scalar3_attribute = [&](const Amino::String& attribName,
                                           auto&                attribValue,
                                           auto& attribValueResult) {
-        auto attribute = prim.GetAttribute(pxr::TfToken(attribName.c_str()));
+        auto attribute = prim.GetAttribute(PXR_NS::TfToken(attribName.c_str()));
         const auto primInterface =
             Amino::newClassPtr<BifrostUsd::Prim>(prim, stage);
         BifrostUsd::Attribute attributeInterface{attribute, primInterface};
@@ -475,7 +475,7 @@ TEST(AttributeNodeDefs, set_and_get_prim_attribute) {
     auto test_get_scalar4_attribute = [&](const Amino::String& attribName,
                                           auto&                attribValue,
                                           auto& attribValueResult) {
-        auto attribute = prim.GetAttribute(pxr::TfToken(attribName.c_str()));
+        auto attribute = prim.GetAttribute(PXR_NS::TfToken(attribName.c_str()));
         const auto primInterface =
             Amino::newClassPtr<BifrostUsd::Prim>(prim, stage);
         BifrostUsd::Attribute attributeInterface{attribute, primInterface};
@@ -494,7 +494,7 @@ TEST(AttributeNodeDefs, set_and_get_prim_attribute) {
     auto test_get_scalar4x4_attribute = [&](const Amino::String& attribName,
                                             auto&                attribValue,
                                             auto& attribValueResult) {
-        auto attribute = prim.GetAttribute(pxr::TfToken(attribName.c_str()));
+        auto attribute = prim.GetAttribute(PXR_NS::TfToken(attribName.c_str()));
         const auto primInterface =
             Amino::newClassPtr<BifrostUsd::Prim>(prim, stage);
         BifrostUsd::Attribute attributeInterface{attribute, primInterface};
@@ -605,7 +605,7 @@ TEST(AttributeNodeDefs, set_and_get_prim_attribute) {
     auto test_get_scalar_attribute_array = [&](const Amino::String& attribName,
                                                auto&                attribValue,
                                                auto& attribValueResult) {
-        auto attribute = prim.GetAttribute(pxr::TfToken(attribName.c_str()));
+        auto attribute = prim.GetAttribute(PXR_NS::TfToken(attribName.c_str()));
         const auto primInterface =
             Amino::newClassPtr<BifrostUsd::Prim>(prim, stage);
         BifrostUsd::Attribute attributeInterface{attribute, primInterface};
@@ -624,7 +624,7 @@ TEST(AttributeNodeDefs, set_and_get_prim_attribute) {
     auto test_get_scalar2_attribute_array = [&](const Amino::String& attribName,
                                                 auto& attribValue,
                                                 auto& attribValueResult) {
-        auto attribute = prim.GetAttribute(pxr::TfToken(attribName.c_str()));
+        auto attribute = prim.GetAttribute(PXR_NS::TfToken(attribName.c_str()));
         const auto primInterface =
             Amino::newClassPtr<BifrostUsd::Prim>(prim, stage);
         BifrostUsd::Attribute attributeInterface{attribute, primInterface};
@@ -644,7 +644,7 @@ TEST(AttributeNodeDefs, set_and_get_prim_attribute) {
     auto test_get_scalar3_attribute_array = [&](const Amino::String& attribName,
                                                 auto& attribValue,
                                                 auto& attribValueResult) {
-        auto attribute = prim.GetAttribute(pxr::TfToken(attribName.c_str()));
+        auto attribute = prim.GetAttribute(PXR_NS::TfToken(attribName.c_str()));
         const auto primInterface =
             Amino::newClassPtr<BifrostUsd::Prim>(prim, stage);
         BifrostUsd::Attribute attributeInterface{attribute, primInterface};
@@ -666,7 +666,7 @@ TEST(AttributeNodeDefs, set_and_get_prim_attribute) {
         [&](const Amino::String& attribName, auto& attribValue,
             auto& attribValueResult) {
             auto attribute =
-                prim.GetAttribute(pxr::TfToken(attribName.c_str()));
+                prim.GetAttribute(PXR_NS::TfToken(attribName.c_str()));
             const auto primInterface =
                 Amino::newClassPtr<BifrostUsd::Prim>(prim, stage);
             BifrostUsd::Attribute attributeInterface{attribute, primInterface};
@@ -703,7 +703,7 @@ TEST(AttributeNodeDefs, set_and_get_prim_attribute) {
     auto test_get_scalar4_attribute_array = [&](const Amino::String& attribName,
                                                 auto& attribValue,
                                                 auto& attribValueResult) {
-        auto attribute = prim.GetAttribute(pxr::TfToken(attribName.c_str()));
+        auto attribute = prim.GetAttribute(PXR_NS::TfToken(attribName.c_str()));
         const auto primInterface =
             Amino::newClassPtr<BifrostUsd::Prim>(prim, stage);
         BifrostUsd::Attribute attributeInterface = {attribute, primInterface};
@@ -836,11 +836,11 @@ TEST(PrimNodeDefs, attribute_metadata) {
     BifrostUsd::Stage stage{getResourcePath("helloworld.usd")};
     ASSERT_TRUE(stage);
     auto primPath    = Amino::String{"/hello"};
-    auto pxrPrimPath = pxr::SdfPath(primPath.c_str());
+    auto pxrPrimPath = PXR_NS::SdfPath(primPath.c_str());
     auto prim        = stage->GetPrimAtPath(pxrPrimPath);
     auto attrName    = Amino::String{"my_float"};
-    auto attr        = prim.CreateAttribute(pxr::TfToken(attrName.c_str()),
-                                     pxr::SdfValueTypeNames->Float);
+    auto attr        = prim.CreateAttribute(PXR_NS::TfToken(attrName.c_str()),
+                                     PXR_NS::SdfValueTypeNames->Float);
     // Test String
     {
         auto docVal  = Amino::String{"This is my documentation"};
@@ -930,20 +930,20 @@ TEST(PrimNodeDefs, attribute_metadata) {
 
 TEST(AttributeNodeDefs, add_attribute_connection) {
     auto stage          = Amino::newMutablePtr<BifrostUsd::Stage>();
-    auto targetPrimPath = pxr::SdfPath("/target");
+    auto targetPrimPath = PXR_NS::SdfPath("/target");
     auto targetPrim     = stage->get().DefinePrim(targetPrimPath);
 
-    auto targetAttrName = pxr::TfToken("target");
+    auto targetAttrName = PXR_NS::TfToken("target");
     auto targetAttr     = targetPrim.CreateAttribute(targetAttrName,
-                                                 pxr::SdfValueTypeNames->Token);
+                                                 PXR_NS::SdfValueTypeNames->Token);
     targetAttr.Set(targetAttrName);
 
-    auto sourcePrimPath = pxr::SdfPath("/source");
+    auto sourcePrimPath = PXR_NS::SdfPath("/source");
     auto sourcePrim     = stage->get().DefinePrim(sourcePrimPath);
 
-    auto sourceAttrName = pxr::TfToken("source");
+    auto sourceAttrName = PXR_NS::TfToken("source");
     auto sourceAttr     = sourcePrim.CreateAttribute(sourceAttrName,
-                                                 pxr::SdfValueTypeNames->Token);
+                                                 PXR_NS::SdfValueTypeNames->Token);
     sourceAttr.Set(sourceAttrName);
 
     auto sourceAttrPath = sourcePrimPath.AppendProperty(sourceAttrName);
@@ -955,7 +955,7 @@ TEST(AttributeNodeDefs, add_attribute_connection) {
 
     targetPrim = stage->get().GetPrimAtPath(targetPrimPath);
     targetAttr = targetPrim.GetAttribute(targetAttrName);
-    pxr::SdfPathVector sources;
+    PXR_NS::SdfPathVector sources;
 
     ASSERT_TRUE(targetAttr.GetConnections(&sources));
     ASSERT_EQ(sources[0], sourceAttrPath);
@@ -963,66 +963,66 @@ TEST(AttributeNodeDefs, add_attribute_connection) {
 
 TEST(AttributeNodeDefs, remove_attribute_connection) {
     auto stage          = Amino::newMutablePtr<BifrostUsd::Stage>();
-    auto targetPrimPath = pxr::SdfPath("/target");
+    auto targetPrimPath = PXR_NS::SdfPath("/target");
     auto targetPrim     = stage->get().DefinePrim(targetPrimPath);
 
-    auto targetAttrName = pxr::TfToken("target");
+    auto targetAttrName = PXR_NS::TfToken("target");
     auto targetAttr     = targetPrim.CreateAttribute(targetAttrName,
-                                                 pxr::SdfValueTypeNames->Token);
+                                                 PXR_NS::SdfValueTypeNames->Token);
     targetAttr.Set(targetAttrName);
 
-    auto sourcePrimPath = pxr::SdfPath("/source");
+    auto sourcePrimPath = PXR_NS::SdfPath("/source");
     auto sourcePrim     = stage->get().DefinePrim(sourcePrimPath);
 
-    auto sourceAttrName = pxr::TfToken("source");
+    auto sourceAttrName = PXR_NS::TfToken("source");
     auto sourceAttr     = sourcePrim.CreateAttribute(sourceAttrName,
-                                                 pxr::SdfValueTypeNames->Token);
+                                                 PXR_NS::SdfValueTypeNames->Token);
     sourceAttr.Set(sourceAttrName);
 
     auto sourceAttrPath = sourcePrimPath.AppendProperty(sourceAttrName);
 
     targetAttr.AddConnection(sourceAttrPath,
-                             pxr::UsdListPositionFrontOfPrependList);
+                             PXR_NS::UsdListPositionFrontOfPrependList);
     ASSERT_TRUE(USD::Attribute::remove_attribute_connection(
         *stage, targetPrimPath.GetText(), targetAttrName.GetText(),
         sourceAttrPath.GetText()));
 
     targetPrim = stage->get().GetPrimAtPath(targetPrimPath);
     targetAttr = targetPrim.GetAttribute(targetAttrName);
-    pxr::SdfPathVector sources;
+    PXR_NS::SdfPathVector sources;
     ASSERT_TRUE(targetAttr.GetConnections(&sources));
     ASSERT_EQ(sources.size(), 0);
 }
 
 TEST(AttributeNodeDefs, clear_attribute_connections) {
     auto stage          = Amino::newMutablePtr<BifrostUsd::Stage>();
-    auto targetPrimPath = pxr::SdfPath("/target");
+    auto targetPrimPath = PXR_NS::SdfPath("/target");
     auto targetPrim     = stage->get().DefinePrim(targetPrimPath);
 
-    auto targetAttrName = pxr::TfToken("target");
+    auto targetAttrName = PXR_NS::TfToken("target");
     auto targetAttr     = targetPrim.CreateAttribute(targetAttrName,
-                                                 pxr::SdfValueTypeNames->Token);
+                                                 PXR_NS::SdfValueTypeNames->Token);
     targetAttr.Set(targetAttrName);
 
-    auto sourcePrimPath = pxr::SdfPath("/source");
+    auto sourcePrimPath = PXR_NS::SdfPath("/source");
     auto sourcePrim     = stage->get().DefinePrim(sourcePrimPath);
 
-    auto sourceAttrName = pxr::TfToken("source");
+    auto sourceAttrName = PXR_NS::TfToken("source");
     auto sourceAttr     = sourcePrim.CreateAttribute(sourceAttrName,
-                                                 pxr::SdfValueTypeNames->Token);
+                                                 PXR_NS::SdfValueTypeNames->Token);
     sourceAttr.Set(sourceAttrName);
 
     auto sourceAttrPath = sourcePrimPath.AppendProperty(sourceAttrName);
 
     targetAttr.AddConnection(sourceAttrPath,
-                             pxr::UsdListPositionFrontOfPrependList);
+                             PXR_NS::UsdListPositionFrontOfPrependList);
 
     ASSERT_TRUE(USD::Attribute::clear_attribute_connections(
         *stage, targetPrimPath.GetText(), targetAttrName.GetText()));
 
     targetPrim = stage->get().GetPrimAtPath(targetPrimPath);
     targetAttr = targetPrim.GetAttribute(targetAttrName);
-    pxr::SdfPathVector sources;
+    PXR_NS::SdfPathVector sources;
     ASSERT_FALSE(targetAttr.GetConnections(&sources));
     ASSERT_EQ(sources.size(), 0);
 }

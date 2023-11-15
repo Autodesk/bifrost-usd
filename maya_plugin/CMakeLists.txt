@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2023 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 #*****************************************************************************
 #+
 
-if( NOT CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+if(NOT IS_BIFUSD_STANDALONE)
     # This code acts like a mini project setup when calling directly the maya_plugin cmake.
     # That is, when an external sub-project, not main project,
     # does a direct add_subdirectory(maya_plugin)
@@ -79,8 +79,13 @@ endif()
 # Do the maya plugin
 #==============================================================================
 
-# Setup maya dependencies
-include(cmake/maya.cmake) 
+# Do not skip tests unless demanded
+# Some Maya environement may not be complete
+# Ex.: On Linux with older Maya's you need
+# libXp.so.6 and it may not be installed...
+if( NOT DEFINED BIFUSD_MAYA_SKIP_TESTS )
+    set(BIFUSD_MAYA_SKIP_TESTS 0 PARENT_SCOPE)
+endif()
 
 add_subdirectory(src)
 add_subdirectory(test)

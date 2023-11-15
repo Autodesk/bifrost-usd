@@ -17,7 +17,6 @@
 #include "usd_stage_nodedefs.h"
 
 #include <Amino/Core/String.h>
-#include <Bifrost/FileUtils/FileUtils.h>
 #include <pxr/usd/usd/prim.h>
 #include <pxr/usd/usd/stageCacheContext.h>
 #include <pxr/usd/usdGeom/metrics.h>
@@ -81,7 +80,7 @@ int getRootOrReversedSublayerIndex(
     if (!stage.isValid() || sublayer_index == -1) {
         return -1;  // use root layer as default EditTarget
     }
-    const pxr::SdfLayerHandle sdfLayer = stage.get().GetRootLayer();
+    const PXR_NS::SdfLayerHandle sdfLayer = stage.get().GetRootLayer();
     const int numLayers = static_cast<int>(sdfLayer->GetNumSubLayerPaths());
     if (sublayer_index < -1 || sublayer_index >= numLayers) {
         return -1;  // use root layer as default EditTarget
@@ -103,15 +102,15 @@ void USD::Stage::open_stage_from_layer(
             }
 
             // Make the masked paths
-            std::vector<pxr::SdfPath> paths;
+            std::vector<PXR_NS::SdfPath> paths;
             for (size_t i = 0; i < mask.size(); ++i) {
                 std::string path(mask[i].c_str());
-                paths.push_back(pxr::SdfPath(path));
+                paths.push_back(PXR_NS::SdfPath(path));
             }
             return paths.empty()
                        ? createStage(root_layer, load)
                        : createStage(root_layer,
-                                     pxr::UsdStagePopulationMask(paths), load);
+                                     PXR_NS::UsdStagePopulationMask(paths), load);
         }();
 
         // Reverse the given index to match the order of sublayers
@@ -139,8 +138,8 @@ void USD::Stage::open_stage_from_cache(const Amino::long_t              id,
     auto stage_returns = createReturnGuard(stage);
     try {
         // Requires cast to long int on MSVC to compile without errors.
-        auto pxr_stage = pxr::UsdUtilsStageCache::Get().Find(
-            pxr::UsdStageCache::Id::FromLongInt(static_cast<long int>(id)));
+        auto pxr_stage = PXR_NS::UsdUtilsStageCache::Get().Find(
+            PXR_NS::UsdStageCache::Id::FromLongInt(static_cast<long int>(id)));
 
         if (pxr_stage) {
             auto stage_ =
@@ -174,7 +173,7 @@ void USD::Stage::set_edit_layer(BifrostUsd::Stage&  stage,
     }
     try {
         // First verify given index. We do nothing if it is invalid:
-        const pxr::SdfLayerHandle sdfLayer = stage.get().GetRootLayer();
+        const PXR_NS::SdfLayerHandle sdfLayer = stage.get().GetRootLayer();
         const int numLayers = static_cast<int>(sdfLayer->GetNumSubLayerPaths());
         if (layer_index >= -1 && layer_index < numLayers) {
             // Reverse the given index to match the order of sublayers
@@ -219,16 +218,16 @@ bool USD::Stage::set_stage_up_axis(BifrostUsd::Stage&       stage,
 
     try {
         // UsdStage upAxis can only be set to "Y" or "Z"
-        pxr::TfToken pxr_axis = [axis] {
+        PXR_NS::TfToken pxr_axis = [axis] {
             switch (axis) {
-                case BifrostUsd::UpAxis::Y: return pxr::UsdGeomTokens->y;
-                case BifrostUsd::UpAxis::Z: return pxr::UsdGeomTokens->z;
+                case BifrostUsd::UpAxis::Y: return PXR_NS::UsdGeomTokens->y;
+                case BifrostUsd::UpAxis::Z: return PXR_NS::UsdGeomTokens->z;
             }
             assert(false); // Should have returned in switch
-            return pxr::TfToken{};
+            return PXR_NS::TfToken{};
         }();
 
-        return pxr::UsdGeomSetStageUpAxis(stage.getStagePtr(), pxr_axis);
+        return PXR_NS::UsdGeomSetStageUpAxis(stage.getStagePtr(), pxr_axis);
 
     } catch (std::exception& e) {
         log_exception("set_stage_up_axis", e);
@@ -358,7 +357,7 @@ bool USD::Stage::get_stage_metadata(
         value, [&default_and_type]() { return default_and_type; });
 
     try {
-        pxr::VtDictionary temp;
+        PXR_NS::VtDictionary temp;
         if (stage && stage->GetMetadata(GetSdfFieldKey(key), &temp)) {
             value = fromPxr(temp);
             return true;
@@ -393,7 +392,7 @@ Amino::long_t USD::Stage::send_stage_to_cache(
         if (stage && *stage) {
             auto usdStage =
                 const_cast<BifrostUsd::Stage&>(*stage).getStagePtr();
-            return pxr::UsdUtilsStageCache::Get().Insert(usdStage).ToLongInt();
+            return PXR_NS::UsdUtilsStageCache::Get().Insert(usdStage).ToLongInt();
         }
 
     } catch (std::exception& e) {

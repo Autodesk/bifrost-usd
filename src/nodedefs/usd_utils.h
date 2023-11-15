@@ -45,7 +45,7 @@ namespace USDUtils {
 
 class VariantEditContext {
 public:
-    VariantEditContext(const BifrostUsd::Stage& stage) {
+    explicit VariantEditContext(const BifrostUsd::Stage& stage) {
         auto variantSet = stage.getLastModifedVariantSet();
         if (variantSet) {
             auto variantEditCtx = variantSet.GetVariantEditContext();
@@ -65,7 +65,7 @@ public:
     VariantEditContext& operator=(VariantEditContext&&) = delete;
 
 private:
-    using Ctx          = pxr::UsdEditContext;
+    using Ctx          = PXR_NS::UsdEditContext;
     using storage_type = std::aligned_storage_t<sizeof(Ctx), alignof(Ctx)>;
 
     // home grown optional, should use std::optional when available.
@@ -73,18 +73,18 @@ private:
     bool         m_hasContext = false;
 };
 
-pxr::UsdListPosition GetUsdListPosition(
+PXR_NS::UsdListPosition GetUsdListPosition(
     const BifrostUsd::UsdListPosition position);
 
-pxr::UsdGeomXformCommonAPI::RotationOrder GetUsdRotationOrder(
+PXR_NS::UsdGeomXformCommonAPI::RotationOrder GetUsdRotationOrder(
     const Bifrost::Math::rotation_order order);
 
 Bifrost::Math::rotation_order GetRotationOrder(
-    const pxr::UsdGeomXformCommonAPI::RotationOrder order);
+    const PXR_NS::UsdGeomXformCommonAPI::RotationOrder order);
 
-pxr::GfVec3d GetVec3d(const Bifrost::Math::double3& vec);
+PXR_NS::GfVec3d GetVec3d(const Bifrost::Math::double3& vec);
 
-pxr::GfVec3f GetVec3f(const Bifrost::Math::float3& vec);
+PXR_NS::GfVec3f GetVec3f(const Bifrost::Math::float3& vec);
 
 Amino::String ToString(const Bifrost::Math::float3& vec);
 
@@ -99,19 +99,19 @@ void copy_array(const AMINOTYPE& src, USDTYPE& dest) {
 }
 
 void copy_array(const Amino::Array<Bifrost::Math::float3>& src,
-                pxr::VtVec3fArray&                         dest);
+                PXR_NS::VtVec3fArray&                         dest);
 void copy_array(const Amino::Array<Bifrost::Math::float4>& src,
-                pxr::VtVec4fArray&                         dest);
+                PXR_NS::VtVec4fArray&                         dest);
 
 void copy_array(const Amino::Array<Bifrost::Math::float4>& src,
-                pxr::VtQuathArray&                         dest);
+                PXR_NS::VtQuathArray&                         dest);
 
 template <class VOLUME_FIELD_ASSET_TYPE>
 void set_volume_field_relationship(VOLUME_FIELD_ASSET_TYPE& fieldPrim,
-                                   const pxr::TfToken&      field_name,
-                                   const pxr::TfToken&      relationship_name,
-                                   const pxr::SdfAssetPath& field_path,
-                                   pxr::UsdVolVolume&       volume,
+                                   const PXR_NS::TfToken&      field_name,
+                                   const PXR_NS::TfToken&      relationship_name,
+                                   const PXR_NS::SdfAssetPath& field_path,
+                                   PXR_NS::UsdVolVolume&       volume,
                                    const double             frame) {
     auto fieldNameAttr = fieldPrim.CreateFieldNameAttr();
     fieldNameAttr.Set(field_name, frame);
@@ -122,29 +122,29 @@ void set_volume_field_relationship(VOLUME_FIELD_ASSET_TYPE& fieldPrim,
     volume.CreateFieldRelationship(relationship_name, fieldPrim.GetPath());
 }
 
-pxr::UsdPrim get_prim_at_path(const Amino::String&       path,
+PXR_NS::UsdPrim get_prim_at_path(const Amino::String&       path,
                               const BifrostUsd::Stage& stage);
 
-pxr::UsdPrim get_prim_or_throw(Amino::String const&     prim_path,
+PXR_NS::UsdPrim get_prim_or_throw(Amino::String const&     prim_path,
                                BifrostUsd::Stage const& stage);
 
 Amino::String resolve_prim_path(const Amino::String&       path,
                                 const BifrostUsd::Stage& stage);
 
-pxr::SdfVariability GetSdfVariability(
+PXR_NS::SdfVariability GetSdfVariability(
     const BifrostUsd::SdfVariability variablity);
 
-pxr::SdfValueTypeName GetSdfValueTypeName(
+PXR_NS::SdfValueTypeName GetSdfValueTypeName(
     const BifrostUsd::SdfValueTypeName type_name);
 
-pxr::TfToken GetUsdGeomPrimvarInterpolation(
+PXR_NS::TfToken GetUsdGeomPrimvarInterpolation(
     const BifrostUsd::UsdGeomPrimvarInterpolation interpolation);
 
-pxr::TfToken GetSdfFieldKey(const Amino::String& key);
+PXR_NS::TfToken GetSdfFieldKey(const Amino::String& key);
 
-pxr::VtDictionary BifrostObjectToVtDictionary(const Bifrost::Object& object);
+PXR_NS::VtDictionary BifrostObjectToVtDictionary(const Bifrost::Object& object);
 
-auto VtDictionaryToBifrostObject(const pxr::VtDictionary& dict)
+auto VtDictionaryToBifrostObject(const PXR_NS::VtDictionary& dict)
     -> decltype(Bifrost::createObject());
 
 /// The sublayer indices in Bifrost USD nodedef functions (where 0
@@ -164,13 +164,13 @@ size_t reversedSublayerIndex(const size_t index, const size_t numLayers);
 USD_NODEDEF_DECL
 int reversedSublayerIndex(const int index, const int numLayers);
 
-pxr::TfToken GetImageablePurpose(const BifrostUsd::ImageablePurpose purpose);
+PXR_NS::TfToken GetImageablePurpose(const BifrostUsd::ImageablePurpose purpose);
 
-pxr::TfToken GetMaterialBindingStrength(const BifrostUsd::MaterialBindingStrength strength);
+PXR_NS::TfToken GetMaterialBindingStrength(const BifrostUsd::MaterialBindingStrength strength);
 
-pxr::TfToken GetMaterialPurpose(const BifrostUsd::MaterialPurpose purpose);
+PXR_NS::TfToken GetMaterialPurpose(const BifrostUsd::MaterialPurpose purpose);
 
-pxr::TfToken GetExpansionRule(const BifrostUsd::ExpansionRule rule);
+PXR_NS::TfToken GetExpansionRule(const BifrostUsd::ExpansionRule rule);
 
 } // namespace USDUtils
 

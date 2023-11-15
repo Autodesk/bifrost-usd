@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
 // limitations under the License.
 //+
 #include <Amino/Core/String.h>
+#include <Bifrost/FileUtils/FileUtils.h>
+
 #include <bifusd/config/CfgWarningMacros.h>
 #include <gtest/gtest.h>
 #include <nodedefs/usd_pack/usd_layer_nodedefs.h>
@@ -37,6 +39,20 @@ BIFUSD_WARNING_POP
 
 using namespace BifrostUsd::TestUtils;
 
+namespace {
+Amino::String getThisTestOutputDir() {
+    return Bifrost::FileUtils::filePath(getTestOutputDir(),
+                                        "testStageNodeDefs");
+}
+Amino::String getThisTestOutputPath(const Amino::String& filename) {
+    return Bifrost::FileUtils::filePath(getThisTestOutputDir(), filename);
+}
+} // namespace
+
+TEST(StageNodeDefs, initial_cleanup) {
+    ASSERT_TRUE(Bifrost::FileUtils::removeAll(getThisTestOutputDir()));
+}
+
 TEST(StageNodeDefs, set_edit_layer) {
     const Amino::String rootName = "helloworld.usd";
 
@@ -45,7 +61,7 @@ TEST(StageNodeDefs, set_edit_layer) {
         std::string title("\t Case 1: Test when root has no sublayers - ");
 
         // Open an SdfLayer with no sublayer in it:
-        pxr::SdfLayerRefPtr sdfRootLayer = pxr::SdfLayer::FindOrOpen(rootName.c_str());
+        PXR_NS::SdfLayerRefPtr sdfRootLayer = PXR_NS::SdfLayer::FindOrOpen(rootName.c_str());
         ASSERT_NE(sdfRootLayer, nullptr);
 
         // Create a Bifrost root layer and stage from the SdfLayer:
@@ -88,7 +104,7 @@ TEST(StageNodeDefs, set_edit_layer) {
         const Amino::Array<Amino::String> subNames = {
             "Grass1.usd", "Mushroom1.usd", "Tree1.usd"}; // weakest to strongest
         const int numSubNames = static_cast<int>(subNames.size());
-        pxr::SdfLayerRefPtr sdfRootLayer = pxr::SdfLayer::FindOrOpen(rootName.c_str());
+        PXR_NS::SdfLayerRefPtr sdfRootLayer = PXR_NS::SdfLayer::FindOrOpen(rootName.c_str());
         ASSERT_NE(sdfRootLayer, nullptr);
         Amino::String errorMsg;
         addSubLayers(sdfRootLayer, subNames, errorMsg);
@@ -185,7 +201,7 @@ TEST(StageNodeDefs, set_stage_metadata) {
     Amino::String doc = "This is my documentation";
     USD::Stage::set_stage_metadata(*stage, key, doc);
     ASSERT_TRUE(*stage);
-    ASSERT_TRUE(stage->get().HasMetadata(pxr::SdfFieldKeys->Documentation));
+    ASSERT_TRUE(stage->get().HasMetadata(PXR_NS::SdfFieldKeys->Documentation));
 
     Amino::String strDefault = "Oups an error!";
     Amino::String strResult;
@@ -202,7 +218,7 @@ TEST(StageNodeDefs, set_stage_metadata) {
     double dblValue = 1001.0;
     USD::Stage::set_stage_metadata(*stage, key, dblValue);
     ASSERT_TRUE(*stage);
-    ASSERT_TRUE(stage->get().HasMetadata(pxr::SdfFieldKeys->EndTimeCode));
+    ASSERT_TRUE(stage->get().HasMetadata(PXR_NS::SdfFieldKeys->EndTimeCode));
 
     double dblDefault = 123.0;
     double dblResult;
@@ -223,7 +239,7 @@ TEST(StageNodeDefs, set_stage_metadata) {
     objValue->setProperty("my_bool", true);
     USD::Stage::set_stage_metadata(*stage, key, *objValue);
     ASSERT_TRUE(*stage);
-    ASSERT_TRUE(stage->get().HasMetadata(pxr::SdfFieldKeys->CustomLayerData));
+    ASSERT_TRUE(stage->get().HasMetadata(PXR_NS::SdfFieldKeys->CustomLayerData));
 
     Amino::Ptr<Bifrost::Object> objDefault = Bifrost::createObject();
     Amino::Ptr<Bifrost::Object> objResult;
@@ -257,7 +273,7 @@ TEST(StageNodeDefs, set_default_prim) {
     ASSERT_TRUE(stage);
     // Path needs to be at root, for example "/hello/world" won't work
     const Amino::String primPath = "/hello";
-    auto prim = stage->GetPrimAtPath(pxr::SdfPath(primPath.c_str()));
+    auto prim = stage->GetPrimAtPath(PXR_NS::SdfPath(primPath.c_str()));
     ASSERT_TRUE(prim.IsValid());
     USD::Stage::set_default_prim(stage, primPath);
     ASSERT_TRUE(stage);
@@ -272,7 +288,7 @@ TEST(StageNodeDefs, get_default_prim) {
     ASSERT_TRUE(stage);
     // Path needs to be at root, for example "/hello/world" won't work
     const Amino::String primPath = "/hello";
-    auto prim = stage->GetPrimAtPath(pxr::SdfPath(primPath.c_str()));
+    auto prim = stage->GetPrimAtPath(PXR_NS::SdfPath(primPath.c_str()));
     ASSERT_TRUE(prim.IsValid());
     stage->SetDefaultPrim(prim);
     Amino::String defaultPrimPath;
@@ -289,14 +305,14 @@ TEST(StageNodeDefs, set_stage_up_axis) {
     // Z Axis
     bool success = USD::Stage::set_stage_up_axis(stage, BifrostUsd::UpAxis::Z);
     ASSERT_TRUE(success);
-    pxr::TfToken zaxis = pxr::UsdGeomGetStageUpAxis(stage.getStagePtr());
-    ASSERT_EQ(zaxis, pxr::UsdGeomTokens->z);
+    PXR_NS::TfToken zaxis = PXR_NS::UsdGeomGetStageUpAxis(stage.getStagePtr());
+    ASSERT_EQ(zaxis, PXR_NS::UsdGeomTokens->z);
 
     // Y Axis
     success = USD::Stage::set_stage_up_axis(stage, BifrostUsd::UpAxis::Y);
     ASSERT_TRUE(success);
-    pxr::TfToken yaxis = pxr::UsdGeomGetStageUpAxis(stage.getStagePtr());
-    ASSERT_EQ(yaxis, pxr::UsdGeomTokens->y);
+    PXR_NS::TfToken yaxis = PXR_NS::UsdGeomGetStageUpAxis(stage.getStagePtr());
+    ASSERT_EQ(yaxis, PXR_NS::UsdGeomTokens->y);
 }
 
 TEST(StageNodeDefs, set_stage_time_code) {
@@ -330,7 +346,7 @@ def Xform "hello"
 )usda";
     BifrostUsd::Stage stage{getResourcePath("helloworld.usd")};
     ASSERT_TRUE(stage);
-    auto filepath = getTestOutputPath("testSaveStage.usda");
+    auto filepath = getThisTestOutputPath("testSaveStage.usda");
 
     bool success = USD::Stage::save_stage(stage, filepath);
     ASSERT_TRUE(success);
@@ -350,13 +366,13 @@ TEST(StageNodeDefs, open_stage_from_layer) {
         USD::Stage::open_stage_from_layer(layer, mask, load, -1, stage);
 
         ASSERT_TRUE(*stage);
-        auto prim = stage->get().GetPrimAtPath(pxr::SdfPath("/hello/world"));
+        auto prim = stage->get().GetPrimAtPath(PXR_NS::SdfPath("/hello/world"));
         ASSERT_TRUE(prim.IsValid());
     }
     {
         // Test opening read only SdfLayer.
         auto pxr_layer =
-            pxr::SdfLayer::FindOrOpen("kitchen_set/kitchen_props.usd");
+            PXR_NS::SdfLayer::FindOrOpen("kitchen_set/kitchen_props.usd");
 
         Amino::MutablePtr<BifrostUsd::Stage> stage;
         BifrostUsd::Layer                    layer{pxr_layer, false};
@@ -366,23 +382,23 @@ TEST(StageNodeDefs, open_stage_from_layer) {
         USD::Stage::open_stage_from_layer(layer, mask, load, -1, stage);
 
         auto bottle =
-            stage->get().GetPrimAtPath(pxr::SdfPath("/Props_grp/bottle"));
+            stage->get().GetPrimAtPath(PXR_NS::SdfPath("/Props_grp/bottle"));
         ASSERT_TRUE(bottle);
         ASSERT_EQ(bottle.GetChildrenNames().size(), 1);
 
-        auto        model = pxr::UsdModelAPI(bottle);
+        auto        model = PXR_NS::UsdModelAPI(bottle);
         std::string assetName;
         model.GetAssetName(&assetName);
         ASSERT_EQ(assetName, "Bottle");
 
         auto spoon = stage->get().GetPrimAtPath(
-            pxr::SdfPath("/Props_grp/MeasuringSpoon"));
+            PXR_NS::SdfPath("/Props_grp/MeasuringSpoon"));
         ASSERT_TRUE(spoon);
     }
     {
         // Test opening masked.
         auto pxr_layer =
-            pxr::SdfLayer::FindOrOpen("kitchen_set/kitchen_props.usd");
+            PXR_NS::SdfLayer::FindOrOpen("kitchen_set/kitchen_props.usd");
 
         Amino::MutablePtr<BifrostUsd::Stage> stage;
         BifrostUsd::Layer                    layer{pxr_layer, false};
@@ -392,23 +408,23 @@ TEST(StageNodeDefs, open_stage_from_layer) {
         USD::Stage::open_stage_from_layer(layer, mask, load, -1, stage);
 
         auto bottle =
-            stage->get().GetPrimAtPath(pxr::SdfPath("/Props_grp/bottle"));
+            stage->get().GetPrimAtPath(PXR_NS::SdfPath("/Props_grp/bottle"));
         ASSERT_TRUE(bottle);
         ASSERT_EQ(bottle.GetChildrenNames().size(), 1);
 
-        auto        model = pxr::UsdModelAPI(bottle);
+        auto        model = PXR_NS::UsdModelAPI(bottle);
         std::string assetName;
         model.GetAssetName(&assetName);
         ASSERT_EQ(assetName, "Bottle");
 
         auto spoon = stage->get().GetPrimAtPath(
-            pxr::SdfPath("/Props_grp/MeasuringSpoon"));
+            PXR_NS::SdfPath("/Props_grp/MeasuringSpoon"));
         ASSERT_FALSE(spoon);
     }
     {
         // Test opening unloaded.
         auto pxr_layer =
-            pxr::SdfLayer::FindOrOpen("kitchen_set/kitchen_props.usd");
+            PXR_NS::SdfLayer::FindOrOpen("kitchen_set/kitchen_props.usd");
 
         Amino::MutablePtr<BifrostUsd::Stage> stage;
         BifrostUsd::Layer                    layer{pxr_layer, true};
@@ -418,7 +434,7 @@ TEST(StageNodeDefs, open_stage_from_layer) {
         USD::Stage::open_stage_from_layer(layer, mask, load, -1, stage);
 
         auto bottle =
-            stage->get().GetPrimAtPath(pxr::SdfPath("/Props_grp/bottle"));
+            stage->get().GetPrimAtPath(PXR_NS::SdfPath("/Props_grp/bottle"));
         ASSERT_TRUE(bottle);
         ASSERT_EQ(bottle.GetChildrenNames().size(), 0);
     }
@@ -474,44 +490,58 @@ TEST(StageNodeDefs, open_stage_from_cache) {
         auto cachedStage = Amino::newMutablePtr<BifrostUsd::Stage>(
             getResourcePath("helloworld.usd").c_str());
         ASSERT_TRUE(*cachedStage);
-        auto id = pxr::UsdUtilsStageCache::Get()
+        auto id = PXR_NS::UsdUtilsStageCache::Get()
                       .Insert(cachedStage->getStagePtr())
                       .ToLongInt();
 
         auto stage = Amino::newClassPtr<BifrostUsd::Stage>();
         USD::Stage::open_stage_from_cache(id, -1, stage);
         ASSERT_TRUE(*stage);
-        auto prim = stage->get().GetPrimAtPath(pxr::SdfPath("/hello/world"));
+        auto prim = stage->get().GetPrimAtPath(PXR_NS::SdfPath("/hello/world"));
         ASSERT_TRUE(prim.IsValid());
     }
     {
         // with edit target
-        auto empty_layer = Amino::newClassPtr<BifrostUsd::Layer>();
-        auto root_path   = getTestOutputPath("open_stage_from_cache_root.usda");
-        auto a_path      = getTestOutputPath("open_stage_from_cache_a.usda");
-        auto b_path      = getTestOutputPath("open_stage_from_cache_b.usda");
-        ASSERT_TRUE(empty_layer->exportToFile(root_path));
-        ASSERT_TRUE(empty_layer->exportToFile(a_path));
-        ASSERT_TRUE(empty_layer->exportToFile(b_path));
+        auto root_path =
+            getThisTestOutputPath("open_stage_from_cache_root.usda");
+        auto a_path = getThisTestOutputPath("open_stage_from_cache_a.usda");
+        auto b_path = getThisTestOutputPath("open_stage_from_cache_b.usda");
 
-        auto a_layer =
-            Amino::newClassPtr<BifrostUsd::Layer>(a_path, "", a_path);
-        ASSERT_EQ(a_layer->getOriginalFilePath(), a_path);
+        auto a_layer = BifrostUsd::Layer{a_path};
+        ASSERT_TRUE(a_layer);
+        a_layer.setFilePath(a_path);
 
-        auto b_layer =
-            Amino::newClassPtr<BifrostUsd::Layer>(b_path, "", b_path);
-        ASSERT_EQ(b_layer->getOriginalFilePath(), b_path);
+        auto b_layer = BifrostUsd::Layer{b_path};
+        ASSERT_TRUE(b_layer);
+        b_layer.setFilePath(b_path);
 
-        BifrostUsd::Layer root_layer{root_path, "", root_path};
+        // Create the root layer:
+        BifrostUsd::Layer root_layer{root_path};
         ASSERT_TRUE(root_layer);
-        root_layer.insertSubLayer(*b_layer);
-        root_layer.insertSubLayer(*a_layer);
-        ASSERT_TRUE(root_layer.exportToFile(root_path));
-        ASSERT_EQ(root_layer.getOriginalFilePath(), root_path);
 
+        // Add sublayers to it:
+        root_layer.insertSubLayer(b_layer);
+        root_layer.insertSubLayer(a_layer);
+
+        // At this point of the test, the root and sublayer files should not yet
+        // exist on disk (see the initial_cleanup test phase above):
+        ASSERT_FALSE(Bifrost::FileUtils::filePathExists(root_path))
+            << "The output root layer file " << root_path.c_str()
+            << " must not already exist when this test runs.\n";
+        ASSERT_FALSE(Bifrost::FileUtils::filePathExists(a_path))
+            << "The output sublayer file " << a_path.c_str()
+            << " must not already exist when this test runs.\n";
+        ASSERT_FALSE(Bifrost::FileUtils::filePathExists(b_path))
+            << "The output sublayer file " << b_path.c_str()
+            << " must not already exist when this test runs.\n";
+
+        // Export the root and sublayers to disk:
+        ASSERT_TRUE(root_layer.exportToFile(root_path));
+
+        // Generate the usd StageCache:
         auto cachedStage = Amino::newMutablePtr<BifrostUsd::Stage>(root_path);
         ASSERT_TRUE(*cachedStage);
-        auto id = pxr::UsdUtilsStageCache::Get()
+        auto id = PXR_NS::UsdUtilsStageCache::Get()
                       .Insert(cachedStage->getStagePtr())
                       .ToLongInt();
 
@@ -547,10 +577,10 @@ TEST(StageNodeDefs, send_stage_to_cache) {
     ASSERT_TRUE(*stage);
     Amino::long_t id = USD::Stage::send_stage_to_cache(stage);
     ASSERT_TRUE(id > 0);
-    auto pxrStage = pxr::UsdUtilsStageCache::Get().Find(
-        pxr::UsdStageCache::Id::FromLongInt(static_cast<int>(id)));
+    auto pxrStage = PXR_NS::UsdUtilsStageCache::Get().Find(
+        PXR_NS::UsdStageCache::Id::FromLongInt(static_cast<int>(id)));
     ASSERT_TRUE(pxrStage);
-    auto prim = pxrStage->GetPrimAtPath(pxr::SdfPath("/hello/world"));
+    auto prim = pxrStage->GetPrimAtPath(PXR_NS::SdfPath("/hello/world"));
     ASSERT_TRUE(prim.IsValid());
 }
 
@@ -594,7 +624,7 @@ TEST(StageNodeDefs, export_stage_to_file) {
         getResourcePath("layer_with_sub_layers.usda").c_str()};
     ASSERT_TRUE(stage);
 
-    auto filepath = getTestOutputPath("testExportStage.usda");
+    auto filepath = getThisTestOutputPath("testExportStage.usda");
     bool success  = USD::Stage::export_stage_to_file(stage, filepath.c_str());
     ASSERT_TRUE(success);
 

@@ -49,6 +49,10 @@ bifusd_create_shared_lib(
     PUBLIC_OPTIONS         $<${BIFUSD_IS_MSC}:/wd4251 /wd4273>
                            $<${BIFUSD_IS_CLANG}: -Wno-weak-vtables -Wno-unused-template -Wno-unneeded-internal-declaration>
                            $<${BIFUSD_IS_GCC}: -Wno-deprecated>
+
+    PRIVATE_OPTIONS        $<${BIFUSD_IS_GCC}: -Wno-unused-macros>
+                           $<${BIFUSD_IS_CLANG}: -Wno-unused-macros>
+
     SRC_FILES              ${usd_src_files}
     PUBLIC_LINK_LIBS       ${usd_public_libs}
     PRIVATE_LINK_LIBS      ${usd_private_libs}
