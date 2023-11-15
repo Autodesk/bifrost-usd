@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2023 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ set( env_vars
 # On OSX you need to set the Maya Framework
 if( BIFUSD_IS_OSX)
     list( APPEND env_vars 
-          "DYLD_FRAMEWORK_PATH=${BIFUSD_MAYA_OSX_FWK_DIR}")
+          "DYLD_FRAMEWORK_PATH=${Maya_OSX_FWK_DIR}")
 endif()
 
 # KLUDGE_LINK_OPTIONS:
@@ -80,14 +80,14 @@ endif()
 #
 # b) -L${MAYA_RUNTIME_LOCATION}/lib    // Adds Maya in search path, at start... see where KLUDGE is used.
 
-# Note: It is important to have the BIFUSD_MAYA_SHARED_LIB_DIR before 
+# Note: It is important to have the Maya_SHARED_LIB_DIRS before
 # To make sure that when Maya is used, its python, its tbb, its ... 
 # are used.
 foreach(test_file ${test_files})
     configure_bifusd_unittest(
         ${test_file} "maya_plugin"
         LINK_LIBS ${libs}
-        SHARED_LIB_DIRS ${BIFUSD_MAYA_SHARED_LIB_DIR} ${BIFUSD_EXTRA_BUILD_AND_TEST_PATHS} 
+        SHARED_LIB_DIRS ${Maya_SHARED_LIB_DIRS} ${BIFUSD_EXTRA_BUILD_AND_TEST_PATHS}
         ENV_VARS ${env_vars}
         KLUDGE_LINK_OPTIONS $<${BIFUSD_IS_LINUX}: -Wl,-allow-shlib-undefined>
     )

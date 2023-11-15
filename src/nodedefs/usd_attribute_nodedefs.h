@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -57,6 +57,8 @@
     MACRO(Bifrost::Math::double2)                  \
     MACRO(Bifrost::Math::double3)                  \
     MACRO(Bifrost::Math::double4)                  \
+    MACRO(Bifrost::Math::double2x2)                \
+    MACRO(Bifrost::Math::double3x3)                \
     MACRO(Bifrost::Math::double4x4)
 
 #define FOR_EACH_SUPPORTED_ARRAY_ATTRIBUTE(MACRO) \
@@ -75,6 +77,8 @@
     MACRO(Bifrost::Math::double2)                 \
     MACRO(Bifrost::Math::double3)                 \
     MACRO(Bifrost::Math::double4)                 \
+    MACRO(Bifrost::Math::double2x2)               \
+    MACRO(Bifrost::Math::double3x3)               \
     MACRO(Bifrost::Math::double4x4)
 
 // forward declarations

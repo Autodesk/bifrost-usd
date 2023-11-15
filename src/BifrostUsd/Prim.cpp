@@ -19,11 +19,11 @@
 
 // #include <core/logger.h>
 
-/// \todo BIFROST-6874 remove pxr::Work_EnsureDetachedTaskProgress();
+/// \todo BIFROST-6874 remove PXR_NS::Work_EnsureDetachedTaskProgress();
 #include <pxr/base/work/detachedTask.h>
 
 namespace BifrostUsd {
-Prim::Prim(pxr::UsdPrim prim, Amino::Ptr<Stage> stage)
+Prim::Prim(PXR_NS::UsdPrim prim, Amino::Ptr<Stage> stage)
     : pxr_prim(std::move(prim)), stage_ptr(std::move(stage)) {
     assert((stage_ptr != nullptr) == (pxr_prim.IsValid()));
 }
@@ -37,8 +37,8 @@ Amino::Ptr<BifrostUsd::Prim> Amino::createDefaultClass() {
     // Destructor of USD instances are lauching threads. This result in
     // a deadlock on windows when unloading the library (which destroys the
     // default constructed object held in static variables).
-    /// \todo BIFROST-6874 remove pxr::Work_EnsureDetachedTaskProgress();
-    pxr::Work_EnsureDetachedTaskProgress();
+    /// \todo BIFROST-6874 remove PXR_NS::Work_EnsureDetachedTaskProgress();
+    PXR_NS::Work_EnsureDetachedTaskProgress();
     auto stage    = Amino::newClassPtr<BifrostUsd::Stage>();
     auto pxr_prim = stage->get().GetPseudoRoot();
     return Amino::newClassPtr<BifrostUsd::Prim>(pxr_prim, stage);

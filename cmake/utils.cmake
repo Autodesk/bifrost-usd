@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2023 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -93,30 +93,59 @@ endfunction(configure_bifusd_unittest)
 # Helper function to parse the headers to generate json files used to add
 # custom types and operators in Amino library.
 #
-#   bifusd_header_parser(<target_name> <json_install_dir>
-#       other modes are standard amino_cpp2json_foreach modes.(see cpp2json.cmake)
-#   )
+#   bifusd_header_parser(<target_name> [options] )
+#   parameters:
+#       target_name: name of the target to be created.
+#   options:
+#       HEADER_FILES: list of header files to parse (passed to cpp2json)
+#       LINK_LIBS: list of libraries that represent the header dependencies (passed to cpp2json)
+#       JSON_OUTPUT_DIR: (optional) output directory for the json files (default: ${BIFROST_USD_OUTPUT_JSON_DIR})
+#       JSON_INSTALL_DIR: (optional) install directory for the json files (default: ${BIFROST_USD_PACK_INSTALL_RES_JSON_DIR})
+#   Notes
+#      DISABLE_PXR_HEADERS: disable the pxr headers parsing passed to cpp2json
 #
-function(bifusd_header_parser target_name json_install_dir)
-    get_target_property(cpp_op_sdk_dirs Amino::Cpp INTERFACE_INCLUDE_DIRECTORIES)
+function(bifusd_header_parser target_name )
+    set(forwarded_modes
+        "HEADER_FILES"
+        "LINK_LIBS"
+    )
+    set(modes
+        "JSON_OUTPUT_DIR"
+        "JSON_INSTALL_DIR"
+        ${forwarded_modes}
+    )
 
-    amino_cpp2json_foreach(
-        TARGET      ${target_name}
-        VAR         node_def_jsons
-        CPP2JSON    $<TARGET_FILE:Bifrost::cpp2json>
-        OUTPUT_DIR  ${BIFROST_USD_OUTPUT_JSON_DIR}
-        INCLUDES    ${BIFUSD_OUTPUT_INCLUDE_DIR}
-                    ${BIFUSD_OUTPUT_INCLUDE_DIR}/nodedefs
-                    ${PROJECT_SOURCE_DIR}/src/core/nodedefs/include
-                    ${cpp_op_sdk_dirs}
-                    ${bif_dirs}
-        DEFINES     DISABLE_PXR_HEADERS
-        OPTIONS     ${flags}
-        ${ARGN}
+    bifusd_extract_options("${modes}" ${ARGN})
+    bifusd_get_options(forwarded_options ${forwarded_modes})
+
+    # On win, tbb needs /MT (ie. _MT def) and disabling of min,
+    # max in winmindefs.h as they interfere with numeric_limits::max
+    set(defs)
+    if (BIFUSD_IS_WINDOWS)
+        set (defs _MT NOMINMAX)
+    endif()
+
+    set( json_output_dir ${BIFROST_USD_OUTPUT_JSON_DIR})
+    if( ${JSON_OUTPUT_DIR-FOUND} )
+        set( json_output_dir ${JSON_OUTPUT_DIR})
+    endif()
+
+    # install files go to default install location if none given
+    set(json_install_dir ${BIFROST_USD_PACK_INSTALL_RES_JSON_DIR})
+    if(${JSON_INSTALL_DIR-FOUND})
+        set(json_install_dir ${JSON_INSTALL_DIR})
+    endif()
+
+    amino_cpp2json(${target_name}
+        CPP2JSON     $<TARGET_FILE:Bifrost::cpp2json>
+        DESTINATION ${json_output_dir}
+        OUT_VAR     node_def_jsons
+        DEFINITIONS ${defs} DISABLE_PXR_HEADERS
+        ${forwarded_options}
     )
 
     set_property(TARGET ${BIFUSD_PACKAGE_NAME}_config_info
-                 APPEND PROPERTY BIFROST_USD_PACK_ALL_JSON_FILES "${node_def_jsons}")
+        APPEND PROPERTY BIFROST_USD_PACK_ALL_JSON_FILES "${node_def_jsons}")
     install(FILES ${node_def_jsons}  DESTINATION ${json_install_dir})
 endfunction(bifusd_header_parser)
 
@@ -126,7 +155,7 @@ function( bifusd_set_extra_rpaths return_extra_rpaths )
 
     if( BIFUSD_EXTRA_INSTALL_RPATHS )
         set( extra_rpaths "${BIFUSD_EXTRA_INSTALL_RPATHS}")
-    elseif(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+    elseif(IS_BIFUSD_STANDALONE)
         file(RELATIVE_PATH bifusd_to_bifrost
                 "${CMAKE_INSTALL_PREFIX}/${BIFUSD_INSTALL_LIB_DIR}"
                 "${BIFROST_LOCATION}/lib")

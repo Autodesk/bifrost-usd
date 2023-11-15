@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2023 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ set(CMAKE_BUILD_TYPE
     "Choose the type of build, options are: Debug Release RelWithDebInfo RelWithAsserts MinSizeRel."
     FORCE)
 
-bifusd_set_if_matches(BIFUSD_IS_RELEASE  CMAKE_BUILD_TYPE "^(Release|RelWithDebInfo|RelWithAsserts|MinSizeRel)$")
+bifusd_set_if_matches(BIFUSD_IS_RELEASE  CMAKE_BUILD_TYPE "^(Release|RelWithDebInfo|RelWithAsserts|MinSizeRel|Coverage)$")
 bifusd_set_if_matches(BIFUSD_IS_DEBUG    CMAKE_BUILD_TYPE "^Debug$")
 
 bifusd_set_if_matches(BIFUSD_HAS_DEBUG_FILES CMAKE_BUILD_TYPE "^(RelWithDebInfo|RelWithAsserts|Debug)$")
@@ -160,7 +160,6 @@ set(BIFUSD_OUTPUT_CMAKE_DIR   "${PROJECT_BINARY_DIR}/${BIFUSD_INSTALL_CMAKE_DIR}
 set(BIFUSD_OUTPUT_INCLUDE_DIR "${PROJECT_BINARY_DIR}/${BIFUSD_INSTALL_COMMON_DIR}/include")
 set(BIFUSD_OUTPUT_DOCS_DIR    "${PROJECT_BINARY_DIR}/${BIFUSD_INSTALL_DOCS_DIR}")
 
-
 #==============================================================================
 # Platform directories
 #==============================================================================
@@ -173,7 +172,7 @@ elseif(BIFUSD_IS_LINUX)
     set(BIFUSD_SYSTEM_DIR   "Linux")
     set(BIFUSD_SHORT_OSNAME "lin")
 elseif(BIFUSD_IS_OSX)
-    set(BIFUSD_SYSTEM_DIR   "OSX")
+    set(BIFUSD_SYSTEM_DIR   "Darwin")
     set(BIFUSD_SHORT_OSNAME "osx")
 else()
     message(FATAL_ERROR "Unsupported platform.")

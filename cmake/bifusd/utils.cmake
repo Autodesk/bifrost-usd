@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2023 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -1526,6 +1526,9 @@ function(bifusd_create_interface_lib  interface_lib_target)
     add_library(${interface_lib_target} INTERFACE)
     target_compile_definitions(${interface_lib_target} INTERFACE ${PUBLIC_DEFINITIONS})
     target_compile_options(    ${interface_lib_target} INTERFACE ${PUBLIC_OPTIONS})
+    if( PUBLIC_LINK_LIBS )
+        add_dependencies(${interface_lib_target} ${PUBLIC_LINK_LIBS})
+    endif()
 
     # Export interface libraries for other projects to use.
     # (Unless specified noexport).

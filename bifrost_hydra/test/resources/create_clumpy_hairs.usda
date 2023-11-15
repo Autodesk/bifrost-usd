@@ -1,0 +1,34 @@
+#usda 1.0
+(
+    startFrame = 1
+    endFrame = 2
+)
+
+def Xform "Asset"
+{
+    def GenerativeProcedural "Hairs" (
+        prepend apiSchemas = ["HydraGenerativeProceduralAPI"]
+    )
+    {
+        token primvars:hdGp:proceduralType = "BifrostGraph"
+        token primvars:bifrost:graph = "Hydra::Testing::create_clumpy_hairs"
+
+        # Inputs parameters
+        string primvars:geo_type = "plane"
+        float primvars:size = 2
+        float primvars:hair_count = 100000
+        float primvars:hair_count_proxy_factor = 0.1
+        float primvars:hair_length = 0.6
+        float primvars:guides_count = 2000
+        float primvars:curle_frequency = 6.5
+        float primvars:curl_magnitude = 1
+
+        float primvars:width_factor = 0.001 
+        float primvars:brightness = 2
+        float primvars:black_level = 0
+        float primvars:white_level = 1
+
+        # Outputs parameter
+        string primvars:bifrost:output = "strands"
+    }
+}

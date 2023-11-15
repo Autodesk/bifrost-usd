@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2023 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,6 +29,8 @@ message(STATUS "CMake version: ${CMAKE_VERSION}")
 if( NOT BIFUSD_PACKAGE_NAME )
     set(BIFUSD_PACKAGE_NAME bifrost_usd_pack)
 endif()
+
+set(IS_BIFUSD_STANDALONE ON CACHE BOOL "Indicate if this is a standalone build of Bifrost USD")
 
 include(cmake/version.info)
 
@@ -96,7 +98,7 @@ include(cmake/utils.cmake)
 
 # Standalone build setup the compiler
 # Else use the parent environment's compiler
-if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+if(IS_BIFUSD_STANDALONE)
     #==============================================================================
     # COMPILER
     #==============================================================================
@@ -181,16 +183,41 @@ add_subdirectory(test)
 #
 # Maya
 if( MAYA_RUNTIME_LOCATION)
-    find_package( Bifrost REQUIRED Maya)
+    find_package(Maya REQUIRED)
+    find_package(Bifrost REQUIRED Maya)
     add_subdirectory(maya_plugin)
+endif()
+
+#==============================================================================
+# Bifrost Hydra
+# NOT PART OF PUBLIC BIFROST SDK YET
+# NOT PART OF PUBLIC BIFROST SDK YET
+# NOT PART OF PUBLIC BIFROST SDK YET
+#==============================================================================
+#
+if( BIFUSD_BUILD_HYDRA )
+    add_subdirectory(bifrost_hydra)
+endif()
+
+#==============================================================================
+# Configure "clang_tidy" target
+#==============================================================================
+#
+if( CLAND_TIDY_LOCATION )
+    include(${BIFUSD_TOOLS_DIR}/clang-tidy.cmake)
+    bifrost_usd_clang_tidy()
 endif()
 
 #==============================================================================
 # FINALIZE
 #==============================================================================
-# Publish the findUSD module helper
+# Publish the CMake module files
 install(
     FILES ${BIFUSD_CMAKE_DIR}/modules/FindUSD.cmake
+    DESTINATION ${BIFUSD_INSTALL_CMAKE_DIR}/modules )
+
+install(
+    FILES ${BIFUSD_CMAKE_DIR}/modules/FindMaya.cmake
     DESTINATION ${BIFUSD_INSTALL_CMAKE_DIR}/modules )
 
 include( ${BIFUSD_TOOLS_DIR}/finalize.cmake)

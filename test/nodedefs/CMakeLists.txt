@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2023 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ function(configure_bifusd_runtime_unittests)
         ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json
     )
     set(env_vars)
-    if(DEFINED BIFROST_LOCATION)
+    if(IS_BIFUSD_STANDALONE)
         # When running tests in standalone mode with BIFROST_LOCATION being defined,
         # we need to disable the default usd_pack that is shipped with bifrost,
         # and use the nodedefs from this current repo instead:

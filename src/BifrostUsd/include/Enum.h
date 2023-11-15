@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@
 
 #ifndef USD_ENUM_H_
 #define USD_ENUM_H_
+
+#include <Amino/Cpp/Annotate.h>
 
 namespace BifrostUsd {
 
@@ -74,10 +76,24 @@ enum /*@cond true*/ class AMINO_ANNOTATE(
     Float3Array,
     Float4,
     Float4Array,
+    Half,
+    HalfArray,
+    Half2,
+    Half2Array,
+    Half3,
+    Half3Array,
+    Half4,
+    Half4Array,
     Int,
     IntArray,
     Int64,
     Int64Array,
+    Matrix2d,
+    Matrix2dArray,
+    Matrix3d,
+    Matrix3dArray,
+    Matrix4d,
+    Matrix4dArray,
     Normal3f,
     Normal3fArray,
     Quatd,

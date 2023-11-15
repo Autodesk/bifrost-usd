@@ -32,41 +32,23 @@ namespace BifrostUsd {
 
 namespace TestUtils {
 
-inline Amino::String getEnv(Amino::String const& envVarName) {
-    Amino::String env;
-    char*         buf = nullptr;
-#if defined(_WIN32)
-    size_t sz = 0;
-    if (_dupenv_s(&buf, &sz, envVarName.c_str()) == 0 && buf != nullptr) {
-        env = buf;
-        free(buf);
-    }
-#else
-    buf = std::getenv(envVarName.c_str());
-    if (buf) {
-        env = buf;
-    }
-#endif
-    return env;
-}
-
 inline Amino::String getTestOutputDir() {
-    return BifrostUsd::TestUtils::getEnv("USD_TEST_OUTPUT_DIR");
+    return BifrostGraph::Executor::Utility::getEnv("USD_TEST_OUTPUT_DIR");
 }
 
 inline Amino::String getTestOutputPath(const Amino::String& filename) {
-    return Bifrost::FileUtils::filePath(getTestOutputDir(), filename).c_str();
+    return Bifrost::FileUtils::filePath(getTestOutputDir(), filename);
 }
 
 inline Amino::String getResourcePath(const Amino::String& filename) {
     Amino::String dirPath =
-        BifrostUsd::TestUtils::getEnv("USD_TEST_RESOURCES_DIR");
+        BifrostGraph::Executor::Utility::getEnv("USD_TEST_RESOURCES_DIR");
     return Bifrost::FileUtils::filePath(dirPath, filename);
 }
 
 inline Amino::String getResourcePath(const Amino::Array<Amino::String>& names) {
     Amino::String path =
-        BifrostUsd::TestUtils::getEnv("USD_TEST_RESOURCES_DIR");
+        BifrostGraph::Executor::Utility::getEnv("USD_TEST_RESOURCES_DIR");
     for (auto name : names) {
         path = Bifrost::FileUtils::filePath(path, name);
     }
@@ -87,7 +69,7 @@ inline Amino::String getResourcePath(const Amino::Array<Amino::String>& names) {
 ///              root layer; false otherwise.
 USD_TESTUTILS_DECL
 bool addSubLayers(
-    pxr::SdfLayerRefPtr                 sdfRootLayer,
+    PXR_NS::SdfLayerRefPtr                 sdfRootLayer,
     const Amino::Array<Amino::String>&  subNames,
     Amino::String&                      errorMsg);
 
@@ -118,7 +100,7 @@ bool createBifrostLayers(
 ///         given USD names; false otherwise.
 USD_TESTUTILS_DECL
 bool checkSdfSublayerPaths(
-    const pxr::SdfLayer&                sdfRootLayer,
+    const PXR_NS::SdfLayer&                sdfRootLayer,
     const Amino::Array<Amino::String>&  subNames,
     Amino::String&                      errorMsg);
 

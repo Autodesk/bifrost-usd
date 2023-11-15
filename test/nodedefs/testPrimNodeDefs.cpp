@@ -14,6 +14,9 @@
 // limitations under the License.
 //+
 #include <Amino/Core/String.h>
+#include <Bifrost/FileUtils/FileUtils.h>
+#include <BifrostGraph/Executor/Utility.h>
+
 #include <bifusd/config/CfgWarningMacros.h>
 #include <gtest/gtest.h>
 #include <nodedefs/usd_pack/usd_layer_nodedefs.h>
@@ -25,11 +28,13 @@
 #include <bifusd/config/CfgWarningMacros.h>
 BIFUSD_WARNING_PUSH
 BIFUSD_WARNING_DISABLE_MSC(4003)
+#include <pxr/base/tf/pathUtils.h>
+#include <pxr/base/tf/stringUtils.h>
 #include <pxr/usd/usd/inherits.h>
+#include <pxr/usd/usd/modelAPI.h>
 #include <pxr/usd/usd/variantSets.h>
 #include <pxr/usd/usdGeom/mesh.h>
 #include <pxr/usd/usdGeom/xformCommonAPI.h>
-#include <pxr/usd/usd/modelAPI.h>
 BIFUSD_WARNING_POP
 
 #include <cstdlib>
@@ -37,8 +42,21 @@ BIFUSD_WARNING_POP
 
 using namespace BifrostUsd::TestUtils;
 
+namespace {
+Amino::String getThisTestOutputDir() {
+    return Bifrost::FileUtils::filePath(getTestOutputDir(), "testPrimNodeDefs");
+}
+Amino::String getThisTestOutputPath(const Amino::String& filename) {
+    return Bifrost::FileUtils::filePath(getThisTestOutputDir(), filename);
+}
+} // namespace
+
+TEST(PrimNodeDefs, initial_cleanup) {
+    ASSERT_TRUE(Bifrost::FileUtils::removeAll(getThisTestOutputDir()));
+}
+
 TEST(PrimNodeDefs, get_prim_at_path) {
-    auto primPath = pxr::SdfPath("/a");
+    auto primPath = PXR_NS::SdfPath("/a");
 
     // create an return an immutable stage
     Amino::Ptr<BifrostUsd::Stage> stage = [&primPath]() {
@@ -54,10 +72,10 @@ TEST(PrimNodeDefs, get_prim_at_path) {
 }
 
 TEST(PrimNodeDefs, get_prim_children) {
-    auto primPathA  = pxr::SdfPath("/a");
-    auto primPathB  = pxr::SdfPath("/a/b");
-    auto primPathB2 = pxr::SdfPath("/a/b2");
-    auto primPathC  = pxr::SdfPath("/a/b/c");
+    auto primPathA  = PXR_NS::SdfPath("/a");
+    auto primPathB  = PXR_NS::SdfPath("/a/b");
+    auto primPathB2 = PXR_NS::SdfPath("/a/b2");
+    auto primPathC  = PXR_NS::SdfPath("/a/b/c");
 
     // create an return an immutable stage
     Amino::Ptr<BifrostUsd::Stage> stage = [&]() {
@@ -124,12 +142,12 @@ TEST(PrimNodeDefs, get_prim_children) {
 
 TEST(PrimNodeDefs, get_prim_path) {
     auto stage_mut = Amino::newMutablePtr<BifrostUsd::Stage>();
-    auto primPath  = pxr::SdfPath("/a");
+    auto primPath  = PXR_NS::SdfPath("/a");
     auto pxr_prim  = stage_mut->get().DefinePrim(primPath);
     Amino::Ptr<BifrostUsd::Stage> stage = std::move(stage_mut);
 
     BifrostUsd::Prim prim{pxr_prim, stage};
-    Amino::String      result;
+    Amino::String    result;
     USD::Prim::get_prim_path(prim, result);
     ASSERT_EQ(result, primPath.GetText());
 }
@@ -137,11 +155,11 @@ TEST(PrimNodeDefs, get_prim_path) {
 TEST(PrimNodeDefs, get_prim_type) {
     auto stage_mut = Amino::newMutablePtr<BifrostUsd::Stage>();
     auto pxr_prim =
-        stage_mut->get().DefinePrim(pxr::SdfPath("/a"), pxr::TfToken("Scope"));
+        stage_mut->get().DefinePrim(PXR_NS::SdfPath("/a"), PXR_NS::TfToken("Scope"));
     Amino::Ptr<BifrostUsd::Stage> stage = std::move(stage_mut);
 
     BifrostUsd::Prim prim{pxr_prim, stage};
-    Amino::String      result;
+    Amino::String    result;
     USD::Prim::get_prim_type(prim, result);
     ASSERT_EQ(result, "Scope");
 }
@@ -149,8 +167,9 @@ TEST(PrimNodeDefs, get_prim_type) {
 TEST(PrimNodeDefs, get_all_attribute_names) {
     auto stage_mut = Amino::newMutablePtr<BifrostUsd::Stage>();
     auto pxr_prim =
-        stage_mut->get().DefinePrim(pxr::SdfPath("/a"), pxr::TfToken("Scope"));
-    pxr_prim.CreateAttribute(pxr::TfToken("attrName"), pxr::SdfValueTypeNames->String, false);
+        stage_mut->get().DefinePrim(PXR_NS::SdfPath("/a"), PXR_NS::TfToken("Scope"));
+    pxr_prim.CreateAttribute(PXR_NS::TfToken("attrName"),
+                             PXR_NS::SdfValueTypeNames->String, false);
 
     BifrostUsd::Prim prim{pxr_prim, std::move(stage_mut)};
     Amino::MutablePtr<Amino::Array<Amino::String>> result;
@@ -161,8 +180,8 @@ TEST(PrimNodeDefs, get_all_attribute_names) {
 
 TEST(PrimNodeDefs, get_authored_attribute_names) {
     auto stage_mut = Amino::newMutablePtr<BifrostUsd::Stage>();
-    auto pxr_prim  = stage_mut->get().DefinePrim(pxr::SdfPath("/a"),
-                                                 pxr::TfToken("Capsule"));
+    auto pxr_prim  = stage_mut->get().DefinePrim(PXR_NS::SdfPath("/a"),
+                                                 PXR_NS::TfToken("Capsule"));
     ASSERT_TRUE(pxr_prim);
 
     BifrostUsd::Prim prim{pxr_prim, std::move(stage_mut)};
@@ -170,8 +189,8 @@ TEST(PrimNodeDefs, get_authored_attribute_names) {
     USD::Prim::get_authored_attribute_names(prim, result);
     ASSERT_EQ(result->size(), 0);
 
-    auto attr = pxr_prim.CreateAttribute(pxr::TfToken("radius"),
-                                         pxr::SdfValueTypeNames->Float, false);
+    auto attr = pxr_prim.CreateAttribute(PXR_NS::TfToken("radius"),
+                                         PXR_NS::SdfValueTypeNames->Float, false);
     attr.Set(3.14);
 
     USD::Prim::get_authored_attribute_names(prim, result);
@@ -185,22 +204,22 @@ TEST(PrimNodeDefs, create_prim) {
 
     BifrostUsd::Stage stage;
     USD::Prim::create_prim(stage, path, type);
-    ASSERT_TRUE(stage->GetPrimAtPath(pxr::SdfPath(path.c_str())));
+    ASSERT_TRUE(stage->GetPrimAtPath(PXR_NS::SdfPath(path.c_str())));
 }
 
 TEST(PrimNodeDefs, create_class_prim) {
     BifrostUsd::Stage stage;
-    Amino::String       path = "/A";
+    Amino::String     path = "/A";
     USD::Prim::create_class_prim(stage, path);
 
-    auto prim = stage->GetPrimAtPath(pxr::SdfPath(path.c_str()));
+    auto prim = stage->GetPrimAtPath(PXR_NS::SdfPath(path.c_str()));
     ASSERT_TRUE(prim);
-    ASSERT_EQ(prim.GetSpecifier(), pxr::SdfSpecifierClass);
+    ASSERT_EQ(prim.GetSpecifier(), PXR_NS::SdfSpecifierClass);
 }
 
 TEST(PrimNodeDefs, add_applied_schema) {
     BifrostUsd::Stage stage;
-    auto              primPath = pxr::SdfPath("/S");
+    auto              primPath = PXR_NS::SdfPath("/S");
     auto              prim     = stage->DefinePrim(primPath);
 
     ASSERT_EQ(prim.GetAppliedSchemas().size(), 0);
@@ -213,15 +232,15 @@ TEST(PrimNodeDefs, add_applied_schema) {
 
     prim = stage->GetPrimAtPath(primPath);
     EXPECT_EQ(prim.GetAppliedSchemas().size(), 1);
-    EXPECT_EQ(prim.GetAppliedSchemas()[0], pxr::TfToken{"SkelBindingAPI"});
+    EXPECT_EQ(prim.GetAppliedSchemas()[0], PXR_NS::TfToken{"SkelBindingAPI"});
 }
 
 TEST(PrimNodeDefs, remove_applied_schema) {
     BifrostUsd::Stage stage;
-    auto              primPath          = pxr::SdfPath("/S");
+    auto              primPath          = PXR_NS::SdfPath("/S");
     auto              prim              = stage->DefinePrim(primPath);
     Amino::String     appliedSchemaName = "SkelBindingAPI";
-    ASSERT_TRUE(prim.AddAppliedSchema(pxr::TfToken{appliedSchemaName.c_str()}));
+    ASSERT_TRUE(prim.AddAppliedSchema(PXR_NS::TfToken{appliedSchemaName.c_str()}));
     ASSERT_EQ(prim.GetAppliedSchemas().size(), 1);
 
     bool success = USD::Prim::remove_applied_schema(stage, primPath.GetText(),
@@ -233,27 +252,71 @@ TEST(PrimNodeDefs, remove_applied_schema) {
 }
 
 TEST(PrimNodeDefs, add_reference_prim) {
-    BifrostUsd::Stage stage;
-    auto                primPath = pxr::SdfPath("/a");
-    auto                prim     = stage->DefinePrim(primPath);
+    auto              primPath    = PXR_NS::SdfPath("/a");
+    const std::string resourceDir = PXR_NS::TfNormPath(
+        BifrostGraph::Executor::Utility::getEnv("USD_TEST_RESOURCES_DIR").c_str());
 
+    // Create a non-editable layer to not create an anonymous referenced layer.
     BifrostUsd::Layer referenceLayer{getResourcePath("Mushroom1.usd").c_str(),
-                                       ""};
-    Amino::String       referencePrimPath = "/Mushroom1";
-    double              layerOffset       = 0.0;
-    double              layerOffsetScale  = 1.0;
+                                     /*tag=*/"", /*savefilePath=*/"",
+                                     /*isEditable=*/false};
+    Amino::String     referencePrimPath = "/Mushroom1";
+    double            layerOffset       = 0.0;
+    double            layerOffsetScale  = 1.0;
 
     BifrostUsd::UsdListPosition referencePosition =
         BifrostUsd::UsdListPositionFrontOfPrependList;
 
-    ASSERT_FALSE(pxr::UsdGeomMesh(prim));
-    bool success = USD::Prim::add_reference_prim(
-        stage, primPath.GetText(), referenceLayer, referencePrimPath,
-        layerOffset, layerOffsetScale, referencePosition);
-    ASSERT_TRUE(success);
+    // Test with absolute path
+    {
+        BifrostUsd::Stage stage;
+        auto              prim = stage->DefinePrim(primPath);
+        ASSERT_FALSE(PXR_NS::UsdGeomMesh(prim));
 
-    prim = stage->GetPrimAtPath(primPath);
-    ASSERT_TRUE(pxr::UsdGeomMesh(prim));
+        bool success = USD::Prim::add_reference_prim(
+            stage, primPath.GetText(), referenceLayer, referencePrimPath,
+            layerOffset, layerOffsetScale, referencePosition);
+        EXPECT_TRUE(success);
+
+        prim = stage->GetPrimAtPath(primPath);
+        ASSERT_TRUE(PXR_NS::UsdGeomMesh(prim));
+
+        auto primSpec = stage->GetRootLayer()->GetPrimAtPath(primPath);
+        ASSERT_TRUE(primSpec);
+
+        auto field = primSpec->GetField(PXR_NS::SdfFieldKeys->References);
+        std::string sField = PXR_NS::TfStringify(field);
+
+        std::string referenceFilePath = resourceDir + "/Mushroom1.usd";
+        EXPECT_TRUE(PXR_NS::TfStringContains(sField, referenceFilePath))
+            << "'" << referenceFilePath << "' not found in '" << sField << "'";
+    }
+
+    // Test with relative path
+    {
+        BifrostUsd::Stage stage;
+        auto              prim = stage->DefinePrim(primPath);
+        ASSERT_FALSE(PXR_NS::UsdGeomMesh(prim));
+
+        bool success = USD::Prim::add_reference_prim(
+            stage, primPath.GetText(), referenceLayer, referencePrimPath,
+            layerOffset, layerOffsetScale, referencePosition,
+            /*anchorPath*/ resourceDir.c_str());
+        EXPECT_TRUE(success);
+
+        prim = stage->GetPrimAtPath(primPath);
+        ASSERT_TRUE(PXR_NS::UsdGeomMesh(prim));
+
+        auto primSpec = stage->GetRootLayer()->GetPrimAtPath(primPath);
+        ASSERT_TRUE(primSpec);
+
+        auto field = primSpec->GetField(PXR_NS::SdfFieldKeys->References);
+        std::string sField = PXR_NS::TfStringify(field);
+
+        std::string referenceFilePath = "(Mushroom1.usd";
+        EXPECT_TRUE(PXR_NS::TfStringContains(sField, referenceFilePath))
+            << "'" << referenceFilePath << "' not found in '" << sField << "'";
+    }
 }
 
 TEST(PrimNodeDefs, remove_reference_prim) {
@@ -262,9 +325,9 @@ TEST(PrimNodeDefs, remove_reference_prim) {
             getResourcePath("referenced_tree1.usda").c_str();
         BifrostUsd::Stage stage{identifier.c_str()};
 
-        auto primPath = pxr::SdfPath("/Tree");
+        auto primPath = PXR_NS::SdfPath("/Tree");
         auto prim     = stage->GetPrimAtPath(primPath);
-        ASSERT_EQ(prim.GetTypeName(), pxr::TfToken("Mesh"));
+        ASSERT_EQ(prim.GetTypeName(), PXR_NS::TfToken("Mesh"));
 
         Amino::String referenceIdentifier = "Tree1.usd";
         Amino::String referencePrimPath   = "/Tree1";
@@ -277,21 +340,21 @@ TEST(PrimNodeDefs, remove_reference_prim) {
             layerOffset, clear_all);
         ASSERT_TRUE(success);
         prim = stage->GetPrimAtPath(primPath);
-        ASSERT_EQ(prim.GetTypeName(), pxr::TfToken(""));
+        ASSERT_EQ(prim.GetTypeName(), PXR_NS::TfToken(""));
     }
     {
         BifrostUsd::Stage stage;
-        auto                primPath = pxr::SdfPath("/a");
-        auto                prim     = stage->DefinePrim(primPath);
+        auto              primPath = PXR_NS::SdfPath("/a");
+        auto              prim     = stage->DefinePrim(primPath);
 
-        Amino::String       referenceIdentifier = "AnonLayer.usd";
+        Amino::String     referenceIdentifier = "AnonLayer.usd";
         BifrostUsd::Layer referenceLayer{referenceIdentifier};
-        auto                referenceStage =
+        auto              referenceStage =
             Amino::newMutablePtr<BifrostUsd::Stage>(referenceLayer);
-        auto          referencePrimPath = pxr::SdfPath("/b");
+        auto          referencePrimPath = PXR_NS::SdfPath("/b");
         Amino::String referencePrimType = "Capsule";
         referenceStage->get().DefinePrim(
-            referencePrimPath, pxr::TfToken(referencePrimType.c_str()));
+            referencePrimPath, PXR_NS::TfToken(referencePrimType.c_str()));
 
         ASSERT_TRUE(referenceStage->get().GetRootLayer()->GetPrimAtPath(
             referencePrimPath));
@@ -301,7 +364,7 @@ TEST(PrimNodeDefs, remove_reference_prim) {
         double layerOffset      = 0.0;
         double layerOffsetScale = 1.0;
 
-        ASSERT_EQ(prim.GetTypeName(), pxr::TfToken(""));
+        ASSERT_EQ(prim.GetTypeName(), PXR_NS::TfToken(""));
         bool success = USD::Prim::add_reference_prim(
             stage, primPath.GetText(), *referenceStage->getRootLayer(),
             referencePrimPath.GetText(), layerOffset, layerOffsetScale,
@@ -309,23 +372,23 @@ TEST(PrimNodeDefs, remove_reference_prim) {
         ASSERT_TRUE(success);
 
         prim = stage->GetPrimAtPath(primPath);
-        ASSERT_EQ(prim.GetTypeName(), pxr::TfToken(referencePrimType.c_str()));
+        ASSERT_EQ(prim.GetTypeName(), PXR_NS::TfToken(referencePrimType.c_str()));
 
         bool clear_all = false;
         success        = USD::Prim::remove_reference_prim(
-            stage, primPath.GetText(),
-            referenceStage->get().GetRootLayer()->GetIdentifier().c_str(),
-            referencePrimPath.GetText(), layerOffset, clear_all);
+                   stage, primPath.GetText(),
+                   referenceStage->get().GetRootLayer()->GetIdentifier().c_str(),
+                   referencePrimPath.GetText(), layerOffset, clear_all);
         ASSERT_TRUE(success);
         prim = stage->GetPrimAtPath(primPath);
-        ASSERT_EQ(prim.GetTypeName(), pxr::TfToken(""));
+        ASSERT_EQ(prim.GetTypeName(), PXR_NS::TfToken(""));
     }
 }
 
 TEST(PrimNodeDefs, add_reference_prim_in_variant) {
     BifrostUsd::Stage stage;
-    auto                prim = stage->DefinePrim(pxr::SdfPath("/top"));
-    auto                vset = prim.GetVariantSets().AddVariantSet("vset");
+    auto              prim = stage->DefinePrim(PXR_NS::SdfPath("/top"));
+    auto              vset = prim.GetVariantSets().AddVariantSet("vset");
     vset.AddVariant("no_ref");
     vset.AddVariant("with_ref");
 
@@ -334,67 +397,112 @@ TEST(PrimNodeDefs, add_reference_prim_in_variant) {
     stage.last_modified_variant_set_name = "vset";
     stage.last_modified_variant_name     = "with_ref";
 
-    auto primInVariantPath = pxr::SdfPath("/top/a");
+    auto primInVariantPath = PXR_NS::SdfPath("/top/a");
     prim                   = stage->DefinePrim(primInVariantPath);
 
     BifrostUsd::Layer referenceLayer{getResourcePath("Mushroom1.usd").c_str(),
-                                       ""};
-    Amino::String       referencePrimPath = "/Mushroom1";
-    double              layerOffset       = 0.0;
-    double              layerOffsetScale  = 1.0;
+                                     ""};
+    Amino::String     referencePrimPath = "/Mushroom1";
+    double            layerOffset       = 0.0;
+    double            layerOffsetScale  = 1.0;
 
     BifrostUsd::UsdListPosition referencePosition =
         BifrostUsd::UsdListPositionFrontOfPrependList;
 
-    ASSERT_FALSE(pxr::UsdGeomMesh(prim));
+    ASSERT_FALSE(PXR_NS::UsdGeomMesh(prim));
     bool success = USD::Prim::add_reference_prim(
         stage, primInVariantPath.GetText(), referenceLayer, referencePrimPath,
         layerOffset, layerOffsetScale, referencePosition);
     ASSERT_TRUE(success);
 
     prim = stage->GetPrimAtPath(primInVariantPath);
-    ASSERT_TRUE(pxr::UsdGeomMesh(prim));
+    ASSERT_TRUE(PXR_NS::UsdGeomMesh(prim));
 
-    auto vsetPrim = stage->GetPrimAtPath(pxr::SdfPath("/top"));
+    auto vsetPrim = stage->GetPrimAtPath(PXR_NS::SdfPath("/top"));
     vset          = vsetPrim.GetVariantSets().GetVariantSet("vset");
     vset.SetVariantSelection("no_ref");
 
     prim = stage->GetPrimAtPath(primInVariantPath);
-    ASSERT_FALSE(pxr::UsdGeomMesh(prim));
+    ASSERT_FALSE(PXR_NS::UsdGeomMesh(prim));
 }
 
 TEST(PrimNodeDefs, add_payload_prim) {
-    BifrostUsd::Stage stage;
-    auto                primPath = pxr::SdfPath("/a");
-    auto                prim     = stage->DefinePrim(primPath);
+    auto              primPath    = PXR_NS::SdfPath("/a");
+    const std::string resourceDir = PXR_NS::TfNormPath(
+        BifrostGraph::Executor::Utility::getEnv("USD_TEST_RESOURCES_DIR").c_str());
 
+    // Create a non-editable layer to not create an anonymous referenced layer.
     BifrostUsd::Layer payloadLayer{getResourcePath("Mushroom1.usd").c_str(),
-                                     ""};
-    Amino::String       payloadPrimPath  = "/Mushroom1";
-    double              layerOffset      = 0.0;
-    double              layerOffsetScale = 1.0;
+                                   /*tag=*/ "", /*savefilePath=*/ "",
+                                   /*isEditable=*/ false};
+
+    Amino::String payloadPrimPath  = "/Mushroom1";
+    double        layerOffset      = 0.0;
+    double        layerOffsetScale = 1.0;
 
     BifrostUsd::UsdListPosition payloadPosition =
         BifrostUsd::UsdListPositionFrontOfPrependList;
 
-    ASSERT_FALSE(prim.HasPayload());
-    ASSERT_FALSE(pxr::UsdGeomMesh(prim));
-    bool success = USD::Prim::add_payload_prim(
-        stage, primPath.GetText(), payloadLayer, payloadPrimPath, layerOffset,
-        layerOffsetScale, payloadPosition);
-    ASSERT_TRUE(success);
+    // Test with absolute path
+    {
+        BifrostUsd::Stage stage;
+        auto              prim = stage->DefinePrim(primPath);
+        ASSERT_FALSE(prim.HasPayload());
+        ASSERT_FALSE(PXR_NS::UsdGeomMesh(prim));
+        bool success = USD::Prim::add_payload_prim(
+            stage, primPath.GetText(), payloadLayer, payloadPrimPath,
+            layerOffset, layerOffsetScale, payloadPosition);
+        ASSERT_TRUE(success);
 
-    prim = stage->GetPrimAtPath(primPath);
-    ASSERT_TRUE(prim.HasPayload());
-    ASSERT_TRUE(pxr::UsdGeomMesh(prim));
+        prim = stage->GetPrimAtPath(primPath);
+        ASSERT_TRUE(prim.HasPayload());
+        ASSERT_TRUE(PXR_NS::UsdGeomMesh(prim));
+
+        auto primSpec = stage->GetRootLayer()->GetPrimAtPath(primPath);
+        EXPECT_TRUE(primSpec);
+
+        auto field = primSpec->GetField(PXR_NS::SdfFieldKeys->Payload);
+        std::string sField = PXR_NS::TfStringify(field);
+
+        std::string referenceFilePath = resourceDir + "/Mushroom1.usd";
+        EXPECT_TRUE(PXR_NS::TfStringContains(sField, referenceFilePath))
+            << "'" << referenceFilePath << "' not found in '" << sField << "'";
+    }
+
+    // Test with relative path
+    {
+        BifrostUsd::Stage stage;
+        auto              prim = stage->DefinePrim(primPath);
+        ASSERT_FALSE(prim.HasPayload());
+        ASSERT_FALSE(PXR_NS::UsdGeomMesh(prim));
+        bool success = USD::Prim::add_payload_prim(
+            stage, primPath.GetText(), payloadLayer, payloadPrimPath,
+            layerOffset, layerOffsetScale, payloadPosition,
+            /*anchorPath*/ resourceDir.c_str());
+        ASSERT_TRUE(success);
+
+        prim = stage->GetPrimAtPath(primPath);
+        ASSERT_TRUE(prim.HasPayload());
+        ASSERT_TRUE(PXR_NS::UsdGeomMesh(prim));
+
+        auto primSpec = stage->GetRootLayer()->GetPrimAtPath(primPath);
+        EXPECT_TRUE(primSpec);
+
+        auto field = primSpec->GetField(PXR_NS::SdfFieldKeys->Payload);
+        std::string sField = PXR_NS::TfStringify(field);
+
+        std::string referenceFilePath = "Mushroom1.usd";
+        EXPECT_TRUE(PXR_NS::TfStringContains(sField, referenceFilePath))
+            << "'" << referenceFilePath << "' not found in '" << sField << "'";
+    }
 }
 
 TEST(PrimNodeDefs, add_inherit_prim) {
     BifrostUsd::Stage stage;
-    auto                clsPath = pxr::SdfPath("/cls");
+    auto              clsPath = PXR_NS::SdfPath("/cls");
     stage->CreateClassPrim(clsPath);
 
-    auto primPath = pxr::SdfPath("/a");
+    auto primPath = PXR_NS::SdfPath("/a");
     stage->DefinePrim(primPath);
 
     bool success = USD::Prim::add_inherit_prim(
@@ -409,10 +517,10 @@ TEST(PrimNodeDefs, add_inherit_prim) {
 
 TEST(PrimNodeDefs, add_specialize_prim) {
     BifrostUsd::Stage stage;
-    auto                clsPath = pxr::SdfPath("/cls");
+    auto              clsPath = PXR_NS::SdfPath("/cls");
     stage->CreateClassPrim(clsPath);
 
-    auto primPath = pxr::SdfPath("/a");
+    auto primPath = PXR_NS::SdfPath("/a");
     stage->DefinePrim(primPath);
     auto prim = stage->GetPrimAtPath(primPath);
     ASSERT_TRUE(prim);
@@ -428,12 +536,12 @@ TEST(PrimNodeDefs, add_specialize_prim) {
 TEST(PrimNodeDefs, create_prim_relationship) {
     BifrostUsd::Stage stage;
 
-    auto primPath = pxr::SdfPath("/a");
+    auto primPath = PXR_NS::SdfPath("/a");
     auto prim     = stage->DefinePrim(primPath);
     auto attr =
-        prim.CreateAttribute(pxr::TfToken("a"), pxr::SdfValueTypeNames->String,
+        prim.CreateAttribute(PXR_NS::TfToken("a"), PXR_NS::SdfValueTypeNames->String,
                              /* custom */ false);
-    auto targetPath = pxr::SdfPath("/b");
+    auto targetPath = PXR_NS::SdfPath("/b");
     stage->DefinePrim(targetPath);
 
     Amino::String relName = "rel";
@@ -447,10 +555,10 @@ TEST(PrimNodeDefs, create_prim_relationship) {
 
     prim = stage->GetPrimAtPath(primPath);
     ASSERT_TRUE(prim);
-    auto rel = prim.GetRelationship(pxr::TfToken(relName.c_str()));
+    auto rel = prim.GetRelationship(PXR_NS::TfToken(relName.c_str()));
     ASSERT_TRUE(rel);
 
-    pxr::SdfPathVector targets;
+    PXR_NS::SdfPathVector targets;
     ASSERT_TRUE(rel.GetTargets(&targets));
     ASSERT_EQ(targets.size(), 1);
     ASSERT_EQ(targets.at(0), targetPath);
@@ -459,23 +567,23 @@ TEST(PrimNodeDefs, create_prim_relationship) {
 TEST(PrimNodeDefs, add_relationship_target) {
     BifrostUsd::Stage stage;
 
-    auto primPath = pxr::SdfPath("/a");
+    auto primPath = PXR_NS::SdfPath("/a");
     auto prim     = stage->DefinePrim(primPath);
     auto attr =
-        prim.CreateAttribute(pxr::TfToken("a"), pxr::SdfValueTypeNames->String,
+        prim.CreateAttribute(PXR_NS::TfToken("a"), PXR_NS::SdfValueTypeNames->String,
                              /* custom */ false);
-    auto targetPath = pxr::SdfPath("/b");
+    auto targetPath = PXR_NS::SdfPath("/b");
     stage->DefinePrim(targetPath);
 
     Amino::String relName = "rel";
-    auto rel = prim.CreateRelationship(pxr::TfToken(relName.c_str()), true);
+    auto rel = prim.CreateRelationship(PXR_NS::TfToken(relName.c_str()), true);
     ASSERT_TRUE(rel);
 
     bool success = USD::Prim::add_relationship_target(
         stage, primPath.GetText(), relName, targetPath.GetText(),
         BifrostUsd::UsdListPositionFrontOfPrependList);
     ASSERT_TRUE(success);
-    pxr::SdfPathVector targets;
+    PXR_NS::SdfPathVector targets;
     ASSERT_TRUE(rel.GetTargets(&targets));
     ASSERT_EQ(targets.size(), 1);
     ASSERT_EQ(targets.at(0), targetPath);
@@ -484,23 +592,23 @@ TEST(PrimNodeDefs, add_relationship_target) {
 TEST(PrimNodeDefs, remove_relationship_target) {
     BifrostUsd::Stage stage;
 
-    auto primPath = pxr::SdfPath("/a");
+    auto primPath = PXR_NS::SdfPath("/a");
     auto prim     = stage->DefinePrim(primPath);
     auto attr =
-        prim.CreateAttribute(pxr::TfToken("a"), pxr::SdfValueTypeNames->String,
+        prim.CreateAttribute(PXR_NS::TfToken("a"), PXR_NS::SdfValueTypeNames->String,
                              /* custom */ false);
-    auto targetPath = pxr::SdfPath("/b");
+    auto targetPath = PXR_NS::SdfPath("/b");
     stage->DefinePrim(targetPath);
 
     Amino::String relName = "rel";
-    auto rel = prim.CreateRelationship(pxr::TfToken(relName.c_str()), true);
+    auto rel = prim.CreateRelationship(PXR_NS::TfToken(relName.c_str()), true);
     ASSERT_TRUE(rel);
 
     bool success = USD::Prim::add_relationship_target(
         stage, primPath.GetText(), relName, targetPath.GetText(),
         BifrostUsd::UsdListPositionFrontOfPrependList);
     ASSERT_TRUE(success);
-    pxr::SdfPathVector targets;
+    PXR_NS::SdfPathVector targets;
     ASSERT_TRUE(rel.GetTargets(&targets));
     ASSERT_EQ(targets.size(), 1);
     ASSERT_EQ(targets.at(0), targetPath);
@@ -515,20 +623,20 @@ TEST(PrimNodeDefs, remove_relationship_target) {
 TEST(PrimNodeDefs, set_relationship_targets) {
     BifrostUsd::Stage stage;
 
-    auto primPath = pxr::SdfPath("/a");
+    auto primPath = PXR_NS::SdfPath("/a");
     auto prim     = stage->DefinePrim(primPath);
     auto attr =
-        prim.CreateAttribute(pxr::TfToken("a"), pxr::SdfValueTypeNames->String,
+        prim.CreateAttribute(PXR_NS::TfToken("a"), PXR_NS::SdfValueTypeNames->String,
                              /* custom */ false);
-    auto targetPath1 = pxr::SdfPath("/t1");
+    auto targetPath1 = PXR_NS::SdfPath("/t1");
     stage->DefinePrim(targetPath1);
-    auto targetPath2 = pxr::SdfPath("/t2");
+    auto targetPath2 = PXR_NS::SdfPath("/t2");
     stage->DefinePrim(targetPath2);
-    auto targetPath3 = pxr::SdfPath("/t3");
+    auto targetPath3 = PXR_NS::SdfPath("/t3");
     stage->DefinePrim(targetPath3);
 
     Amino::String relName = "rel";
-    auto rel = prim.CreateRelationship(pxr::TfToken(relName.c_str()), true);
+    auto rel = prim.CreateRelationship(PXR_NS::TfToken(relName.c_str()), true);
     ASSERT_TRUE(rel);
 
     auto targets = Amino::Array<Amino::String>{
@@ -536,7 +644,7 @@ TEST(PrimNodeDefs, set_relationship_targets) {
     bool success = USD::Prim::set_relationship_targets(
         stage, primPath.GetText(), relName, targets);
     ASSERT_TRUE(success);
-    pxr::SdfPathVector pxrTargets;
+    PXR_NS::SdfPathVector pxrTargets;
     ASSERT_TRUE(rel.GetTargets(&pxrTargets));
     ASSERT_EQ(pxrTargets.size(), 3);
     ASSERT_EQ(pxrTargets.at(0), targetPath1);
@@ -547,20 +655,20 @@ TEST(PrimNodeDefs, set_relationship_targets) {
 TEST(PrimNodeDefs, clear_relationship_targets) {
     BifrostUsd::Stage stage;
 
-    auto primPath = pxr::SdfPath("/a");
+    auto primPath = PXR_NS::SdfPath("/a");
     auto prim     = stage->DefinePrim(primPath);
     auto attr =
-        prim.CreateAttribute(pxr::TfToken("a"), pxr::SdfValueTypeNames->String,
+        prim.CreateAttribute(PXR_NS::TfToken("a"), PXR_NS::SdfValueTypeNames->String,
                              /* custom */ false);
-    auto targetPath1 = pxr::SdfPath("/t1");
+    auto targetPath1 = PXR_NS::SdfPath("/t1");
     stage->DefinePrim(targetPath1);
-    auto targetPath2 = pxr::SdfPath("/t2");
+    auto targetPath2 = PXR_NS::SdfPath("/t2");
     stage->DefinePrim(targetPath2);
-    auto targetPath3 = pxr::SdfPath("/t3");
+    auto targetPath3 = PXR_NS::SdfPath("/t3");
     stage->DefinePrim(targetPath3);
 
     Amino::String relName = "rel";
-    auto rel = prim.CreateRelationship(pxr::TfToken(relName.c_str()), true);
+    auto rel = prim.CreateRelationship(PXR_NS::TfToken(relName.c_str()), true);
     ASSERT_TRUE(rel);
 
     auto targets = Amino::Array<Amino::String>{
@@ -568,7 +676,7 @@ TEST(PrimNodeDefs, clear_relationship_targets) {
     bool success = USD::Prim::set_relationship_targets(
         stage, primPath.GetText(), relName, targets);
     ASSERT_TRUE(success);
-    pxr::SdfPathVector pxrTargets;
+    PXR_NS::SdfPathVector pxrTargets;
     ASSERT_TRUE(rel.GetTargets(&pxrTargets));
     ASSERT_EQ(pxrTargets.size(), 3);
 
@@ -577,7 +685,7 @@ TEST(PrimNodeDefs, clear_relationship_targets) {
                                                     relName, false);
     ASSERT_TRUE(success);
     ASSERT_FALSE(rel.GetTargets(&pxrTargets));
-    rel = prim.GetRelationship(pxr::TfToken(relName.c_str()));
+    rel = prim.GetRelationship(PXR_NS::TfToken(relName.c_str()));
     ASSERT_TRUE(rel);
 
     // re-add the targets
@@ -592,27 +700,27 @@ TEST(PrimNodeDefs, clear_relationship_targets) {
                                                     relName, true);
     ASSERT_TRUE(success);
     ASSERT_FALSE(rel.GetTargets(&pxrTargets));
-    rel = prim.GetRelationship(pxr::TfToken(relName.c_str()));
+    rel = prim.GetRelationship(PXR_NS::TfToken(relName.c_str()));
     ASSERT_FALSE(rel);
 }
 
 TEST(PrimNodeDefs, get_relationship_targets) {
     BifrostUsd::Stage stage;
 
-    auto primPath = pxr::SdfPath("/a");
+    auto primPath = PXR_NS::SdfPath("/a");
     auto prim     = stage->DefinePrim(primPath);
     auto attr =
-        prim.CreateAttribute(pxr::TfToken("a"), pxr::SdfValueTypeNames->String,
+        prim.CreateAttribute(PXR_NS::TfToken("a"), PXR_NS::SdfValueTypeNames->String,
                              /* custom */ false);
-    auto targetPath1 = pxr::SdfPath("/t1");
+    auto targetPath1 = PXR_NS::SdfPath("/t1");
     stage->DefinePrim(targetPath1);
-    auto targetPath2 = pxr::SdfPath("/t2");
+    auto targetPath2 = PXR_NS::SdfPath("/t2");
     stage->DefinePrim(targetPath2);
-    auto targetPath3 = pxr::SdfPath("/t3");
+    auto targetPath3 = PXR_NS::SdfPath("/t3");
     stage->DefinePrim(targetPath3);
 
     Amino::String relName = "rel";
-    auto rel = prim.CreateRelationship(pxr::TfToken(relName.c_str()), true);
+    auto rel = prim.CreateRelationship(PXR_NS::TfToken(relName.c_str()), true);
     ASSERT_TRUE(rel);
 
     auto targets = Amino::Array<Amino::String>{
@@ -634,18 +742,18 @@ TEST(PrimNodeDefs, get_relationship_targets) {
 TEST(PrimNodeDefs, get_forwarded_relationship_targets) {
     BifrostUsd::Stage stage;
 
-    auto attrPrimPath = pxr::SdfPath("/a");
+    auto attrPrimPath = PXR_NS::SdfPath("/a");
     auto attrPrim     = stage->DefinePrim(attrPrimPath);
-    auto attr         = attrPrim.CreateAttribute(pxr::TfToken("a"),
-                                         pxr::SdfValueTypeNames->String,
-                                         /* custom */ false);
+    auto attr         = attrPrim.CreateAttribute(PXR_NS::TfToken("a"),
+                                                 PXR_NS::SdfValueTypeNames->String,
+                                                 /* custom */ false);
 
-    auto          relPrimPath = pxr::SdfPath("/b");
+    auto          relPrimPath = PXR_NS::SdfPath("/b");
     auto          relPrim     = stage->DefinePrim(relPrimPath);
     Amino::String relName     = "rel";
-    auto rel = relPrim.CreateRelationship(pxr::TfToken(relName.c_str()));
+    auto rel = relPrim.CreateRelationship(PXR_NS::TfToken(relName.c_str()));
     ASSERT_TRUE(rel);
-    pxr::SdfPathVector targets;
+    PXR_NS::SdfPathVector targets;
     ASSERT_FALSE(rel.GetTargets(&targets));
     ASSERT_TRUE(targets.empty());
     Amino::MutablePtr<Amino::Array<Amino::String>> outTargets;
@@ -656,14 +764,14 @@ TEST(PrimNodeDefs, get_forwarded_relationship_targets) {
 
     Amino::String forwardingRelName = "forwardingRel";
     auto          forwardingRel =
-        relPrim.CreateRelationship(pxr::TfToken(forwardingRelName.c_str()));
+        relPrim.CreateRelationship(PXR_NS::TfToken(forwardingRelName.c_str()));
     // Add a target to the previous relationship, GetTargets
     // returns true and gets the targeted relationship. However
     // GetForwardedTargets returns false because the only target is a
     // relationship that has no authored targets
     ASSERT_TRUE(forwardingRel.AddTarget(rel.GetPath()));
     ASSERT_TRUE(forwardingRel.GetTargets(&targets));
-    ASSERT_TRUE(targets == pxr::SdfPathVector({rel.GetPath()}));
+    ASSERT_TRUE(targets == PXR_NS::SdfPathVector({rel.GetPath()}));
     success = USD::Prim::get_forwarded_relationship_targets(
         stage, relPrimPath.GetText(), forwardingRelName, outTargets);
     ASSERT_FALSE(success);
@@ -671,7 +779,7 @@ TEST(PrimNodeDefs, get_forwarded_relationship_targets) {
 
     ASSERT_TRUE(rel.AddTarget(attrPrimPath));
     ASSERT_TRUE(rel.GetTargets(&targets));
-    ASSERT_TRUE(targets == pxr::SdfPathVector({attrPrimPath}));
+    ASSERT_TRUE(targets == PXR_NS::SdfPathVector({attrPrimPath}));
     success = USD::Prim::get_forwarded_relationship_targets(
         stage, relPrimPath.GetText(), relName, outTargets);
     ASSERT_TRUE(success);
@@ -689,12 +797,12 @@ TEST(PrimNodeDefs, get_forwarded_relationship_targets) {
 TEST(PrimNodeDefs, create_prim_relationship_in_variant) {
     BifrostUsd::Stage stage;
 
-    auto primPath = pxr::SdfPath("/a");
+    auto primPath = PXR_NS::SdfPath("/a");
     auto prim     = stage->DefinePrim(primPath);
     auto attr =
-        prim.CreateAttribute(pxr::TfToken("a"), pxr::SdfValueTypeNames->String,
+        prim.CreateAttribute(PXR_NS::TfToken("a"), PXR_NS::SdfValueTypeNames->String,
                              /* custom */ false);
-    auto targetPath = pxr::SdfPath("/b");
+    auto targetPath = PXR_NS::SdfPath("/b");
     stage->DefinePrim(targetPath);
 
     auto vset = prim.GetVariantSets().AddVariantSet("vset");
@@ -717,26 +825,26 @@ TEST(PrimNodeDefs, create_prim_relationship_in_variant) {
 
     prim = stage->GetPrimAtPath(primPath);
     ASSERT_TRUE(prim);
-    auto rel = prim.GetRelationship(pxr::TfToken("rel"));
+    auto rel = prim.GetRelationship(PXR_NS::TfToken("rel"));
     ASSERT_TRUE(rel);
 
-    pxr::SdfPathVector targets;
+    PXR_NS::SdfPathVector targets;
     ASSERT_TRUE(rel.GetTargets(&targets));
     ASSERT_EQ(targets.size(), 1);
     ASSERT_EQ(targets.at(0), targetPath);
 
     vset = prim.GetVariantSets().GetVariantSet("vset");
     vset.SetVariantSelection("no_rel");
-    stage->GetRootLayer()->Export(getTestOutputPath("rel.usda").c_str());
+    stage->GetRootLayer()->Export(getThisTestOutputPath("rel.usda").c_str());
 
-    rel = prim.GetRelationship(pxr::TfToken("rel"));
+    rel = prim.GetRelationship(PXR_NS::TfToken("rel"));
     ASSERT_FALSE(rel);
 }
 
 TEST(PrimNodeDefs, set_prim_active) {
     BifrostUsd::Stage stage;
-    auto                primPath = pxr::SdfPath("/a");
-    auto                prim     = stage->DefinePrim(primPath);
+    auto              primPath = PXR_NS::SdfPath("/a");
+    auto              prim     = stage->DefinePrim(primPath);
     ASSERT_TRUE(prim.IsActive());
 
     bool success = USD::Prim::set_prim_active(stage, primPath.GetText(), false);
@@ -749,7 +857,7 @@ TEST(PrimNodeDefs, prim_metadata) {
     BifrostUsd::Stage stage{getResourcePath("helloworld.usd")};
     ASSERT_TRUE(stage);
     auto primPath    = Amino::String{"/hello"};
-    auto pxrPrimPath = pxr::SdfPath(primPath.c_str());
+    auto pxrPrimPath = PXR_NS::SdfPath(primPath.c_str());
     auto prim        = stage->GetPrimAtPath(pxrPrimPath);
     // Test String
     {
@@ -783,7 +891,7 @@ TEST(PrimNodeDefs, prim_metadata) {
     {
         Amino::long_t int64Value = 3223372036854775807;
         bool          success    = USD::Prim::set_prim_metadata(stage, primPath,
-                                                    "customData", int64Value);
+                                                                "customData", int64Value);
         ASSERT_TRUE(success);
         ASSERT_TRUE(stage);
         Amino::long_t int64Default = 0;
@@ -853,9 +961,9 @@ TEST(PrimNodeDefs, prim_metadata) {
 
 TEST(PrimNodeDefs, int64_metadata_export) {
     BifrostUsd::Stage stage;
-    auto                primPath    = Amino::String{"/a"};
-    auto                pxrPrimPath = pxr::SdfPath(primPath.c_str());
-    auto                prim        = stage->DefinePrim(pxrPrimPath);
+    auto              primPath    = Amino::String{"/a"};
+    auto              pxrPrimPath = PXR_NS::SdfPath(primPath.c_str());
+    auto              prim        = stage->DefinePrim(pxrPrimPath);
     ASSERT_TRUE(prim);
     auto          objValue   = Bifrost::createObject();
     Amino::long_t int64Value = 5223372036854775808;
@@ -884,7 +992,7 @@ def "a" (
 
 TEST(PrimNodeDefs, set_prim_asset_info) {
     BifrostUsd::Stage stage;
-    auto              primPath = pxr::SdfPath("/abc");
+    auto              primPath = PXR_NS::SdfPath("/abc");
     auto              prim     = stage->DefinePrim(primPath);
 
     Amino::String asset_identifier{"abc/abc.usd"};
@@ -895,10 +1003,10 @@ TEST(PrimNodeDefs, set_prim_asset_info) {
                                    asset_name, asset_version);
 
     prim                       = stage->GetPrimAtPath(primPath);
-    auto              modelAPI = pxr::UsdModelAPI(prim);
-    pxr::SdfAssetPath expected_asset_identifier;
+    auto              modelAPI = PXR_NS::UsdModelAPI(prim);
+    PXR_NS::SdfAssetPath expected_asset_identifier;
     EXPECT_TRUE(modelAPI.GetAssetIdentifier(&expected_asset_identifier));
-    EXPECT_EQ(expected_asset_identifier, pxr::SdfAssetPath{"abc/abc.usd"});
+    EXPECT_EQ(expected_asset_identifier, PXR_NS::SdfAssetPath{"abc/abc.usd"});
 
     std::string expected_asset_name;
     EXPECT_TRUE(modelAPI.GetAssetName(&expected_asset_name));
@@ -911,10 +1019,10 @@ TEST(PrimNodeDefs, set_prim_asset_info) {
 
 TEST(PrimNodeDefs, get_prim_asset_info) {
     BifrostUsd::Stage stage;
-    auto              primPath = pxr::SdfPath("/abc");
+    auto              primPath = PXR_NS::SdfPath("/abc");
     auto              prim     = stage->DefinePrim(primPath);
-    auto              modelAPI = pxr::UsdModelAPI(prim);
-    modelAPI.SetAssetIdentifier(pxr::SdfAssetPath("abc/abc.usd"));
+    auto              modelAPI = PXR_NS::UsdModelAPI(prim);
+    modelAPI.SetAssetIdentifier(PXR_NS::SdfAssetPath("abc/abc.usd"));
     modelAPI.SetAssetName("abc");
     modelAPI.SetAssetVersion("v001");
 
@@ -938,10 +1046,10 @@ TEST(PrimNodeDefs, get_prim_asset_info) {
                                    asset_name, asset_version);
 
     prim     = stage->GetPrimAtPath(primPath);
-    modelAPI = pxr::UsdModelAPI(prim);
-    pxr::SdfAssetPath expected_asset_identifier;
+    modelAPI = PXR_NS::UsdModelAPI(prim);
+    PXR_NS::SdfAssetPath expected_asset_identifier;
     EXPECT_TRUE(modelAPI.GetAssetIdentifier(&expected_asset_identifier));
-    EXPECT_EQ(expected_asset_identifier, pxr::SdfAssetPath{"abc/abc.usd"});
+    EXPECT_EQ(expected_asset_identifier, PXR_NS::SdfAssetPath{"abc/abc.usd"});
     std::string expected_asset_name;
     EXPECT_TRUE(modelAPI.GetAssetName(&expected_asset_name));
     EXPECT_EQ(expected_asset_name, std::string{"abc"});

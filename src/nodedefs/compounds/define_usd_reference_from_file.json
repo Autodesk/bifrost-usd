@@ -12,12 +12,13 @@
     "compounds": [
         {
             "name": "USD::Prim::define_usd_reference_from_file",
+            "uriImported": "file:///define_usd_reference_from_file.json",
             "metadata": [
                 {
                     "metaName": "documentation",
                     "metaType": "string",
                     "metaValue": "../docs/${language}/define_usd_reference_from_file.md"
-                },                
+                },
                 {
                     "metaName": "io_nodes",
                     "metadata": [
@@ -31,6 +32,16 @@
                                             "metaName": "DisplayMode",
                                             "metaType": "string",
                                             "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "10 174"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "33.000000"
                                         },
                                         {
                                             "metaName": "io_ports",
@@ -52,13 +63,11 @@
                                                 },
                                                 {
                                                     "metaName": "position"
+                                                },
+                                                {
+                                                    "metaName": "anchor_path"
                                                 }
                                             ]
-                                        },
-                                        {
-                                            "metaName": "LayoutPos",
-                                            "metaType": "string",
-                                            "metaValue": "10 174"
                                         }
                                     ]
                                 }
@@ -71,14 +80,6 @@
                                     "metaName": "output",
                                     "metadata": [
                                         {
-                                            "metaName": "io_ports",
-                                            "metadata": [
-                                                {
-                                                    "metaName": "reference_definitions"
-                                                }
-                                            ]
-                                        },
-                                        {
                                             "metaName": "DisplayMode",
                                             "metaType": "string",
                                             "metaValue": "2"
@@ -87,6 +88,19 @@
                                             "metaName": "LayoutPos",
                                             "metaType": "string",
                                             "metaValue": "925 104"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "reference_definitions"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "34.000000"
                                         }
                                     ]
                                 }
@@ -108,11 +122,11 @@
                             "metaValue": "Define {arc_type} From {file}"
                         }
                     ]
-                },                
+                },
                 {
                     "metaName": "ViewportRect",
                     "metaType": "string",
-                    "metaValue": "-70 -264.492 1301 1008.98"
+                    "metaValue": "-70 -466.177 1301 1436.35"
                 },
                 {
                     "metaName": "DisplayMode",
@@ -122,7 +136,12 @@
                 {
                     "metaName": "LayoutPos",
                     "metaType": "string",
-                    "metaValue": "-828.426 -347.996"
+                    "metaValue": "-65.5 -19"
+                },
+                {
+                    "metaName": "zValue",
+                    "metaType": "string",
+                    "metaValue": "38.000000"
                 }
             ],
             "ports": [
@@ -178,6 +197,24 @@
                     "portDirection": "input",
                     "portType": "BifrostUsd::UsdListPosition",
                     "portDefault": "UsdListPositionFrontOfPrependList"
+                },
+                {
+                    "portName": "anchor_path",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "browserType=folder"
+                        },
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "FileBrowserWidget"
+                        }
+                    ]
                 }
             ],
             "compoundNodes": [
@@ -194,6 +231,11 @@
                             "metaName": "LayoutPos",
                             "metaType": "string",
                             "metaValue": "620 104"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "31.000000"
                         }
                     ]
                 },
@@ -210,6 +252,11 @@
                             "metaName": "LayoutPos",
                             "metaType": "string",
                             "metaValue": "315 10"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "32.000000"
                         }
                     ]
                 }
@@ -246,6 +293,10 @@
                 {
                     "source": ".position",
                     "target": "define_usd_reference.position"
+                },
+                {
+                    "source": ".anchor_path",
+                    "target": "define_usd_reference.anchor_path"
                 }
             ],
             "values": [

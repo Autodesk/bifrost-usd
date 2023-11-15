@@ -236,6 +236,10 @@ bool remove_applied_schema(BifrostUsd::Stage& stage USDPORT_INOUT("out_stage"),
 /// \param [in] layer_offset The layer time offset.
 /// \param [in] layer_scale The layer offset scale factor.
 /// \param [in] reference_position The position in the reference list.
+/// \param [in] anchor_path The anchor path is the front part of the
+///             layer identifier that you don't want to include in the
+///             reference list. If an empty or invalid anchor path is provided,
+///             nothing from the layer identifier will be removed.
 /// \returns true if the reference was added successfully.
 USD_NODEDEF_DECL
 bool add_reference_prim(
@@ -245,7 +249,8 @@ bool add_reference_prim(
     const Amino::String&                reference_prim_path,
     const double layer_offset           AMINO_ANNOTATE("Amino::Port value=0.0"),
     const double layer_scale            AMINO_ANNOTATE("Amino::Port value=1.0"),
-    const BifrostUsd::UsdListPosition reference_position)
+    const BifrostUsd::UsdListPosition reference_position,
+    const Amino::String& anchor_path=Amino::String{})
     USDNODE_DOC_ICON_X("add_reference_prim",
                        "add_reference_prim",
                        "usd.svg",
@@ -314,7 +319,11 @@ bool remove_payload_prim(
 /// \param [in] layer_offset The layer time offset.
 /// \param [in] layer_scale The layer offset scale factor.
 /// \param [in] payload_position The position in the payload list.
-/// \returns true if the payload was added successfully.
+/// \param [in] anchor_path The anchor path is the front part of the
+///             layer identifier that you don't want to include in the
+///             reference list. If an empty or invalid anchor path is provided,
+///             nothing from the layer identifier will be removed.
+/// \returns true if the reference was added successfully.
 USD_NODEDEF_DECL
 bool add_payload_prim(
     BifrostUsd::Stage& stage          USDPORT_INOUT("out_stage"),
@@ -323,7 +332,8 @@ bool add_payload_prim(
     const Amino::String&                payload_prim_path,
     const double layer_offset           AMINO_ANNOTATE("Amino::Port value=0.0"),
     const double layer_scale            AMINO_ANNOTATE("Amino::Port value=1.0"),
-    const BifrostUsd::UsdListPosition payload_position)
+    const BifrostUsd::UsdListPosition payload_position,
+    const Amino::String& anchor_path=Amino::String{})
     USDNODE_DOC_ICON_X("add_payload_prim",
                        "add_payload_prim",
                        "usd.svg",

@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2023 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,15 +34,15 @@ set(usdHeaders
 bifusd_install_headers(
     usdHeadersInstall
     SOURCE ${CMAKE_CURRENT_SOURCE_DIR}
+    PUBLIC_LINK_LIBS
+        Amino::Cpp
 	FILES ${usdHeaders}
 	DESTINATION "BifrostUsd"
 )
 
 bifusd_header_parser(generate_usd_type_json
-    ${BIFROST_USD_PACK_INSTALL_RES_JSON_DIR}
-    DEPENDS       usdHeadersInstall
-    INCLUDES      ${CMAKE_CURRENT_SOURCE_DIR}
-    INPUTS        ${usd_headers}
+    HEADER_FILES    ${usd_headers}
+    LINK_LIBS       usdHeadersInstall
 )
 
 add_dependencies(${BIFUSD_PACKAGE_NAME}_config_info

@@ -68,7 +68,7 @@ enum /*@cond true*/ class AMINO_ANNOTATE(
 
 /// \section UpAxis
 ///
-/// Enum version of pxr::UpAxis tokens.
+/// Enum version of PXR_NS::UpAxis tokens.
 //  UpAxis can only be set to "Y" or "Z"
 /// <ul>
 /// <li>Y: Up Axis is the Y-Axis.</li>
@@ -135,16 +135,16 @@ public:
 #ifndef DISABLE_PXR_HEADERS
     struct Invalid {};
 
-    Stage(Invalid);
+    explicit Stage(Invalid);
     explicit Stage(const Layer&         rootLayer,
                    const InitialLoadSet load = InitialLoadSet::LoadAll);
     explicit Stage(const Layer&                       rootLayer,
-                   const pxr::UsdStagePopulationMask& mask,
+                   const PXR_NS::UsdStagePopulationMask& mask,
                    const InitialLoadSet load = InitialLoadSet::LoadAll);
     explicit Stage(const Amino::String& filePath,
                    const InitialLoadSet load = InitialLoadSet::LoadAll);
     explicit Stage(const Amino::String&               filePath,
-                   const pxr::UsdStagePopulationMask& mask,
+                   const PXR_NS::UsdStagePopulationMask& mask,
                    const InitialLoadSet load = InitialLoadSet::LoadAll);
 
     Stage(const Stage& other);
@@ -156,26 +156,26 @@ public:
     bool     isValid() const { return m_stage != nullptr; }
     explicit operator bool() const { return isValid(); }
 
-    /// \brief Accessors to the underlying pxr::UsdStage.
+    /// \brief Accessors to the underlying PXR_NS::UsdStage.
     ///
     /// These accessor should be used instead of getting the underlying
-    /// pxr::UsdStageRefPtr directly, because they propagate constness to the
-    /// pxr::UsdStage pointer.
+    /// PXR_NS::UsdStageRefPtr directly, because they propagate constness to the
+    /// PXR_NS::UsdStage pointer.
     ///
     /// This helps avoiding unintentionally creating side effects in other
     /// pointers to the same \ref BifrostUsd::Stage.
     /// \{
     /// \return UsdStage
-    pxr::UsdStage&       get() { return *m_stage; }
-    pxr::UsdStage const& get() const { return *m_stage; }
-    pxr::UsdStage&       operator*() { return *m_stage; }
-    pxr::UsdStage const& operator*() const { return *m_stage; }
-    pxr::UsdStage*       operator->() { return m_stage.operator->(); }
-    pxr::UsdStage const* operator->() const { return m_stage.operator->(); }
+    PXR_NS::UsdStage&       get() { return *m_stage; }
+    PXR_NS::UsdStage const& get() const { return *m_stage; }
+    PXR_NS::UsdStage&       operator*() { return *m_stage; }
+    PXR_NS::UsdStage const& operator*() const { return *m_stage; }
+    PXR_NS::UsdStage*       operator->() { return m_stage.operator->(); }
+    PXR_NS::UsdStage const* operator->() const { return m_stage.operator->(); }
     /// \}
 
     // This function is purposefully non-const. Be careful with it.
-    pxr::UsdStageRefPtr getStagePtr() { return m_stage; }
+    PXR_NS::UsdStageRefPtr getStagePtr() { return m_stage; }
 
     Amino::Ptr<Layer>&       getRootLayer() { return m_rootLayer; }
     const Amino::Ptr<Layer>& getRootLayer() const { return m_rootLayer; }
@@ -206,7 +206,7 @@ public:
         return !last_modified_variant_set_prim.empty();
     }
 
-    pxr::UsdVariantSet getLastModifedVariantSet() const;
+    PXR_NS::UsdVariantSet getLastModifedVariantSet() const;
 
     bool save(const Amino::String& filePath = "") const;
 
@@ -222,7 +222,7 @@ public:
 
 private:
     Amino::Ptr<Layer>   m_rootLayer;
-    pxr::UsdStageRefPtr m_stage;
+    PXR_NS::UsdStageRefPtr m_stage;
     int                 m_editLayerIndex{-1};
 #endif // DISABLE_PXR_HEADERS
 };
