@@ -1,0 +1,27 @@
+#usda 1.0
+(
+    startFrame = 1
+    endFrame = 2
+)
+
+def Scope "Bifrost"
+{
+    def GenerativeProcedural "snow_shadow" (
+        prepend apiSchemas = ["HydraGenerativeProceduralAPI"]
+    )
+    {
+        token primvars:hdGp:proceduralType = "BifrostGraph"
+        token primvars:bifrost:graph = "Hydra::Testing::snow_shadow"
+
+        # Input parameters
+        bool primvars:enable_snow = false
+        int64 primvars:number_of_spheres = 20
+        float primvars:sun_direction_x = 0
+        float primvars:sun_direction_y = -1
+        float primvars:sun_direction_z = -0.5
+        float primvars:detail_size = 0.7
+
+        # Output parameter
+        string primvars:bifrost:output = "meshes"
+    }
+}

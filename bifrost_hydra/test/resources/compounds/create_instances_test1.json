@@ -1,0 +1,624 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "Hydra::Testing::create_instances_test1",
+            "uriImported": "file:///create_instances_test1.json",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-470.655 -106.094"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "length"
+                                                },
+                                                {
+                                                    "metaName": "width"
+                                                },
+                                                {
+                                                    "metaName": "amount"
+                                                },
+                                                {
+                                                    "metaName": "overlapping_radius"
+                                                },
+                                                {
+                                                    "metaName": "major_segments"
+                                                },
+                                                {
+                                                    "metaName": "minor_segments"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "725.846 -232.009"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "instances"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-635.39 -378.617 1533.91 840.16"
+                },
+                {
+                    "metaName": "UILayout",
+                    "metaType": "string",
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"group\": \"Grid\",\n                \"items\": [\n                    {\n                        \"port\": \"length\"\n                    },\n                    {\n                        \"port\": \"width\"\n                    }\n                ]\n            },\n            {\n                \"group\": \"Scattering\",\n                \"items\": [\n                    {\n                        \"port\": \"amount\"\n                    },\n                    {\n                        \"port\": \"overlapping_radius\"\n                    }\n                ]\n            },\n            {\n                \"group\": \"Torus\",\n                \"items\": [\n                    {\n                        \"port\": \"major_segments\"\n                    },\n                    {\n                        \"port\": \"minor_segments\"\n                    }\n                ]\n            }\n        ]\n    }\n}\n"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-163.5 -125"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "instances",
+                    "portDirection": "output",
+                    "portType": "Object"
+                },
+                {
+                    "portName": "length",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "10f"
+                },
+                {
+                    "portName": "width",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "10f"
+                },
+                {
+                    "portName": "amount",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "15f",
+                    "metadata": [
+                        {
+                            "metaName": "quick_create",
+                            "metaType": "string",
+                            "metaValue": "Simulation::MPM::mpm_settings_to_scatter_density"
+                        }
+                    ]
+                },
+                {
+                    "portName": "overlapping_radius",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "1f"
+                },
+                {
+                    "portName": "major_segments",
+                    "portDirection": "input",
+                    "portType": "uint",
+                    "portDefault": "4U"
+                },
+                {
+                    "portName": "minor_segments",
+                    "portDirection": "input",
+                    "portType": "uint",
+                    "portDefault": "4U"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "create_instances",
+                    "nodeType": "Modeling::Instances::create_instances",
+                    "fanInPortNames": {
+                        "instance_geometries": [
+                            "geo_instance"
+                        ],
+                        "preview_geometries": []
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "494.423 -106.43"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_mesh_plane",
+                    "nodeType": "Modeling::Primitive::create_mesh_plane",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "Geometry",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "Dimensions",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-154.366 -309.439"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_mesh_torus",
+                    "nodeType": "Modeling::Primitive::create_mesh_torus",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "Geometry",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-127.647 127.457"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "geo_instance",
+                    "nodeType": "Geometry::Instances::geo_instance",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "250.763 167.84"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "Instances",
+                                    "metaType": "string",
+                                    "metaValue": "0"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "scatter_points",
+                    "nodeType": "Modeling::Points::scatter_points",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "Properties",
+                                    "metaType": "string",
+                                    "metaValue": "0"
+                                },
+                                {
+                                    "metaName": "Scatter Settings",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "Culling ",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "92.2812 -319.677"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "scatter_points.points",
+                    "target": "create_instances.points"
+                },
+                {
+                    "source": "geo_instance.geo_instance",
+                    "target": "create_instances.instance_geometries.geo_instance"
+                },
+                {
+                    "source": "create_mesh_plane.plane_mesh",
+                    "target": "scatter_points.geometry"
+                },
+                {
+                    "source": "create_mesh_torus.torus_mesh",
+                    "target": "geo_instance.geometry"
+                },
+                {
+                    "source": ".length",
+                    "target": "create_mesh_plane.length"
+                },
+                {
+                    "source": ".width",
+                    "target": "create_mesh_plane.width"
+                },
+                {
+                    "source": ".amount",
+                    "target": "scatter_points.amount"
+                },
+                {
+                    "source": ".overlapping_radius",
+                    "target": "scatter_points.overlapping_radius"
+                },
+                {
+                    "source": ".major_segments",
+                    "target": "create_mesh_torus.major_segments"
+                },
+                {
+                    "source": ".minor_segments",
+                    "target": "create_mesh_torus.minor_segments"
+                },
+                {
+                    "source": "create_instances.instances",
+                    "target": ".instances"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "create_instances.selection_mode",
+                    "valueType": "Modeling::Points::CreateInstancesSelectionMode",
+                    "value": "Sequential"
+                },
+                {
+                    "valueName": "create_instances.seed",
+                    "valueType": "long",
+                    "value": "354"
+                },
+                {
+                    "valueName": "create_instances.probability_curve",
+                    "valueType": "Math::FCurve",
+                    "value": {
+                        "version": "1",
+                        "preExtrapolation": "0",
+                        "postExtrapolation": "0",
+                        "points": [
+                            {
+                                "point": {
+                                    "locked": "1",
+                                    "interpolation": "1",
+                                    "pcn": {
+                                        "xp": "-0.63807499999999995",
+                                        "yp": "-0.180645",
+                                        "x": "0",
+                                        "y": "0",
+                                        "xn": "0.63807499999999995",
+                                        "yn": "0.180645"
+                                    }
+                                }
+                            },
+                            {
+                                "point": {
+                                    "locked": "1",
+                                    "interpolation": "1",
+                                    "pcn": {
+                                        "xp": "0.67824300000000004",
+                                        "yp": "0.91612899999999997",
+                                        "x": "1",
+                                        "y": "1",
+                                        "xn": "1.3217570000000001",
+                                        "yn": "1.083871"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "valueName": "create_instances.instance_id_override",
+                    "valueType": "array<long>",
+                    "value": []
+                },
+                {
+                    "valueName": "create_instances.preview_mode",
+                    "valueType": "Modeling::Points::CreateInstancesPreviewGeometry",
+                    "value": "PreviewGeometry"
+                },
+                {
+                    "valueName": "create_mesh_plane.length",
+                    "valueType": "float",
+                    "value": "100f"
+                },
+                {
+                    "valueName": "create_mesh_plane.width",
+                    "valueType": "float",
+                    "value": "100f"
+                },
+                {
+                    "valueName": "create_mesh_plane.length_segments",
+                    "valueType": "int",
+                    "value": "2L"
+                },
+                {
+                    "valueName": "create_mesh_plane.width_segments",
+                    "valueType": "int",
+                    "value": "2L"
+                },
+                {
+                    "valueName": "create_mesh_plane.up_axis",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "1f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_plane.position",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "0f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_torus.major_radius",
+                    "valueType": "float",
+                    "value": "1f"
+                },
+                {
+                    "valueName": "create_mesh_torus.minor_radius",
+                    "valueType": "float",
+                    "value": "0.5f"
+                },
+                {
+                    "valueName": "create_mesh_torus.major_segments",
+                    "valueType": "uint",
+                    "value": "4U"
+                },
+                {
+                    "valueName": "create_mesh_torus.minor_segments",
+                    "valueType": "uint",
+                    "value": "4U"
+                },
+                {
+                    "valueName": "create_mesh_torus.position",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "0f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_torus.scale",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "1f",
+                        "y": "1f",
+                        "z": "1f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_torus.up_axis",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "1f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_torus.normals",
+                    "valueType": "Modeling::Primitive::Normals",
+                    "value": "smooth"
+                },
+                {
+                    "valueName": "geo_instance.name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "geo_instance.transform",
+                    "valueType": "Math::float4x4",
+                    "value": {
+                        "c0": {
+                            "x": "1f",
+                            "y": "0f",
+                            "z": "0f",
+                            "w": "0f"
+                        },
+                        "c1": {
+                            "x": "0f",
+                            "y": "1f",
+                            "z": "0f",
+                            "w": "0f"
+                        },
+                        "c2": {
+                            "x": "0f",
+                            "y": "0f",
+                            "z": "1f",
+                            "w": "0f"
+                        },
+                        "c3": {
+                            "x": "0f",
+                            "y": "0f",
+                            "z": "0f",
+                            "w": "1f"
+                        }
+                    }
+                },
+                {
+                    "valueName": "scatter_points.geometry",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "scatter_points.scatter_mode",
+                    "valueType": "Modeling::Points::ScatteringMode",
+                    "value": "Random"
+                },
+                {
+                    "valueName": "scatter_points.amount_mode",
+                    "valueType": "Modeling::Points::AmountMode",
+                    "value": "Number"
+                },
+                {
+                    "valueName": "scatter_points.amount",
+                    "valueType": "float",
+                    "value": "6f"
+                },
+                {
+                    "valueName": "scatter_points.density_weights_mode",
+                    "valueType": "Modeling::Points::DensityWeightsMode",
+                    "value": "Random"
+                },
+                {
+                    "valueName": "scatter_points.cull_overlapping",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "scatter_points.overlapping_radius",
+                    "valueType": "float",
+                    "value": "1.34899998f"
+                },
+                {
+                    "valueName": "scatter_points.transfer_properties",
+                    "valueType": "string",
+                    "value": "point_normal"
+                },
+                {
+                    "valueName": "scatter_points.set_emit_location",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "scatter_points.set_orientations_from_geometry",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "scatter_points.normal_mode",
+                    "valueType": "Modeling::Points::OrientPointsNormalMode",
+                    "value": "point_normal"
+                },
+                {
+                    "valueName": "scatter_points.tangent_mode",
+                    "valueType": "Modeling::Points::OrientPointsTangentMode",
+                    "value": "UV"
+                },
+                {
+                    "valueName": "scatter_points.prioritize_normal",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "scatter_points.seed",
+                    "valueType": "long",
+                    "value": "0"
+                },
+                {
+                    "valueName": "scatter_points.max_number",
+                    "valueType": "long",
+                    "value": "1000000"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ]
+        }
+    ]
+}

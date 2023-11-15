@@ -1,0 +1,27 @@
+#usda 1.0
+(
+    startFrame = 1
+    endFrame = 2
+)
+
+def Xform "Asset"
+{
+    def GenerativeProcedural "BifrostGraph" (
+        prepend apiSchemas = ["HydraGenerativeProceduralAPI"]
+    )
+    {
+        token primvars:hdGp:proceduralType = "BifrostGraph"
+        token primvars:bifrost:graph = "Hydra::Testing::create_strands_test1"
+
+        # Inputs parameters
+        float primvars:plane_length = 1
+        float primvars:plane_width = 1
+        int primvars:plane_length_segments = 2
+        int primvars:plane_width_segments = 2
+        int64 primvars:strands_segments = 2
+        float primvars:strands_length = 1
+
+        # Outputs parameter
+        string primvars:bifrost:output = "strands"
+    }
+}

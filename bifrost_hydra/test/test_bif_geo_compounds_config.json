@@ -1,0 +1,18 @@
+{
+    "AminoConfigurations": [
+        {
+            "vendorName": "Autodesk",
+            "libraryVersion": "",
+            "libraryDependencies": [
+                "bif",
+                "Amino"
+            ],
+            "libraryName": "test_bifrost_hd_graph",
+            "jsonLibs": [
+                {
+                    "path": "resources/compounds"
+                }
+            ]
+        }
+    ]
+}

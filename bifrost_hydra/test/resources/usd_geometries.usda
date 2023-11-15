@@ -1,0 +1,59 @@
+#usda 1.0
+(
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def PointInstancer "instancer"
+{
+    quath[] orientations = [(1, 0, 0, 0), (1, 0, 0, 0)]
+    point3f[] positions = [(-0.6729, 0, 0), (0.6729, -0, -0)]
+    int[] protoIndices = [0, 0]
+    prepend rel prototypes = </instancer/prototypes/mesh>
+    float3[] scales = [(1, 1, 1), (1, 1, 1)]
+
+    def "prototypes"
+    {
+        def Mesh "mesh"
+        {
+            int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+            int[] faceVertexIndices = [0, 4, 7, 3, 4, 5, 6, 7, 3, 7, 6, 2, 2, 6, 5, 1, 0, 1, 5, 4, 3, 2, 1, 0]
+            point3f[] points = [(-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, 0.5, 0.5)]
+            normal3f[] primvars:normals = [(-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1)] (
+                interpolation = "faceVarying"
+            )
+            uniform token subdivisionScheme = "none"
+        }
+    }
+}
+
+def Capsule "capsule"
+{
+}
+
+def Xform "cylinder"
+{
+    float3 xformOp:rotateXYZ = (0.1, 45, 0.2)
+    float3 xformOp:scale = (1.1, 1.2, 1.3)
+    float3 xformOp:translate = (0.1, 0.2, 0.3)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+    def Cylinder "shape"
+    {
+        color3f[] primvars:displayColor = [(0, 0, 1)] (
+            interpolation = "constant"
+        )
+    }
+}
+
+def BasisCurves "linear_curves"
+{
+    uniform token basis = ""
+    int[] curveVertexCounts = [2, 2, 2, 2, 2, 2, 2, 2, 2]
+    point3f[] points = [(-0.5, 0, -0.5), (-0.5, 1, -0.5), (-0.5, 0, 0), (-0.5, 1, 0), (-0.5, 0, 0.5), (-0.5, 1, 0.5), (0, 0, -0.5), (0, 1, -0.5), (0, 0, 0), (0, 1, 0), (0, 0, 0.5), (0, 1, 0.5), (0.5, 0, -0.5), (0.5, 1, -0.5), (0.5, 0, 0), (0.5, 1, 0), (0.5, 0, 0.5), (0.5, 1, 0.5)]
+    color3f[] primvars:displayColor = [(0, 0, 0), (0, 1, 0), (0, 0, 0.5), (0, 1, 0.5), (0, 0, 1), (0, 1, 1), (0.5, 0, 0), (0.5, 1, 0), (0.5, 0, 0.5), (0.5, 1, 0.5), (0.5, 0, 1), (0.5, 1, 1), (1, 0, 0), (1, 1, 0), (1, 0, 0.5), (1, 1, 0.5), (1, 0, 1), (1, 1, 1)] (
+        interpolation = "varying"
+    )
+    uniform token type = "linear"
+    float[] widths = [0.03486, 0.003486, 0.03486, 0.003486, 0.03486, 0.003486, 0.03486, 0.003486, 0.03486, 0.003486, 0.03486, 0.003486, 0.03486, 0.003486, 0.03486, 0.003486, 0.03486, 0.003486]
+}

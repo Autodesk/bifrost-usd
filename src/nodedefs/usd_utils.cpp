@@ -1,5 +1,4 @@
-//-
-// Copyright 2022 Autodesk, Inc.
+//-/// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -217,11 +216,39 @@ PXR_NS::SdfValueTypeName GetSdfValueTypeName(
         case BifrostUsd::SdfValueTypeName::Float4: return PXR_NS::SdfValueTypeNames->Float4;
         case BifrostUsd::SdfValueTypeName::Float4Array:
             return PXR_NS::SdfValueTypeNames->Float4Array;
+        case BifrostUsd::SdfValueTypeName::Half:
+            return PXR_NS::SdfValueTypeNames->Half;
+        case BifrostUsd::SdfValueTypeName::HalfArray:
+            return PXR_NS::SdfValueTypeNames->HalfArray;
+        case BifrostUsd::SdfValueTypeName::Half2:
+            return PXR_NS::SdfValueTypeNames->Half2;
+        case BifrostUsd::SdfValueTypeName::Half2Array:
+            return PXR_NS::SdfValueTypeNames->Half2Array;
+        case BifrostUsd::SdfValueTypeName::Half3:
+            return PXR_NS::SdfValueTypeNames->Half3;
+        case BifrostUsd::SdfValueTypeName::Half3Array:
+            return PXR_NS::SdfValueTypeNames->Half3Array;
+        case BifrostUsd::SdfValueTypeName::Half4:
+            return PXR_NS::SdfValueTypeNames->Half4;
+        case BifrostUsd::SdfValueTypeName::Half4Array:
+            return PXR_NS::SdfValueTypeNames->Half4Array;
         case BifrostUsd::SdfValueTypeName::Int: return PXR_NS::SdfValueTypeNames->Int;
         case BifrostUsd::SdfValueTypeName::IntArray: return PXR_NS::SdfValueTypeNames->IntArray;
         case BifrostUsd::SdfValueTypeName::Int64: return PXR_NS::SdfValueTypeNames->Int64;
         case BifrostUsd::SdfValueTypeName::Int64Array:
             return PXR_NS::SdfValueTypeNames->Int64Array;
+        case BifrostUsd::SdfValueTypeName::Matrix2d:
+            return PXR_NS::SdfValueTypeNames->Matrix2d;
+        case BifrostUsd::SdfValueTypeName::Matrix2dArray:
+            return PXR_NS::SdfValueTypeNames->Matrix2dArray;
+        case BifrostUsd::SdfValueTypeName::Matrix3d:
+            return PXR_NS::SdfValueTypeNames->Matrix3d;
+        case BifrostUsd::SdfValueTypeName::Matrix3dArray:
+            return PXR_NS::SdfValueTypeNames->Matrix3dArray;
+        case BifrostUsd::SdfValueTypeName::Matrix4d:
+            return PXR_NS::SdfValueTypeNames->Matrix4d;
+        case BifrostUsd::SdfValueTypeName::Matrix4dArray:
+            return PXR_NS::SdfValueTypeNames->Matrix4dArray;
         case BifrostUsd::SdfValueTypeName::Normal3f: return PXR_NS::SdfValueTypeNames->Normal3f;
         case BifrostUsd::SdfValueTypeName::Normal3fArray:
             return PXR_NS::SdfValueTypeNames->Normal3fArray;

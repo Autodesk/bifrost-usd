@@ -1,0 +1,23 @@
+#usda 1.0
+(
+    startFrame = 1
+    endFrame = 2
+)
+
+def Scope "Bifrost"
+{
+    def GenerativeProcedural "mesh_sphere" (
+        prepend apiSchemas = ["HydraGenerativeProceduralAPI"]
+    )
+    {
+        token primvars:hdGp:proceduralType = "BifrostGraph"
+        token primvars:bifrost:graph = "Modeling::Primitive::create_mesh_sphere"
+
+        float primvars:radius = 1
+        int primvars:axis_segments = 20
+        int primvars:height_segments = 14
+
+        # Outputs parameter
+        string primvars:bifrost:output = "sphere_mesh"
+    }
+}

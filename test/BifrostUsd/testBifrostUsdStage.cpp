@@ -16,6 +16,8 @@
 
 #include <Amino/Core/Ptr.h>
 #include <Amino/Core/String.h>
+#include <Bifrost/FileUtils/FileUtils.h>
+
 #include <BifrostUsd/Layer.h>
 #include <BifrostUsd/Stage.h>
 #include <utils/test/testUtils.h>
@@ -27,6 +29,13 @@
 using namespace BifrostUsd::TestUtils;
 
 namespace {
+Amino::String getThisTestOutputDir() {
+    return Bifrost::FileUtils::filePath(getTestOutputDir(),
+                                        "testBifrostUsdStage");
+}
+// Amino::String getThisTestOutputPath(const Amino::String& filename) {
+//     return Bifrost::FileUtils::filePath(getThisTestOutputDir(), filename);
+// }
 
 // Helper comparison function between two stages.
 // We compare only a subset of Stage's data, the data that should be equal to
@@ -93,7 +102,7 @@ void testCopyAndMoveOps(const BifrostUsd::Stage& stage) {
     // copy ctor & equality op
     // Note: a new Anonymous root layer is created in the copy if root layer
     //       in source stage is editable, hence they are not equal anymore.
-    BifrostUsd::Stage stageCopyCtor{stage};
+    BifrostUsd::Stage stageCopyCtor{stage}; // NOLINT(performance-unnecessary-copy-initialization)
     reasonablyEqual(stage, stageCopyCtor);
 
     // assignment op & equality op
@@ -119,6 +128,10 @@ void testCopyAndMoveOps(const BifrostUsd::Stage& stage) {
     reasonablyEqual(stage, stageMoveAssignOp);
 }
 } // namespace
+
+TEST(BifrostUsdTests, initial_cleanup) {
+    ASSERT_TRUE(Bifrost::FileUtils::removeAll(getThisTestOutputDir()));
+}
 
 TEST(BifrostUsdTests, Stage_ctors) {
     const Amino::String               rootName = "helloworld.usd";
@@ -154,7 +167,7 @@ TEST(BifrostUsdTests, Stage_ctors) {
     for (std::string filename : sourceFilenames) {
         for (bool editable : editableArgs) {
             Amino::String path     = getResourcePath(filename.c_str());
-            Amino::String savePath = getTestOutputPath("saved_filename.usda");
+            Amino::String savePath = getThisTestOutputPath("saved_filename.usda");
             BifrostUsd::Layer layer{path /*originalPath*/, "", savePath,
                                     editable};
             EXPECT_TRUE(layer); // VALID

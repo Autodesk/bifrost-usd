@@ -223,8 +223,8 @@ private:
 };
 
 void addXmlElement(std::ostringstream& oss,
-                   const Amino::String name,
-                   const std::string   value) {
+                   const Amino::String& name,
+                   const std::string&   value) {
     auto openXMLElement = [&oss](const char* tagName) {
         oss << kBeginXMLOpenElement << tagName << kEndXMLElement;
     };

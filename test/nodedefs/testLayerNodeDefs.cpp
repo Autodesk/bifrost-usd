@@ -32,6 +32,23 @@
 
 using namespace BifrostUsd::TestUtils;
 
+namespace {
+Amino::String getThisTestOutputDir_rel() {
+    return Bifrost::FileUtils::makePreferred("./testLayerNodeDefs");
+}
+Amino::String getThisTestOutputDir() {
+    return Bifrost::FileUtils::filePath(getTestOutputDir(),
+                                        "testLayerNodeDefs");
+}
+Amino::String getThisTestOutputPath(const Amino::String& filename) {
+    return Bifrost::FileUtils::filePath(getThisTestOutputDir(), filename);
+}
+} // namespace
+
+TEST(LayerNodeDefs, initial_cleanup) {
+    ASSERT_TRUE(Bifrost::FileUtils::removeAll(getThisTestOutputDir()));
+}
+
 TEST(LayerNodeDefs, get_root_layer) {
     auto stage = Amino::newClassPtr<BifrostUsd::Stage>(
         getResourcePath("helloworld.usd").c_str());
@@ -161,23 +178,43 @@ TEST(LayerNodeDefs, open_layer) {
     }
 }
 
+TEST(LayerNodeDefs, set_layer_permission) {
+    PXR_NS::SdfLayerRefPtr sdfRootLayer = PXR_NS::SdfLayer::FindOrOpen(
+        getResourcePath("helloworld.usd").c_str());
+
+    // Create a non editable Bifrost Layer
+    BifrostUsd::Layer layer{sdfRootLayer, /*isEditable=*/ false};
+    ASSERT_FALSE(layer->PermissionToEdit());
+
+    // Make it editable
+    USD::Layer::set_layer_permission(/*read_only=*/ false, layer);
+    ASSERT_TRUE(layer->PermissionToEdit());
+}
+
 TEST(LayerNodeDefs, duplicate_layer) {
     Amino::MutablePtr<BifrostUsd::Layer> sourceLayer;
-    auto                                   sourceSaveFilepath =
-        getTestOutputPath("testDuplicateLayer_source_output.usda");
+    auto                                 sourceSaveFilepath =
+        getThisTestOutputPath("testDuplicateLayer_source_output.usda");
     USD::Layer::open_layer(getResourcePath("helloworld.usd").c_str(),
                            sourceSaveFilepath.c_str(),
-                           /*read_only*/ false, sourceLayer);
+                           /*read_only=*/ false, sourceLayer);
     ASSERT_TRUE(sourceLayer);
     ASSERT_TRUE(*sourceLayer);
 
     Amino::MutablePtr<BifrostUsd::Layer> newLayer;
-    auto saveFilepath = getTestOutputPath("testDuplicateLayer_output.usda");
+    auto saveFilepath = getThisTestOutputPath("testDuplicateLayer_output.usda");
 
     USD::Layer::duplicate_layer(*sourceLayer, saveFilepath.c_str(), newLayer);
     ASSERT_TRUE(newLayer);
     ASSERT_TRUE(*newLayer);
     ASSERT_TRUE(newLayer->getFilePath().c_str() == saveFilepath);
+
+    // At this point of the test, the layer file should not yet exist on disk
+    // (see the initial_cleanup test phase above):
+    ASSERT_FALSE(Bifrost::FileUtils::filePathExists(saveFilepath))
+        << "The output layer file " << saveFilepath.c_str()
+        << " must not already exist when this test runs.\n";
+
     ASSERT_TRUE(newLayer->exportToFile());
 }
 
@@ -254,7 +291,7 @@ def Xform "hello"
 )usda";
     auto        layer             = Amino::newClassPtr<BifrostUsd::Layer>(
         getResourcePath("helloworld.usd").c_str(), "", "", true);
-    auto filepath = getTestOutputPath("testLayerExport.usda");
+    auto filepath = getThisTestOutputPath("testLayerExport.usda");
     bool success =
         USD::Layer::export_layer_to_file(*layer, filepath.c_str(), false);
     ASSERT_TRUE(success);
@@ -262,33 +299,6 @@ def Xform "hello"
     std::stringstream layerbuffer;
     layerbuffer << layerstream.rdbuf();
     ASSERT_STREQ(layerbuffer.str().c_str(), helloworldContent);
-
-    const char* layerWitHSublayerContent = R"usda(#usda 1.0
-(
-    subLayers = [
-        @helloworld.usd@
-    ]
-)
-
-def Xform "hi"
-{
-    def Sphere "world"
-    {
-        double3 xformOp:translate = (1, 1, 1)
-        uniform token[] xformOpOrder = ["xformOp:translate"]
-    }
-}
-
-)usda";
-    layer = Amino::newClassPtr<BifrostUsd::Layer>(
-        getResourcePath("layer_with_sub_layers.usda").c_str(), "", "", true);
-    filepath = getTestOutputPath("testSublayerExport.usda");
-    success  = USD::Layer::export_layer_to_file(*layer, filepath.c_str(), true);
-    ASSERT_TRUE(success);
-    std::ifstream     layerWitHSublayerStream(filepath.c_str());
-    std::stringstream layerWitHSublayerBuffer;
-    layerWitHSublayerBuffer << layerWitHSublayerStream.rdbuf();
-    ASSERT_STREQ(layerWitHSublayerBuffer.str().c_str(), layerWitHSublayerContent);
 }
 
 TEST(LayerNodeDefs, get_sublayer_paths) {
@@ -609,26 +619,23 @@ TEST(LayerNodeDefs, export_to_file_with_edit_layer) {
         temp = "export_to_file_with_edit_layer_SUBLAYER_";
         temp += (useRelPath ? "Rel" : "Abs");
         temp += "Path.usda";
-        auto editTargetSubLayerPath = getTestOutputPath(temp.c_str());
-        {
-            BifrostUsd::Layer exportLayer;
-            bool success = USD::Layer::export_layer_to_file(
-                exportLayer, editTargetSubLayerPath.c_str(),
-                false /*absolute path*/);
-            ASSERT_TRUE(success);
-        }
-        BifrostUsd::Layer editTargetSublayer{editTargetSubLayerPath.c_str(), ""};
-        editTargetSublayer.setFilePath(editTargetSubLayerPath.c_str());
-        ASSERT_TRUE(editTargetSublayer);
+        auto              subFilePath = getThisTestOutputPath(temp.c_str());
+        BifrostUsd::Layer subLayer{};
+        subLayer.setFilePath(subFilePath);
+        ASSERT_TRUE(subLayer);
 
         // Create the root layer and add the sublayer
+        temp = "export_to_file_with_edit_layer_ROOT_";
+        temp += (useRelPath ? "Rel" : "Abs");
+        temp += "Path.usda";
+        auto              rootFilePath = getThisTestOutputPath(temp.c_str());
         BifrostUsd::Layer rootLayer{getResourcePath("helloworld.usd").c_str(),
                                     ""};
         ASSERT_TRUE(rootLayer);
-        USD::Layer::add_sublayer(editTargetSublayer, rootLayer);
+        USD::Layer::add_sublayer(subLayer, rootLayer);
         ASSERT_TRUE(rootLayer);
 
-        // Create a stage and set the edit target
+        // Create a stage and set the edit target to its sublayer
         BifrostUsd::Stage stage{rootLayer};
         ASSERT_TRUE(stage);
         USD::Stage::set_edit_layer(stage, 0);
@@ -639,19 +646,24 @@ TEST(LayerNodeDefs, export_to_file_with_edit_layer) {
         auto newprim  = stage->DefinePrim(primPath);
         ASSERT_TRUE(newprim.IsValid());
 
+        // At this point of the test, the root and sublayer files should not yet
+        // exist on disk (see the initial_cleanup test phase above):
+        ASSERT_FALSE(Bifrost::FileUtils::filePathExists(rootFilePath))
+            << "The output root layer file " << rootFilePath.c_str()
+            << " must not already exist when this test runs.\n";
+        ASSERT_FALSE(Bifrost::FileUtils::filePathExists(subFilePath))
+            << "The output sublayer file " << subFilePath.c_str()
+            << " must not already exist when this test runs.\n";
+
         // Export the root layer and its sublayer
-        temp = "export_to_file_with_edit_layer_ROOT_";
-        temp += (useRelPath ? "Rel" : "Abs");
-        temp += "Path.usda";
         bool success = USD::Layer::export_layer_to_file(
-            *stage.getRootLayer(),
-            getTestOutputPath(temp.c_str()).c_str(), useRelPath);
+            *stage.getRootLayer(), rootFilePath, useRelPath);
         EXPECT_TRUE(success);
 
         // Create a new stage by re-importing the sublayer and make sure
         // it contains the newly added primitive in it:
         auto sublayerStage =
-            Amino::newClassPtr<BifrostUsd::Stage>(editTargetSubLayerPath.c_str());
+            Amino::newClassPtr<BifrostUsd::Stage>(subFilePath.c_str());
         auto sublayerprim = sublayerStage->get().GetPrimAtPath(primPath);
         EXPECT_TRUE(sublayerprim.IsValid());
     }
@@ -673,11 +685,12 @@ TEST(LayerNodeDefs, export_layer_to_file_multicases) {
     for(bool relativeFilePath : std::vector<bool>{false, true}) {
         // Build either a relative or absolute path for the root layer's
         // directory to use in this test:
-        const std::string absTestDir = Bifrost::FileUtils::makePreferred(
-            getTestOutputDir()).c_str();
         std::string rootDir = Bifrost::FileUtils::filePath(
-            relativeFilePath ? "." : absTestDir.c_str(),
-            commonTestDir.c_str()).c_str();
+                                  (relativeFilePath ? getThisTestOutputDir_rel()
+                                                    : getThisTestOutputDir())
+                                      .c_str(),
+                                  commonTestDir.c_str())
+                                  .c_str();
         rootDir += relativeFilePath ? "/relFilePathCases/" : "/absFilePathCases/";
         rootDir += "dir1/dir2/"; // subdirs required so we can use ../.. in some tests
 
@@ -709,6 +722,17 @@ TEST(LayerNodeDefs, export_layer_to_file_multicases) {
                 const std::string subFilePath = Bifrost::FileUtils::filePath(
                     (rootDir + sublayerDir).c_str(),
                     subLayerFilename.c_str()).c_str();
+
+                // At beginning of the test, the output files should not exist
+                // (see the initial_cleanup test phase above):
+                ASSERT_FALSE(
+                    Bifrost::FileUtils::filePathExists(rootFilePath.c_str()))
+                    << "The output root layer file " << rootFilePath
+                    << " must not already exist when this test runs.\n";
+                ASSERT_FALSE(
+                    Bifrost::FileUtils::filePathExists(subFilePath.c_str()))
+                    << "The output sublayer file " << subFilePath
+                    << " must not already exist when this test runs.\n";
 
                 // Create root layer and a stage
                 Amino::MutablePtr<BifrostUsd::Stage> ptrStage;

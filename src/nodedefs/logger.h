@@ -36,7 +36,7 @@ class Logger {
 public:
     /// \brief Constructor 
     /// \param in_runtimeServices Amino runtime services
-    Logger(const Amino::RuntimeServices& in_runtimeServices);
+    explicit Logger(const Amino::RuntimeServices& in_runtimeServices);
 
     /// \brief Return the error logging level
     static int errorVerboseLevel();

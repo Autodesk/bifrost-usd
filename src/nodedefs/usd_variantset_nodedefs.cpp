@@ -17,7 +17,6 @@
 #include "usd_variantset_nodedefs.h"
 
 #include <Amino/Core/String.h>
-#include <Bifrost/FileUtils/FileUtils.h>
 #include <pxr/usd/sdf/copyUtils.h>
 
 #include <iostream>

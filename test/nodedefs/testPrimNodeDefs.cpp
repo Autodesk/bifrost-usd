@@ -14,6 +14,9 @@
 // limitations under the License.
 //+
 #include <Amino/Core/String.h>
+#include <Bifrost/FileUtils/FileUtils.h>
+#include <BifrostGraph/Executor/Utility.h>
+
 #include <bifusd/config/CfgWarningMacros.h>
 #include <gtest/gtest.h>
 #include <nodedefs/usd_pack/usd_layer_nodedefs.h>
@@ -25,6 +28,8 @@
 #include <bifusd/config/CfgWarningMacros.h>
 BIFUSD_WARNING_PUSH
 BIFUSD_WARNING_DISABLE_MSC(4003)
+#include <pxr/base/tf/pathUtils.h>
+#include <pxr/base/tf/stringUtils.h>
 #include <pxr/usd/usd/inherits.h>
 #include <pxr/usd/usd/modelAPI.h>
 #include <pxr/usd/usd/variantSets.h>
@@ -36,6 +41,19 @@ BIFUSD_WARNING_POP
 #include <string>
 
 using namespace BifrostUsd::TestUtils;
+
+namespace {
+Amino::String getThisTestOutputDir() {
+    return Bifrost::FileUtils::filePath(getTestOutputDir(), "testPrimNodeDefs");
+}
+Amino::String getThisTestOutputPath(const Amino::String& filename) {
+    return Bifrost::FileUtils::filePath(getThisTestOutputDir(), filename);
+}
+} // namespace
+
+TEST(PrimNodeDefs, initial_cleanup) {
+    ASSERT_TRUE(Bifrost::FileUtils::removeAll(getThisTestOutputDir()));
+}
 
 TEST(PrimNodeDefs, get_prim_at_path) {
     auto primPath = PXR_NS::SdfPath("/a");
@@ -234,7 +252,9 @@ TEST(PrimNodeDefs, remove_applied_schema) {
 }
 
 TEST(PrimNodeDefs, add_reference_prim) {
-    auto primPath = PXR_NS::SdfPath("/a");
+    auto              primPath    = PXR_NS::SdfPath("/a");
+    const std::string resourceDir = PXR_NS::TfNormPath(
+        BifrostGraph::Executor::Utility::getEnv("USD_TEST_RESOURCES_DIR").c_str());
 
     // Create a non-editable layer to not create an anonymous referenced layer.
     BifrostUsd::Layer referenceLayer{getResourcePath("Mushroom1.usd").c_str(),
@@ -265,11 +285,11 @@ TEST(PrimNodeDefs, add_reference_prim) {
         ASSERT_TRUE(primSpec);
 
         auto field = primSpec->GetField(PXR_NS::SdfFieldKeys->References);
+        std::string sField = PXR_NS::TfStringify(field);
 
-        std::string resourceDir = getEnv("USD_TEST_RESOURCES_DIR").c_str();
         std::string referenceFilePath = resourceDir + "/Mushroom1.usd";
-        ASSERT_NE(PXR_NS::TfStringify(field).find(referenceFilePath),
-                  std::string::npos);
+        EXPECT_TRUE(PXR_NS::TfStringContains(sField, referenceFilePath))
+            << "'" << referenceFilePath << "' not found in '" << sField << "'";
     }
 
     // Test with relative path
@@ -281,7 +301,7 @@ TEST(PrimNodeDefs, add_reference_prim) {
         bool success = USD::Prim::add_reference_prim(
             stage, primPath.GetText(), referenceLayer, referencePrimPath,
             layerOffset, layerOffsetScale, referencePosition,
-            /*anchorPath*/ getEnv("USD_TEST_RESOURCES_DIR"));
+            /*anchorPath*/ resourceDir.c_str());
         EXPECT_TRUE(success);
 
         prim = stage->GetPrimAtPath(primPath);
@@ -291,10 +311,11 @@ TEST(PrimNodeDefs, add_reference_prim) {
         ASSERT_TRUE(primSpec);
 
         auto field = primSpec->GetField(PXR_NS::SdfFieldKeys->References);
+        std::string sField = PXR_NS::TfStringify(field);
 
         std::string referenceFilePath = "(Mushroom1.usd";
-        ASSERT_NE(PXR_NS::TfStringify(field).find(referenceFilePath.c_str()),
-                  std::string::npos);
+        EXPECT_TRUE(PXR_NS::TfStringContains(sField, referenceFilePath))
+            << "'" << referenceFilePath << "' not found in '" << sField << "'";
     }
 }
 
@@ -406,7 +427,9 @@ TEST(PrimNodeDefs, add_reference_prim_in_variant) {
 }
 
 TEST(PrimNodeDefs, add_payload_prim) {
-    auto primPath = PXR_NS::SdfPath("/a");
+    auto              primPath    = PXR_NS::SdfPath("/a");
+    const std::string resourceDir = PXR_NS::TfNormPath(
+        BifrostGraph::Executor::Utility::getEnv("USD_TEST_RESOURCES_DIR").c_str());
 
     // Create a non-editable layer to not create an anonymous referenced layer.
     BifrostUsd::Layer payloadLayer{getResourcePath("Mushroom1.usd").c_str(),
@@ -439,11 +462,11 @@ TEST(PrimNodeDefs, add_payload_prim) {
         EXPECT_TRUE(primSpec);
 
         auto field = primSpec->GetField(PXR_NS::SdfFieldKeys->Payload);
+        std::string sField = PXR_NS::TfStringify(field);
 
-        std::string resourceDir = getEnv("USD_TEST_RESOURCES_DIR").c_str();
         std::string referenceFilePath = resourceDir + "/Mushroom1.usd";
-        EXPECT_NE(PXR_NS::TfStringify(field).find(referenceFilePath),
-                  std::string::npos);
+        EXPECT_TRUE(PXR_NS::TfStringContains(sField, referenceFilePath))
+            << "'" << referenceFilePath << "' not found in '" << sField << "'";
     }
 
     // Test with relative path
@@ -455,7 +478,7 @@ TEST(PrimNodeDefs, add_payload_prim) {
         bool success = USD::Prim::add_payload_prim(
             stage, primPath.GetText(), payloadLayer, payloadPrimPath,
             layerOffset, layerOffsetScale, payloadPosition,
-            /*anchorPath*/ getEnv("USD_TEST_RESOURCES_DIR"));
+            /*anchorPath*/ resourceDir.c_str());
         ASSERT_TRUE(success);
 
         prim = stage->GetPrimAtPath(primPath);
@@ -466,10 +489,11 @@ TEST(PrimNodeDefs, add_payload_prim) {
         EXPECT_TRUE(primSpec);
 
         auto field = primSpec->GetField(PXR_NS::SdfFieldKeys->Payload);
+        std::string sField = PXR_NS::TfStringify(field);
 
         std::string referenceFilePath = "Mushroom1.usd";
-        EXPECT_NE(PXR_NS::TfStringify(field).find(referenceFilePath.c_str()),
-                  std::string::npos);
+        EXPECT_TRUE(PXR_NS::TfStringContains(sField, referenceFilePath))
+            << "'" << referenceFilePath << "' not found in '" << sField << "'";
     }
 }
 
@@ -811,7 +835,7 @@ TEST(PrimNodeDefs, create_prim_relationship_in_variant) {
 
     vset = prim.GetVariantSets().GetVariantSet("vset");
     vset.SetVariantSelection("no_rel");
-    stage->GetRootLayer()->Export(getTestOutputPath("rel.usda").c_str());
+    stage->GetRootLayer()->Export(getThisTestOutputPath("rel.usda").c_str());
 
     rel = prim.GetRelationship(PXR_NS::TfToken("rel"));
     ASSERT_FALSE(rel);

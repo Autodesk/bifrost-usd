@@ -204,7 +204,7 @@ TEST(MaterialBindingNodeDefs, bind_collection_from_same_prim) {
     ASSERT_EQ(targets.size(), 2);
 
     ASSERT_EQ(targets[0], PXR_NS::SdfPath{"/city/geom.collection:houses"});
-    ASSERT_EQ(targets[1], PXR_NS::SdfPath{"/city/materials/red_mat"});   
+    ASSERT_EQ(targets[1], PXR_NS::SdfPath{"/city/materials/red_mat"});
 }
 TEST(MaterialBindingNodeDefs, bind_collection_from_different_prim) {
     auto pxrStage = create_pxr_stage_with_collection();

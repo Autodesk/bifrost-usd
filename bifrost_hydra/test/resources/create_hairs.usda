@@ -1,0 +1,24 @@
+#usda 1.0
+(
+    startFrame = 1
+    endFrame = 2
+)
+
+def Xform "Asset"
+{
+    def GenerativeProcedural "Hairs" (
+        prepend apiSchemas = ["HydraGenerativeProceduralAPI"]
+    )
+    {
+        token primvars:hdGp:proceduralType = "BifrostGraph"
+        token primvars:bifrost:graph = "Hydra::Testing::create_hairs"
+
+        # Inputs parameters
+        float primvars:amount = 50
+        float primvars:frizz_magnitude = 0.01
+        float primvars:width = 0.01
+
+        # Outputs parameter
+        string primvars:bifrost:output = "strands"
+    }
+}

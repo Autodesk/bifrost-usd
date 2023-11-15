@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2023 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ set(BIFROST_USD_PACK_INSTALL_RES_JSON_DIR        "${BIFROST_USD_PACK_INSTALL_RES
 set(BIFROST_USD_PACK_INSTALL_RES_ICONS_DIR       "${BIFROST_USD_PACK_INSTALL_RES_DIR}/icons")
 set(BIFROST_USD_PACK_INSTALL_RES_DOCS_DIR        "${BIFROST_USD_PACK_INSTALL_RES_DIR}/docs")
 set(BIFROST_USD_PACK_INSTALL_RES_CONFIG_DIR      "${BIFROST_USD_PACK_INSTALL_RES_DIR}/config")
+set(BIFROST_USD_PACK_INSTALL_RES_PROC_DIR        "${BIFROST_USD_PACK_INSTALL_RES_DIR}/procedural")
 
 set(BIFROST_USD_PACK_SHARED_LIB_DIR ${BIFUSD_INSTALL_LIB_DIR})
 if( BIFUSD_IS_WINDOWS)
@@ -38,6 +39,7 @@ file(RELATIVE_PATH BIFROST_USD_CONFIG_SHARED_LIB  "/${BIFUSD_INSTALL_ROOT_DIR}" 
 
 set(BIFROST_USD_OUTPUT_JSON_DIR    "${PROJECT_BINARY_DIR}/${BIFROST_USD_PACK_INSTALL_RES_JSON_DIR}")
 set(BIFROST_USD_OUTPUT_ICONS_DIR   "${PROJECT_BINARY_DIR}/${BIFROST_USD_PACK_INSTALL_RES_ICONS_DIR}")
+set(BIFROST_USD_OUTPUT_PROC_DIR    "${PROJECT_BINARY_DIR}/${BIFROST_USD_PACK_INSTALL_RES_PROC_DIR}")
 
 #==============================================================================
 # External dependencies
@@ -45,7 +47,7 @@ set(BIFROST_USD_OUTPUT_ICONS_DIR   "${PROJECT_BINARY_DIR}/${BIFROST_USD_PACK_INS
 bifusd_required_variables(USD_LOCATION)
 list(APPEND CMAKE_MODULE_PATH "${BIFUSD_CMAKE_DIR}/modules")
 
-if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+if(IS_BIFUSD_STANDALONE)
     bifusd_required_variables(BIFROST_LOCATION)
     bifusd_required_variables(BIFUSD_PYTHON_EXECUTABLE)
 

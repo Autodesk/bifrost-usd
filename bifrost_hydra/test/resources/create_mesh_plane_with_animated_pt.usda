@@ -1,0 +1,25 @@
+#usda 1.0
+(
+    startFrame = 1
+    endFrame = 2
+)
+
+def Xform "Asset"
+{
+    def GenerativeProcedural "BifrostGraph" (
+        prepend apiSchemas = ["HydraGenerativeProceduralAPI"]
+    )
+    {
+        token primvars:hdGp:proceduralType = "BifrostGraph"
+        token primvars:bifrost:graph = "Hydra::Testing::create_mesh_plane_with_animated_pt"
+
+        # Inputs parameter
+        float3 primvars:up_axis = (1, 0, 0)
+        float primvars:first_point_y_offset = 0
+        bool primvars:triangulate = true
+        int primvars:index = 0
+
+        # Outputs parameter
+        string primvars:bifrost:output = "plane_mesh"
+    }   
+}
