@@ -1,0 +1,22 @@
+{
+    "Plugins": [
+        {
+            "LibraryPath": "@BIFROST_HYDRA_REL_SHARED_LIB_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@BifrostHdGraph_@BIFUSD_MAJOR_VERSION@_@BIFUSD_MINOR_VERSION@@CMAKE_SHARED_LIBRARY_SUFFIX@",
+            "Name": "bifrostGraph",
+            "ResourcePath": ".",
+            "Root": "..",
+            "Type": "library",
+            "Info": {
+                "Types": {
+                    "BifrostGraphGenerativeProceduralPlugin": {
+                        "bases": [
+                            "HdGpGenerativeProceduralPlugin"
+                        ],
+                        "displayName": "BifrostGraph",
+                        "priority" : 0
+                    }
+                }
+            }
+        }
+    ]
+}

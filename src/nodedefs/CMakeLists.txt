@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2023 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,6 +35,9 @@ set(nodedefsHeaders nodedef_export.h logger.h usd_utils.h usd_type_converter.h r
 bifusd_install_headers(
     usd_packNodedefsHeadersInstall
     SOURCE ${CMAKE_CURRENT_SOURCE_DIR}
+    PUBLIC_LINK_LIBS
+        Amino::Cpp
+        Bifrost::Object
     FILES ${nodedefsHeaders}
     DESTINATION "nodedefs/usd_pack"
 )
@@ -44,10 +47,8 @@ bifusd_install_headers(
 #==============================================================================
 
 bifusd_header_parser(generate_usd_pack_node_def_json
-    ${BIFROST_USD_PACK_INSTALL_RES_JSON_DIR}
-    DEPENDS       usdHeadersInstall usd_packNodedefsHeadersInstall
-    INCLUDES      ${CMAKE_CURRENT_SOURCE_DIR}
-    INPUTS        ${node_def_headers}
+    HEADER_FILES ${node_def_headers}
+    LINK_LIBS    usdHeadersInstall usd_packNodedefsHeadersInstall
 )
 
 #==============================================================================
@@ -86,6 +87,10 @@ bifusd_create_shared_lib(
     PUBLIC_INSTALL
     PRIVATE_DEFINITIONS     $<${BIFUSD_IS_DEBUG}: TBB_USE_DEBUG BOOST_DEBUG_PYTHON BOOST_LINKING_PYTHON>
     PUBLIC_OPTIONS          $<${BIFUSD_IS_GCC}: -Wno-deprecated>
+
+    PRIVATE_OPTIONS        $<${BIFUSD_IS_GCC}: -Wno-unused-macros>
+                           $<${BIFUSD_IS_CLANG}: -Wno-unused-macros>
+
     SRC_FILES               ${node_def_src_files}
     PUBLIC_LINK_LIBS        ${node_def_public_libs}
     EXTRA_RPATH             ${extra_rpaths}

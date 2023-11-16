@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2023 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ if(bifusd_package_included)
 endif()
 set(bifusd_package_included true)
 
-if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+if(IS_BIFUSD_STANDALONE)
     #==============================================================================
     # CPack configuration - only if not already included...
     #==============================================================================

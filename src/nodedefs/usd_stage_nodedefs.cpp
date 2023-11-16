@@ -17,7 +17,6 @@
 #include "usd_stage_nodedefs.h"
 
 #include <Amino/Core/String.h>
-#include <Bifrost/FileUtils/FileUtils.h>
 #include <pxr/usd/usd/prim.h>
 #include <pxr/usd/usd/stageCacheContext.h>
 #include <pxr/usd/usdGeom/metrics.h>

@@ -135,7 +135,7 @@ public:
 #ifndef DISABLE_PXR_HEADERS
     struct Invalid {};
 
-    Stage(Invalid);
+    explicit Stage(Invalid);
     explicit Stage(const Layer&         rootLayer,
                    const InitialLoadSet load = InitialLoadSet::LoadAll);
     explicit Stage(const Layer&                       rootLayer,

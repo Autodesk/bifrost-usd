@@ -17,7 +17,6 @@
 #include "usd_prim_nodedefs.h"
 
 #include <Amino/Core/String.h>
-#include <Bifrost/FileUtils/FileUtils.h>
 #include <pxr/usd/sdf/copyUtils.h>
 #include <pxr/usd/usd/editContext.h>
 #include <pxr/usd/usd/inherits.h>
@@ -360,6 +359,8 @@ bool USD::Prim::add_reference_prim(
                 ref_prim_path, PXR_NS::SdfLayerOffset(layer_offset, layer_scale),
                 GetUsdListPosition(reference_position));
         } else {
+            // c_str() is used intentionally to avoid DLL boundary issues
+            // NOLINTNEXTLINE(readability-redundant-string-cstr)
             std::string identifier = reference_layer->GetIdentifier().c_str();
             identifier = get_part_after_anchor_path(anchor_path.c_str(), identifier);
 
@@ -473,6 +474,8 @@ bool USD::Prim::add_payload_prim(
                 pld_prim_path, PXR_NS::SdfLayerOffset(layer_offset, layer_scale),
                 GetUsdListPosition(payload_position));
         } else {
+            // c_str() is used intentionally to avoid DLL boundary issues
+            // NOLINTNEXTLINE(readability-redundant-string-cstr)
             std::string identifier = payload_layer->GetIdentifier().c_str();
             identifier = get_part_after_anchor_path(anchor_path.c_str(), identifier);
             

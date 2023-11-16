@@ -45,7 +45,7 @@ namespace USDUtils {
 
 class VariantEditContext {
 public:
-    VariantEditContext(const BifrostUsd::Stage& stage) {
+    explicit VariantEditContext(const BifrostUsd::Stage& stage) {
         auto variantSet = stage.getLastModifedVariantSet();
         if (variantSet) {
             auto variantEditCtx = variantSet.GetVariantEditContext();

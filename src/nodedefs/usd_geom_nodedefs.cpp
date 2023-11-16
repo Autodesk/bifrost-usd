@@ -17,7 +17,6 @@
 #include "usd_geom_nodedefs.h"
 
 #include <Amino/Core/String.h>
-#include <Bifrost/FileUtils/FileUtils.h>
 #include <pxr/usd/sdf/copyUtils.h>
 #include <pxr/usd/usd/editContext.h>
 #include <pxr/usd/usd/inherits.h>
@@ -169,7 +168,7 @@ bool USD::Prim::usd_point_instancer(
         if (instancer) {
             success = true;
             // Add the prototypes
-            if (prototypes.size() > 0) {
+            if (!prototypes.empty()) {
                 PXR_NS::SdfPathVector targets = {};
                 for (size_t i = 0; i < prototypes.size(); ++i) {
                     targets.push_back(PXR_NS::SdfPath(prototypes[i].c_str()));
@@ -178,7 +177,7 @@ bool USD::Prim::usd_point_instancer(
                 success = success && prototypes_rel.SetTargets(targets);
             }
             // Add the protoindices
-            if (protoindices.size() > 0) {
+            if (!protoindices.empty()) {
                 PXR_NS::VtIntArray pxr_protoindices;
                 copy_array<Amino::Array<int>, PXR_NS::VtIntArray>(
                     protoindices, pxr_protoindices);
@@ -186,19 +185,19 @@ bool USD::Prim::usd_point_instancer(
                 success = success && protoindices_attr.Set(pxr_protoindices);
             }
             // Add the positions
-            if (positions.size() > 0) {
+            if (!positions.empty()) {
                 PXR_NS::VtVec3fArray pxr_positions;
                 copy_array(positions, pxr_positions);
                 auto positions_attr = instancer.CreatePositionsAttr();
                 success = success && positions_attr.Set(pxr_positions);
             }
             // Add the orientations
-            if (orientations.size() > 0) {
+            if (!orientations.empty()) {
                 PXR_NS::VtQuathArray pxr_orientations;
                 copy_array(orientations, pxr_orientations);
                 auto orientations_attr = instancer.CreateOrientationsAttr();
                 success = success && orientations_attr.Set(pxr_orientations);
-            } else if (positions.size() > 0) { // Add default orientations
+            } else if (!positions.empty()) { // Add default orientations
                 PXR_NS::VtQuathArray pxr_orientations;
                 pxr_orientations.resize(positions.size());
                 for (size_t i = 0; i < pxr_orientations.size(); ++i) {
@@ -211,13 +210,13 @@ bool USD::Prim::usd_point_instancer(
                 success = success && orientations_attr.Set(pxr_orientations);
             }
             // Add the scales
-            if (scales.size() > 0) {
+            if (!scales.empty()) {
                 PXR_NS::VtVec3fArray pxr_scales;
                 pxr_scales.resize(scales.size());
                 copy_array(scales, pxr_scales);
                 auto scales_attr = instancer.CreateScalesAttr();
                 success          = success && scales_attr.Set(pxr_scales);
-            } else if (positions.size() > 0) { // Add default scales
+            } else if (!positions.empty()) { // Add default scales
                 PXR_NS::VtVec3fArray pxr_scales;
                 pxr_scales.resize(positions.size());
                 for (size_t i = 0; i < pxr_scales.size(); ++i) {
@@ -229,21 +228,21 @@ bool USD::Prim::usd_point_instancer(
                 success          = success && scales_attr.Set(pxr_scales);
             }
             // Add the velocities
-            if (velocities.size() > 0) {
+            if (!velocities.empty()) {
                 PXR_NS::VtVec3fArray pxr_velocities;
                 copy_array(velocities, pxr_velocities);
                 auto velocities_attr = instancer.CreateVelocitiesAttr();
                 success = success && velocities_attr.Set(pxr_velocities);
             }
             // Add the accelerations
-            if (accelerations.size() > 0) {
+            if (!accelerations.empty()) {
                 PXR_NS::VtVec3fArray pxr_accelerations;
                 copy_array(accelerations, pxr_accelerations);
                 auto accelerations_attr = instancer.CreateAccelerationsAttr();
                 success = success && accelerations_attr.Set(pxr_accelerations);
             }
             // Add the angular velocities
-            if (angular_velocities.size() > 0) {
+            if (!angular_velocities.empty()) {
                 PXR_NS::VtVec3fArray pxr_angular_velocities;
                 copy_array(angular_velocities, pxr_angular_velocities);
                 auto angular_velocities_attr =
@@ -252,7 +251,7 @@ bool USD::Prim::usd_point_instancer(
                           angular_velocities_attr.Set(pxr_angular_velocities);
             }
             // Add the invisible ids
-            if (invisible_ids.size() > 0) {
+            if (!invisible_ids.empty()) {
                 PXR_NS::VtInt64Array pxr_invisible_ids;
                 copy_array<Amino::Array<long long>, PXR_NS::VtInt64Array>(
                     invisible_ids, pxr_invisible_ids);
@@ -285,7 +284,7 @@ bool USD::Prim::usd_volume(
             throw std::runtime_error(
                 "field_names size must be equal to file_paths");
         }
-        if (relationship_names.size() > 0 &&
+        if (!relationship_names.empty() &&
             relationship_names.size() != field_names.size()) {
             throw std::runtime_error(
                 "relationship_names should be empty or same size than "
@@ -302,7 +301,7 @@ bool USD::Prim::usd_volume(
 
                 PXR_NS::TfToken fieldName(field_names[i].c_str());
                 PXR_NS::TfToken relationshipName(fieldName);
-                if (relationship_names.size() > 0) {
+                if (!relationship_names.empty()) {
                     relationshipName =
                         PXR_NS::TfToken(relationship_names[i].c_str());
                 }

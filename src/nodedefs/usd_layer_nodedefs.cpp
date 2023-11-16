@@ -167,6 +167,17 @@ void USD::Layer::open_layer(const Amino::String&                    file,
     assert(layer);
 }
 
+void USD::Layer::set_layer_permission(const bool         read_only,
+                                      BifrostUsd::Layer& layer) {
+    try {
+        if (layer) {
+            layer->SetPermissionToEdit(!read_only);
+        }
+    } catch (std::exception& e) {
+        log_exception("set_layer_permission", e);
+    }
+}
+
 void USD::Layer::duplicate_layer(
     const BifrostUsd::Layer&                layer,
     const Amino::String&                    save_file,

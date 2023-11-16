@@ -32,6 +32,7 @@ BIFUSD_WARNING_DISABLE_MSC(4244)
 BIFUSD_WARNING_DISABLE_MSC(4305)
 BIFUSD_WARNING_DISABLE_MSC(4800)
 
+#include <pxr/base/tf/pathUtils.h> // TfNormPath
 #include <pxr/usd/sdf/copyUtils.h>
 #include <pxr/usd/sdf/fileFormat.h>
 #include <pxr/usd/usd/attribute.h>
@@ -104,7 +105,7 @@ struct Sublayer {
     Amino::String       sublayerPath;
 };
 
-Amino::Array<Sublayer> getSublayers(const PXR_NS::SdfLayerRefPtr layer) {
+Amino::Array<Sublayer> getSublayers(const PXR_NS::SdfLayerRefPtr& layer) {
     Amino::Array<Sublayer> layers;
     if (layer) {
         auto subLayerPaths = layer->GetSubLayerPaths();
@@ -135,8 +136,11 @@ Layer::Layer(const Amino::String& filePath,
              const Amino::String& tag,
              const Amino::String& savefilePath,
              const bool           isEditable) {
+    /// \todo BIFROST-9163 clang-tidy reporting a leak in USD? investigate.
+    // NOLINTBEGIN(clang-analyzer-cplusplus.NewDeleteLeaks)
     m_filePath = savefilePath.empty() ? "" :
         getPathWithValidUsdFileFormat(savefilePath);
+    // NOLINTEND(clang-analyzer-cplusplus.NewDeleteLeaks)
     m_originalFilePath = filePath.empty() ? "" :
         getPathWithValidUsdFileFormat(filePath);
 
@@ -180,7 +184,7 @@ Layer::Layer(const Amino::String& filePath,
     }
 }
 
-Layer::Layer(const PXR_NS::SdfLayerRefPtr layer,
+Layer::Layer(const PXR_NS::SdfLayerRefPtr& layer,
              const bool                isEditable,
              const Amino::String&      originalFilePath) {
     auto validOriginalPath = originalFilePath.empty() ? "" :
@@ -375,10 +379,18 @@ bool Layer::exportToFile(const Amino::String& filePath,
         return false;
     }
 
-    auto outLayer = PXR_NS::SdfLayer::CreateNew(outFilePath);
+    // Create a new SdfLayer that is not yet saved to the disk.
+    // Note: We do not use SdfLayer::CreateNew() because it immediately saves
+    //       the file to disk, and then it can randomly fail when running unit
+    //       tests in parallel on Windows (as if there could still be an open
+    //       handle to such file when the call to Save() is executed below,
+    //       producing an intermittent access denied error).
+    auto fileFormat = PXR_NS::SdfFileFormat::FindByExtension(outFilePath);
+    auto outLayer   = PXR_NS::SdfLayer::New(fileFormat, outFilePath);
     if (!outLayer) {
         return false;
     }
+    // Update new SdfLayer's content from this Layer's content:
     outLayer->TransferContent(m_layer);
 
     // Replace anonymous sublayer identifier by real layer file path
@@ -387,14 +399,10 @@ bool Layer::exportToFile(const Amino::String& filePath,
         Amino::String sdfLayerIdentifier = layer.m_filePath.empty() ?
             layer.m_originalFilePath : layer.m_filePath;
         if (relativePath) {
-            Amino::String relPath = "";
-            if (Bifrost::FileUtils::getRelativePath(
-                    sdfLayerIdentifier,
-                    Bifrost::FileUtils::extractParentPath(outFilePath.c_str())
-                        .c_str(),
-                    relPath)) {
-                sdfLayerIdentifier = relPath;
-                std::replace(sdfLayerIdentifier.begin(), sdfLayerIdentifier.end(), '\\', '/');
+            Amino::String parent = Bifrost::FileUtils::extractParentPath(outFilePath.c_str());
+            Amino::String relPath = Bifrost::FileUtils::getRelativePath(sdfLayerIdentifier, parent).c_str();
+            if (!relPath.empty()) {
+                sdfLayerIdentifier = PXR_NS::TfNormPath(relPath.c_str()).c_str();
             }
         }
         if (sdfLayerIdentifier.empty()) {

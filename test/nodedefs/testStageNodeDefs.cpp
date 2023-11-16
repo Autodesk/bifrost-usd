@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
 // limitations under the License.
 //+
 #include <Amino/Core/String.h>
+#include <Bifrost/FileUtils/FileUtils.h>
+
 #include <bifusd/config/CfgWarningMacros.h>
 #include <gtest/gtest.h>
 #include <nodedefs/usd_pack/usd_layer_nodedefs.h>
@@ -36,6 +38,20 @@ BIFUSD_WARNING_DISABLE_MSC(4003)
 BIFUSD_WARNING_POP
 
 using namespace BifrostUsd::TestUtils;
+
+namespace {
+Amino::String getThisTestOutputDir() {
+    return Bifrost::FileUtils::filePath(getTestOutputDir(),
+                                        "testStageNodeDefs");
+}
+Amino::String getThisTestOutputPath(const Amino::String& filename) {
+    return Bifrost::FileUtils::filePath(getThisTestOutputDir(), filename);
+}
+} // namespace
+
+TEST(StageNodeDefs, initial_cleanup) {
+    ASSERT_TRUE(Bifrost::FileUtils::removeAll(getThisTestOutputDir()));
+}
 
 TEST(StageNodeDefs, set_edit_layer) {
     const Amino::String rootName = "helloworld.usd";
@@ -330,7 +346,7 @@ def Xform "hello"
 )usda";
     BifrostUsd::Stage stage{getResourcePath("helloworld.usd")};
     ASSERT_TRUE(stage);
-    auto filepath = getTestOutputPath("testSaveStage.usda");
+    auto filepath = getThisTestOutputPath("testSaveStage.usda");
 
     bool success = USD::Stage::save_stage(stage, filepath);
     ASSERT_TRUE(success);
@@ -486,29 +502,43 @@ TEST(StageNodeDefs, open_stage_from_cache) {
     }
     {
         // with edit target
-        auto empty_layer = Amino::newClassPtr<BifrostUsd::Layer>();
-        auto root_path   = getTestOutputPath("open_stage_from_cache_root.usda");
-        auto a_path      = getTestOutputPath("open_stage_from_cache_a.usda");
-        auto b_path      = getTestOutputPath("open_stage_from_cache_b.usda");
-        ASSERT_TRUE(empty_layer->exportToFile(root_path));
-        ASSERT_TRUE(empty_layer->exportToFile(a_path));
-        ASSERT_TRUE(empty_layer->exportToFile(b_path));
+        auto root_path =
+            getThisTestOutputPath("open_stage_from_cache_root.usda");
+        auto a_path = getThisTestOutputPath("open_stage_from_cache_a.usda");
+        auto b_path = getThisTestOutputPath("open_stage_from_cache_b.usda");
 
-        auto a_layer =
-            Amino::newClassPtr<BifrostUsd::Layer>(a_path, "", a_path);
-        ASSERT_EQ(a_layer->getOriginalFilePath(), a_path);
+        auto a_layer = BifrostUsd::Layer{a_path};
+        ASSERT_TRUE(a_layer);
+        a_layer.setFilePath(a_path);
 
-        auto b_layer =
-            Amino::newClassPtr<BifrostUsd::Layer>(b_path, "", b_path);
-        ASSERT_EQ(b_layer->getOriginalFilePath(), b_path);
+        auto b_layer = BifrostUsd::Layer{b_path};
+        ASSERT_TRUE(b_layer);
+        b_layer.setFilePath(b_path);
 
-        BifrostUsd::Layer root_layer{root_path, "", root_path};
+        // Create the root layer:
+        BifrostUsd::Layer root_layer{root_path};
         ASSERT_TRUE(root_layer);
-        root_layer.insertSubLayer(*b_layer);
-        root_layer.insertSubLayer(*a_layer);
-        ASSERT_TRUE(root_layer.exportToFile(root_path));
-        ASSERT_EQ(root_layer.getOriginalFilePath(), root_path);
 
+        // Add sublayers to it:
+        root_layer.insertSubLayer(b_layer);
+        root_layer.insertSubLayer(a_layer);
+
+        // At this point of the test, the root and sublayer files should not yet
+        // exist on disk (see the initial_cleanup test phase above):
+        ASSERT_FALSE(Bifrost::FileUtils::filePathExists(root_path))
+            << "The output root layer file " << root_path.c_str()
+            << " must not already exist when this test runs.\n";
+        ASSERT_FALSE(Bifrost::FileUtils::filePathExists(a_path))
+            << "The output sublayer file " << a_path.c_str()
+            << " must not already exist when this test runs.\n";
+        ASSERT_FALSE(Bifrost::FileUtils::filePathExists(b_path))
+            << "The output sublayer file " << b_path.c_str()
+            << " must not already exist when this test runs.\n";
+
+        // Export the root and sublayers to disk:
+        ASSERT_TRUE(root_layer.exportToFile(root_path));
+
+        // Generate the usd StageCache:
         auto cachedStage = Amino::newMutablePtr<BifrostUsd::Stage>(root_path);
         ASSERT_TRUE(*cachedStage);
         auto id = PXR_NS::UsdUtilsStageCache::Get()
@@ -594,7 +624,7 @@ TEST(StageNodeDefs, export_stage_to_file) {
         getResourcePath("layer_with_sub_layers.usda").c_str()};
     ASSERT_TRUE(stage);
 
-    auto filepath = getTestOutputPath("testExportStage.usda");
+    auto filepath = getThisTestOutputPath("testExportStage.usda");
     bool success  = USD::Stage::export_stage_to_file(stage, filepath.c_str());
     ASSERT_TRUE(success);
 

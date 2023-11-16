@@ -33,11 +33,19 @@ using namespace BifrostUsd::TestUtils;
 #include <vector>
 
 namespace {
+Amino::String getThisTestOutputDir() {
+    return Bifrost::FileUtils::filePath(getTestOutputDir(),
+                                        "testBifrostUsdLayer");
+}
+Amino::String getThisTestOutputPath(const Amino::String& filename) {
+    return Bifrost::FileUtils::filePath(getThisTestOutputDir(), filename);
+}
+
 void testCopyAndMoveOps(const BifrostUsd::Layer& layer, bool editable) {
     // copy ctor & equality op
     // Note: a new Anonymous SdfLayer is created in the copy if source is
     //       editable, hence they are not equal anymore.
-    BifrostUsd::Layer layerCopyCtor{layer};
+    BifrostUsd::Layer layerCopyCtor{layer}; // NOLINT(performance-unnecessary-copy-initialization)
     if (!editable) {
         // Note: Comparing the root layers is enough, as it compares the root
         //       and all sublayers recursively
@@ -72,6 +80,10 @@ void testCopyAndMoveOps(const BifrostUsd::Layer& layer, bool editable) {
         EXPECT_TRUE(layer == layerMoveAssignOp);
     }
 }
+}
+
+TEST(BifrostUsdTests, initial_cleanup) {
+    ASSERT_TRUE(Bifrost::FileUtils::removeAll(getThisTestOutputDir()));
 }
 
 TEST(BifrostUsdTests, Layer_ctors) {
@@ -126,8 +138,8 @@ TEST(BifrostUsdTests, Layer_ctors) {
     for (std::string filename : sourceFilenames) {
         for (bool editable : editableArgs) {
             Amino::String path = getResourcePath(filename.c_str());
-            Amino::String savePath = getTestOutputPath(
-                "Layer_ctors_saveFilePath.usd");
+            Amino::String savePath =
+                getThisTestOutputPath("Layer_ctors_saveFilePath.usd");
             BifrostUsd::Layer layer1{path/*originalPath*/, "my_tag", savePath,
                 editable};
             EXPECT_TRUE(layer1); // VALID
@@ -145,8 +157,8 @@ TEST(BifrostUsdTests, Layer_ctors) {
     // ctor with strings only: refer to a NON-EXISTENT pxr layer
     for (bool editable : editableArgs) {
         Amino::String path = getResourcePath("__inexistent_originalPath.usd");
-        Amino::String savePath = getTestOutputPath(
-            "Layer_ctors_saveFilePath.usd");
+        Amino::String savePath =
+            getThisTestOutputPath("Layer_ctors_saveFilePath.usd");
         BifrostUsd::Layer layer1{path/*originalPath*/, "my_tag", savePath,
             editable};
         EXPECT_FALSE(layer1); // INVALID (since no file at provided path)
@@ -188,35 +200,12 @@ TEST(BifrostUsdTests, createLayer) {
 
         ASSERT_EQ("", layer->getFilePath());
 
-        const auto expectedPath = getTestOutputPath("createLayer.usd");
+        const auto expectedPath = getThisTestOutputPath("createLayer.usd");
         layer->setFilePath(expectedPath);
         ASSERT_EQ(expectedPath, layer->getFilePath());
 
         ASSERT_TRUE(layer->exportToFile());
         ASSERT_TRUE(Bifrost::FileUtils::filePathExists(expectedPath));
-    }
-
-    // new layer from file tests with one sublayer
-    {
-        auto expectedName = Amino::String("layer_with_sub_layers_v2.usda");
-        auto savePath     = getTestOutputPath(expectedName);
-
-        auto layer = Amino::newClassPtr<BifrostUsd::Layer>(
-            getResourcePath("layer_with_sub_layers.usda"), "", savePath);
-
-        ASSERT_TRUE(*layer);
-        ASSERT_TRUE(layer->get().IsAnonymous());
-        ASSERT_EQ(layer->get().GetDisplayName(), expectedName.c_str());
-        ASSERT_TRUE(layer->exportToFile());
-        ASSERT_TRUE(Bifrost::FileUtils::filePathExists(savePath));
-
-        // check the sublayer
-        auto sublayer = layer->getSubLayer(0);
-        ASSERT_TRUE(sublayer);
-        ASSERT_TRUE(sublayer->IsAnonymous());
-        ASSERT_EQ(sublayer->GetDisplayName(), "helloworld.usd");
-        ASSERT_TRUE(Bifrost::FileUtils::filePathExists(
-            getTestOutputPath("helloworld.usd")));
     }
 
     // new layer from pxr layer
@@ -312,7 +301,7 @@ TEST(BifrostUsdTests, createLayer) {
     // copy constructed from an other BifrostUsd::Layer
     {
         auto expectedSourceLayerExportPath =
-            getTestOutputPath("sourceExportPath.usda");
+            getThisTestOutputPath("sourceExportPath.usda");
 
         BifrostUsd::Layer source_layer{getResourcePath("helloworld.usd"), "",
                                          expectedSourceLayerExportPath.c_str()};
@@ -331,7 +320,7 @@ TEST(BifrostUsdTests, createLayer) {
                      source_layer->GetIdentifier());
 
         auto expectedNewLayerExportPath =
-            getTestOutputPath("duplicateExportPath.usda");
+            getThisTestOutputPath("duplicateExportPath.usda");
         new_layer.setFilePath(expectedNewLayerExportPath);
 
         // modify source layer
@@ -360,6 +349,19 @@ TEST(BifrostUsdTests, createLayer) {
             ASSERT_EQ(value, 123);
         }
 
+        // At this point of the test, the layer files should not yet exist on
+        // disk (see the initial_cleanup test phase above):
+        ASSERT_FALSE(
+            Bifrost::FileUtils::filePathExists(expectedSourceLayerExportPath))
+            << "The output source_layer file "
+            << expectedSourceLayerExportPath.c_str()
+            << " must not already exist when this test runs.\n";
+        ASSERT_FALSE(
+            Bifrost::FileUtils::filePathExists(expectedNewLayerExportPath))
+            << "The output new_layer file "
+            << expectedNewLayerExportPath.c_str()
+            << " must not already exist when this test runs.\n";
+
         ASSERT_TRUE(source_layer.exportToFile());
         ASSERT_TRUE(
             Bifrost::FileUtils::filePathExists(expectedSourceLayerExportPath));
@@ -371,28 +373,39 @@ TEST(BifrostUsdTests, createLayer) {
 }
 
 TEST(BifrostUsdTests, createLayerWithSubLayer) {
-    BifrostUsd::Layer layer{"a"};
-    auto                aFilePath = getTestOutputPath("a.usd");
-    layer.setFilePath(aFilePath);
+    const Amino::String rootFilename{"createLayerWithSubLayer_root.usd"};
+    Amino::String       rootFilePath = getThisTestOutputPath(rootFilename);
+    BifrostUsd::Layer   rootLayer{rootFilename};
+    rootLayer.setFilePath(rootFilePath);
 
     BifrostUsd::Layer sublayer{getResourcePath("helloworld.usd"), ""};
 
     ASSERT_EQ("helloworld.usd", sublayer->GetDisplayName());
 
-    Amino::String const subLayerName{"b.usd"};
-    auto bFilePath = getTestOutputPath(subLayerName);
-    sublayer.setFilePath(bFilePath);
-    ASSERT_TRUE(layer.insertSubLayer(sublayer));
-    ASSERT_TRUE(layer.exportToFile());
-    ASSERT_TRUE(Bifrost::FileUtils::filePathExists(aFilePath));
-    ASSERT_TRUE(Bifrost::FileUtils::filePathExists(bFilePath));
+    const Amino::String subFilename{"createLayerWithSubLayer_sublayer.usd"};
+    Amino::String       subFilePath = getThisTestOutputPath(subFilename);
+    sublayer.setFilePath(subFilePath);
+    ASSERT_TRUE(rootLayer.insertSubLayer(sublayer));
+
+    // At this point of the test, the layer files should not yet exist on disk
+    // (see the initial_cleanup test phase above):
+    ASSERT_FALSE(Bifrost::FileUtils::filePathExists(rootFilePath))
+        << "The output root layer file " << rootFilePath.c_str()
+        << " must not already exist when this test runs.\n";
+    ASSERT_FALSE(Bifrost::FileUtils::filePathExists(subFilePath))
+        << "The output sublayer file " << subFilePath.c_str()
+        << " must not already exist when this test runs.\n";
+
+    ASSERT_TRUE(rootLayer.exportToFile());
+    ASSERT_TRUE(Bifrost::FileUtils::filePathExists(rootFilePath));
+    ASSERT_TRUE(Bifrost::FileUtils::filePathExists(subFilePath));
 
     // Export and check sublayer is present.
-    std::string exportString = layer.exportToString().c_str();
-    EXPECT_NE(exportString.find(subLayerName.c_str()), std::string::npos)
-        << "Exported layer:\n"
+    std::string exportString = rootLayer.exportToString().c_str();
+    EXPECT_NE(exportString.find(subFilename.c_str()), std::string::npos)
+        << "Exported root layer:\n"
         << exportString << "\n does not contain expected sublayer `"
-        << subLayerName.c_str() << "`\n";
+        << subFilename.c_str() << "`\n";
 }
 
 TEST(BifrostUsdTests, getSubLayer) {

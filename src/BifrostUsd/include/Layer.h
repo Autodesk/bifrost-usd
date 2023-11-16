@@ -64,9 +64,9 @@ public:
                    const Amino::String& savefilePath = "",
                    const bool           isEditable   = true);
 
-    explicit Layer(const PXR_NS::SdfLayerRefPtr layer,
-                   const bool                isEditable       = true,
-                   const Amino::String&      originalFilePath = "");
+    explicit Layer(const PXR_NS::SdfLayerRefPtr& layer,
+                   const bool                 isEditable       = true,
+                   const Amino::String&       originalFilePath = "");
 
     friend void swap(Layer & first, Layer & second) noexcept {
         first.m_layer.swap(second.m_layer);
