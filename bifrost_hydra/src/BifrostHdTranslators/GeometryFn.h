@@ -19,6 +19,8 @@
 #ifndef BIFROST_HD_GRAPH_GEOMETRY_FN_H
 #define BIFROST_HD_GRAPH_GEOMETRY_FN_H
 
+#include <BifrostHydra/Translators/Export.h>
+
 #include <Bifrost/Object/Object.h>
 
 #include <pxr/imaging/hd/sceneIndex.h>
@@ -33,41 +35,56 @@ enum class BifrostHdGeoTypes {
 
 namespace BifrostHd {
 
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 BifrostHdGeoTypes GetGeoType(const Bifrost::Object& object);
 
 // Bifrost geometry object accesors
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 size_t GetPointCount(const Bifrost::Object& object);
 
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 PXR_NS::VtVec3fArray GetPoints(const Bifrost::Object& object);
 
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 PXR_NS::VtVec3fArray GetDisplayColor(const Bifrost::Object& object);
 
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 PXR_NS::VtIntArray GetFaceVertexIndices(const Bifrost::Object& object);
 
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 PXR_NS::VtFloatArray GetWidth(const Bifrost::Object& object);
 
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 PXR_NS::VtInt64Array GetPointIDs(const Bifrost::Object& object);
 
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 PXR_NS::VtInt64Array GetPointInstanceIDs(const Bifrost::Object& object);
 
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 Amino::Ptr<Bifrost::Object> GetInstanceShape(const Bifrost::Object& object);
 
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 Amino::Ptr<Bifrost::Object> GetShapeFromId(const Bifrost::Object& object,
                                            const Amino::long_t    id);
 
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 Amino::Ptr<Bifrost::Object> GetRenderGeometry(const Bifrost::Object& object);
 
 // Bifrost to Hydra translators
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 PXR_NS::HdSceneIndexPrim CreateHdSceneIndexMesh(const Bifrost::Object& object);
 
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 PXR_NS::HdSceneIndexPrim CreateHdSceneIndexBasisCurves(
     const Bifrost::Object& object);
 
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 PXR_NS::HdSceneIndexPrim CreateHdSceneIndexExplicitInstancer(
     const Bifrost::Object& object);
 
 // Hydra to Bifrost translators
 
+BIFROST_HD_TRANSLATORS_SHARED_DECL
 Amino::Ptr<Bifrost::Object> CreateBifrostMesh(const PXR_NS::HdSceneIndexPrim& prim);
 
 } // namespace BifrostHd

@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
 //+
 
 #include "usd_translator.h"
+
+#include <Amino/Core/Any.h>
 
 #include <BifrostGraph/Executor/Utility.h>
 #include <BifrostUsd/StageCache.h>
@@ -32,12 +34,13 @@
 #include <BifrostGraph/Maya/HostData.h>
 #include <pxr/usd/usdUtils/stageCache.h>
 
-UsdTranslation::UsdTranslation()
-    : BifrostGraph::Executor::TypeTranslation("USD Translation Table"), m_portData() {}
+UsdTranslation::UsdTranslation() noexcept
+    : BifrostGraph::Executor::TypeTranslation("USD Translation Table"),
+      m_portData() {}
 
-UsdTranslation::~UsdTranslation() {}
+UsdTranslation::~UsdTranslation() noexcept {}
 
-void UsdTranslation::deleteThis() { delete this; }
+void UsdTranslation::deleteThis() noexcept { delete this; }
 
 int64_t UsdTranslation::AddStageToCache(
     const Amino::Ptr<BifrostUsd::Stage>& stage, const Amino::String& name) {
@@ -49,14 +52,15 @@ int64_t UsdTranslation::AddStageToCache(
     return cacheId;
 }
 
-void UsdTranslation::getSupportedTypeNames(Amino::StringList& out_names) const {
-    BifrostGraph::Executor::Utility::addStringToList("BifrostUsd::Stage", out_names);
+void UsdTranslation::getSupportedTypeNames(
+    StringArray& out_names) const noexcept {
+    out_names.push_back("BifrostUsd::Stage");
 }
 
 bool UsdTranslation::convertValueFromHost(
-    Amino::Type const&          type,
-    Amino::Value&               value,
-    ValueTranslationData const* translationData) const {
+    Amino::Type const& type,
+    Amino::Any&        value,
+    ValueData const*   translationData) const noexcept {
     (void)type;
     (void)value;
     (void)translationData;
@@ -64,18 +68,18 @@ bool UsdTranslation::convertValueFromHost(
 }
 
 bool UsdTranslation::convertValueToHost(
-    Amino::Value const& value, ValueTranslationData* translationData) const {
-    assert(dynamic_cast<BifrostGraph::Maya::ValueTranslationData const*>(translationData));
+    Amino::Any const& amAny, ValueData* translationData) const noexcept {
+    assert(dynamic_cast<BifrostGraph::MayaTranslation::ValueData const*>(
+        translationData));
     auto const* mayaHostdata =
-        static_cast<BifrostGraph::Maya::ValueTranslationData const*>(translationData);
+        static_cast<BifrostGraph::MayaTranslation::ValueData const*>(
+            translationData);
     auto&       block = mayaHostdata->getDataBlock();
     auto const& plug  = mayaHostdata->getPlug();
 
     auto dataHandle = block.outputValue(plug);
 
-    Amino::Ptr<BifrostUsd::Stage> stage =
-        Amino::static_pointer_cast<BifrostUsd::Stage>(
-            BifrostGraph::Executor::Utility::getAminoClassValue(value));
+    auto stage = Amino::any_cast<Amino::Ptr<BifrostUsd::Stage>>(amAny);
 
     int64_t cacheId = -1;
     bool    success;
@@ -103,25 +107,28 @@ bool UsdTranslation::convertValueToHost(
     return success;
 }
 
-bool UsdTranslation::portAdded(Amino::String const&   name,
-                               PortDirection          direction,
-                               Amino::Type const&     type,
-                               Amino::Metadata const& metadata,
-                               PortClass              portClass,
-                               PortTranslationData*   translationData) const {
+bool UsdTranslation::portAdded(Amino::String const&                  name,
+                               BifrostGraph::Executor::PortDirection direction,
+                               Amino::Type const&                    type,
+                               Amino::Metadata const&                metadata,
+                               BifrostGraph::Executor::PortClass     portClass,
+                               PortData* translationData) const noexcept {
     (void)type;
     (void)metadata;
 
-    assert(dynamic_cast<BifrostGraph::Maya::PortCreationData*>(translationData));
-    auto* mayaHostdata = static_cast<BifrostGraph::Maya::PortCreationData*>(translationData);
+    assert(dynamic_cast<BifrostGraph::MayaTranslation::PortCreationData*>(
+        translationData));
+    auto* mayaHostdata =
+        static_cast<BifrostGraph::MayaTranslation::PortCreationData*>(
+            translationData);
 
     MObject const& object   = mayaHostdata->m_object;
     auto&          modifier = mayaHostdata->m_modifier;
 
     MString const attrName = name.c_str();
     bool const    isInput =
-        portClass != BifrostGraph::Executor::TypeTranslation::PortClass::eTerminal &&
-        direction == BifrostGraph::Executor::TypeTranslation::PortDirection::kInput;
+        portClass != BifrostGraph::Executor::PortClass::eTerminal &&
+        direction == BifrostGraph::Executor::PortDirection::kInput;
 
     MStatus             status;
     MFnNumericAttribute attr;
@@ -152,7 +159,8 @@ bool UsdTranslation::portAdded(Amino::String const&   name,
             MObject proxyObj;
             // Check if we are converting
             if (mayaHostdata->m_conversionData.m_conversionMode !=
-                BifrostGraph::Maya::PortCreationData::ConversionMode::kNone) {
+                BifrostGraph::MayaTranslation::PortCreationData::
+                    ConversionMode::kNone) {
                 MSelectionList selList;
                 status = selList.add(mayaHostdata->m_conversionData
                                          .m_convertFromNodeName.c_str());
@@ -230,7 +238,7 @@ bool UsdTranslation::portAdded(Amino::String const&   name,
                 CHECK_MSTATUS_AND_RETURN(status, false)
 
                 (const_cast<UsdTranslation*>(this))
-                    ->m_portData.push_back(PortData(
+                    ->m_portData.push_back(UsdPortData(
                         (fnDep.uuid().asString() + "." + name.c_str()).asChar(),
                         -1, proxyNode.name().asChar()));
             }
@@ -284,17 +292,18 @@ bool UsdTranslation::portAdded(Amino::String const&   name,
     return true;
 }
 
-bool UsdTranslation::portRemoved(Amino::String const& name,
-                                 Amino::String const& graphName) const {
+bool UsdTranslation::portRemoved(
+    Amino::String const& name, Amino::String const& graphName) const noexcept {
     auto const fullName = graphName + "." + name;
     (const_cast<UsdTranslation*>(this))->removeStageForPort(fullName);
     (const_cast<UsdTranslation*>(this))->removePortData(fullName);
     return true;
 }
 
-bool UsdTranslation::portRenamed(Amino::String const& prevName,
-                                 Amino::String const& name,
-                                 Amino::String const& graphName) const {
+bool UsdTranslation::portRenamed(
+    Amino::String const& prevName,
+    Amino::String const& name,
+    Amino::String const& graphName) const noexcept {
     auto const prevFullName = graphName + "." + prevName;
     auto const fullName     = graphName + "." + name;
 
@@ -304,22 +313,6 @@ bool UsdTranslation::portRenamed(Amino::String const& prevName,
         return true;
     }
 
-    return false;
-}
-
-bool UsdTranslation::registerHostPlugins(const PluginHostData* hostData) const {
-    (void)hostData;
-    return true;
-}
-
-bool UsdTranslation::unregisterHostPlugins(
-    const PluginHostData* hostData) const {
-    (void)hostData;
-    return true;
-}
-
-bool UsdTranslation::getDataTypeColorHint(Amino::Type const&,
-                                          Amino::String&) const {
     return false;
 }
 
@@ -333,7 +326,7 @@ void UsdTranslation::addStageForPort(Amino::String const& portName,
         }
         it->m_cacheId = id;
     } else {
-        m_portData.push_back(PortData(portName, id, ""));
+        m_portData.push_back(UsdPortData(portName, id, ""));
     }
 }
 
@@ -357,7 +350,7 @@ bool UsdTranslation::removeStageForPort(Amino::String const& portName) {
     return false;
 }
 
-typename Amino::Array<UsdTranslation::PortData>::iterator
+typename Amino::Array<UsdTranslation::UsdPortData>::iterator
 UsdTranslation::getPortData(Amino::String const& portName) {
     for (auto it = m_portData.begin(); it != m_portData.end(); ++it) {
         if (it->m_portName == portName) {

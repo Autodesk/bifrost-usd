@@ -234,6 +234,7 @@ Layer::Layer(const PXR_NS::SdfLayerRefPtr& layer,
 Layer::Layer(const Layer& other, const Amino::String& savefilePath)
     : m_filePath(savefilePath.empty() ? other.m_filePath :
         getPathWithValidUsdFileFormat(savefilePath)),
+      m_fileFormat(other.m_fileFormat),
       m_originalFilePath(other.m_originalFilePath),
       m_tag(other.m_tag),
       m_subLayers(other.m_subLayers) {
@@ -301,6 +302,10 @@ bool Layer::operator!=(const Layer& rhs) const { return !operator==(rhs); }
 void Layer::setFilePath(const Amino::String& filePath) {
     m_filePath = filePath.empty() ? "" :
         getPathWithValidUsdFileFormat(filePath);
+}
+
+void Layer::setFileFormat(const Amino::String& fileFormat) {
+    m_fileFormat = fileFormat;
 }
 
 const Amino::String& Layer::getFilePath() const { return m_filePath; }
@@ -379,13 +384,15 @@ bool Layer::exportToFile(const Amino::String& filePath,
         return false;
     }
 
+    auto fileFormat = PXR_NS::SdfFileFormat::FindByExtension(
+        m_fileFormat.empty() ? outFilePath : m_fileFormat.c_str());
+
     // Create a new SdfLayer that is not yet saved to the disk.
     // Note: We do not use SdfLayer::CreateNew() because it immediately saves
     //       the file to disk, and then it can randomly fail when running unit
     //       tests in parallel on Windows (as if there could still be an open
     //       handle to such file when the call to Save() is executed below,
     //       producing an intermittent access denied error).
-    auto fileFormat = PXR_NS::SdfFileFormat::FindByExtension(outFilePath);
     auto outLayer   = PXR_NS::SdfLayer::New(fileFormat, outFilePath);
     if (!outLayer) {
         return false;

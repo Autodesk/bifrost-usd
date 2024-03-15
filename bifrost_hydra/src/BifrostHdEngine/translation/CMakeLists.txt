@@ -30,9 +30,9 @@ set(src_files
 bifusd_set_extra_rpaths(extra_rpaths)
 
 bifusd_create_shared_lib(
-    BifrostHdTypeTranslation "HD_MODULE_API_IMPL"
+    BifrostHdTypeTranslation "BIFROST_HD_TRANSLATION_BUILD_DLL"
     PUBLIC_INSTALL
-    PUBLIC_DEFINITIONS     $<${BIFUSD_IS_MSC}: BOOST_LIB_TOOLSET="vc141">
+    PUBLIC_DEFINITIONS     $<${BIFUSD_IS_MSC}: BOOST_LIB_TOOLSET="vc142">
     PRIVATE_DEFINITIONS    $<${BIFUSD_IS_DEBUG}: TBB_USE_DEBUG BOOST_DEBUG_PYTHON BOOST_LINKING_PYTHON>
 
     PRIVATE_OPTIONS        $<${BIFUSD_IS_MSC}:/wd4251 /wd4273>

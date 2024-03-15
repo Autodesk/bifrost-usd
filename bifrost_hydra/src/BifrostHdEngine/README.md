@@ -1,7 +1,7 @@
 # Bifrost Hydra Engine - Executing Bifrost at Hydra Render time
 
 The BifrostHdEngine library is responsible for:
-1. Loading specific definitions (the jsons files describing nodes, compounds, types, etc.) into the Bifrost runtime
+1. Loading specific definitions (the JSON files describing nodes, compounds, types, etc.) into the Bifrost runtime
 2. Loading a graph (a graph can be a Bifrost compound or a Bifrost graph)
 3. Setting the graph inputs using USD primvars matching their names
 4. Executing the graph
@@ -9,8 +9,8 @@ The BifrostHdEngine library is responsible for:
 
 ## Engine
 
-The _BifrostHd::Engine_ is instanciated by the _Bifrost Hydra Generative Procedural_.
-Its purpose is to simplify the setup of Bifrost at render time, hidding configuration steps, loading of the graph, setting of the inputs, etc.
+The _BifrostHd::Engine_ is instantiated by the _Bifrost Hydra Generative Procedural_.
+Its purpose is to simplify the setup of Bifrost at render time, hiding configuration steps, loading of the graph, setting of the inputs, etc.
 
 It is providing four methods:
 1. _setInputScene(PXR_NS::HdSceneIndexBaseRefPtr inputScene)_
@@ -20,20 +20,20 @@ It is providing four methods:
 
 ## Container
 
-The _BifrostHd::Container_ is the entry point. It is a specialized version of the _BifrostBoardContainer_. See _\<Bifrost install\>/plug-ins/bifrost/sdk/include/bifrostboard_executor/BifrostBoardContainer.h_ for more info.
+The _BifrostHd::Container_ is the entry point. It is a specialized version of the _GraphContainerPreview_. See _\<Bifrost install\>/plug-ins/bifrost/sdk_preview/include/BifrostGraph/Executor/GraphContainerPreview.h_ for more info.
 
  _BifrostHd::Container_ implements a very limited set of functionality at the moment since we only need to load a graph, set its inputs and execute at Hydra render time.
 So at the moment it does:
 
 1. _loadGraph_  : Load a graph into the container
-2. _updateJob_  : Create the BifrostBoardJob and attach the loaded graph to it
-3. _executeJob_ : Let the BifrostBoardJob execute the loaded graph
+2. _updateJob_  : Create the _JobPreview_ and attach the loaded graph to it
+3. _executeJob_ : Let the _JobPreview_ execute the loaded graph
 
-For info, the _BifrostBoardContainer_ got a richer API than that for applications who would like to allow authoring of the graph.
+For info, the _GraphContainerPreview_ got a richer API than that for applications who would like to allow authoring of the graph.
 
 ## Parameters
 
-The _BifrostHd::Parameters_ stores the _Pixar VtValues_ comming from the Hydra Generative Procedural of type _BifrostGraph_ that are:
+The _BifrostHd::Parameters_ stores the _Pixar VtValues_ coming from the Hydra Generative Procedural of type _BifrostGraph_ that are:
 1. The name of the Bifrost graph
 2. The primvars used to the set the graph inputs
 3. The Bifrost output of the graph you want to render in Hydra
@@ -51,7 +51,7 @@ It is created by the _BifrostHd::Container_. It is used internally to cache the 
 ## Runtime
 
 The _BifrostHd::Runtime_ is responsible for loading the definition files. It is finding so called "json config files" using the
-environment variable _BIFROST_LIB_CONFIG_FILES_ that can points to several json files at differents locations.
+environment variable _BIFROST_LIB_CONFIG_FILES_ that can points to several json files at different locations.
 For example, in our tests, we load the following json config file _${BIFROST_LOCATION}/resources/standalone_config.json_
 and _bifrost-usd/test/BifrostHydra/test_bif_geo_compounds_config.json_ that is loading
 the usual Bifrost nodes and compounds plus extra compounds only used by the tests.
@@ -64,4 +64,4 @@ The _BifrostHd::ValueTranslationData_ is used by the translation system to conve
 ## TypeTranslation
 
 At graph execution, for each input values, the _BifrostHd::TypeTranslation_ will call _convertValueFromHost_ that will use a _BifrostHd::ValueTranslationData_ to do the conversion.
-For each output values, it will call _convertValueToHost_ to set the output of the graph. Note that at the moment, the output is a Bifrost object and the transaltion to an Hydra prim is done in the _Bifrost Hydra Generative Procedural_. Such design could change since it could convert the output value to an Hydra Data Source Container instead.
+For each output values, it will call _convertValueToHost_ to set the output of the graph. Note that at the moment, the output is a Bifrost object and the translation to an Hydra prim is done in the _Bifrost Hydra Generative Procedural_. Such design could change since it could convert the output value to an Hydra Data Source Container instead.

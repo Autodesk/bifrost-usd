@@ -17,6 +17,7 @@
 #+
 
 set(hd_GraphTranslator_headers
+    Export.h
     Geometry.h
     GeometryFn.h
     Mesh.h
@@ -52,12 +53,12 @@ set(src_files
 bifusd_set_extra_rpaths(extra_rpaths)
 
 bifusd_create_shared_lib(
-    BifrostHdTranslators "USD_BUILD_DLL"
+    BifrostHdTranslators    "BIFROST_HD_TRANSLATORS_BUILD_DLL"
     PUBLIC_INSTALL
-    PUBLIC_DEFINITIONS      $<${BIFUSD_IS_MSC}: BOOST_LIB_TOOLSET="vc141">
+    PUBLIC_DEFINITIONS      $<${BIFUSD_IS_MSC}: BOOST_LIB_TOOLSET="vc142">
     PRIVATE_DEFINITIONS     $<${BIFUSD_IS_DEBUG}: TBB_USE_DEBUG BOOST_DEBUG_PYTHON BOOST_LINKING_PYTHON>
 
-    PRIVATE_OPTIONS         $<${BIFUSD_IS_MSC}:/wd4251 /wd4273>
+    PRIVATE_OPTIONS         $<${BIFUSD_IS_MSC}:/wd4251 /wd4273 /wd4003>
                             $<${BIFUSD_IS_GCC}: -Wno-deprecated -Wno-unused-macros>
                             $<${BIFUSD_IS_CLANG}: 
                                 # 'GetValue' overrides a member function but is not marked 'override' 

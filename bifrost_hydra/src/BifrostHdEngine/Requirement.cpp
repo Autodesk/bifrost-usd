@@ -21,19 +21,20 @@
 
 namespace BifrostHd {
 
-Requirement::Requirement(
-    const Amino::String&                               name,
-    Amino::PortDescription::PortDirection              direction,
-    const Amino::Type&                                 type,
-    BifrostGraph::Executor::TypeTranslation::PortClass portClass,
-    Amino::Value                                       defaultValue)
-    : BifrostBoardJob::Requirement(name, direction, type, portClass),
+Requirement::Requirement(const Amino::String&                  name,
+                         BifrostGraph::Executor::PortDirection direction,
+                         const Amino::Type&                    type,
+                         BifrostGraph::Executor::PortClass     portClass,
+                         Amino::Any                            defaultValue)
+    : BifrostGraph::Executor::JobPreview::Requirement(
+          name, direction, type, portClass),
       m_defaultVal(std::move(defaultValue)) {}
 
 void Requirement::translate(
-    BifrostBoardRuntime const*           runtime,
-    Amino::Job const&                    job,
-    BifrostBoardJob::JobTranslationData* translationData) const {
+    BifrostBoardRuntime const*                              runtime,
+    Amino::Job const&                                       job,
+    BifrostGraph::Executor::JobPreview::JobTranslationData* translationData)
+    const {
     // Override so we can create the value translation data on the stack
     assert(dynamic_cast<JobTranslationData*>(translationData));
 
@@ -41,8 +42,8 @@ void Requirement::translate(
         *static_cast<JobTranslationData*>(translationData), m_defaultVal,
         m_name.c_str());
 
-    BifrostBoardJob::Requirement::translate(runtime, job,
-                                            &valueTranslationData);
+    BifrostGraph::Executor::JobPreview::Requirement::translate(
+        runtime, job, &valueTranslationData);
 }
 
 } // namespace BifrostHd

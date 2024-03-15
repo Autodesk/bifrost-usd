@@ -17,9 +17,6 @@
 #include <BifrostHydra/Translators/GeometryFn.h>
 #include <BifrostHydra/Translators/Strands.h>
 
-#include <Bifrost/Geometry/bifrost_geometry.h>
-#include <Bifrost/Object/bifrost_what_is.h>
-
 #include <pxr/imaging/hd/basisCurvesSchema.h>
 #include <pxr/imaging/hd/tokens.h>
 

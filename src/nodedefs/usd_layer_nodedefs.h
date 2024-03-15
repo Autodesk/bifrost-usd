@@ -96,9 +96,11 @@ bool replace_layer(BifrostUsd::Stage&       stage USDPORT_INOUT("out_stage"),
 /// \brief This creates a new anonymous layer.
 ///
 /// \param [in] save_file The file path used when saving the layer.
+/// \param [in] file_format The file format used if the layer is saved to disk.
 /// \param [out] layer The created anonymous layer.
 USD_NODEDEF_DECL
 void create_layer(const Amino::String& save_file USDNODE_FILE_BROWSER_SAVE,
+                  const Amino::String& file_format,
                   Amino::MutablePtr<BifrostUsd::Layer>& layer)
     USDNODE_INTERNAL("create_layer", "create_layer");
 

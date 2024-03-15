@@ -67,13 +67,8 @@ if(IS_BIFUSD_STANDALONE)
     list(PREPEND lib_config_files ${BIFROST_LOCATION}/resources/standalone_config.json )
 endif()
 
-if(NOT BIFUSD_IS_WINDOWS)
-    string(REPLACE ";" ":" lib_config_files "${lib_config_files}")
-endif()
-
 set(bifrost_env_config
     BIFROST_LOCATION=${BIFROST_LOCATION}
-    BIFROST_LIB_CONFIG_FILES=${lib_config_files}
 )
 
 # To debug you can add : TF_DEBUG="PLUG_LOAD PLUG_REGISTRATION"
@@ -90,9 +85,14 @@ foreach(test_file ${test_files})
     configure_bifusd_unittest(
         ${test_file} "bifrost_hydra"
         LINK_LIBS ${libs} ${pxr_libs}
-        SHARED_LIB_DIRS ${Maya_SHARED_LIB_DIRS} ${BIFUSD_EXTRA_BUILD_AND_TEST_PATHS}
+        SHARED_LIB_DIRS ${BIFUSD_EXTRA_BUILD_AND_TEST_PATHS} ${Maya_SHARED_LIB_DIRS}
         ENV_VARS ${bifrost_env_config} ${usd_env_config}
         ASAN_OPTIONS ${ASAN_OPTIONS}
         OPTIONS      $<${BIFUSD_IS_MSC}:/wd4251 /wd4273>
     )
+    get_unittest_target(unittest_target "bifrost_hydra" ${test_file})
+    # bifusd_append_test_path_env_var takes care of handling the path separator
+    # ':' for unix
+    # escaped ';' for windows: to not be confused for CMake list
+    bifusd_append_test_path_env_var(${unittest_target} "BIFROST_LIB_CONFIG_FILES" "${lib_config_files}")
 endforeach()

@@ -341,15 +341,17 @@ class TestGraphs(unittest.TestCase):
         logging.info("JSON Log File = %s", json_log_file)
 
         task_desc_files = [
-            # Integration Tests:
+            # Attribute Tests
+            "tasks_scalar_attribute_test.json",
+            # Integration Tests
             "tasks_landscape_generator.json",
             "tasks_load_all_compounds.json",
-            # IO Tests:
+            # IO Tests
             "tasks_read_usd_curves.json",
             "tasks_read_usd_curves_with_color.json",
             "tasks_read_usd_meshes.json",
             "tasks_read_usd_meshes_with_color.json",
-            # Layer Tests:
+            # Layer Tests
             "tasks_create_empty_layer.json",
             "tasks_export_layer_to_file.json",
             # Primitive Tests
@@ -357,6 +359,7 @@ class TestGraphs(unittest.TestCase):
             # Stage Tests
             "tasks_add_to_stage.json",
             "tasks_fan_out_stages.json",
+            "tasks_save_stage.json",
             # VariantSet Tests
             "tasks_create_variants.json",
         ]

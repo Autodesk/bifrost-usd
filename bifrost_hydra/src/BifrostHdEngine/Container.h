@@ -17,27 +17,26 @@
 #ifndef BIFROST_USD_ENGINE_CONTAINER_H_
 #define BIFROST_USD_ENGINE_CONTAINER_H_
 
-#include <BifrostHydra/Engine/JobTranslationData.h>
-#include <BifrostHydra/Engine/Requirement.h>
-#include <BifrostHydra/Engine/Runtime.h>
+#include <BifrostHydra/Engine/Export.h>
 
-#include <BifrostGraph/Executor/BifrostBoardJob.h>
+#include <BifrostGraph/Executor/GraphContainerPreview.h>
+#include <BifrostGraph/Executor/JobPreview.h>
 
 namespace BifrostHd {
+class Runtime;
+class JobTranslationData;
 
-class Container final : public BifrostBoardContainer {
+class BIFROST_HD_ENGINE_SHARED_DECL Container final : public BifrostGraph::Executor::GraphContainerPreview {
 public:
-    explicit Container();
+    explicit Container(Runtime& runtime);
     ~Container() override;
 
-    static Runtime& GetRuntime();
-
-    BifrostBoardJob::Requirement* createEvaluationRequirement(
-        const Amino::String&                               name,
-        Amino::PortDescription::PortDirection              direction,
-        const Amino::Type&                                 type,
-        BifrostGraph::Executor::TypeTranslation::PortClass portClass)
-        const override;
+    BifrostGraph::Executor::JobPreview::Requirement*
+    createEvaluationRequirement(
+        const Amino::String&                  name,
+        BifrostGraph::Executor::PortDirection direction,
+        const Amino::Type&                    type,
+        BifrostGraph::Executor::PortClass     portClass) const override;
 
     bool initialize();
 
@@ -57,7 +56,7 @@ public:
     /// \}
 
 private:
-    BifrostBoardJob m_job;
+    BifrostGraph::Executor::JobPreview m_job;
 };
 
 } // namespace BifrostHd

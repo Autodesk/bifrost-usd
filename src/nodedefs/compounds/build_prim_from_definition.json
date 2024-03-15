@@ -12,7 +12,7 @@
     "compounds": [
         {
             "name": "USD::Prim::build_prim_from_definition",
-            "uriImported": "file:///build_prim_from_definition.json",
+            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "icon",
@@ -96,7 +96,7 @@
                 {
                     "metaName": "ViewportRect",
                     "metaType": "string",
-                    "metaValue": "-70 -225.004 1606 916.009"
+                    "metaValue": "-70 -282.613 1608 1033.23"
                 },
                 {
                     "metaName": "DisplayMode",
@@ -106,12 +106,12 @@
                 {
                     "metaName": "LayoutPos",
                     "metaType": "string",
-                    "metaValue": "437.271 -82.1458"
+                    "metaValue": "-46.1232 369.136"
                 },
                 {
                     "metaName": "zValue",
                     "metaType": "string",
-                    "metaValue": "42.000000"
+                    "metaValue": "50.000000"
                 }
             ],
             "ports": [
@@ -5052,7 +5052,7 @@
                         {
                             "metaName": "ViewportRect",
                             "metaType": "string",
-                            "metaValue": "-70 -95.0235 1301 742.047"
+                            "metaValue": "-70 -141.623 1303 837.247"
                         }
                     ],
                     "ports": [
@@ -5179,7 +5179,7 @@
                                 {
                                     "metaName": "ViewportRect",
                                     "metaType": "string",
-                                    "metaValue": "-126 -146.498 1350 769.995"
+                                    "metaValue": "-154.5 -213 1410 906"
                                 }
                             ],
                             "ports": [
@@ -5253,6 +5253,11 @@
                                                                     "metaValue": "2"
                                                                 },
                                                                 {
+                                                                    "metaName": "LayoutPos",
+                                                                    "metaType": "string",
+                                                                    "metaValue": "10 1030"
+                                                                },
+                                                                {
                                                                     "metaName": "io_ports",
                                                                     "metadata": [
                                                                         {
@@ -5269,12 +5274,7 @@
                                                                 {
                                                                     "metaName": "zValue",
                                                                     "metaType": "string",
-                                                                    "metaValue": "51.000000"
-                                                                },
-                                                                {
-                                                                    "metaName": "LayoutPos",
-                                                                    "metaType": "string",
-                                                                    "metaValue": "10 1030"
+                                                                    "metaValue": "31.000000"
                                                                 }
                                                             ]
                                                         }
@@ -5292,6 +5292,11 @@
                                                                     "metaValue": "2"
                                                                 },
                                                                 {
+                                                                    "metaName": "LayoutPos",
+                                                                    "metaType": "string",
+                                                                    "metaValue": "3975 339"
+                                                                },
+                                                                {
                                                                     "metaName": "io_ports",
                                                                     "metadata": [
                                                                         {
@@ -5302,12 +5307,7 @@
                                                                 {
                                                                     "metaName": "zValue",
                                                                     "metaType": "string",
-                                                                    "metaValue": "55.000000"
-                                                                },
-                                                                {
-                                                                    "metaName": "LayoutPos",
-                                                                    "metaType": "string",
-                                                                    "metaValue": "3975 339"
+                                                                    "metaValue": "32.000000"
                                                                 }
                                                             ]
                                                         }
@@ -5318,7 +5318,7 @@
                                         {
                                             "metaName": "ViewportRect",
                                             "metaType": "string",
-                                            "metaValue": "-69.8363 -89.347 2489.66 1420.02"
+                                            "metaValue": "870.085 -69.524 1354.08 870.072"
                                         }
                                     ],
                                     "ports": [
@@ -10414,12 +10414,8 @@
                                         },
                                         {
                                             "name": "create_scalar_attributes",
+                                            "uriImported": "stream:/bifrostGraphShape1",
                                             "metadata": [
-                                                {
-                                                    "metaName": "ViewportRect",
-                                                    "metaType": "string",
-                                                    "metaValue": "-70.3109 -239.774 2522.34 1438.66"
-                                                },
                                                 {
                                                     "metaName": "io_nodes",
                                                     "metadata": [
@@ -10432,17 +10428,12 @@
                                                                         {
                                                                             "metaName": "DisplayMode",
                                                                             "metaType": "string",
-                                                                            "metaValue": "2"
-                                                                        },
-                                                                        {
-                                                                            "metaName": "zValue",
-                                                                            "metaType": "string",
-                                                                            "metaValue": "70.000000"
+                                                                            "metaValue": "1"
                                                                         },
                                                                         {
                                                                             "metaName": "LayoutPos",
                                                                             "metaType": "string",
-                                                                            "metaValue": "-23.7479 466.737"
+                                                                            "metaValue": "-96.8155 955.804"
                                                                         },
                                                                         {
                                                                             "metaName": "io_ports",
@@ -10457,6 +10448,11 @@
                                                                                     "metaName": "attribute"
                                                                                 }
                                                                             ]
+                                                                        },
+                                                                        {
+                                                                            "metaName": "zValue",
+                                                                            "metaType": "string",
+                                                                            "metaValue": "36.000000"
                                                                         }
                                                                     ]
                                                                 }
@@ -10471,17 +10467,12 @@
                                                                         {
                                                                             "metaName": "DisplayMode",
                                                                             "metaType": "string",
-                                                                            "metaValue": "2"
-                                                                        },
-                                                                        {
-                                                                            "metaName": "zValue",
-                                                                            "metaType": "string",
-                                                                            "metaValue": "65.000000"
+                                                                            "metaValue": "1"
                                                                         },
                                                                         {
                                                                             "metaName": "LayoutPos",
                                                                             "metaType": "string",
-                                                                            "metaValue": "2145 567"
+                                                                            "metaValue": "2145 1313"
                                                                         },
                                                                         {
                                                                             "metaName": "io_ports",
@@ -10490,12 +10481,22 @@
                                                                                     "metaName": "out_stage"
                                                                                 }
                                                                             ]
+                                                                        },
+                                                                        {
+                                                                            "metaName": "zValue",
+                                                                            "metaType": "string",
+                                                                            "metaValue": "32.000000"
                                                                         }
                                                                     ]
                                                                 }
                                                             ]
                                                         }
                                                     ]
+                                                },
+                                                {
+                                                    "metaName": "ViewportRect",
+                                                    "metaType": "string",
+                                                    "metaValue": "-149 -110.343 2681 1722.69"
                                                 }
                                             ],
                                             "ports": [
@@ -10528,17 +10529,17 @@
                                                         {
                                                             "metaName": "DisplayMode",
                                                             "metaType": "string",
-                                                            "metaValue": "2"
-                                                        },
-                                                        {
-                                                            "metaName": "zValue",
-                                                            "metaType": "string",
-                                                            "metaValue": "62.000000"
+                                                            "metaValue": "1"
                                                         },
                                                         {
                                                             "metaName": "LayoutPos",
                                                             "metaType": "string",
                                                             "metaValue": "315 10"
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "42.000000"
                                                         }
                                                     ]
                                                 },
@@ -10549,17 +10550,17 @@
                                                         {
                                                             "metaName": "DisplayMode",
                                                             "metaType": "string",
-                                                            "metaValue": "2"
-                                                        },
-                                                        {
-                                                            "metaName": "zValue",
-                                                            "metaType": "string",
-                                                            "metaValue": "63.000000"
+                                                            "metaValue": "1"
                                                         },
                                                         {
                                                             "metaName": "LayoutPos",
                                                             "metaType": "string",
-                                                            "metaValue": "620 233"
+                                                            "metaValue": "620 188"
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "41.000000"
                                                         }
                                                     ]
                                                 },
@@ -10568,24 +10569,24 @@
                                                     "valueType": "float",
                                                     "metadata": [
                                                         {
-                                                            "metaName": "DisplayMode",
-                                                            "metaType": "string",
-                                                            "metaValue": "2"
-                                                        },
-                                                        {
                                                             "metaName": "valuenode_defaultvalue",
                                                             "metaType": "string",
                                                             "metaValue": "0"
                                                         },
                                                         {
-                                                            "metaName": "zValue",
+                                                            "metaName": "DisplayMode",
                                                             "metaType": "string",
-                                                            "metaValue": "61.000000"
+                                                            "metaValue": "1"
                                                         },
                                                         {
                                                             "metaName": "LayoutPos",
                                                             "metaType": "string",
-                                                            "metaValue": "10 64"
+                                                            "metaValue": "10 82"
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "35.000000"
                                                         }
                                                     ]
                                                 },
@@ -10594,24 +10595,24 @@
                                                     "valueType": "array<float>",
                                                     "metadata": [
                                                         {
-                                                            "metaName": "DisplayMode",
-                                                            "metaType": "string",
-                                                            "metaValue": "2"
-                                                        },
-                                                        {
                                                             "metaName": "valuenode_defaultvalue",
                                                             "metaType": "string",
                                                             "metaValue": "0"
                                                         },
                                                         {
-                                                            "metaName": "zValue",
+                                                            "metaName": "DisplayMode",
                                                             "metaType": "string",
-                                                            "metaValue": "69.000000"
+                                                            "metaValue": "1"
                                                         },
                                                         {
                                                             "metaName": "LayoutPos",
                                                             "metaType": "string",
-                                                            "metaValue": "311.25 318.751"
+                                                            "metaValue": "315 317"
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "34.000000"
                                                         }
                                                     ]
                                                 },
@@ -10620,24 +10621,24 @@
                                                     "valueType": "float",
                                                     "metadata": [
                                                         {
-                                                            "metaName": "DisplayMode",
-                                                            "metaType": "string",
-                                                            "metaValue": "2"
-                                                        },
-                                                        {
                                                             "metaName": "valuenode_defaultvalue",
                                                             "metaType": "string",
                                                             "metaValue": "0"
                                                         },
                                                         {
-                                                            "metaName": "zValue",
+                                                            "metaName": "DisplayMode",
                                                             "metaType": "string",
-                                                            "metaValue": "52.000000"
+                                                            "metaValue": "1"
                                                         },
                                                         {
                                                             "metaName": "LayoutPos",
                                                             "metaType": "string",
-                                                            "metaValue": "620 524"
+                                                            "metaValue": "620 455"
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "33.000000"
                                                         }
                                                     ]
                                                 },
@@ -10648,17 +10649,17 @@
                                                         {
                                                             "metaName": "DisplayMode",
                                                             "metaType": "string",
-                                                            "metaValue": "2"
-                                                        },
-                                                        {
-                                                            "metaName": "zValue",
-                                                            "metaType": "string",
-                                                            "metaValue": "51.000000"
+                                                            "metaValue": "1"
                                                         },
                                                         {
                                                             "metaName": "LayoutPos",
                                                             "metaType": "string",
-                                                            "metaValue": "925 315"
+                                                            "metaValue": "925 417"
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "40.000000"
                                                         }
                                                     ]
                                                 },
@@ -10667,24 +10668,24 @@
                                                     "valueType": "array<float>",
                                                     "metadata": [
                                                         {
-                                                            "metaName": "DisplayMode",
-                                                            "metaType": "string",
-                                                            "metaValue": "2"
-                                                        },
-                                                        {
                                                             "metaName": "valuenode_defaultvalue",
                                                             "metaType": "string",
                                                             "metaValue": "0"
                                                         },
                                                         {
-                                                            "metaName": "zValue",
+                                                            "metaName": "DisplayMode",
                                                             "metaType": "string",
-                                                            "metaValue": "50.000000"
+                                                            "metaValue": "1"
                                                         },
                                                         {
                                                             "metaName": "LayoutPos",
                                                             "metaType": "string",
-                                                            "metaValue": "925 606"
+                                                            "metaValue": "925 660"
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "31.000000"
                                                         }
                                                     ]
                                                 },
@@ -10695,17 +10696,17 @@
                                                         {
                                                             "metaName": "DisplayMode",
                                                             "metaType": "string",
-                                                            "metaValue": "2"
-                                                        },
-                                                        {
-                                                            "metaName": "zValue",
-                                                            "metaType": "string",
-                                                            "metaValue": "49.000000"
+                                                            "metaValue": "1"
                                                         },
                                                         {
                                                             "metaName": "LayoutPos",
                                                             "metaType": "string",
-                                                            "metaValue": "1230 398"
+                                                            "metaValue": "1230 672"
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "39.000000"
                                                         }
                                                     ]
                                                 },
@@ -10716,17 +10717,17 @@
                                                         {
                                                             "metaName": "DisplayMode",
                                                             "metaType": "string",
-                                                            "metaValue": "2"
-                                                        },
-                                                        {
-                                                            "metaName": "zValue",
-                                                            "metaType": "string",
-                                                            "metaValue": "57.000000"
+                                                            "metaValue": "1"
                                                         },
                                                         {
                                                             "metaName": "LayoutPos",
                                                             "metaType": "string",
-                                                            "metaValue": "1535 482"
+                                                            "metaValue": "1535 931"
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "43.000000"
                                                         }
                                                     ]
                                                 },
@@ -10735,24 +10736,24 @@
                                                     "valueType": "double",
                                                     "metadata": [
                                                         {
-                                                            "metaName": "DisplayMode",
-                                                            "metaType": "string",
-                                                            "metaValue": "2"
-                                                        },
-                                                        {
                                                             "metaName": "valuenode_defaultvalue",
                                                             "metaType": "string",
                                                             "metaValue": "0"
                                                         },
                                                         {
-                                                            "metaName": "zValue",
+                                                            "metaName": "DisplayMode",
                                                             "metaType": "string",
-                                                            "metaValue": "58.000000"
+                                                            "metaValue": "1"
                                                         },
                                                         {
                                                             "metaName": "LayoutPos",
                                                             "metaType": "string",
-                                                            "metaValue": "1230 689"
+                                                            "metaValue": "1230 915"
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "37.000000"
                                                         }
                                                     ]
                                                 },
@@ -10763,17 +10764,17 @@
                                                         {
                                                             "metaName": "DisplayMode",
                                                             "metaType": "string",
-                                                            "metaValue": "2"
-                                                        },
-                                                        {
-                                                            "metaName": "zValue",
-                                                            "metaType": "string",
-                                                            "metaValue": "59.000000"
+                                                            "metaValue": "1"
                                                         },
                                                         {
                                                             "metaName": "LayoutPos",
                                                             "metaType": "string",
-                                                            "metaValue": "1840 567"
+                                                            "metaValue": "1840 1222"
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "44.000000"
                                                         }
                                                     ]
                                                 },
@@ -10782,24 +10783,24 @@
                                                     "valueType": "array<double>",
                                                     "metadata": [
                                                         {
-                                                            "metaName": "DisplayMode",
-                                                            "metaType": "string",
-                                                            "metaValue": "2"
-                                                        },
-                                                        {
                                                             "metaName": "valuenode_defaultvalue",
                                                             "metaType": "string",
                                                             "metaValue": "0"
                                                         },
                                                         {
-                                                            "metaName": "zValue",
+                                                            "metaName": "DisplayMode",
                                                             "metaType": "string",
-                                                            "metaValue": "66.000000"
+                                                            "metaValue": "1"
                                                         },
                                                         {
                                                             "metaName": "LayoutPos",
                                                             "metaType": "string",
-                                                            "metaValue": "1535 773"
+                                                            "metaValue": "1535 1174"
+                                                        },
+                                                        {
+                                                            "metaName": "zValue",
+                                                            "metaType": "string",
+                                                            "metaValue": "38.000000"
                                                         }
                                                     ]
                                                 }
@@ -10872,6 +10873,22 @@
                                                 {
                                                     "source": ".attribute",
                                                     "target": "create_usd_attribute_from_def50.attribute"
+                                                },
+                                                {
+                                                    "source": ".attribute",
+                                                    "target": "create_usd_attribute_from_def10.attribute"
+                                                },
+                                                {
+                                                    "source": ".attribute",
+                                                    "target": "create_usd_attribute_from_def15.attribute"
+                                                },
+                                                {
+                                                    "source": ".attribute",
+                                                    "target": "create_usd_attribute_from_def11.attribute"
+                                                },
+                                                {
+                                                    "source": ".attribute",
+                                                    "target": "create_usd_attribute_from_def18.attribute"
                                                 }
                                             ],
                                             "values": [
@@ -11067,6 +11084,7 @@
                                         },
                                         {
                                             "name": "create_vector_attributes",
+                                            "uriImported": "stream:/bifrostGraphShape1",
                                             "metadata": [
                                                 {
                                                     "metaName": "ViewportRect",
@@ -13154,14 +13172,14 @@
                                                     "metaValue": "-1073.09"
                                                 },
                                                 {
-                                                    "metaName": "zValue",
-                                                    "metaType": "string",
-                                                    "metaValue": "56.000000"
-                                                },
-                                                {
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "1535 64"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "33.000000"
                                                 }
                                             ]
                                         },
@@ -13175,14 +13193,14 @@
                                                     "metaValue": "2"
                                                 },
                                                 {
-                                                    "metaName": "zValue",
-                                                    "metaType": "string",
-                                                    "metaValue": "65.000000"
-                                                },
-                                                {
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "620 214"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "41.000000"
                                                 }
                                             ]
                                         },
@@ -13196,14 +13214,14 @@
                                                     "metaValue": "2"
                                                 },
                                                 {
-                                                    "metaName": "zValue",
-                                                    "metaType": "string",
-                                                    "metaValue": "58.000000"
-                                                },
-                                                {
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "1840 27"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "34.000000"
                                                 }
                                             ]
                                         },
@@ -13217,14 +13235,14 @@
                                                     "metaValue": "2"
                                                 },
                                                 {
-                                                    "metaName": "zValue",
-                                                    "metaType": "string",
-                                                    "metaValue": "63.000000"
-                                                },
-                                                {
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "2755 29"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "39.000000"
                                                 }
                                             ]
                                         },
@@ -13238,14 +13256,14 @@
                                                     "metaValue": "2"
                                                 },
                                                 {
-                                                    "metaName": "zValue",
-                                                    "metaType": "string",
-                                                    "metaValue": "60.000000"
-                                                },
-                                                {
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "2450 13"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "36.000000"
                                                 }
                                             ]
                                         },
@@ -13259,14 +13277,14 @@
                                                     "metaValue": "2"
                                                 },
                                                 {
-                                                    "metaName": "zValue",
-                                                    "metaType": "string",
-                                                    "metaValue": "59.000000"
-                                                },
-                                                {
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "2145 10"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "35.000000"
                                                 }
                                             ]
                                         },
@@ -13280,14 +13298,14 @@
                                                     "metaValue": "2"
                                                 },
                                                 {
-                                                    "metaName": "zValue",
-                                                    "metaType": "string",
-                                                    "metaValue": "64.000000"
-                                                },
-                                                {
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "315 357"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "40.000000"
                                                 }
                                             ]
                                         },
@@ -13301,14 +13319,14 @@
                                                     "metaValue": "2"
                                                 },
                                                 {
-                                                    "metaName": "zValue",
-                                                    "metaType": "string",
-                                                    "metaValue": "68.000000"
-                                                },
-                                                {
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "3670 339"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "42.000000"
                                                 }
                                             ]
                                         },
@@ -13322,14 +13340,14 @@
                                                     "metaValue": "2"
                                                 },
                                                 {
-                                                    "metaName": "zValue",
-                                                    "metaType": "string",
-                                                    "metaValue": "61.000000"
-                                                },
-                                                {
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "3365 181"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "37.000000"
                                                 }
                                             ]
                                         },
@@ -13343,14 +13361,14 @@
                                                     "metaValue": "2"
                                                 },
                                                 {
-                                                    "metaName": "zValue",
-                                                    "metaType": "string",
-                                                    "metaValue": "62.000000"
-                                                },
-                                                {
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "3060 54"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "38.000000"
                                                 }
                                             ]
                                         },
@@ -13369,14 +13387,14 @@
                                                     "metaValue": "0"
                                                 },
                                                 {
-                                                    "metaName": "zValue",
-                                                    "metaType": "string",
-                                                    "metaValue": "76.000000"
-                                                },
-                                                {
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "925 169"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "45.000000"
                                                 }
                                             ]
                                         },
@@ -13390,14 +13408,14 @@
                                                     "metaValue": "2"
                                                 },
                                                 {
-                                                    "metaName": "zValue",
-                                                    "metaType": "string",
-                                                    "metaValue": "75.000000"
-                                                },
-                                                {
                                                     "metaName": "LayoutPos",
                                                     "metaType": "string",
                                                     "metaValue": "1230 115"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "43.000000"
                                                 }
                                             ]
                                         }

@@ -13,27 +13,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //+
-#ifndef BIFROST_HD_GRAPH_INSTANCES_H
-#define BIFROST_HD_GRAPH_INSTANCES_H
 
-#include <Bifrost/Object/Object.h>
-#include <BifrostHydra/Translators/Geometry.h>
+#ifndef BIFROST_HD_GRAPH_EXPORT
+#define BIFROST_HD_GRAPH_EXPORT
 
-namespace BifrostHd {
+#if defined(_WIN32) || defined(__CYGWIN__)
+#if defined(BIFROST_HD_GRAPH_BUILD_DLL)
+#define BIFROST_HD_GRAPH_SHARED_DECL __declspec(dllexport)
+#else
+#define BIFROST_HD_GRAPH_SHARED_DECL __declspec(dllimport)
+#endif
 
-class BIFROST_HD_TRANSLATORS_SHARED_DECL Instances : public Geometry {
-public:
-    explicit Instances(const Bifrost::Object& object);
+#elif defined(__GNUC__)
+#if defined(BIFROST_HD_GRAPH_BUILD_DLL)
+#define BIFROST_HD_GRAPH_SHARED_DECL __attribute__((visibility("default")))
+#else
+#define BIFROST_HD_GRAPH_SHARED_DECL
+#endif
 
-    const PXR_NS::TfToken& getSceneIndexPrimTypeName() const override;
+#endif
 
-    const PXR_NS::HdDataSourceLocator& TopologyLocator() const override;
-
-    const ChildPrimMap& getChildren() const override;
-
-private:
-};
-
-} // namespace BifrostHd
-
-#endif // BIFROST_HD_GRAPH_INSTANCES_H
+#endif // BIFROST_HD_GRAPH_EXPORT

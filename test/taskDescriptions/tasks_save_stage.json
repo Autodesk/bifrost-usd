@@ -1,0 +1,31 @@
+{
+    "schemaVersion": "1.0.0",
+    "comment": "Test save_usd_stage compound",
+    "options": {
+        "definitionFiles": [
+            "save_stage_test00.json"
+        ],
+        "compound": "USD::Test::Stage::save_stage_test00"
+    },
+    "task": {
+        "type": "sequence",
+        "tasks": [
+            {
+                "type": "single",
+                "name": "Save the stage",
+                "options": {
+                    "inputPorts": [
+                        {
+                            "name": "root_temp_dir",
+                            "optionPortName": "root_temporary_dir"
+                        },
+                        {
+                            "name": "save",
+                            "value": "true"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

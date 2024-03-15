@@ -32,6 +32,11 @@ endif()
 
 set(IS_BIFUSD_STANDALONE ON CACHE BOOL "Indicate if this is a standalone build of Bifrost USD")
 
+# C++ 17 not extensions - by default
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 include(cmake/version.info)
 
 # Enable no language yet.

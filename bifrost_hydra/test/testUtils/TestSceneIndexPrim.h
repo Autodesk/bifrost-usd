@@ -19,6 +19,7 @@
 
 #include <gtest/gtest.h>
 
+#include "Export.h"
 #include "RecordingSceneIndexObserver.h"
 
 #include <pxr/imaging/hd/sceneIndex.h>
@@ -32,8 +33,14 @@ using UsdImagingGLEngineSharedPtr =
 
 namespace BifrostHdTest {
 
-class TestSceneIndexPrim : public ::testing::Test {
+class BIFROST_HD_TESTUTILS_SHARED_DECL TestSceneIndexPrim : public ::testing::Test {
 protected:
+    /// \brief Method that is called before a unit test is executed.
+    void SetUp() override;
+
+    /// \brief Method that is called after a unit test is executed.
+    void TearDown() override;
+
     PXR_NS::UsdStageRefPtr openStage(const std::string& stageFilePath);
 
     bool render();

@@ -16,26 +16,33 @@
 
 #include <BifrostHydra/Engine/Container.h>
 
+#include <BifrostHydra/Engine/JobTranslationData.h>
+#include <BifrostHydra/Engine/Requirement.h>
+#include <BifrostHydra/Engine/Runtime.h>
+
+#include <BifrostGraph/Executor/PreviewUtility.h>
+
 #include <iostream>
 
 namespace BifrostHd {
 
-Container::Container() : BifrostBoardContainer(&Runtime::Get()), m_job(this) {}
+Container::Container(Runtime& runtime) : BifrostGraph::Executor::GraphContainerPreview(&runtime), m_job(this) {}
 
 Container::~Container() = default;
 
-/* static */
-Runtime& Container::GetRuntime() { return Runtime::Get(); }
-
-BifrostBoardJob::Requirement* Container::createEvaluationRequirement(
-    const Amino::String&                               name,
-    Amino::PortDescription::PortDirection              direction,
-    const Amino::Type&                                 type,
-    BifrostGraph::Executor::TypeTranslation::PortClass portClass) const {
-    Amino::Value           defaultVal;
+BifrostGraph::Executor::JobPreview::Requirement*
+Container::createEvaluationRequirement(
+    const Amino::String&                  name,
+    BifrostGraph::Executor::PortDirection direction,
+    const Amino::Type&                    type,
+    BifrostGraph::Executor::PortClass     portClass) const {
+    Amino::Any             defaultVal;
     Amino::PortDescription portDesc;
     if (getGraph().getPorts().findByName(name, portDesc)) {
-        defaultVal = portDesc.value();
+        BifrostGraph::Executor::Utility::convertValueToAny(
+            getRuntime()->getAmLibrary(),
+            portDesc.value(),
+            defaultVal);
     }
 
     return new Requirement(name, direction, type, portClass, defaultVal);
@@ -47,8 +54,8 @@ bool Container::initialize() {
     // Job Ports are global state ports, such as for time information.
     // For now TypeTranslation::portAdded() does nothing, so the
     // pointer can be nullptr.
-    auto status =
-        m_job.update(nullptr, BifrostBoardJob::CompileSwitch::kCompile);
+    auto status = m_job.update(
+        nullptr, BifrostGraph::Executor::JobPreview::CompileSwitch::kCompile);
 
     // See BIFROST-3651.
     if (status == Amino::SetGraphStatus::Value::kFailure) {
@@ -99,13 +106,16 @@ bool Container::initialize() {
 }
 
 bool Container::updateJob() {
-    return m_job.update(nullptr, BifrostBoardJob::CompileSwitch::kCompile) !=
-           BifrostBoardJob::EvaluationStatus::kFailure;
+    return m_job.update(
+               nullptr,
+               BifrostGraph::Executor::JobPreview::CompileSwitch::kCompile) !=
+           BifrostGraph::Executor::JobPreview::EvaluationStatus::kFailure;
 }
 
 Amino::Job::State Container::executeJob(JobTranslationData& translationData) {
-    return m_job.execute(&translationData,
-                         BifrostBoardJob::ExecuteFlags::kDefault);
+    return m_job.execute(
+        &translationData,
+        BifrostGraph::Executor::JobPreview::ExecuteFlags::kDefault);
 }
 
 } // namespace BifrostHd

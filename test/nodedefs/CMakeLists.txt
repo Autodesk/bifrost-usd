@@ -91,6 +91,7 @@ function(configure_bifusd_runtime_unittests)
                 --bifrost-lib-config-files ${lib_config_files}
                 --resource-dir ${resources_dir}
                 --test-dir ${usd_test_dir}
+                --debug
 
             SHARED_LIB_DIRS ${BIFUSD_EXTRA_BUILD_AND_TEST_PATHS}
             CATEGORIES      ${BIFUSD_SANITY_TEST_CATEGORY}

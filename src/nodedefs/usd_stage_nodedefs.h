@@ -116,6 +116,26 @@ void set_edit_layer(BifrostUsd::Stage&  stage USDPORT_INOUT("out_stage"),
     USDNODE_DOC_ICON("set_edit_layer", "set_edit_layer", "usd.svg");
 
 /// \ingroup Stage
+/// \defgroup get_edit_layer get_edit_layer node
+///
+/// \brief This node gets the layer targeted by the stage.
+///
+/// \param [in] stage The stage from which to get the edit layer.
+/// \param [in] read_only If enabled, the original layer is returned.
+///                  Since it is not a copy, it can be useful to retrieve the
+///                  layer index of an in-memory layer by comparing layer
+///                  identifiers. If you need to modify the returned layer, you
+///                  must turn it off or connect a set_layer_permission node
+///                  after this node.
+/// \param [out] edit_layer The returned layer.
+USD_NODEDEF_DECL
+void get_edit_layer(const BifrostUsd::Stage& stage,
+                    const bool read_only
+                        AMINO_ANNOTATE("Amino::Port value=true"),
+                    Amino::Ptr<BifrostUsd::Layer>& edit_layer)
+    USDNODE_DOC_ICON("get_edit_layer", "get_edit_layer", "usd.svg");
+
+/// \ingroup Stage
 /// \defgroup set_default_prim set_default_prim node
 ///
 /// \brief This node sets the stage's default prim.

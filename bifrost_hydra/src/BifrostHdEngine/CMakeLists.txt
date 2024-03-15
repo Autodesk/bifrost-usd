@@ -19,11 +19,13 @@
 set(hd_Engine_headers
     Container.h
     Engine.h
+    Export.h
     JobTranslationData.h
     Parameters.h
     Requirement.h
     Runtime.h
     ValueTranslationData.h
+    Workspace.h
 )
 
 bifusd_install_headers(
@@ -54,17 +56,18 @@ set(src_files
     Requirement.cpp
     Runtime.cpp
     ValueTranslationData.cpp
+    Workspace.cpp
 )
 
 bifusd_set_extra_rpaths(extra_rpaths)
 
 bifusd_create_shared_lib(
-    BifrostHdEngine "BIFROST_HD_ENGINE_BUILD_DLL" # TODO: add export file
+    BifrostHdEngine        "BIFROST_HD_ENGINE_BUILD_DLL" # TODO: add export file
     PUBLIC_INSTALL
-    PUBLIC_DEFINITIONS     $<${BIFUSD_IS_MSC}: BOOST_LIB_TOOLSET="vc141">
+    PUBLIC_DEFINITIONS     $<${BIFUSD_IS_MSC}: BOOST_LIB_TOOLSET="vc142">
     PRIVATE_DEFINITIONS    $<${BIFUSD_IS_DEBUG}: TBB_USE_DEBUG BOOST_DEBUG_PYTHON BOOST_LINKING_PYTHON>
 
-    PRIVATE_OPTIONS        $<${BIFUSD_IS_MSC}:/wd4251 /wd4273>
+    PRIVATE_OPTIONS        $<${BIFUSD_IS_MSC}:/wd4251 /wd4273 /wd4003>
                            $<${BIFUSD_IS_GCC}: -Wno-deprecated -Wno-unused-macros>
                            $<${BIFUSD_IS_CLANG}: -Wno-deprecated -Wno-unused-macros>
 

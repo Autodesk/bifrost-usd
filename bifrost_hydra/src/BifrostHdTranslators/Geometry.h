@@ -17,6 +17,8 @@
 #ifndef BIFROST_HD_GRAPH_GEOMETRY_H
 #define BIFROST_HD_GRAPH_GEOMETRY_H
 
+#include <BifrostHydra/Translators/Export.h>
+
 #include <pxr/base/tf/denseHashMap.h>
 #include <pxr/imaging/hd/sceneIndex.h>
 #include <pxr/imaging/hd/dataSource.h>
@@ -25,7 +27,7 @@ namespace BifrostHd {
 
 using ChildPrimMap = PXR_NS::TfDenseHashMap<PXR_NS::SdfPath, PXR_NS::HdSceneIndexPrim, PXR_NS::TfHash>;
 
-class Geometry {
+class BIFROST_HD_TRANSLATORS_SHARED_DECL Geometry {
 public:
     explicit Geometry();
 

@@ -187,4 +187,4 @@ string(REPLACE ";" " " cxx_flags_debug "${cxx_flags_debug}")
 set(CMAKE_CXX_FLAGS_DEBUG_INIT "${cxx_flags_debug}")
 
 # compiler flags
-set(cxx_flags -std=c++14 -fPIC)
+set(cxx_flags -fPIC)

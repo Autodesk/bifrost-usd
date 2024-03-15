@@ -26,32 +26,20 @@
 #include <pxr/usd/sdf/types.h>
 #include "pxr/imaging/hd/tokens.h"
 
-namespace {
-bool IsOneDimentionArrayType(Amino::Type const& type) {
-    if (type.getTypeKind() == Amino::TypeKind::eArray) {
-        Amino::ArrayType arrayType(type);
-        return arrayType.getElementType().getTypeKind() !=
-               Amino::TypeKind::eArray;
-    }
-    return false;
-}
-
-} // namespace
-
 namespace BifrostHd {
 
 ValueTranslationData::ValueTranslationData(
     JobTranslationData& jobTranslationData,
-    Amino::Value        defaultVal,
+    Amino::Any          defaultVal,
     std::string         name)
-    : BifrostBoardJob::ValueTranslationData(Amino::MetadataItem()),
+    : BifrostGraph::Executor::JobPreview::ValueData(),
       m_defaultVal(std::move(defaultVal)),
       m_jobTranslationData(jobTranslationData),
       m_name(std::move(name)) {}
 
 ValueTranslationData::~ValueTranslationData() = default;
 
-Amino::Value ValueTranslationData::getInput(Amino::Type const& type) const {
+Amino::Any ValueTranslationData::getInput(Amino::Type const& /*type*/) const {
     const auto& inputs     = m_jobTranslationData.getParameters().inputs();
     const auto& inputScene = m_jobTranslationData.getParameters().inputScene();
 
@@ -60,24 +48,22 @@ Amino::Value ValueTranslationData::getInput(Amino::Type const& type) const {
         const auto& vtValue = search->second;
 
         if (vtValue.IsHolding<bool>()) {
-            return Amino::Value{vtValue.UncheckedGet<bool>()};
+            return Amino::Any{vtValue.UncheckedGet<bool>()};
         } else if (vtValue.IsHolding<unsigned int>()) {
-            return Amino::Value{vtValue.UncheckedGet<unsigned int>()};
+            return Amino::Any{vtValue.UncheckedGet<unsigned int>()};
         } else if (vtValue.IsHolding<int>()) {
-            return Amino::Value{vtValue.UncheckedGet<int>()};
+            return Amino::Any{vtValue.UncheckedGet<int>()};
         } else if (vtValue.IsHolding<float>()) {
-            return Amino::Value{vtValue.UncheckedGet<float>()};
+            return Amino::Any{vtValue.UncheckedGet<float>()};
         } else if (vtValue.IsHolding<PXR_NS::GfVec3f>()) {
             auto                  gf3 = vtValue.UncheckedGet<PXR_NS::GfVec3f>();
             Bifrost::Math::float3 flt3{gf3[0], gf3[1], gf3[2]};
-            Amino::StructValue    val{type};
-            val.read(flt3);
-            return val;
+            return Amino::Any{flt3};
         } else if (vtValue.IsHolding<std::int64_t>()) {
-            return Amino::Value{static_cast<Amino::long_t>(
+            return Amino::Any{static_cast<Amino::long_t>(
                 vtValue.UncheckedGet<std::int64_t>())};
         } else if (vtValue.IsHolding<std::string>()) {
-            return Amino::Value{vtValue.UncheckedGet<std::string>().c_str()};
+            return Amino::Any{Amino::String{vtValue.UncheckedGet<std::string>().c_str()}};
         } else if (vtValue.IsHolding<PXR_NS::VtArray<PXR_NS::SdfPath>>()) {
             auto paths = vtValue.UncheckedGet<PXR_NS::VtArray<PXR_NS::SdfPath>>();
             if (paths.size() == 1) {
@@ -85,7 +71,7 @@ Amino::Value ValueTranslationData::getInput(Amino::Type const& type) const {
                 if (sourceMeshPrim.primType == PXR_NS::HdPrimTypeTokens->mesh) {
                     auto obj = BifrostHd::CreateBifrostMesh(sourceMeshPrim);
                     if (obj) {
-                        return Amino::Value{obj, type};
+                        return Amino::Any{obj};
                     }
                 }
             }
@@ -94,11 +80,11 @@ Amino::Value ValueTranslationData::getInput(Amino::Type const& type) const {
     return m_defaultVal;
 }
 
-bool ValueTranslationData::setOutput(const Amino::Value& value) {
+bool ValueTranslationData::setOutput(const Amino::Any& value) {
     auto& output = m_jobTranslationData.getParameters().output();
     if (output.first == m_name) {
-        if (IsOneDimentionArrayType(value.getType())) {
-            auto objectArray = value.getArray<Amino::Ptr<Bifrost::Object>>();
+        if (value.type() == Amino::getTypeId<Amino::Ptr<Amino::Array<Amino::Ptr<Bifrost::Object>>>>()) {
+            auto objectArray = Amino::any_cast<Amino::Ptr<Amino::Array<Amino::Ptr<Bifrost::Object>>>>(value);
             assert(objectArray != nullptr);
             if (objectArray != nullptr && !objectArray->empty()) {
                 for (auto& object : *objectArray) {
@@ -106,9 +92,8 @@ bool ValueTranslationData::setOutput(const Amino::Value& value) {
                 }
                 return true;
             }
-        } else {
-            auto object = Amino::static_pointer_cast<Bifrost::Object>(
-                value.getAminoClass());
+         } else if (value.type() == Amino::getTypeId<Amino::Ptr<Bifrost::Object>>()) {
+            auto object = Amino::any_cast<Amino::Ptr<Bifrost::Object>>(value);
             if (object) {
                 output.second.push_back(object);
                 return true;
