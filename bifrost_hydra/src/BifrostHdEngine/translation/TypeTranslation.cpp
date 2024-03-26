@@ -18,42 +18,44 @@
 #include <BifrostHydra/Engine/JobTranslationData.h>
 #include <BifrostHydra/Engine/ValueTranslationData.h>
 
+#include <Bifrost/Geometry/GeometryTypes.h>
+
 #include <AminoValue.h>
 
 namespace BifrostHd {
 
-TypeTranslation::TypeTranslation()
+TypeTranslation::TypeTranslation() noexcept
     : BifrostGraph::Executor::TypeTranslation("BifrostHd Translation Table") {}
 
-TypeTranslation::~TypeTranslation() {}
+TypeTranslation::~TypeTranslation() noexcept {}
 
-void TypeTranslation::deleteThis() { delete this; }
+void TypeTranslation::deleteThis() noexcept { delete this; }
 
 void TypeTranslation::getSupportedTypeNames(
-    Amino::StringList& out_names) const {
-    out_names.add("bool");
-    out_names.add("float");
-    out_names.add("double");
-    out_names.add("long");
-    out_names.add("ulong");
-    out_names.add("int");
-    out_names.add("uint");
-    out_names.add("short");
-    out_names.add("ushort");
-    out_names.add("char");
-    out_names.add("uchar");
-    out_names.add("string");
-    out_names.add("Math::float3");
-    out_names.add("Object");
+    StringArray& out_names) const noexcept {
+    out_names.push_back("bool");
+    out_names.push_back("float");
+    out_names.push_back("double");
+    out_names.push_back("long");
+    out_names.push_back("ulong");
+    out_names.push_back("int");
+    out_names.push_back("uint");
+    out_names.push_back("short");
+    out_names.push_back("ushort");
+    out_names.push_back("char");
+    out_names.push_back("uchar");
+    out_names.push_back("string");
+    out_names.push_back("Math::float3");
+    out_names.push_back("Object");
     // for graphs using time nodes
-    out_names.add("Simulation::Time");
+    out_names.push_back("Simulation::Time");
 }
 
 bool TypeTranslation::convertValueFromHost(
     Amino::Type const& type,
-    Amino::Value&      value,
-    BifrostGraph::Executor::TypeTranslation::ValueTranslationData const*
-        valueTranslationData) const {
+    Amino::Any&        value,
+    BifrostGraph::Executor::TypeTranslation::ValueData const*
+        valueTranslationData) const noexcept {
     assert(dynamic_cast<BifrostHd::ValueTranslationData const*>(
         valueTranslationData));
 
@@ -65,12 +67,12 @@ bool TypeTranslation::convertValueFromHost(
     if (typeName == "Simulation::Time") {
         auto time =
             bifrostHdValueTranslationData->jobTranslationData().getTime();
-        Amino::StructValue timeValue(type);
-        timeValue["ticks"].setLong(static_cast<long>(1));
-        timeValue["time"].setDouble(time.currentTime);
-        timeValue["frame"].setDouble(time.currentFrame);
-        timeValue["frameLength"].setDouble(time.frameLength);
-        value = timeValue;
+        
+        value = Bifrost::Simulation::Time{
+            static_cast<long>(1),
+            time.currentTime,
+            time.currentFrame,
+            time.frameLength};
         return true;
     }
 
@@ -79,12 +81,9 @@ bool TypeTranslation::convertValueFromHost(
 }
 
 bool TypeTranslation::convertValueToHost(
-    Amino::Value const& value,
-    BifrostGraph::Executor::TypeTranslation::ValueTranslationData*
-        valueTranslationData) const {
-    auto          elementType = value.getType();
-    Amino::String typeName    = elementType.getFullyQualifiedName();
-
+    Amino::Any const&                                   value,
+    BifrostGraph::Executor::TypeTranslation::ValueData* valueTranslationData)
+    const noexcept {
     assert(
         dynamic_cast<BifrostHd::ValueTranslationData*>(valueTranslationData));
 
@@ -94,35 +93,10 @@ bool TypeTranslation::convertValueToHost(
     return bifrostHdValueTranslationData->setOutput(value);
 }
 
-bool TypeTranslation::portAdded(
-    Amino::String const& /*name*/,
-    PortDirection /*direction*/,
-    Amino::Type const& /*type*/,
-    Amino::Metadata const& /*metadata*/,
-    PortClass /*portClass*/,
-    PortTranslationData* /*valueTranslationData*/) const {
-    return true;
-}
-
-bool TypeTranslation::registerHostPlugins(
-    const PluginHostData* /*hostData*/) const {
-    return true;
-}
-
-bool TypeTranslation::unregisterHostPlugins(
-    const PluginHostData* /*hostData*/) const {
-    return false;
-}
-
-bool TypeTranslation::getDataTypeColorHint(Amino::Type const& /*dataType*/,
-                                           Amino::String& /*colorHint*/) const {
-    return false;
-}
-
 } // namespace BifrostHd
 
 extern "C" {
-HD_MODULE_API BifrostGraph::Executor::TypeTranslation*
+BIFROST_HD_TRANSLATION_SHARED_DECL BifrostGraph::Executor::TypeTranslation*
               createBifrostTypeTranslation(void) {
                   return new BifrostHd::TypeTranslation();
 }

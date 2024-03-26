@@ -22,7 +22,7 @@
 
 namespace BifrostHd {
 
-class Strands : public Geometry {
+class BIFROST_HD_TRANSLATORS_SHARED_DECL Strands : public Geometry {
 public:
     explicit Strands(const Bifrost::Object& object, const size_t index=0);
 

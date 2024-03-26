@@ -19,6 +19,7 @@
 #include <Amino/Core/String.h>
 #include <Bifrost/FileUtils/FileUtils.h>
 #include <pxr/usd/sdf/copyUtils.h>
+#include <cstdio>
 #include <limits>
 
 #include "return_guard.h"
@@ -128,6 +129,7 @@ bool USD::Layer::replace_layer(BifrostUsd::Stage&       stage,
 }
 
 void USD::Layer::create_layer(const Amino::String&                  save_file,
+                              const Amino::String&                  file_format,
                               Amino::MutablePtr<BifrostUsd::Layer>& layer) {
     // We use the name of the usd file for the tag
     auto tag = Bifrost::FileUtils::extractFilename(save_file);
@@ -136,6 +138,9 @@ void USD::Layer::create_layer(const Amino::String&                  save_file,
     try {
         if (!save_file.empty()) {
             layer->setFilePath(save_file);
+        }
+        if (!file_format.empty()) {
+            layer->setFileFormat(file_format);
         }
     } catch (std::exception& e) {
         log_exception("create_layer", e);

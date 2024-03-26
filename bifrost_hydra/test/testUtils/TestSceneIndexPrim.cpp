@@ -24,10 +24,72 @@
 #include <pxr/usd/usd/prim.h>
 
 #include <fstream>
+#include <cassert>
+
+#if defined(_WIN32)
+#include <Windows.h>
+
+#pragma comment (lib, "User32.lib")
+#pragma comment (lib, "Gdi32.lib")
+#pragma comment (lib, "Opengl32.lib")
+#endif
 
 PXR_NAMESPACE_USING_DIRECTIVE
 
 namespace BifrostHdTest {
+
+void TestSceneIndexPrim::SetUp() {
+#if defined(_WIN32)
+    WNDCLASS wc;
+    ZeroMemory(&wc, sizeof(wc));
+    wc.style         = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+    wc.lpfnWndProc   = (WNDPROC) DefWindowProc;
+    wc.lpszClassName = "BifrostHydra_dummy";
+
+    RegisterClass(&wc);
+
+    HWND hWnd = CreateWindowEx(
+        0, wc.lpszClassName, "BifrostHydra",
+        WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+        nullptr, nullptr, nullptr, nullptr);
+    assert(hWnd);
+
+    HDC hDC = GetDC(hWnd);
+    assert(hDC);
+
+    PIXELFORMATDESCRIPTOR pfd = {
+        sizeof(PIXELFORMATDESCRIPTOR),  // Size Of This Pixel Format Descriptor
+        1,                              // Version Number
+        PFD_DRAW_TO_WINDOW |            // Format Must Support Window
+        PFD_SUPPORT_OPENGL |            // Format Must Support OpenGL
+        PFD_DOUBLEBUFFER,               // Must Support Double Buffering
+        PFD_TYPE_RGBA,                  // Request An RGBA Format
+        16,                             // Select Our Color Depth
+        0, 0, 0, 0, 0, 0,               // Color Bits Ignored
+        0,                              // No Alpha Buffer
+        0,                              // Shift Bit Ignored
+        0,                              // No Accumulation Buffer
+        0, 0, 0, 0,                     // Accumulation Bits Ignored
+        16,                             // 16Bit Z-Buffer (Depth Buffer)
+        0,                              // No Stencil Buffer
+        0,                              // No Auxiliary Buffer
+        PFD_MAIN_PLANE,                 // Main Drawing Layer
+        0,                              // Reserved
+        0, 0, 0                         // Layer Masks Ignored
+    };
+
+    int pixelFormat = ChoosePixelFormat(hDC, &pfd);
+    SetPixelFormat(hDC, pixelFormat, &pfd);
+
+    HGLRC hRC = wglCreateContext(hDC);
+    assert(hRC);
+    wglMakeCurrent(hDC, hRC);
+#endif
+}
+
+void TestSceneIndexPrim::TearDown() {
+}
 
 UsdStageRefPtr TestSceneIndexPrim::openStage(const std::string& stageFilePath) {
     stage = UsdStage::Open(stageFilePath);

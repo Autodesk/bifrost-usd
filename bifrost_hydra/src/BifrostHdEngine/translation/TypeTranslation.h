@@ -23,46 +23,31 @@
 
 namespace BifrostHd {
 
-class TypeTranslation final : public BifrostGraph::Executor::TypeTranslation {
+class BIFROST_HD_TRANSLATION_SHARED_DECL TypeTranslation final : public BifrostGraph::Executor::TypeTranslation {
 public:
-    TypeTranslation();
+    TypeTranslation() noexcept;
 
-    ~TypeTranslation() override;
+    ~TypeTranslation() noexcept override;
 
-    void deleteThis() override;
+    void deleteThis() noexcept override;
 
-    void getSupportedTypeNames(Amino::StringList& out_names) const override;
+    void getSupportedTypeNames(StringArray& out_names) const noexcept override;
 
     bool convertValueFromHost(
         Amino::Type const& type,
-        Amino::Value&      value,
-        BifrostGraph::Executor::TypeTranslation::ValueTranslationData const*
-            valueTranslationData) const override;
+        Amino::Any&        value,
+        BifrostGraph::Executor::TypeTranslation::ValueData const*
+            valueTranslationData) const noexcept override;
 
-    bool convertValueToHost(
-        Amino::Value const& value,
-        BifrostGraph::Executor::TypeTranslation::ValueTranslationData*
-            valueTranslationData) const override;
-
-    bool portAdded(Amino::String const&   name,
-                   PortDirection          direction,
-                   Amino::Type const&     type,
-                   Amino::Metadata const& metadata,
-                   PortClass              portClass,
-                   PortTranslationData*   valueTranslationData) const override;
-
-    bool registerHostPlugins(const PluginHostData* hostData) const override;
-    bool unregisterHostPlugins(const PluginHostData* hostData) const override;
-
-    bool getDataTypeColorHint(Amino::Type const& dataType,
-                              Amino::String&     colorHint) const override;
+    bool convertValueToHost(Amino::Any const& value,
+                            BifrostGraph::Executor::TypeTranslation::ValueData*
+                                valueTranslationData) const noexcept override;
 };
 
 } // namespace BifrostHd
 
 extern "C" {
-HD_MODULE_API BifrostGraph::Executor::TypeTranslation*
-              createBifrostTypeTranslation(void);
+BIFROST_HD_TRANSLATION_SHARED_DECL BifrostGraph::Executor::TypeTranslation* createBifrostTypeTranslation(void);
 }
 
 #endif // BIFROST_HD_ENGINE_TYPE_TRANSLATION_H_

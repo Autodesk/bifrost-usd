@@ -146,15 +146,7 @@ else()
 	return()
 endif()
 
-set(cxx_flags)
-
-if (gcc_version VERSION_GREATER 4.9.2 OR gcc_version VERSION_EQUAL 4.9.2)
-    list(APPEND cxx_flags -std=gnu++14)
-else()
-    list(APPEND cxx_flags -std=c++11)
-endif()
-
-list(APPEND cxx_flags
+set( cxx_flags
     -fPIC
     -fno-strict-aliasing
 

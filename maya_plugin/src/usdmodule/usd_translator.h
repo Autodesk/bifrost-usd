@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,10 +25,10 @@ class Stage;
 
 class UsdTranslation : public BifrostGraph::Executor::TypeTranslation {
 public:
-    UsdTranslation();
-    ~UsdTranslation() override;
+    UsdTranslation() noexcept;
+    ~UsdTranslation() noexcept override;
 
-    void deleteThis() override;
+    void deleteThis() noexcept override;
 
     USD_MODULE_API
     int64_t AddStageToCache(const Amino::Ptr<BifrostUsd::Stage>& stage,
@@ -36,57 +36,50 @@ public:
 
     // Bifrost Executor TypeTranslation functions
 
-    void getSupportedTypeNames(Amino::StringList& out_names) const override;
+    void getSupportedTypeNames(StringArray& out_names) const noexcept override;
 
     bool convertValueFromHost(
-        Amino::Type const&          type,
-        Amino::Value&               value,
-        ValueTranslationData const* translationData) const override;
+        Amino::Type const& type,
+        Amino::Any&        value,
+        ValueData const*   translationData) const noexcept override;
 
-    bool convertValueToHost(
-        Amino::Value const&   value,
-        ValueTranslationData* translationData) const override;
+    bool convertValueToHost(Amino::Any const& value,
+                            ValueData* translationData) const noexcept override;
 
-    bool portAdded(Amino::String const&   name,
-                   PortDirection          direction,
-                   Amino::Type const&     type,
-                   Amino::Metadata const& metadata,
-                   PortClass              portClass,
-                   PortTranslationData*   translationData) const override;
+    bool portAdded(Amino::String const&                  name,
+                   BifrostGraph::Executor::PortDirection direction,
+                   Amino::Type const&                    type,
+                   Amino::Metadata const&                metadata,
+                   BifrostGraph::Executor::PortClass     portClass,
+                   PortData* translationData) const noexcept override;
 
-    virtual bool portRemoved(Amino::String const& name,
-                             Amino::String const& graphName) const override;
+    bool portRemoved(Amino::String const& name,
+                     Amino::String const& graphName) const noexcept override;
 
-    virtual bool portRenamed(Amino::String const& prevName,
-                             Amino::String const& name,
-                             Amino::String const& graphName) const override;
-
-    bool registerHostPlugins(const PluginHostData* hostData) const override;
-    bool unregisterHostPlugins(const PluginHostData* hostData) const override;
-
-    bool getDataTypeColorHint(Amino::Type const& dataType,
-                              Amino::String&     colorHint) const override;
+    bool portRenamed(Amino::String const& prevName,
+                     Amino::String const& name,
+                     Amino::String const& graphName) const noexcept override;
 
 private:
-    struct PortData {
+    struct UsdPortData {
         Amino::String m_portName;
         int64_t       m_cacheId;
         Amino::String m_mayaProxyShape;
 
-        PortData() : m_portName(""), m_cacheId(-1), m_mayaProxyShape("") {}
+        UsdPortData() : m_portName(""), m_cacheId(-1), m_mayaProxyShape("") {}
 
-        PortData(Amino::String portName,
-                 int64_t       cacheId,
-                 Amino::String mayaProxyShape)
+        UsdPortData(Amino::String portName,
+                    int64_t       cacheId,
+                    Amino::String mayaProxyShape)
             : m_portName(portName),
               m_cacheId(cacheId),
               m_mayaProxyShape(mayaProxyShape) {}
     };
-    Amino::Array<PortData> m_portData;
+    Amino::Array<UsdPortData> m_portData;
 
     void addStageForPort(Amino::String const& portName, int64_t id);
     bool removeStageForPort(Amino::String const& portName);
-    typename Amino::Array<UsdTranslation::PortData>::iterator getPortData(
+    typename Amino::Array<UsdTranslation::UsdPortData>::iterator getPortData(
         Amino::String const& portName);
     void removePortData(Amino::String const& portName);
 };

@@ -39,7 +39,7 @@ private:
 JobTranslationData::JobTranslationData(Parameters& params,
                                        bool        logVerbose,
                                        Time const& time)
-    : BifrostBoardJob::JobTranslationData(),
+    : BifrostGraph::Executor::JobPreview::JobTranslationData(),
       m_impl(std::make_unique<Impl>(logVerbose, time, params)) {}
 
 JobTranslationData::~JobTranslationData() = default;

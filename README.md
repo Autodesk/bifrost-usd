@@ -25,6 +25,8 @@ You must provide the following variables to the cmake command:
 * BIFUSD_OSX_MIN_OS : (optional) Can be set to choose the minimum macOS deployement target. If not set, macOS 11.0 will be used.
 * BIFUSD_OSX_BINARY_ARCH : (optional) Can be set to choose the target architecture to build on macOS. Acceptable values are `x64` (Intel CPU), `arm64` (Apple M1 CPU), `ub2` (Universal Binary 2 - both x64 and arm64) and empty (default) (host system's processor).
 
+__C++17 is the minimal required version going forward.__
+
 __Python 3 version is assumed.__
 
 __If your build uses MAYA_RUNTIME_LOCATION, you will need to use the same USD version than MayaUSD plugin.__

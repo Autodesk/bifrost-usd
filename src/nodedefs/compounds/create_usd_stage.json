@@ -12,6 +12,7 @@
     "compounds": [
         {
             "name": "USD::Stage::create_usd_stage",
+            "uriImported": "file:///create_usd_stage.json",
             "metadata": [
                 {
                     "metaName": "documentation",
@@ -27,7 +28,7 @@
                             "metaValue": "Create Stage {layer}"
                         }
                     ]
-                },                
+                },
                 {
                     "metaName": "io_nodes",
                     "metadata": [
@@ -43,10 +44,23 @@
                                             "metaValue": "2"
                                         },
                                         {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "10 175"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "33.000000"
+                                        },
+                                        {
                                             "metaName": "io_ports",
                                             "metadata": [
                                                 {
                                                     "metaName": "layer"
+                                                },
+                                                {
+                                                    "metaName": "file_format"
                                                 },
                                                 {
                                                     "metaName": "sublayers"
@@ -61,11 +75,6 @@
                                                     "metaName": "layer_index"
                                                 }
                                             ]
-                                        },
-                                        {
-                                            "metaName": "LayoutPos",
-                                            "metaType": "string",
-                                            "metaValue": "10 175"
                                         }
                                     ]
                                 }
@@ -78,14 +87,6 @@
                                     "metaName": "output",
                                     "metadata": [
                                         {
-                                            "metaName": "io_ports",
-                                            "metadata": [
-                                                {
-                                                    "metaName": "stage"
-                                                }
-                                            ]
-                                        },
-                                        {
                                             "metaName": "DisplayMode",
                                             "metaType": "string",
                                             "metaValue": "2"
@@ -94,6 +95,19 @@
                                             "metaName": "LayoutPos",
                                             "metaType": "string",
                                             "metaValue": "925 268"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "stage"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "34.000000"
                                         }
                                     ]
                                 }
@@ -102,25 +116,40 @@
                     ]
                 },
                 {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd.svg"
+                },
+                {
                     "metaName": "ViewportRect",
                     "metaType": "string",
-                    "metaValue": "-70.29 -553.047 1301.54 1594.33"
+                    "metaValue": "-399.073 -551.271 1958.53 1591.81"
                 },
                 {
                     "metaName": "DisplayMode",
                     "metaType": "string",
-                    "metaValue": "2"
+                    "metaValue": "1"
                 },
                 {
                     "metaName": "LayoutPos",
                     "metaType": "string",
-                    "metaValue": "-312.683 -213.134"
+                    "metaValue": "620 10"
                 },
                 {
-                    "metaName": "icon",
+                    "metaName": "zValue",
                     "metaType": "string",
-                    "metaValue": "../icons/usd.svg"
-                }                
+                    "metaValue": "37.000000"
+                },
+                {
+                    "metaName": "PortExpandedState",
+                    "metadata": [
+                        {
+                            "metaName": "sublayers",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        }
+                    ]
+                }
             ],
             "ports": [
                 {
@@ -148,6 +177,24 @@
                             "metaName": "UIWidget",
                             "metaType": "string",
                             "metaValue": "FileBrowserWidget"
+                        }
+                    ]
+                },
+                {
+                    "portName": "file_format",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "Binary",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "editable=false;items={Binary;ASCII}"
+                        },
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "ComboBox"
                         }
                     ]
                 },
@@ -202,7 +249,12 @@
                         {
                             "metaName": "LayoutPos",
                             "metaType": "string",
-                            "metaValue": "315 10"
+                            "metaValue": "315 99.2455"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "38.000000"
                         }
                     ]
                 },
@@ -219,6 +271,11 @@
                             "metaName": "LayoutPos",
                             "metaType": "string",
                             "metaValue": "620 233"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "32.000000"
                         }
                     ]
                 }
@@ -251,6 +308,10 @@
                 {
                     "source": ".layer_index",
                     "target": "open_stage_from_layer.layer_index"
+                },
+                {
+                    "source": ".file_format",
+                    "target": "create_usd_layer.file_format"
                 }
             ],
             "values": [

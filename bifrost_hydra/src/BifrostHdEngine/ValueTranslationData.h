@@ -17,22 +17,24 @@
 #ifndef BIFROST_HD_ENGINE_TRANSLATION_DATA_H
 #define BIFROST_HD_ENGINE_TRANSLATION_DATA_H
 
-#include <BifrostGraph/Executor/BifrostBoardJob.h>
+#include <BifrostHydra/Engine/Export.h>
+
+#include <BifrostGraph/Executor/JobPreview.h>
 
 namespace BifrostHd {
 
 class JobTranslationData;
 
-class ValueTranslationData final
-    : public BifrostBoardJob::ValueTranslationData {
+class BIFROST_HD_ENGINE_SHARED_DECL ValueTranslationData final
+    : public BifrostGraph::Executor::JobPreview::ValueData {
 public:
     ValueTranslationData(JobTranslationData& jobTranslationData,
-                         Amino::Value        defaultVal,
+                         Amino::Any          defaultVal,
                          std::string         name);
     ~ValueTranslationData() override;
 
-    Amino::Value getInput(Amino::Type const& type) const;
-    bool         setOutput(const Amino::Value& value);
+    Amino::Any getInput(Amino::Type const& type) const;
+    bool       setOutput(const Amino::Any& value);
 
     const JobTranslationData& jobTranslationData() const;
 
@@ -46,7 +48,7 @@ public:
     /// \}
 
 private:
-    Amino::Value        m_defaultVal;
+    Amino::Any          m_defaultVal;
     JobTranslationData& m_jobTranslationData;
     std::string         m_name;
 };

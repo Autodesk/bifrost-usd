@@ -1,0 +1,49 @@
+{
+    "schemaVersion": "1.0.0",
+    "comment": [
+        "The scalar_attribute_test_00 compound is checking:",
+        "   - if a float attribute named 'float_test' is added to the stage with expected value.",
+        "   - if a float array attribute named 'float_array_test' is added to the stage with expected value.",
+        "   - if a double attribute named 'double_test' is added to the stage with expected value.",
+        "   - if a double array attribute named 'double_array_test' is added to the stage with expected value.",
+        "It is testing the 'Blue Pill' mode (define_usd_attribute->define_usd_prim->add_to_stage) ",
+        "and the 'Red Pill' mode (create_usd_prim->create_prim_attribute->set_prim_attribute)"
+    ],
+    "options": {
+        "definitionFiles": [
+            "scalar_attribute_test_00.json"
+        ],
+        "compound": "USD::Test::Attribute::scalar_attribute_test_00"
+    },
+    "task": {
+        "type": "sequence",
+        "tasks": [
+            {
+                "type": "single",
+                "name": "Use Red Pill Mode",
+                "options": {
+                    "comment": "Set test mode to Red Pill",
+                    "inputPorts": [
+                        {
+                            "name": "test_mode",
+                            "value": "Red Pill"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "single",
+                "name": "Use Blue Pill Mode",
+                "options": {
+                    "comment": "Set test mode to Blue Pill",
+                    "inputPorts": [
+                        {
+                            "name": "test_mode",
+                            "value": "Blue Pill"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

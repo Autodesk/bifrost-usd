@@ -17,7 +17,9 @@
 #ifndef BIFROST_HD_ENGINE_H
 #define BIFROST_HD_ENGINE_H
 
-#include <AminoJob.h>
+#include <BifrostHydra/Engine/Export.h>
+
+#include <Amino/AminoJob.h>
 #include <Bifrost/Object/Object.h>
 
 #include <pxr/imaging/hd/sceneIndex.h>
@@ -25,6 +27,7 @@
 #include <memory>
 
 namespace BifrostHd {
+class Workspace;
 
 /// \class Engine
 ///
@@ -35,7 +38,7 @@ namespace BifrostHd {
 using Output =
     std::pair<std::string, Amino::Array<Amino::Ptr<Bifrost::Object>>>;
 
-class Engine {
+class BIFROST_HD_ENGINE_SHARED_DECL Engine {
 public:
     Engine();
 

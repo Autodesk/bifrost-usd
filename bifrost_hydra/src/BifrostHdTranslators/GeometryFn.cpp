@@ -16,7 +16,8 @@
 
 #include <BifrostHydra/Translators/GeometryFn.h>
 
-#include <Bifrost/Geometry/bifrost_geometry.h>
+#include <Bifrost/Geometry/GeoProperty.h>
+#include <Bifrost/Geometry/Primitives.h>
 #include <Bifrost/Object/bifrost_what_is.h>
 
 #include <pxr/base/gf/quath.h>
@@ -386,7 +387,7 @@ HdContainerDataSourceHandle BuildPointInstancerTopologyDataSource(
 
 HdContainerDataSourceHandle NewPointInstancerDataSource(
     const Bifrost::Object& object) {
-    (void)BuildInstancerInstancedByDataSource;
+    (void)BuildInstancerInstancedByDataSource();
     return HdRetainedContainerDataSource::New(
         HdInstancerTopologySchemaTokens->instancerTopology,
         BuildPointInstancerTopologyDataSource(object),

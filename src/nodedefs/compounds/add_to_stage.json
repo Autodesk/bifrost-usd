@@ -15,6 +15,11 @@
             "uriImported": "stream:/stream",
             "metadata": [
                 {
+                    "metaName": "documentation",
+                    "metaType": "string",
+                    "metaValue": "../docs/${language}/add_to_stage.md"
+                },
+                {
                     "metaName": "io_nodes",
                     "metadata": [
                         {

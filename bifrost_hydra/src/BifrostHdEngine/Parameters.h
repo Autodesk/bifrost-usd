@@ -17,6 +17,8 @@
 #ifndef BIFROST_HD_PARAMETERS_H
 #define BIFROST_HD_PARAMETERS_H
 
+#include <BifrostHydra/Engine/Export.h>
+
 #include <Bifrost/Object/Object.h>
 
 #include <pxr/imaging/hd/sceneIndex.h>
@@ -35,7 +37,7 @@ using Output = std::pair<std::string, Amino::Array<Amino::Ptr<Bifrost::Object>>>
 /// in a HdSceneIndexPrim of type hydraGenerativeProcedural
 ///
 
-class Parameters {
+class BIFROST_HD_ENGINE_SHARED_DECL Parameters {
 public:
     Parameters();
 

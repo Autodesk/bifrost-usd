@@ -14,35 +14,23 @@
 // limitations under the License.
 //+
 
-#ifndef HD_MODULE_DECL
-#define HD_MODULE_DECL
+#ifndef BIFROST_HD_TRANSLATION_EXPORT
+#define BIFROST_HD_TRANSLATION_EXPORT
 
-#if defined(HD_MODULE_API_NO_API)
-#define HD_MODULE_API
-#elif defined(_WIN32) || defined(__CYGWIN__)
-#ifdef HD_MODULE_API_IMPL
-#ifdef __GNUC__
-#define HD_MODULE_API __attribute__((dllexport))
+#if defined(_WIN32) || defined(__CYGWIN__)
+#if defined(BIFROST_HD_TRANSLATION_BUILD_DLL)
+#define BIFROST_HD_TRANSLATION_SHARED_DECL __declspec(dllexport)
 #else
-#define HD_MODULE_API \
-    __declspec(        \
-        dllexport) // Note: actually gcc seems to also supports this syntax.
+#define BIFROST_HD_TRANSLATION_SHARED_DECL __declspec(dllimport)
 #endif
+
+#elif defined(__GNUC__)
+#if defined(BIFROST_HD_TRANSLATION_BUILD_DLL)
+#define BIFROST_HD_TRANSLATION_SHARED_DECL __attribute__((visibility("default")))
 #else
-#ifdef __GNUC__
-#define HD_MODULE_API __attribute__((dllimport))
-#else
-#define HD_MODULE_API \
-    __declspec(        \
-        dllimport) // Note: actually gcc seems to also supports this syntax.
-#endif
-#endif
-#else
-#if __GNUC__ >= 4
-#define HD_MODULE_API __attribute__((visibility("default")))
-#else
-#define HD_MODULE_API
-#endif
+#define BIFROST_HD_TRANSLATION_SHARED_DECL
 #endif
 
 #endif
+
+#endif // BIFROST_HD_TRANSLATION_EXPORT

@@ -17,24 +17,27 @@
 #ifndef BIFROST_HD_ENGINE_REQUIREMENT_H_
 #define BIFROST_HD_ENGINE_REQUIREMENT_H_
 
+#include <BifrostHydra/Engine/Export.h>
+
 #include <BifrostGraph/Executor/BifrostBoardRuntime.h>
 
 namespace BifrostHd {
 
-class Requirement final : public BifrostBoardJob::Requirement {
+class BIFROST_HD_ENGINE_SHARED_DECL Requirement final
+    : public BifrostGraph::Executor::JobPreview::Requirement {
 public:
-    Requirement(const Amino::String&                               name,
-                Amino::PortDescription::PortDirection              direction,
-                const Amino::Type&                                 type,
-                BifrostGraph::Executor::TypeTranslation::PortClass portClass,
-                Amino::Value defaultValue);
+    Requirement(const Amino::String&                  name,
+                BifrostGraph::Executor::PortDirection direction,
+                const Amino::Type&                    type,
+                BifrostGraph::Executor::PortClass     portClass,
+                Amino::Any                            defaultValue);
 
     ~Requirement() override = default;
 
-    void translate(
-        BifrostBoardRuntime const*           runtime,
-        Amino::Job const&                    job,
-        BifrostBoardJob::JobTranslationData* translationData) const override;
+    void translate(BifrostBoardRuntime const* runtime,
+                   Amino::Job const&          job,
+                   BifrostGraph::Executor::JobPreview::JobTranslationData*
+                       translationData) const override;
 
 public:
     /// Disabled
@@ -46,7 +49,7 @@ public:
     /// \}
 
 private:
-    Amino::Value m_defaultVal; ///< Default value to use if none is set in input
+    Amino::Any m_defaultVal; ///< Default value to use if none is set in input
 };
 
 } // namespace BifrostHd

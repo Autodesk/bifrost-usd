@@ -21,7 +21,13 @@
 #include <nodedefs/usd_pack/usd_prim_nodedefs.h>
 #include <nodedefs/usd_pack/usd_stage_nodedefs.h>
 #include <nodedefs/usd_pack/usd_utils.h>
+#include <pxr/pxr.h>
 #include <utils/test/testUtils.h>
+
+BIFUSD_WARNING_PUSH
+BIFUSD_WARNING_DISABLE_MSC(4003)
+#include <pxr/usd/sdf/fileFormat.h>
+BIFUSD_WARNING_POP
 
 #include <gtest/gtest.h>
 #include <fstream>
@@ -140,11 +146,43 @@ TEST(LayerNodeDefs, get_layer) {
 }
 
 TEST(LayerNodeDefs, create_layer) {
-    const Amino::String file = getResourcePath("namedoesntmatter.usd").c_str();
-    Amino::MutablePtr<BifrostUsd::Layer> layer;
-    USD::Layer::create_layer(file, layer);
-    ASSERT_TRUE(layer);
-    ASSERT_TRUE(*layer);
+    // An empty usda got two new lines
+    const char* usdAsciiContent = R"usda(#usda 1.0
+
+)usda";
+
+    // An empty binary usd or usdc file
+    const char* usdCrateContent = R"usdc(PXR-USDC)usdc";
+
+    auto create_and_save = [](const Amino::String& filepath,
+                              const Amino::String& fileFormat,
+                              const char*          expectedContent) {
+        Amino::MutablePtr<BifrostUsd::Layer> layer;
+        USD::Layer::create_layer(filepath, fileFormat, layer);
+        ASSERT_TRUE(layer);
+        ASSERT_TRUE(layer->exportToFile());
+
+        std::ifstream     layerstream(filepath.c_str());
+        std::stringstream layerbuffer;
+        layerbuffer << layerstream.rdbuf();
+
+        ASSERT_STREQ(layerbuffer.str().c_str(), expectedContent);
+    };
+
+    // Save an ASCII file with a .usd extension
+    create_and_save(getThisTestOutputPath("testUSD_Default.usd"), "",
+                    usdCrateContent);
+    create_and_save(getThisTestOutputPath("testUSD_USDA.usd"), "usda",
+                    usdAsciiContent);
+    create_and_save(getThisTestOutputPath("testUSD_USDC.usd"), "usdc",
+                    usdCrateContent);
+
+    create_and_save(getThisTestOutputPath("testUSDA_Default.usda"), "",
+                    usdAsciiContent);
+    create_and_save(getThisTestOutputPath("testUSDA_USDA.usda"), "usda",
+                    usdAsciiContent);
+    create_and_save(getThisTestOutputPath("testUSDA_USDC.usda"), "usdc",
+                    usdCrateContent);
 }
 
 TEST(LayerNodeDefs, open_layer) {

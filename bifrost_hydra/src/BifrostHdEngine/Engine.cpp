@@ -17,6 +17,9 @@
 #include <BifrostHydra/Engine/Engine.h>
 
 #include <BifrostHydra/Engine/Container.h>
+#include <BifrostHydra/Engine/Runtime.h>
+#include <BifrostHydra/Engine/Workspace.h>
+
 #include <BifrostHydra/Engine/JobTranslationData.h>
 #include <BifrostHydra/Engine/Parameters.h>
 
@@ -36,14 +39,13 @@ public:
         if (m_container.graphExecutionCounter() == 0) {
             if (!m_container.loadGraph(
                     qualifiedName,
-                    BifrostBoardContainer::GraphMode::kLoadAsReference)) {
+                    BifrostGraph::Executor::GraphContainerPreview::GraphMode::kLoadAsReference)) {
                 return Amino::Job::State::kErrors;
             }
             if (!m_container.updateJob()) {
                 return Amino::Job::State::kErrors;
             }
         }
-
 
         const double currentTime = frame / m_fps;
         const double frameLength = 1.0 / m_fps;
@@ -68,7 +70,7 @@ public:
 private:
     double               m_fps{24.0};
     Parameters           m_parameters;
-    BifrostHd::Container m_container;
+    BifrostHd::Container m_container{BifrostHd::Runtime::getInstance()};
 };
 
 Engine::Engine() : m_impl(std::make_unique<Impl>()) {}

@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2023 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,8 +30,8 @@ class StringList;
 #include <Amino/Core/Array.h>
 #include <Amino/Core/String.h>
 #include <BifrostGraph/Executor/Callbacks.h>
-#include <BifrostGraph/Executor/WatchpointTranslation.h>
 #include <BifrostGraph/Executor/Utility.h>
+#include <BifrostGraph/Executor/Watchpoint.h>
 #include <BifrostUsd/Attribute.h>
 #include <BifrostUsd/Layer.h>
 #include <BifrostUsd/Prim.h>
@@ -54,8 +54,8 @@ BIFUSD_WARNING_DISABLE_MSC(4244)
 
 BIFUSD_WARNING_POP
 
-using CallBackFunc = BifrostGraph::Executor::WatchpointTranslation::CallBack;
-using Records      = BifrostGraph::Executor::WatchpointTranslation::Records;
+using CallBackFunc = BifrostGraph::Executor::Watchpoint::CallBack;
+using Records      = BifrostGraph::Executor::Watchpoint::Records;
 
 namespace {
 
@@ -476,53 +476,53 @@ void wpCallBack(void const* data, Amino::ulong_t, void const* value) {
 
 } // namespace
 
-class USDWatchpointTranslation
-    : public BifrostGraph::Executor::WatchpointTranslation {
+class USDWatchpoint : public BifrostGraph::Executor::Watchpoint {
 public:
-    USDWatchpointTranslation();
-    ~USDWatchpointTranslation() override;
+    USDWatchpoint() noexcept;
+    ~USDWatchpoint() noexcept override;
 
-    void deleteThis() override;
+    void deleteThis() noexcept override;
 
-    void getSupportedTypeNames(Amino::StringList& out_names) const override;
+    void getSupportedTypeNames(StringArray& out_names) const noexcept override;
 
-    CallBackFunc getCallBackFunction(Amino::Type const& type) const override;
+    CallBackFunc getCallBackFunction(
+        Amino::Type const& type) const noexcept override;
 
     bool getAvailableParameters(
         Amino::Type const& type,
-        Amino::StringList& out_parameters) const override;
+        StringArray&       out_parameters) const noexcept override;
 
     bool getParameterDetails(
         Amino::Type const&   type,
         Amino::String const& parameter,
         Amino::String&       out_description,
-        Amino::StringList&   out_values,
-        Amino::StringList&   out_descriptions) const override;
+        StringArray&         out_values,
+        StringArray&         out_descriptions) const noexcept override;
 
     void const* createClientData(Amino::Type const& type,
-                                 Records&           records) const override;
+                                 Records& records) const noexcept override;
 
     bool releaseClientData(Amino::Type const& type,
-                           void const*        clientData) const override;
+                           void const* clientData) const noexcept override;
 };
 
-USDWatchpointTranslation::USDWatchpointTranslation()
-    : BifrostGraph::Executor::WatchpointTranslation("USD Watchpoint Translation") {}
+USDWatchpoint::USDWatchpoint() noexcept
+    : BifrostGraph::Executor::Watchpoint("USD Watchpoint") {}
 
-USDWatchpointTranslation::~USDWatchpointTranslation() = default;
+USDWatchpoint::~USDWatchpoint() noexcept = default;
 
-void USDWatchpointTranslation::deleteThis() { delete this; }
+void USDWatchpoint::deleteThis() noexcept { delete this; }
 
-void USDWatchpointTranslation::getSupportedTypeNames(
-    Amino::StringList& out_names) const {
-    BifrostGraph::Executor::Utility::addStringToList(kUsdLayerName, out_names);
-    BifrostGraph::Executor::Utility::addStringToList(kUsdStageName, out_names);
-    BifrostGraph::Executor::Utility::addStringToList(kUsdPrimName, out_names);
-    BifrostGraph::Executor::Utility::addStringToList(kUsdAttributeName, out_names);
+void USDWatchpoint::getSupportedTypeNames(
+    StringArray& out_names) const noexcept {
+    out_names.push_back(kUsdLayerName);
+    out_names.push_back(kUsdStageName);
+    out_names.push_back(kUsdPrimName);
+    out_names.push_back(kUsdAttributeName);
 }
 
-CallBackFunc USDWatchpointTranslation::getCallBackFunction(
-    Amino::Type const& dataType) const {
+CallBackFunc USDWatchpoint::getCallBackFunction(
+    Amino::Type const& dataType) const noexcept {
     if (isUsdStageType(dataType)) {
         return isArrayType(dataType) ? &wpCallBack<ArrayOfStages>
                                      : &wpCallBack<StagePtr>;
@@ -538,35 +538,34 @@ CallBackFunc USDWatchpointTranslation::getCallBackFunction(
     }
 }
 
-bool USDWatchpointTranslation::getAvailableParameters(
-    Amino::Type const& dataType, Amino::StringList& out_parameters) const {
+bool USDWatchpoint::getAvailableParameters(
+    Amino::Type const& dataType, StringArray& out_parameters) const noexcept {
     if (isArrayType(dataType)) {
-        BifrostGraph::Executor::Utility::addStringToList(kArraySize, out_parameters);
+        out_parameters.push_back(kArraySize);
         return true;
     } else if (isUsdStageType(dataType)) {
-        BifrostGraph::Executor::Utility::addStringToList(kLastModifiedPrim, out_parameters);
-        BifrostGraph::Executor::Utility::addStringToList(kLastModifiedVariant, out_parameters);
-        BifrostGraph::Executor::Utility::addStringToList(kStageFilePaths, out_parameters);
-        BifrostGraph::Executor::Utility::addStringToList(kLayerStack, out_parameters);
-        BifrostGraph::Executor::Utility::addStringToList(kStats, out_parameters);
+        out_parameters.push_back(kLastModifiedPrim);
+        out_parameters.push_back(kLastModifiedVariant);
+        out_parameters.push_back(kStageFilePaths);
+        out_parameters.push_back(kLayerStack);
+        out_parameters.push_back(kStats);
         return true;
-    }
-    else if (isUsdPrimType(dataType)) {
-        BifrostGraph::Executor::Utility::addStringToList(kPrimPath, out_parameters);
-        BifrostGraph::Executor::Utility::addStringToList(kPrimInfo, out_parameters);
-        BifrostGraph::Executor::Utility::addStringToList(kPrimAttributes, out_parameters);
+    } else if (isUsdPrimType(dataType)) {
+        out_parameters.push_back(kPrimPath);
+        out_parameters.push_back(kPrimInfo);
+        out_parameters.push_back(kPrimAttributes);
         return true;
     }
 
     return false;
 }
 
-bool USDWatchpointTranslation::getParameterDetails(
+bool USDWatchpoint::getParameterDetails(
     Amino::Type const&   dataType,
     Amino::String const& parameter,
     Amino::String&       out_description,
-    Amino::StringList&   out_values,
-    Amino::StringList&   out_descriptions) const {
+    StringArray&         out_values,
+    StringArray&         out_descriptions) const noexcept {
     if (isArrayType(dataType)) {
         if (parameter == kArraySize) {
             out_description = kArraySizeDesc;
@@ -598,24 +597,24 @@ bool USDWatchpointTranslation::getParameterDetails(
         return true;
     }
 
-    BifrostGraph::Executor::Utility::addStringToList("enable", out_values);
-    BifrostGraph::Executor::Utility::addStringToList("disable", out_values);
-    BifrostGraph::Executor::Utility::addStringToList("enable", out_descriptions);
-    BifrostGraph::Executor::Utility::addStringToList("disable", out_descriptions);
+    out_values.push_back("enable");
+    out_values.push_back("disable");
+    out_descriptions.push_back("enable");
+    out_descriptions.push_back("disable");
 
     return true;
 }
 
-void const* USDWatchpointTranslation::createClientData(
-    Amino::Type const& dataType, Records& records) const {
+void const* USDWatchpoint::createClientData(Amino::Type const& dataType,
+                                            Records& records) const noexcept {
     (void)dataType;
     assert(isUsdStageType(dataType) || isUsdPrimType(dataType) ||
            isUsdLayerType(dataType) || isUsdAttributeType(dataType));
     return new USDWPClientData(records);
 }
 
-bool USDWatchpointTranslation::releaseClientData(Amino::Type const& dataType,
-                                                 void const* clientData) const {
+bool USDWatchpoint::releaseClientData(Amino::Type const& dataType,
+                                      void const* clientData) const noexcept {
     (void)dataType;
     assert(isUsdStageType(dataType) || isUsdPrimType(dataType) ||
            isUsdLayerType(dataType) || isUsdAttributeType(dataType));
@@ -625,11 +624,9 @@ bool USDWatchpointTranslation::releaseClientData(Amino::Type const& dataType,
 }
 
 extern "C" {
-USD_WATCHPOINT_EXPORT BifrostGraph::Executor::WatchpointTranslation*
-                      createBifrostWatchpointTranslation(void);
+USD_WATCHPOINT_EXPORT BifrostGraph::Executor::Watchpoint* createBifrostWatchpoint(void);
 
-USD_WATCHPOINT_EXPORT BifrostGraph::Executor::WatchpointTranslation*
-                      createBifrostWatchpointTranslation(void) {
-    return new USDWatchpointTranslation();
+USD_WATCHPOINT_EXPORT BifrostGraph::Executor::Watchpoint* createBifrostWatchpoint(void) {
+    return new USDWatchpoint();
 }
 }

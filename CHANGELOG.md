@@ -1,4 +1,29 @@
-## [1.2.1] - 2023-11-15
+## [1.2.2] - 2024-03-27 (Bifrost 2.9)
+
+### Build
+
+ - BIFROST-9332 - Update to Bifrost 2.9 SDK
+ - BIFROST-8981 - Update to USD 0.23.11
+ - BIFROST-9147 - Make C++17 default
+
+### Feature
+
+ - BIFROST-9354 - USD File Format Option
+
+    Add parameter to set a the USD layer format to ASCII or binary. Useful to save in human readable format and still keep the .usd extension.
+
+ -  BIFROST-9334 - Add _get_edit_layer_ operator
+
+    This node returns the stage's EditTarget layer.
+
+
+### Bugfix
+
+ - BIFROST 9428 - Fix scalar attribute creation regression when _using add_to_stage_ compound
+ - BIFROST-9334 - Fix save_usd_stage compound errors when current edit target is not the root layer
+    - Update the _save_usd_stage_ compound. It is now setting the target layer to the root layer before saving and then restore the current target (using the new get_edit_layer operator).
+
+## [1.2.1] - 2023-11-15 (Bifrost 2.8)
 
 ### Build
 
@@ -79,7 +104,7 @@
    - add README.md in test folder
 
 
-## [1.2.0] - 2023-05-12
+## [1.2.0] - 2023-05-12 (Bifrost 2.7)
 
 ### Build
 
@@ -114,7 +139,7 @@
 	- removed call to changeDir() that has side effect and is not required anymore for unit tests.
 
 
-## [1.1.0] - 2023-03-29
+## [1.1.0] - 2023-03-29 (Bifrost 2.7)
 
 ### Build
 
@@ -135,6 +160,6 @@
 
 ### Bugfix
 
-## [1.0.0] - 2022-12-12
+## [1.0.0] - 2022-12-12 (Bifrost 2.6)
 
  - Initial release

@@ -187,6 +187,23 @@ void USD::Stage::set_edit_layer(BifrostUsd::Stage&  stage,
     }
 }
 
+void USD::Stage::get_edit_layer(const BifrostUsd::Stage&       stage,
+                                const bool read_only,
+                                Amino::Ptr<BifrostUsd::Layer>& edit_layer) {
+    if (!stage) {
+        return;
+    }
+    try {
+        auto target = stage->GetEditTarget();
+        if (target.IsValid()) {
+            edit_layer = Amino::newClassPtr<BifrostUsd::Layer>(
+                target.GetLayer(), /*isEditable*/ !read_only);
+        }
+    } catch (std::exception& e) {
+        log_exception("get_edit_layer", e);
+    }
+}
+
 void USD::Stage::set_default_prim(BifrostUsd::Stage& stage,
                                   const Amino::String& prim_path) {
     if (!stage) return;

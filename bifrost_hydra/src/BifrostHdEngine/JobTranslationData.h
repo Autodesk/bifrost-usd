@@ -17,7 +17,9 @@
 #ifndef BIFROST_HD_ENGINE_JOB_TRANSLATION_DATA_H
 #define BIFROST_HD_ENGINE_JOB_TRANSLATION_DATA_H
 
-#include <BifrostGraph/Executor/BifrostBoardJob.h>
+#include <BifrostHydra/Engine/Export.h>
+
+#include <BifrostGraph/Executor/JobPreview.h>
 
 #include <memory>
 
@@ -25,7 +27,8 @@ namespace BifrostHd {
 
 class Parameters;
 
-class JobTranslationData final : public BifrostBoardJob::JobTranslationData {
+class BIFROST_HD_ENGINE_SHARED_DECL JobTranslationData final
+    : public BifrostGraph::Executor::JobPreview::JobTranslationData {
 public:
     struct Time {
         double currentTime;

@@ -22,7 +22,7 @@
 
 namespace BifrostHd {
 
-class Mesh : public Geometry {
+class BIFROST_HD_TRANSLATORS_SHARED_DECL Mesh : public Geometry {
 public:
     explicit Mesh(const Bifrost::Object& object, const size_t index=0);
 

@@ -111,6 +111,7 @@ public:
     PXR_NS::SdfLayerRefPtr getLayerPtr() { return m_layer; }
 
     void                       setFilePath(const Amino::String& filePath);
+    void                       setFileFormat(const Amino::String& fileFormat);
     const Amino::String&       getFilePath() const;
     const Amino::String&       getOriginalFilePath() const;
     const Amino::Array<Layer>& getSubLayers() const;
@@ -229,6 +230,15 @@ private:
     /// If non-empty, its filename part must have a valid USD file extension
     /// (.usd, .usda or .usdc).
     Amino::String       m_filePath;
+
+    /// The file format used when saving this Layer.
+    /// If it is an empty string, the file path extension will be used to deduce
+    /// the file format.
+    /// If set to "usda", it will allow to save the file in ASCII format.
+    /// If set to "usdc", it will allow to save the file in binary format (only
+    /// if the file path is not ending with
+    /// ".usda").
+    Amino::String m_fileFormat = "";
 
     /// The original file path from where this Layer was read.
     /// Can be an empty string.

@@ -17,29 +17,22 @@
 #ifndef BIFROST_HD_ENGINE_RUNTIME_H_
 #define BIFROST_HD_ENGINE_RUNTIME_H_
 
+#include <BifrostHydra/Engine/Export.h>
+
 #include <BifrostGraph/Executor/BifrostBoardRuntime.h>
 
 namespace BifrostHd {
+class Workspace;
 
-class Runtime final : public BifrostBoardRuntime {
+class BIFROST_HD_ENGINE_SHARED_DECL Runtime final : public BifrostBoardRuntime {
 public:
-    Runtime();
+    static Runtime& getInstance();
+
+    Runtime(Workspace& workspace);
     ~Runtime() override;
-
-    static bool IsValid();
-
-    explicit operator bool() const { return IsValid(); }
-
-    static Runtime& Get();
 
     void reportMessage(Amino::MessageCategory category,
                        Amino::String const&   message) const override;
-
-    bool hasMessages() const;
-
-    Amino::StringList const& getMessages() const;
-
-    void clearMessages();
 
 public:
     /// Disabled

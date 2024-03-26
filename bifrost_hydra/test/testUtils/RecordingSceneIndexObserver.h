@@ -17,6 +17,8 @@
 #ifndef BIFROST_HD_RECORDING_SCENE_INDEX_OBSERVER_H
 #define BIFROST_HD_RECORDING_SCENE_INDEX_OBSERVER_H
 
+#include "Export.h"
+
 #include <pxr/imaging/hd/sceneIndexObserver.h>
 #include <pxr/usdImaging/usdImagingGL/engine.h>
 
@@ -25,7 +27,7 @@ namespace BifrostHdTest {
 using UsdImagingGLEngineSharedPtr = std::shared_ptr<class PXR_NS::UsdImagingGLEngine>;
 
 // used for capturing scene change notices
-class RecordingSceneIndexObserver : public PXR_NS::HdSceneIndexObserver {
+class BIFROST_HD_TESTUTILS_SHARED_DECL RecordingSceneIndexObserver : public PXR_NS::HdSceneIndexObserver {
 public:
     enum EventType {
         EventType_PrimAdded = 0,

@@ -20,8 +20,6 @@
 
 // Bifrost
 #include <Bifrost/Object/Object.h>
-#include <Bifrost/Geometry/bifrost_geometry.h>
-#include <Bifrost/Object/bifrost_what_is.h>
 
 // Bifrost USD
 #include <utils/test/testUtils.h>
@@ -30,6 +28,8 @@
 #include <BifrostHydra/Engine/Container.h>
 #include <BifrostHydra/Engine/Engine.h>
 #include <BifrostHydra/Engine/Parameters.h>
+#include <BifrostHydra/Engine/Runtime.h>
+#include <BifrostHydra/Engine/Workspace.h>
 #include <BifrostHydra/Translators/GeometryFn.h>
 #include <BifrostHydra/Translators/Instances.h>
 #include <BifrostHydra/Translators/Mesh.h>
@@ -46,27 +46,22 @@ PXR_NAMESPACE_USING_DIRECTIVE
 using namespace BifrostHdTest;
 
 TEST_F(TestSceneIndexPrim, runtime) {
-    auto& runtime = BifrostHd::Container::GetRuntime();
-    ASSERT_TRUE(runtime.IsValid());
+    auto& workspace = BifrostHd::Workspace::getInstance();
+    ASSERT_TRUE(workspace.isValid());
+
+    auto& runtime = BifrostHd::Runtime::getInstance();
 
     // test if our configs are loaded.
-    auto check_config_is_loaded = [&runtime](const std::string& message) {
-        bool result   = false;
-        auto messages = runtime.getMessages();
-        for (unsigned int i = 0; i < messages.size(); ++i) {
-            if (messages.at(i).c_str() == message) {
-                result = true;
-                break;
-            }
-        }
-        EXPECT_TRUE(result);
+    auto check_config_is_loaded = [&workspace](const Amino::String& message) {
+        auto const& messages = workspace.getMessages();
+        EXPECT_NE(messages.end(), std::find(messages.begin(), messages.end(), message));
     };
 
     check_config_is_loaded(
-        "[Runtime] Bifrost: Loading library: bifrostHdTypeTranslation, "
+        "[Library] Bifrost: Loading library: bifrostHdTypeTranslation, "
         "from: Autodesk.");
     check_config_is_loaded(
-        "[Runtime] Bifrost: Loading library: test_bifrost_hd_graph, "
+        "[Library] Bifrost: Loading library: test_bifrost_hd_graph, "
         "from: Autodesk.");
 
     Amino::Type           floatType;

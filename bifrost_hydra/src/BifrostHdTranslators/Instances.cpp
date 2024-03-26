@@ -17,9 +17,6 @@
 #include <BifrostHydra/Translators/GeometryFn.h>
 #include <BifrostHydra/Translators/Instances.h>
 
-#include <Bifrost/Geometry/bifrost_geometry.h>
-#include <Bifrost/Object/bifrost_what_is.h>
-
 #include <pxr/imaging/hd/instancerTopologySchema.h>
 
 PXR_NAMESPACE_USING_DIRECTIVE

@@ -4135,7 +4135,7 @@
                                 {
                                     "valueName": "standard_surface_mat.specular_IOR",
                                     "valueType": "float",
-                                    "value": "0f"
+                                    "value": "1.5f"
                                 },
                                 {
                                     "valueName": "standard_surface_mat.specular_anisotropy",
@@ -6160,7 +6160,7 @@
                         {
                             "valueName": "standard_surface_mat.specular_IOR",
                             "valueType": "float",
-                            "value": "0f"
+                            "value": "1.5f"
                         },
                         {
                             "valueName": "standard_surface_mat.specular_anisotropy",
