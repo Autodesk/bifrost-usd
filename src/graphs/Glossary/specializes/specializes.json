@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "Graphs::USD::specializes",
-            "uriImported": "stream:/specializesShape",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -54,31 +53,6 @@
                             ]
                         }
                     ]
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "backdrop"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Stage,open_stage_from_layer"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Layer,create_usd_layer"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Utils,assign_usd_material"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,User::Compounds,define_surface_shader"
                 },
                 {
                     "metaName": "backdrop3",
@@ -336,7 +310,6 @@
             "compounds": [
                 {
                     "name": "create_robot_layer",
-                    "uriImported": "stream:/specializesShape",
                     "metadata": [
                         {
                             "metaName": "backdrop",
@@ -545,7 +518,6 @@
                     "compounds": [
                         {
                             "name": "define_surface_shader1",
-                            "uriImported": "stream:/specializesShape",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -2443,7 +2415,6 @@
                 },
                 {
                     "name": "create_robot_scene_stage",
-                    "uriImported": "stream:/specializesShape",
                     "metadata": [
                         {
                             "metaName": "io_nodes",

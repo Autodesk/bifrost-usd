@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::Stage::add_to_stage_component_hierarchy00",
-            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -182,31 +181,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Type_Conversion,to_long"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Diagnostic,pull_port"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Math,multiply"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "input"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "output"
-                },
-                {
                     "metaName": "ViewportRect",
                     "metaType": "string",
                     "metaValue": "407.21 -316 2350.58 1710"
@@ -230,7 +204,7 @@
             "terminalStates": [
                 {
                     "name": "Core::Graph::terminal::diagnostic",
-                    "enabled": "true"
+                    "enabled": "false"
                 }
             ],
             "ports": [
@@ -283,7 +257,6 @@
             "compounds": [
                 {
                     "name": "test_pseudo_root_prim_children_count",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -549,7 +522,6 @@
                 },
                 {
                     "name": "create_stage",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -700,7 +672,6 @@
                     "compounds": [
                         {
                             "name": "build_prim_paths",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -766,7 +737,6 @@
                             "compounds": [
                                 {
                                     "name": "strings_join",
-                                    "uriImported": "stream:/bifrostGraphShape1",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -1115,7 +1085,6 @@
                         },
                         {
                             "name": "build_prim_paths1",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -1211,7 +1180,6 @@
                             "compounds": [
                                 {
                                     "name": "strings_join",
-                                    "uriImported": "stream:/bifrostGraphShape1",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -1560,7 +1528,6 @@
                         },
                         {
                             "name": "build_prim_paths2",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -1656,7 +1623,6 @@
                             "compounds": [
                                 {
                                     "name": "strings_join",
-                                    "uriImported": "stream:/bifrostGraphShape1",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -2005,7 +1971,6 @@
                         },
                         {
                             "name": "build_prim_paths3",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -2071,7 +2036,6 @@
                             "compounds": [
                                 {
                                     "name": "strings_join",
-                                    "uriImported": "stream:/bifrostGraphShape1",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -2420,7 +2384,6 @@
                         },
                         {
                             "name": "build_prim_paths4",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -2486,7 +2449,6 @@
                             "compounds": [
                                 {
                                     "name": "strings_join",
-                                    "uriImported": "stream:/bifrostGraphShape1",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -4246,7 +4208,6 @@
                 },
                 {
                     "name": "test_geo_scope",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -4823,7 +4784,6 @@
                 },
                 {
                     "name": "test_root_prim",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -5376,7 +5336,6 @@
                 },
                 {
                     "name": "test_xforms",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -5508,7 +5467,6 @@
                     "compounds": [
                         {
                             "name": "for_each_xform",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "icon",
@@ -5667,7 +5625,6 @@
                             "compounds": [
                                 {
                                     "name": "for_each_imageable",
-                                    "uriImported": "stream:/bifrostGraphShape1",
                                     "metadata": [
                                         {
                                             "metaName": "icon",
@@ -5844,7 +5801,6 @@
                                     "compounds": [
                                         {
                                             "name": "values_all_true",
-                                            "uriImported": "stream:/bifrostGraphShape1",
                                             "metadata": [
                                                 {
                                                     "metaName": "io_nodes",
@@ -6030,7 +5986,6 @@
                                         },
                                         {
                                             "name": "values_all_true1",
-                                            "uriImported": "stream:/bifrostGraphShape1",
                                             "metadata": [
                                                 {
                                                     "metaName": "io_nodes",
@@ -6216,7 +6171,6 @@
                                         },
                                         {
                                             "name": "values_all_true2",
-                                            "uriImported": "stream:/bifrostGraphShape1",
                                             "metadata": [
                                                 {
                                                     "metaName": "io_nodes",
@@ -6402,7 +6356,6 @@
                                         },
                                         {
                                             "name": "values_all_true3",
-                                            "uriImported": "stream:/bifrostGraphShape1",
                                             "metadata": [
                                                 {
                                                     "metaName": "io_nodes",
@@ -6588,7 +6541,6 @@
                                         },
                                         {
                                             "name": "check_faceVertexCounts_data",
-                                            "uriImported": "stream:/bifrostGraphShape1",
                                             "metadata": [
                                                 {
                                                     "metaName": "io_nodes",
@@ -6706,7 +6658,6 @@
                                             "compounds": [
                                                 {
                                                     "name": "values_all_true",
-                                                    "uriImported": "stream:/bifrostGraphShape1",
                                                     "metadata": [
                                                         {
                                                             "metaName": "io_nodes",
@@ -7209,7 +7160,6 @@
                                         },
                                         {
                                             "name": "values_all_true4",
-                                            "uriImported": "stream:/bifrostGraphShape1",
                                             "metadata": [
                                                 {
                                                     "metaName": "io_nodes",
@@ -8377,7 +8327,6 @@
                                 },
                                 {
                                     "name": "values_all_true",
-                                    "uriImported": "stream:/bifrostGraphShape1",
                                     "metadata": [
                                         {
                                             "metaName": "io_nodes",
@@ -9292,7 +9241,6 @@
                 },
                 {
                     "name": "test_mtl_scope",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -9869,7 +9817,6 @@
                 },
                 {
                     "name": "test_materials",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -9994,7 +9941,6 @@
                     "compounds": [
                         {
                             "name": "for_each_material",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "icon",
@@ -10171,7 +10117,6 @@
                             "compounds": [
                                 {
                                     "name": "for_each_imageable",
-                                    "uriImported": "stream:/bifrostGraphShape1",
                                     "metadata": [
                                         {
                                             "metaName": "icon",

@@ -185,6 +185,7 @@ if( NOT BIFUSD_TEST_RESOURCES_LOCATION )
     set( BIFUSD_TEST_RESOURCES_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/test")
 endif()
 enable_testing()
+option(BIFUSD_TEST_GRAPHS "Enable test_graphs.py" ON)
 add_subdirectory(utils/test)
 add_subdirectory(test)
 

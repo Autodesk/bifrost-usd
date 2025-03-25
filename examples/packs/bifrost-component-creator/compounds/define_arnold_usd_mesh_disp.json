@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Arnold::define_arnold_usd_mesh_disp",
-            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -101,31 +100,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,if"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Graph,terminal"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Modeling::Primitive,create_mesh_plane"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Rendering::Arnold,set_Arnold_mesh_settings"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Arnold,define_arnold_usd_mesh_subdiv"
-                },
-                {
                     "metaName": "ViewportRect",
                     "metaType": "string",
                     "metaValue": "-408.361 349.796 2118.45 2751.47"
@@ -143,7 +117,7 @@
                 {
                     "metaName": "UILayout",
                     "metaType": "string",
-                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"group\": \"Displacement\",\n                \"items\": [\n                    {\n                        \"port\": \"disp_height\"\n                    },\n                    {\n                        \"port\": \"disp_padding\"\n                    },\n                    {\n                        \"port\": \"disp_zero_value\"\n                    },\n                    {\n                        \"port\": \"disp_autobump\"\n                    },\n                    {\n                        \"port\": \"autobump_visibility_by_ray_type\"\n                    }\n                ],\n                \"unique_id\": 6\n            },\n            {\n                \"group\": \"Normals\",\n                \"items\": [\n                    {\n                        \"port\": \"smoothing\"\n                    }\n                ],\n                \"unique_id\": 12\n            }\n        ]\n    }\n}\n"
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"expanded\": false,\n                \"group\": \"Displacement\",\n                \"items\": [\n                    {\n                        \"port\": \"disp_height\"\n                    },\n                    {\n                        \"port\": \"disp_padding\"\n                    },\n                    {\n                        \"port\": \"disp_zero_value\"\n                    },\n                    {\n                        \"port\": \"disp_autobump\"\n                    },\n                    {\n                        \"port\": \"autobump_visibility_by_ray_type\"\n                    }\n                ],\n                \"unique_id\": 6\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Normals\",\n                \"items\": [\n                    {\n                        \"port\": \"smoothing\"\n                    }\n                ],\n                \"unique_id\": 12\n            }\n        ]\n    }\n}"
                 },
                 {
                     "metaName": "zValue",

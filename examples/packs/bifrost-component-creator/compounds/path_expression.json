@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USDLab::PatternMatching::path_expression",
-            "uriImported": "file:///path_expression.json",
             "metadata": [
                 {
                     "metaName": "icon",
@@ -136,31 +135,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::String,string_join"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,if"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Constants,float"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Model,create_usd_component"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USDLab::PatternMatching,match_prim_path"
-                },
-                {
                     "metaName": "ViewportRect",
                     "metaType": "string",
                     "metaValue": "-1257.21 -615.579 2013.97 1703.55"
@@ -224,6 +198,12 @@
                     ]
                 },
                 {
+                    "portName": "string_literal",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "false"
+                },
+                {
                     "portName": "value",
                     "portDirection": "input",
                     "portType": "string",
@@ -233,18 +213,11 @@
                     "portName": "output",
                     "portDirection": "output",
                     "portType": "string"
-                },
-                {
-                    "portName": "string_literal",
-                    "portDirection": "input",
-                    "portType": "bool",
-                    "portDefault": "false"
                 }
             ],
             "compounds": [
                 {
                     "name": "rule_start_string",
-                    "uriImported": "file:///path_expression.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -374,7 +347,6 @@
                 },
                 {
                     "name": "rule_end_string",
-                    "uriImported": "file:///path_expression.json",
                     "metadata": [
                         {
                             "metaName": "ViewportRect",

@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "Graphs::USD::create_usd_point_instancer_from_bifrost_instances",
-            "uriImported": "stream:/stream",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -79,31 +78,6 @@
                             "metaValue": "1146.61 -77.1962 508.2 507.994"
                         }
                     ]
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Modeling::Points,scale_points"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Modeling::Primitive,create_mesh_sphere"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Modeling::Primitive,create_mesh_cube"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Modeling::Primitive,create_mesh_torus"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Stage,add_to_stage"
                 },
                 {
                     "metaName": "sticky_note_backdrop",
@@ -259,7 +233,6 @@
             "compounds": [
                 {
                     "name": "create_sphere_mesh",
-                    "uriImported": "stream:/stream",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -589,7 +562,6 @@
                 },
                 {
                     "name": "show_instances",
-                    "uriImported": "stream:/stream",
                     "metadata": [
                         {
                             "metaName": "io_nodes",

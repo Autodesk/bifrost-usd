@@ -30,6 +30,8 @@ kDefaultLayerIdentifier: Final = "untitled.usd"
 kGraphName: Final = "bifrostUsd"
 kMayaUsdProxyShape: Final = "mayaUsdProxyShape"
 kOpenStage: Final = "BifrostGraph,USD::Stage,open_usd_stage"
+kCreateLookdevWorkflowStage: Final = "BifrostGraph,USDLab::Workflow,create_lookdev_workflow_stage"
+kDefineMaterialBinding: Final = "BifrostGraph,USD::Model,define_usd_material_binding"
 kOpenUsdLayer: Final = "BifrostGraph,USD::Layer,open_usd_layer"
 kSceneInfo: Final = "BifrostGraph,File::Project,scene_info"
 kStringJoin: Final = "BifrostGraph,Core::String,string_join"
@@ -42,6 +44,8 @@ kDefineUsdPreviewSurface: Final = "BifrostGraph,USD::Shading,define_usd_preview_
 kCreateUsdPrim: Final = "BifrostGraph,USD::Prim,create_usd_prim"
 kOverridePrim: Final = "BifrostGraph,USD::Prim,override_prim"
 kDefinePrimHierarchy: Final = "BifrostGraph,USD::Prim,define_usd_prim_hierarchy"
+kUsdStringPathsToArray: Final = "BifrostGraph,USD::Utils,usd_string_paths_to_array"
+kPathExpression: Final = "BifrostGraph,USDLab::PatternMatching,path_expression"
 
 kPrimNodeList: Final = [
     kDefinePrim,

@@ -1,3 +1,32 @@
+## [1.3.3] - 2025-03-26 (Bifrost 2.13)
+
+### Build
+ - BIFROST-11259 - update to Open USD 24.11
+
+### Feature
+  - BIFROST-11322 - Add Lookdev workflow
+    - New runtime commands to:
+         - create_maya_usd_material_library_cmd
+         - create_lookdev_stage_from_layers_cmd
+         - open_maya_usd_material_library_cmd
+         - usd_attribute_quick_look_from_selection_cmd
+         - prim_selection_to_string_array_compound_cmd
+         - remove_prim_selection_from_string_to_array_compound_cmd
+         - select_prims_from_selected_node_cmd
+    - New compounds:
+         - apply_look_v2 (for 'iterate_on_model_variants' case)
+         - apply_usd_material_bindings
+         - resolve_bindings
+         - create_lookdev_workflow_stage
+         - usd_collection_schema
+         - usd_string_paths_to_array
+    - New UI dialogs to create or open mayaUsdProxyShape from a USD file:
+
+### Bugfix
+ - BIFROST-10481 - Fix PointInstancer prototype ordering when using the _define_usd_point_instancer_
+ - BIFROST-10481 - The default material option is now disable by default in the _define_usd_point_instancer_
+ - BIFROST-11306 - Fix the model exporter for mayaUSD plugin >= 0.30
+
 ## [1.3.1] - 2024-10-29 (Bifrost 2.12)
 
 ### Build

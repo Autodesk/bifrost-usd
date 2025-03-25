@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::IO::create_mesh_from_usd_geom_subset",
-            "uriImported": "stream:/bifrostUsdShape",
             "metadata": [
                 {
                     "metaName": "icon",
@@ -203,7 +202,7 @@
                 {
                     "metaName": "UILayout",
                     "metaType": "string",
-                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"stage\"\n            },\n            {\n                \"port\": \"mesh_path\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Settings\",\n                \"items\": [\n                    {\n                        \"port\": \"geom_subset_index\"\n                    },\n                    {\n                        \"port\": \"invert\"\n                    },\n                    {\n                        \"port\": \"Local_Space\"\n                    },\n                    {\n                        \"group\": \"Diagnostic\",\n                        \"items\": [\n                            {\n                                \"port\": \"color\"\n                            },\n                            {\n                                \"port\": \"push_along_normal_weight\"\n                            }\n                        ],\n                        \"unique_id\": 22\n                    },\n                    {\n                        \"group\": \"Stage\",\n                        \"items\": [\n                            {\n                                \"port\": \"replace_mesh_in_stage\"\n                            }\n                        ],\n                        \"unique_id\": 14\n                    }\n                ],\n                \"unique_id\": 6\n            },\n            {\n                \"port\": \"geom_path\"\n            }\n        ]\n    }\n}\n"
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"stage\"\n            },\n            {\n                \"port\": \"mesh_path\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Settings\",\n                \"items\": [\n                    {\n                        \"port\": \"geom_subset_index\"\n                    },\n                    {\n                        \"port\": \"invert\"\n                    },\n                    {\n                        \"port\": \"Local_Space\"\n                    },\n                    {\n                        \"group\": \"Diagnostic\",\n                        \"items\": [\n                            {\n                                \"port\": \"color\"\n                            },\n                            {\n                                \"port\": \"push_along_normal_weight\"\n                            }\n                        ],\n                        \"unique_id\": 22\n                    },\n                    {\n                        \"group\": \"Stage\",\n                        \"items\": [\n                            {\n                                \"port\": \"replace_mesh_in_stage\"\n                            }\n                        ],\n                        \"unique_id\": 14\n                    }\n                ],\n                \"unique_id\": 6\n            }\n        ]\n    }\n}"
                 },
                 {
                     "metaName": "PortExpandedState",
@@ -253,11 +252,11 @@
                 },
                 {
                     "name": "Core::Graph::terminal::proxy",
-                    "enabled": "true"
+                    "enabled": "false"
                 },
                 {
                     "name": "Core::Graph::terminal::final",
-                    "enabled": "true"
+                    "enabled": "false"
                 }
             ],
             "ports": [
@@ -292,10 +291,21 @@
                     "portDefault": "true"
                 },
                 {
-                    "portName": "replace_mesh_in_stage",
+                    "portName": "color",
                     "portDirection": "input",
-                    "portType": "bool",
-                    "portDefault": "false"
+                    "portType": "Math::float3",
+                    "portDefault": {
+                        "x": "0.280400008f",
+                        "y": "0.966700017f",
+                        "z": "0.134599999f"
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "ColorPicker"
+                        }
+                    ]
                 },
                 {
                     "portName": "push_along_normal_weight",
@@ -316,21 +326,10 @@
                     ]
                 },
                 {
-                    "portName": "color",
+                    "portName": "replace_mesh_in_stage",
                     "portDirection": "input",
-                    "portType": "Math::float3",
-                    "portDefault": {
-                        "x": "0.280400008f",
-                        "y": "0.966700017f",
-                        "z": "0.134599999f"
-                    },
-                    "metadata": [
-                        {
-                            "metaName": "UIWidget",
-                            "metaType": "string",
-                            "metaValue": "ColorPicker"
-                        }
-                    ]
+                    "portType": "bool",
+                    "portDefault": "false"
                 },
                 {
                     "portName": "mesh",
@@ -356,7 +355,6 @@
             "compounds": [
                 {
                     "name": "filter_usd_mesh_by_geomsubset",
-                    "uriImported": "stream:/bifrostUsdShape",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -547,7 +545,6 @@
                     "compounds": [
                         {
                             "name": "delete_faces",
-                            "uriImported": "stream:/bifrostUsdShape",
                             "metadata": [
                                 {
                                     "metaName": "icon",
@@ -815,7 +812,6 @@
                         },
                         {
                             "name": "get_geom_face_set",
-                            "uriImported": "stream:/bifrostUsdShape",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -1222,7 +1218,6 @@
                         },
                         {
                             "name": "read_usd_mesh",
-                            "uriImported": "stream:/bifrostUsdShape",
                             "metadata": [
                                 {
                                     "metaName": "icon",
@@ -1477,7 +1472,6 @@
                             "compounds": [
                                 {
                                     "name": "get_points",
-                                    "uriImported": "stream:/bifrostUsdShape",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -1720,7 +1714,6 @@
                                 },
                                 {
                                     "name": "get_VertexIndices",
-                                    "uriImported": "stream:/bifrostUsdShape",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -1920,7 +1913,6 @@
                                 },
                                 {
                                     "name": "get_faceVertexCounts",
-                                    "uriImported": "stream:/bifrostUsdShape",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -2043,7 +2035,6 @@
                                     "compounds": [
                                         {
                                             "name": "get_int_array",
-                                            "uriImported": "stream:/bifrostUsdShape",
                                             "metadata": [
                                                 {
                                                     "metaName": "ViewportRect",
@@ -2385,7 +2376,6 @@
                                 },
                                 {
                                     "name": "get_normals",
-                                    "uriImported": "stream:/bifrostUsdShape",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -2599,7 +2589,6 @@
                                 },
                                 {
                                     "name": "set_face_vertex_normals",
-                                    "uriImported": "stream:/bifrostUsdShape",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -2724,7 +2713,6 @@
                                     "compounds": [
                                         {
                                             "name": "set_face_vertex_normal",
-                                            "uriImported": "stream:/bifrostUsdShape",
                                             "metadata": [
                                                 {
                                                     "metaName": "ViewportRect",
@@ -2986,7 +2974,6 @@
                                         },
                                         {
                                             "name": "set_face_vertex_normal_index",
-                                            "uriImported": "stream:/bifrostUsdShape",
                                             "metadata": [
                                                 {
                                                     "metaName": "_recentNode_",
@@ -3475,7 +3462,6 @@
                                 },
                                 {
                                     "name": "get_uvs",
-                                    "uriImported": "stream:/bifrostUsdShape",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -3952,7 +3938,6 @@
                                 },
                                 {
                                     "name": "display_color",
-                                    "uriImported": "stream:/bifrostUsdShape",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -4076,7 +4061,6 @@
                                     "compounds": [
                                         {
                                             "name": "get_display_color",
-                                            "uriImported": "stream:/bifrostUsdShape",
                                             "metadata": [
                                                 {
                                                     "metaName": "ViewportRect",
@@ -4431,7 +4415,6 @@
                                         },
                                         {
                                             "name": "set_point_color",
-                                            "uriImported": "stream:/bifrostUsdShape",
                                             "metadata": [
                                                 {
                                                     "metaName": "_recentNode_",
@@ -4921,7 +4904,6 @@
                                 },
                                 {
                                     "name": "set_mesh_UVs",
-                                    "uriImported": "stream:/bifrostUsdShape",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -5962,7 +5944,6 @@
                         },
                         {
                             "name": "diagnostic_terminal",
-                            "uriImported": "stream:/bifrostUsdShape",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -6569,7 +6550,6 @@
                 },
                 {
                     "name": "get_geom_subsets_paths",
-                    "uriImported": "stream:/bifrostUsdShape",
                     "metadata": [
                         {
                             "metaName": "ViewportRect",
@@ -6864,7 +6844,6 @@
                 },
                 {
                     "name": "get_parents_scale",
-                    "uriImported": "stream:/bifrostUsdShape",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -7013,7 +6992,6 @@
                     "compounds": [
                         {
                             "name": "do_while",
-                            "uriImported": "stream:/bifrostUsdShape",
                             "metadata": [
                                 {
                                     "metaName": "icon",
@@ -7630,7 +7608,6 @@
                 },
                 {
                     "name": "validate_scale",
-                    "uriImported": "stream:/bifrostUsdShape",
                     "metadata": [
                         {
                             "metaName": "ViewportRect",
@@ -7961,7 +7938,6 @@
                 },
                 {
                     "name": "set_prims_active",
-                    "uriImported": "stream:/bifrostUsdShape",
                     "metadata": [
                         {
                             "metaName": "icon",
@@ -8172,7 +8148,6 @@
                 },
                 {
                     "name": "override_usd_mesh",
-                    "uriImported": "stream:/bifrostUsdShape",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -8440,7 +8415,6 @@
                     "compounds": [
                         {
                             "name": "add_face_vertex_count",
-                            "uriImported": "stream:/bifrostUsdShape",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -8628,7 +8602,6 @@
                         },
                         {
                             "name": "add_face_vertex_indices",
-                            "uriImported": "stream:/bifrostUsdShape",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -8816,7 +8789,6 @@
                         },
                         {
                             "name": "add_normals",
-                            "uriImported": "stream:/bifrostUsdShape",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -9014,7 +8986,6 @@
                         },
                         {
                             "name": "add_points",
-                            "uriImported": "stream:/bifrostUsdShape",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -9238,7 +9209,6 @@
                         },
                         {
                             "name": "get_mesh_geo",
-                            "uriImported": "stream:/bifrostUsdShape",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -9346,7 +9316,6 @@
                             "compounds": [
                                 {
                                     "name": "face_offset_to_face_vertex_counts",
-                                    "uriImported": "stream:/bifrostUsdShape",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -9463,7 +9432,6 @@
                                     "compounds": [
                                         {
                                             "name": "for_each",
-                                            "uriImported": "stream:/bifrostUsdShape",
                                             "metadata": [
                                                 {
                                                     "metaName": "icon",
@@ -9962,7 +9930,6 @@
                         },
                         {
                             "name": "get_mesh_normals",
-                            "uriImported": "stream:/bifrostUsdShape",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -10190,7 +10157,6 @@
                         },
                         {
                             "name": "add_uv",
-                            "uriImported": "stream:/bifrostUsdShape",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -10398,7 +10364,6 @@
                             "compounds": [
                                 {
                                     "name": "create_st_indices_if_needed",
-                                    "uriImported": "stream:/bifrostUsdShape",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",

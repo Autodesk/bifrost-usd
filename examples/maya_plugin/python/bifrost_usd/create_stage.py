@@ -15,14 +15,20 @@
 # limitations under the License.
 # *****************************************************************************
 # +
+
+from typing import Callable
 import os
 from maya import cmds
+import mayaUsd
+import ufe
 
 from bifrost_usd.constants import (
     kBifrostBoard,
     kBifrostGraphShape,
     kConstantString,
     kCreateUsdStage,
+    kCreateLookdevWorkflowStage,
+    kDefineMaterialBinding,
     kDefaultLayerIdentifier,
     kGraphName,
     kMayaUsdProxyShape,
@@ -91,7 +97,7 @@ def _set_shared_stage(graph: str, value: bool) -> None:
         cmds.setAttr(f"{usdProxyShape}.shareStage", value)
 
 
-def _output_stage_to_maya(graph: str, node: str) -> str:
+def _output_stage_to_maya(graph: str, node: str, node_output: str = "stage") -> str:
     graphAttribs = cmds.listAttr(graph, readOnly=True, scalar=True, fromPlugin=True)
     hasStageOutput = False
     if graphAttribs:
@@ -100,7 +106,7 @@ def _output_stage_to_maya(graph: str, node: str) -> str:
 
     if not hasStageOutput:
         graphAPI.create_input_port("output", ("stage", "BifrostUsd::Stage"), graph)
-    graphAPI.connect(node, "stage", "", "stage", graph)
+    graphAPI.connect(node, node_output, "", "stage", graph)
 
     _set_shared_stage(graph, False)
     return graph
@@ -213,7 +219,9 @@ def _create_open_stage_graph(graph: str, file_path: str) -> None:
 
 
 def create_graph_from_usd_files(
-    file_paths: list[str], as_shape: bool = True, as_sublayers: bool = True
+    file_paths: list[str],
+    as_shape: bool = True,
+    as_sublayers: bool = True,
 ) -> str:
     if not file_paths:
         cmds.warning("No file paths found")
@@ -244,5 +252,142 @@ def create_graph_with_add_to_stage() -> str:
         return graph
 
 
+def create_lookdev_graph_from_usd_files(
+    file_paths: list[str],
+    as_shape: bool = True,
+) -> str:
+    if not file_paths:
+        cmds.warning("No file paths found")
+        return ""
+
+    graph = _create_empty_graph(as_shape=as_shape)
+
+    lookdevWorkflowNode = graphAPI.add_node(kCreateLookdevWorkflowStage, graph)
+    graphAPI.set_param(lookdevWorkflowNode, ("geometry_layer", file_paths[0]), graph)
+
+    rootDir = os.path.dirname(file_paths[0])
+    graphAPI.set_param(
+        lookdevWorkflowNode,
+        ("root_layer", os.path.join(rootDir, "untitled.usd")),
+        graph,
+    )
+    graphAPI.set_param(
+        lookdevWorkflowNode, ("look_layer", os.path.join(rootDir, "look.usd")), graph
+    )
+
+    materialsLayer: str
+    if len(file_paths) == 1:
+        materialsLayer = os.path.join(rootDir, "material_library.usd")
+        setup_new_material_stage(materialsLayer)
+        graphAPI.set_param(
+            lookdevWorkflowNode, ("materials_layer", materialsLayer), graph
+        )
+    elif len(file_paths) > 1:
+        materialsLayer = file_paths[1]
+
+    graphAPI.set_param(lookdevWorkflowNode, ("materials_layer", materialsLayer), graph)
+
+    materialNames = []
+    from pxr import Usd
+    stage = Usd.Stage.Open(materialsLayer)
+    mtlScope = stage.GetDefaultPrim()
+    if mtlScope:
+        materialNames = mtlScope.GetChildrenNames()
+
+    _output_stage_to_maya(graph, lookdevWorkflowNode, node_output="out_stage")
+
+    if materialNames:
+        for name in materialNames:
+            materialBindingNode = graphAPI.add_node(kDefineMaterialBinding, graph)
+            graphAPI.set_param(materialBindingNode, ("material", name), graph)
+            graphAPI.connect_to_fanin_port(
+                materialBindingNode,
+                lookdevWorkflowNode,
+                "material_bindings",
+                "material_binding",
+            )
+
+    open_bifrost_usd_graph()
+
+    return graph
+
+
+def create_maya_usd_proxy_shape(
+    name: str,
+    file_path: str,
+    stage_setup_func: Callable[[str], bool] = lambda file_path: True,
+) -> str:
+    """Create a mayaUsdProxyShape.
+
+    1) If the USD file path does not exist, creates a new one.
+    2) Call optional stage setup function.
+
+    :param name:             The name of the new mayaUsdProxyShape node.
+    :param file_path:        The USD file path.
+    :param stage_setup_func: Optional function used to setup the stage.
+    :returns:                The new mayaUsdProxyShape node path.
+    """
+
+    createNewFile = False
+
+    # We need to create a new file before creating the mayaUsdProxyShape
+    # since opening a non existing file would create an anonymous root layer
+    if not os.path.isfile(file_path):
+        stage_setup_func(file_path)
+        createNewFile = True
+
+    shape = cmds.createNode(kMayaUsdProxyShape, skipSelect=True)
+    transform = cmds.listRelatives(shape, parent=True)[0]
+    transformName = cmds.rename(transform, f"{name}")
+    shapeName = cmds.listRelatives(transformName, children=True)[0]
+    proxyShapePath = f"|{transformName}|{shapeName}"
+
+    cmds.setAttr(f"{proxyShapePath}.filePath", file_path, type="string")
+    cmds.setAttr(f"{proxyShapePath}.filePathRelative", False)
+
+    if not createNewFile:
+        stage_setup_func(proxyShapePath)
+
+    return proxyShapePath
+
+
+def create_materials_stage_from_selected_node() -> str:
+    selection = get_graph_selection()
+
+    if not selection.nodeSelection:
+        cmds.warning("Select a 'create_lookdev_workflow_stage' compound from the Bifrost Graph Editor")
+        return ""
+
+    lookdevWorkflowNode = selection.nodeSelection[0]
+
+    materialsLayer = graphAPI.param(lookdevWorkflowNode, ("materials_layer"), selection.dgContainerFullPath)
+    return create_maya_usd_proxy_shape('materialLibrary', materialsLayer, setup_open_materials_stage)
+
+
+# Setup functions for create_maya_usd_proxy_shape
+
+
+def setup_new_material_stage(matLibPath: str) -> bool:
+    from pxr import Usd
+    stage = Usd.Stage.CreateNew(matLibPath)
+    mtl = stage.DefinePrim("/mtl", "Scope")
+    stage.SetDefaultPrim(mtl)
+    stage.Save()
+    return True
+
+
+def setup_open_materials_stage(proxyShapePath: str) -> bool:
+    stage = mayaUsd.ufe.getStage(proxyShapePath)
+    stage = mayaUsd.ufe.getStage(
+        ufe.PathString.string(ufe.PathString.path(proxyShapePath))
+    )
+    mtl = stage.GetPrimAtPath("/mtl")
+    if not mtl:
+        cmds.warning(f"'mtl' prim not found in Material Library {proxyShapePath} node")
+        return False
+
+    return True
+
+
 if __name__ == "__main__":
-    create_graph_with_add_to_stage()
+    pass

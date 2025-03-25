@@ -22,6 +22,7 @@ set(bifusd_utils_included true)
 
 option(BIFUSD_USE_DEBUGGER "Launch unit tests using the platform-specific debugger." OFF)
 option(BIFUSD_ENABLE_ADDRESS_SANITIZER "Enable AddressSanitizer compiler instrumentations." OFF)
+option(BIFUSD_ENABLE_UNDEFINED_SANITIZER "Enable UndefinedBehaviorSanitizer compiler instrumentations." OFF)
 
 # Export the given list of variables from the local scope to the parent scope.
 #
@@ -2738,6 +2739,25 @@ function(bifusd_configure_unittest  unittest_target)
         set(test_command ${COMMAND})
     else()
         set(test_command $<TARGET_FILE:${unittest_target}>)
+    endif()
+
+    # Adjust LD_PRELOAD and DYLD_INSERT_LIBRARIES based on BIFUSD_ASAN_LIBRARY
+    # Pass BIFUSD_ASAN_LIBRARY to the test command as an environment variable so that
+    # it is part of the python environment when python is launched.
+    # For not python tests, it is just an extra env var
+    if( BIFUSD_ENABLE_ADDRESS_SANITIZER OR BIFUSD_ENABLE_UNDEFINED_SANITIZER)
+        bifusd_append_option(ENV_VARS "BIFUSD_ASAN_LIBRARY=${BIFUSD_ASAN_LIBRARY}")
+        if( BIFUSD_EXTRA_SANITIZER_ENV_VARS )
+            bifusd_append_option(ENV_VARS "${BIFUSD_EXTRA_SANITIZER_ENV_VARS}")
+        endif()
+        if (BIFUSD_ASAN_LIBRARY)
+            bifusd_append_option(ENV_VARS "BIFUSD_ASAN_LIBRARY=${BIFUSD_ASAN_LIBRARY}")
+            if (BIFUSD_IS_LINUX)
+                bifusd_append_option(ENV_VARS "LD_PRELOAD=${BIFUSD_ASAN_LIBRARY}")
+            elseif (BIFUSD_IS_OSX)
+                bifusd_append_option(ENV_VARS "DYLD_INSERT_LIBRARIES=${BIFUSD_ASAN_LIBRARY}")
+            endif()
+        endif()
     endif()
 
     if ( BIFUSD_USE_DEBUGGER )

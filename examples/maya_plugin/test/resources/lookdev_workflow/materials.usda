@@ -1,0 +1,220 @@
+#usda 1.0
+(
+    defaultPrim = "mtl"
+)
+
+def Scope "mtl" (
+    kind = "group"
+)
+{
+    def Material "red"
+    {
+        token inputs:frame:stPrimvarName = "st"
+        token outputs:surface.connect = </mtl/red/previewSurface.outputs:surface>
+
+        def Shader "previewSurface"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            float inputs:clearcoat = 0
+            color3f inputs:diffuseColor = (1, 0, 0)
+            color3f inputs:emissiveColor = (0, 0, 0)
+            float inputs:ior = 1.52
+            float inputs:metallic = 0
+            float inputs:opacity = 1
+            float inputs:roughness = 0.46
+            bool inputs:useSpecularWorkflow
+            token outputs:surface
+        }
+
+        def Shader "uvTexture"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @@
+            float2 inputs:st.connect = </mtl/red/stReader.outputs:result>
+            float3 outputs:rgb
+        }
+
+        def Shader "stReader"
+        {
+            uniform token info:id = "UsdPrimvarReader_float2"
+            token inputs:varname.connect = </mtl/red.inputs:frame:stPrimvarName>
+            float2 outputs:result
+        }
+    }
+
+    def Material "green"
+    {
+        token inputs:frame:stPrimvarName = "st"
+        token outputs:surface.connect = </mtl/green/previewSurface.outputs:surface>
+
+        def Shader "previewSurface"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            float inputs:clearcoat = 0
+            color3f inputs:diffuseColor = (0, 1, 0)
+            color3f inputs:emissiveColor = (0, 0, 0)
+            float inputs:ior = 1.52
+            float inputs:metallic = 0
+            float inputs:opacity = 1
+            float inputs:roughness = 0.46
+            bool inputs:useSpecularWorkflow
+            token outputs:surface
+        }
+
+        def Shader "uvTexture"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @@
+            float2 inputs:st.connect = </mtl/green/stReader.outputs:result>
+            float3 outputs:rgb
+        }
+
+        def Shader "stReader"
+        {
+            uniform token info:id = "UsdPrimvarReader_float2"
+            token inputs:varname.connect = </mtl/green.inputs:frame:stPrimvarName>
+            float2 outputs:result
+        }
+    }
+
+    def Material "blue"
+    {
+        token inputs:frame:stPrimvarName = "st"
+        token outputs:surface.connect = </mtl/blue/previewSurface.outputs:surface>
+
+        def Shader "previewSurface"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            float inputs:clearcoat = 0
+            color3f inputs:diffuseColor = (0, 0, 1)
+            color3f inputs:emissiveColor = (0, 0, 0)
+            float inputs:ior = 1.52
+            float inputs:metallic = 0
+            float inputs:opacity = 1
+            float inputs:roughness = 0.46
+            bool inputs:useSpecularWorkflow
+            token outputs:surface
+        }
+
+        def Shader "uvTexture"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @@
+            float2 inputs:st.connect = </mtl/blue/stReader.outputs:result>
+            float3 outputs:rgb
+        }
+
+        def Shader "stReader"
+        {
+            uniform token info:id = "UsdPrimvarReader_float2"
+            token inputs:varname.connect = </mtl/blue.inputs:frame:stPrimvarName>
+            float2 outputs:result
+        }
+    }
+
+    def Material "my_float_0"
+    {
+        token inputs:frame:stPrimvarName = "st"
+        token outputs:surface.connect = </mtl/my_float_0/previewSurface.outputs:surface>
+
+        def Shader "previewSurface"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            float inputs:clearcoat = 0
+            color3f inputs:diffuseColor = (0.3972, 0.9526, 1.0444)
+            color3f inputs:emissiveColor = (0, 0, 0)
+            float inputs:ior = 1.52
+            float inputs:metallic = 0
+            float inputs:opacity = 1
+            float inputs:roughness = 0
+            bool inputs:useSpecularWorkflow
+            token outputs:surface
+        }
+
+        def Shader "uvTexture"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @@
+            float2 inputs:st.connect = </mtl/my_float_0/stReader.outputs:result>
+            float3 outputs:rgb
+        }
+
+        def Shader "stReader"
+        {
+            uniform token info:id = "UsdPrimvarReader_float2"
+            token inputs:varname.connect = </mtl/my_float_0.inputs:frame:stPrimvarName>
+            float2 outputs:result
+        }
+    }
+
+    def Material "my_float_1"
+    {
+        token inputs:frame:stPrimvarName = "st"
+        token outputs:surface.connect = </mtl/my_float_1/previewSurface.outputs:surface>
+
+        def Shader "previewSurface"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            float inputs:clearcoat = 0
+            color3f inputs:diffuseColor = (0.2263, 0.0477, 0.2052)
+            color3f inputs:emissiveColor = (0, 0, 0)
+            float inputs:ior = 1.52
+            float inputs:metallic = 0
+            float inputs:opacity = 1
+            float inputs:roughness = 1
+            bool inputs:useSpecularWorkflow
+            token outputs:surface
+        }
+
+        def Shader "uvTexture"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @@
+            float2 inputs:st.connect = </mtl/my_float_1/stReader.outputs:result>
+            float3 outputs:rgb
+        }
+
+        def Shader "stReader"
+        {
+            uniform token info:id = "UsdPrimvarReader_float2"
+            token inputs:varname.connect = </mtl/my_float_1.inputs:frame:stPrimvarName>
+            float2 outputs:result
+        }
+    }
+
+    def Material "my_float_2"
+    {
+        token inputs:frame:stPrimvarName = "st"
+        token outputs:surface.connect = </mtl/my_float_2/previewSurface.outputs:surface>
+
+        def Shader "previewSurface"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            float inputs:clearcoat = 0
+            color3f inputs:diffuseColor = (0.33, 0.33, 0.01)
+            color3f inputs:emissiveColor = (0, 0, 0)
+            float inputs:ior = 1.52
+            float inputs:metallic = 0
+            float inputs:opacity = 1
+            float inputs:roughness = 1
+            bool inputs:useSpecularWorkflow
+            token outputs:surface
+        }
+
+        def Shader "uvTexture"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @@
+            float2 inputs:st.connect = </mtl/my_float_2/stReader.outputs:result>
+            float3 outputs:rgb
+        }
+
+        def Shader "stReader"
+        {
+            uniform token info:id = "UsdPrimvarReader_float2"
+            token inputs:varname.connect = </mtl/my_float_2.inputs:frame:stPrimvarName>
+            float2 outputs:result
+        }
+    }
+}
+

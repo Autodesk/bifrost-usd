@@ -112,7 +112,7 @@ def create_usd_menu():
     )
 
     cmds.menuItem(
-        "CreateMaterialLibrary",
+        "CreateComponentMaterialLibrary",
         parent="BifrostUSDCreateMenu",
         rtc="bifrostUsdRtc_CreateMaterialLibrary",
         label="Create Material Library",
@@ -133,6 +133,25 @@ def create_usd_menu():
         parent="BifrostUSDCreateMenu",
         rtc="usdModelCmd_AddNewMaterial",
         label="Add New Material",
+        sourceType="mel",
+        tearOff=True,
+    )
+
+    cmds.menuItem(parent="BifrostUSDCreateMenu", divider=True, dividerLabel="Lookdev")
+    cmds.menuItem(
+        "CreateLookdevStageFromLayers",
+        parent="BifrostUSDCreateMenu",
+        rtc="bifrostUsdRtc_CreateLookdevStageFromLayers",
+        label="Create Lookdev Workflow Stage from USD Files",
+        sourceType="mel",
+        tearOff=True,
+    )
+
+    cmds.menuItem(
+        "CreateMayaUsdMaterialLibrary",
+        parent="BifrostUSDCreateMenu",
+        rtc="bifrostUsdRtc_CreateMayaUsdMaterialLibrary",
+        label="Create New USD Material Library",
         sourceType="mel",
         tearOff=True,
     )
@@ -169,6 +188,14 @@ def create_usd_menu():
     )
 
     cmds.menuItem(
+        "InsertAddToStageNode",
+        parent="BifrostUSDModifyMenu",
+        command='bifrostUSDExamples -insertNode -nodeType "BifrostGraph,USD::Stage,add_to_stage" -currentCompound "" -nodeSelection "" -portSelection "" -inputPort "stage" -outputPort "out_stage"',
+        label="Add to Stage",
+        sourceType="mel",
+        tearOff=True,
+    )
+    cmds.menuItem(
         "InsertSaveStageNode",
         parent="BifrostUSDModifyMenu",
         command='bifrostUSDExamples -insertNode -nodeType "BifrostGraph,USD::Stage,save_usd_stage" -currentCompound "" -nodeSelection "" -portSelection "" -inputPort "stage" -outputPort "out_stage"',
@@ -177,10 +204,18 @@ def create_usd_menu():
         tearOff=True,
     )
     cmds.menuItem(
-        "InsertAddToStageNode",
+        "AddSelectedPrimPathsToGraph",
         parent="BifrostUSDModifyMenu",
-        command='bifrostUSDExamples -insertNode -nodeType "BifrostGraph,USD::Stage,add_to_stage" -currentCompound "" -nodeSelection "" -portSelection "" -inputPort "stage" -outputPort "out_stage"',
-        label="Add to Stage",
+        rtc="bifrostUsdRtc_PrimSelectionToStringArrayCompound",
+        label="Add Selected Prim Paths to Graph",
+        sourceType="mel",
+        tearOff=True,
+    )
+    cmds.menuItem(
+        "RemoveSelectedPrimPathsFromGraph",
+        parent="BifrostUSDModifyMenu",
+        rtc="bifrostUsdRtc_RemovePrimSelectionFromStringToArrayCompound",
+        label="Remove Selected Prim Paths from String to Array Node",
         sourceType="mel",
         tearOff=True,
     )
@@ -308,6 +343,30 @@ def create_usd_menu():
         tearOff=True,
     )
 
+    cmds.menuItem(
+        parent="BifrostUSDModifyMenu", divider=True, dividerLabel="Lookdev"
+    )
+
+    cmds.menuItem(
+        "OpenMaterialLibraryFromLookdevWorkflow",
+        parent="BifrostUSDModifyMenu",
+        command='from bifrost_usd import create_stage; create_stage.create_materials_stage_from_selected_node()',
+        label="Open Lookdev Workflow Materials in New Stage",
+        sourceType="python",
+        tearOff=True,
+        image="material_create.png",
+    )
+
+    cmds.menuItem(
+        "InsertApplyUsdMaterialBindingsNode",
+        parent="BifrostUSDModifyMenu",
+        command='bifrostUSDExamples -insertNode -nodeType "BifrostGraph,USD::Shading,apply_usd_material_bindings" -currentCompound "" -nodeSelection "" -portSelection "" -inputPort "stage" -outputPort "out_stage"',
+        label="Apply Material Bindings",
+        sourceType="mel",
+        tearOff=True,
+        image="material_create.png",
+    )
+
     # Display submenu
     cmds.menuItem(
         "BifrostUSDDisplayMenu",
@@ -383,6 +442,15 @@ def create_usd_menu():
         parent="BifrostUSDWindowsMenu",
         rtc="bifrostUsdRtc_OpenBifrostUsdGraphEditor",
         label="Open Bifrost Graph Editor from Selected USD Prim",
+        sourceType="mel",
+        tearOff=True,
+    )
+
+    cmds.menuItem(
+        "USD Attribute Quick Look from selection",
+        parent="BifrostUSDWindowsMenu",
+        rtc="bifrostUsdRtc_USDAttributeQuickLookFromSelection",
+        label="Show USD Attributes from Selected Prim",
         sourceType="mel",
         tearOff=True,
     )

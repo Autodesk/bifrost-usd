@@ -37,6 +37,8 @@ class BifrostUsdCmd(om.MPxCommand):
     kOpenStageFlag = "-o"
     kOpenStageFlagLong = "-openStage"
 
+    kLookdevWorkflowFlag = "-l"
+    kLookdevWorkflowFlagLong = "-lookdevWorkflow"
     kFilesFlag = "-f"
     kFilesFlagLong = "-files"
 
@@ -89,6 +91,8 @@ class BifrostUsdCmd(om.MPxCommand):
         syntax.addFlag(BifrostUsdCmd.kNewStageFlag, BifrostUsdCmd.kNewStageFlagLong)
         syntax.addFlag(BifrostUsdCmd.kGrapShapeFlag, BifrostUsdCmd.kGrapShapeFlagLong)
         syntax.addFlag(BifrostUsdCmd.kOpenStageFlag, BifrostUsdCmd.kOpenStageFlagLong)
+        syntax.addFlag(BifrostUsdCmd.kLookdevWorkflowFlag, BifrostUsdCmd.kLookdevWorkflowFlagLong)
+
         syntax.addFlag(
             BifrostUsdCmd.kFilesFlag, BifrostUsdCmd.kFilesFlagLong, om.MSyntax.kString
         )
@@ -158,7 +162,7 @@ class BifrostUsdCmd(om.MPxCommand):
         asShape = argdb.isFlagSet(BifrostUsdCmd.kGrapShapeFlag)
 
         openStage = argdb.isFlagSet(BifrostUsdCmd.kOpenStageFlag)
-
+        lookdevWorkflow = argdb.isFlagSet(BifrostUsdCmd.kLookdevWorkflowFlag)
         insertNode = argdb.isFlagSet(BifrostUsdCmd.kInsertNodeFlag)
 
         importModel = argdb.isFlagSet(BifrostUsdCmd.kImportModelToStageFlag)
@@ -199,7 +203,11 @@ class BifrostUsdCmd(om.MPxCommand):
             if openStage and argdb.isFlagSet(BifrostUsdCmd.kFilesFlag):
                 files = argdb.flagArgumentString(BifrostUsdCmd.kFilesFlag, 0)
                 filePaths = files.split(",")
-                graph = create_stage.create_graph_from_usd_files(filePaths, as_shape=True)
+
+                if lookdevWorkflow:
+                    graph = create_stage.create_lookdev_graph_from_usd_files(filePaths)
+                else:
+                    graph = create_stage.create_graph_from_usd_files(filePaths, as_shape=True)
 
             elif insertNode:
                 dgContainerFullPath = ""

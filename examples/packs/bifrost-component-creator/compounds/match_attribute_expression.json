@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USDLab::PatternMatching::match_attribute_expression",
-            "uriImported": "file:///match_attribute_expression.json",
             "metadata": [
                 {
                     "metaName": "icon",
@@ -97,31 +96,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USDLab::PatternMatching,evaluate_scalar_expression"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USDLab::PatternMatching,evaluate_string_expression"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Constants,float"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Conversion,scalar_to_vector4"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Diagnostic,watcher"
-                },
-                {
                     "metaName": "ViewportRect",
                     "metaType": "string",
                     "metaValue": "880.006 -1042.53 2713.86 2278.6"
@@ -145,7 +119,7 @@
             "terminalStates": [
                 {
                     "name": "Core::Graph::terminal::diagnostic",
-                    "enabled": "true"
+                    "enabled": "false"
                 }
             ],
             "ports": [
@@ -176,7 +150,6 @@
             "compounds": [
                 {
                     "name": "get_float_value",
-                    "uriImported": "file:///match_attribute_expression.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -359,7 +332,6 @@
                 },
                 {
                     "name": "get_int_value",
-                    "uriImported": "file:///match_attribute_expression.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -542,7 +514,6 @@
                 },
                 {
                     "name": "get_string_value",
-                    "uriImported": "file:///match_attribute_expression.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -609,7 +580,6 @@
                     "compounds": [
                         {
                             "name": "get_string_literal",
-                            "uriImported": "file:///match_attribute_expression.json",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -931,7 +901,6 @@
                 },
                 {
                     "name": "get_double_value",
-                    "uriImported": "file:///match_attribute_expression.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -1114,7 +1083,6 @@
                 },
                 {
                     "name": "evaluate_scalar_expression",
-                    "uriImported": "file:///evaluate_scalar_expression.json",
                     "metadata": [
                         {
                             "metaName": "icon",
@@ -1458,7 +1426,6 @@
                     "compounds": [
                         {
                             "name": "value_is_equal_to_expected_value",
-                            "uriImported": "file:///evaluate_scalar_expression.json",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -1583,7 +1550,6 @@
                             "compounds": [
                                 {
                                     "name": "is_double",
-                                    "uriImported": "file:///evaluate_scalar_expression.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -1790,7 +1756,6 @@
                                 },
                                 {
                                     "name": "is_float",
-                                    "uriImported": "file:///evaluate_scalar_expression.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -2002,7 +1967,6 @@
                                 },
                                 {
                                     "name": "is_int",
-                                    "uriImported": "file:///evaluate_scalar_expression.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -2516,7 +2480,6 @@
                         },
                         {
                             "name": "value_is_not_equal_to_expected_value",
-                            "uriImported": "file:///evaluate_scalar_expression.json",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -2641,7 +2604,6 @@
                             "compounds": [
                                 {
                                     "name": "is_double",
-                                    "uriImported": "file:///evaluate_scalar_expression.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -2848,7 +2810,6 @@
                                 },
                                 {
                                     "name": "is_float",
-                                    "uriImported": "file:///evaluate_scalar_expression.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -3060,7 +3021,6 @@
                                 },
                                 {
                                     "name": "is_int",
-                                    "uriImported": "file:///evaluate_scalar_expression.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -3599,7 +3559,6 @@
                         },
                         {
                             "name": "value_is_greater_or_equal_to_expected_value",
-                            "uriImported": "file:///evaluate_scalar_expression.json",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -3784,7 +3743,6 @@
                             "compounds": [
                                 {
                                     "name": "is_double",
-                                    "uriImported": "file:///evaluate_scalar_expression.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -3991,7 +3949,6 @@
                                 },
                                 {
                                     "name": "is_float",
-                                    "uriImported": "file:///evaluate_scalar_expression.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -4203,7 +4160,6 @@
                                 },
                                 {
                                     "name": "is_int",
-                                    "uriImported": "file:///evaluate_scalar_expression.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -4863,7 +4819,6 @@
                         },
                         {
                             "name": "value_is_less_or_equal_to_expected_value",
-                            "uriImported": "file:///evaluate_scalar_expression.json",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -5048,7 +5003,6 @@
                             "compounds": [
                                 {
                                     "name": "is_double",
-                                    "uriImported": "file:///evaluate_scalar_expression.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -5255,7 +5209,6 @@
                                 },
                                 {
                                     "name": "is_float",
-                                    "uriImported": "file:///evaluate_scalar_expression.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -5467,7 +5420,6 @@
                                 },
                                 {
                                     "name": "is_int",
-                                    "uriImported": "file:///evaluate_scalar_expression.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",

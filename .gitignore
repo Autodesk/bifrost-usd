@@ -1,7 +1,13 @@
 .DS_Store
 __pycache__
 
+# clangd
+.cache
+
 # Visual Studio Code
 .vscode
 # jetbrains solutions
 .idea
+
+# Compilation database
+compile_commands.json

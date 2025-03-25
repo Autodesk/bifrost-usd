@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::TestUtilities::check_usd_layer_file_path",
-            "uriImported": "file:///check_usd_layer_file_path.json",
             "metadata": [
                 {
                     "metaName": "io_nodes",

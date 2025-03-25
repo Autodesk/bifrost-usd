@@ -27,15 +27,5 @@ if(NOT DEFINED BIFUSD_BIFCMD_LOCATION)
     set(BIFUSD_BIFCMD_LOCATION "${BIFROST_LOCATION}/bin")
 endif()
 
-# The google tests are causing some issues with Clang address sanitizer when linking with USD libraries.
-# The sanitizer will detect some container overflows in USD libs just be creating
-# an executable with the following empty google test "TEST(TEST_EMPTY, empty_test) {}"!
-#
-# See this ticket related to sanitizer errors in OpenUSD:
-# https://github.com/PixarAnimationStudios/OpenUSD/issues/3088
-if (NOT BIFUSD_ENABLE_ADDRESS_SANITIZER)
-    set(asan_options ASAN_OPTIONS=detect_container_overflow=0)
-endif()
-
 add_subdirectory(BifrostUsd)
 add_subdirectory(nodedefs)

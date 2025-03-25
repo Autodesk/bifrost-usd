@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::Layer::create_empty_layer_test00",
-            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "io_nodes",

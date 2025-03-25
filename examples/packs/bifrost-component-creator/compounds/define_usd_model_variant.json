@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Model::define_usd_model_variant",
-            "uriImported": "file:///define_usd_model_variant.json",
             "metadata": [
                 {
                     "metaName": "icon",
@@ -126,7 +125,7 @@
                 {
                     "metaName": "UILayout",
                     "metaType": "string",
-                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"expanded\": false,\n                \"group\": \"Geometry\",\n                \"items\": [\n                    {\n                        \"port\": \"geo_variant_name\"\n                    },\n                    {\n                        \"port\": \"remove_dir_path\"\n                    },\n                    {\n                        \"expanded\": false,\n                        \"group\": \"Purposes\",\n                        \"items\": [\n                            {\n                                \"port\": \"guide_geo_file\"\n                            },\n                            {\n                                \"port\": \"proxy_geo_file\"\n                            },\n                            {\n                                \"port\": \"proxy_geo_scope_name\"\n                            },\n                            {\n                                \"port\": \"default_geo_file\"\n                            },\n                            {\n                                \"port\": \"render_geo_file\"\n                            }\n                        ],\n                        \"unique_id\": 21\n                    },\n                    {\n                        \"port\": \"is_default_geo_variant\"\n                    }\n                ],\n                \"unique_id\": 1\n            },\n            {\n                \"port\": \"look_variants\"\n            }\n        ]\n    }\n}\n"
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"expanded\": false,\n                \"group\": \"Geometry\",\n                \"items\": [\n                    {\n                        \"port\": \"geo_variant_name\"\n                    },\n                    {\n                        \"port\": \"remove_dir_path\"\n                    },\n                    {\n                        \"expanded\": false,\n                        \"group\": \"Purposes\",\n                        \"items\": [\n                            {\n                                \"port\": \"guide_geo_file\"\n                            },\n                            {\n                                \"port\": \"proxy_geo_file\"\n                            },\n                            {\n                                \"port\": \"default_geo_file\"\n                            },\n                            {\n                                \"port\": \"render_geo_file\"\n                            }\n                        ],\n                        \"unique_id\": 21\n                    }\n                ],\n                \"unique_id\": 1\n            },\n            {\n                \"port\": \"look_variants\"\n            }\n        ]\n    }\n}"
                 },
                 {
                     "metaName": "PortExpandedState",
@@ -159,31 +158,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "backdrop"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::String,string_replace"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Graph,terminal"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Object,set_property"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Object,get_property"
-                },
-                {
                     "metaName": "ViewportRect",
                     "metaType": "string",
                     "metaValue": "-2506 -1530.17 3760 2597.33"
@@ -207,15 +181,15 @@
             "terminalStates": [
                 {
                     "name": "Core::Graph::terminal::diagnostic",
-                    "enabled": "true"
+                    "enabled": "false"
                 },
                 {
                     "name": "Core::Graph::terminal::proxy",
-                    "enabled": "true"
+                    "enabled": "false"
                 },
                 {
                     "name": "Core::Graph::terminal::final",
-                    "enabled": "true"
+                    "enabled": "false"
                 }
             ],
             "ports": [
@@ -326,7 +300,6 @@
             "compounds": [
                 {
                     "name": "get_file_path_stem",
-                    "uriImported": "file:///define_usd_model_variant.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -444,7 +417,6 @@
                     "compounds": [
                         {
                             "name": "remove_file_extension",
-                            "uriImported": "file:///define_usd_model_variant.json",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -870,7 +842,6 @@
                         },
                         {
                             "name": "get_name_from_path",
-                            "uriImported": "file:///define_usd_model_variant.json",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -1172,7 +1143,6 @@
                 },
                 {
                     "name": "extract_file_name",
-                    "uriImported": "file:///define_usd_model_variant.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -1583,7 +1553,6 @@
                 },
                 {
                     "name": "extract_proxy_file_name",
-                    "uriImported": "file:///define_usd_model_variant.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -1994,7 +1963,6 @@
                 },
                 {
                     "name": "extract_render_file_name",
-                    "uriImported": "file:///define_usd_model_variant.json",
                     "metadata": [
                         {
                             "metaName": "ViewportRect",
@@ -2405,7 +2373,6 @@
                 },
                 {
                     "name": "resolve_default_file_name",
-                    "uriImported": "file:///define_usd_model_variant.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -2765,7 +2732,6 @@
                 },
                 {
                     "name": "extract_proxy_file_name1",
-                    "uriImported": "file:///define_usd_model_variant.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",

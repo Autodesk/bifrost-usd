@@ -190,5 +190,51 @@ set(CMAKE_CXX_FLAGS_DEBUG_INIT "${cxx_flags_debug}")
 set(cxx_flags -fPIC)
 
 if (BIFUSD_ENABLE_ADDRESS_SANITIZER)
-    list(APPEND cxx_flags -fsanitize=address)
+    list(APPEND cxx_flags
+        -fsanitize=address
+        -fno-omit-frame-pointer
+    )
+endif()
+
+# Compile using the Undefined Behavior Sanitizer. See:
+#
+# http://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html
+# http://developers.redhat.com/blog/2014/10/16/gcc-undefined-behavior-sanitizer-ubsan/
+#
+# We are using the same set of flags as using by LLVM when running its own sets
+# of checks under UBSan.
+if (BIFUSD_ENABLE_UNDEFINED_SANITIZER)
+    list(APPEND cxx_flags
+        # All of the checks other than unsigned-integer-overflow
+        -fsanitize=undefined
+
+        # Exclude:
+        #
+        #   vptr: Use of an object whose vptr indicates that it is of the wrong
+        #   dynamic type, or that its lifetime has not begun or has
+        #   ended. Incompatible with -fno-rtti. Link must be performed by
+        #   clang++, not clang, to make sure C++-specific parts of the runtime
+        #   library and C++ standard libraries are present.
+        #
+        #   function: Indirect call of a function through a function pointer of
+        #   the wrong type (Linux, C++ and x86/x86_64 only).
+        #
+        #   object-size: XCode 7.1 version of libc++ contains UB that the
+        #   sanitizer correctly identifies. These are fixed or being fixed in
+        #   the LLVM libc++ development branch. Disable this particular check
+        #   until we get a version of libc++ which supports this.
+        #
+        #   bool: The bool sanitizer is OFF due to some code in USD that triggers it.
+        #
+        #   See: http://lists.llvm.org/pipermail/cfe-dev/2013-August/031194.html
+        #        https://llvm.org/bugs/show_bug.cgi?id=19302
+        #        https://llvm.org/bugs/show_bug.cgi?id=24574
+        -fno-sanitize=bool,vptr,function,object-size
+
+        # Helps to get more precise diagnostics for undefined behavior.
+        -fno-omit-frame-pointer
+
+        # exit after the first detected undefined behavior.
+        -fno-sanitize-recover=undefined,integer
+    )
 endif()

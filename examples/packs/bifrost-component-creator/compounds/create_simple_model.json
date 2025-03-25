@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Model::create_simple_model",
-            "uriImported": "stream:/componentCreator",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -220,7 +219,6 @@
             "compounds": [
                 {
                     "name": "add_geo_reference",
-                    "uriImported": "stream:/componentCreator",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -362,7 +360,6 @@
                     "compounds": [
                         {
                             "name": "create_mtl_scope",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "DisplayMode",
@@ -663,7 +660,6 @@
                         },
                         {
                             "name": "resolve_file_path",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -1302,7 +1298,6 @@
                 },
                 {
                     "name": "add_look",
-                    "uriImported": "stream:/componentCreator",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -1492,7 +1487,6 @@
                     "compounds": [
                         {
                             "name": "create_mtl_scope_path",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -1676,7 +1670,6 @@
                         },
                         {
                             "name": "add_materials_reference",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -1794,7 +1787,6 @@
                             "compounds": [
                                 {
                                     "name": "get_default_or_first_prim",
-                                    "uriImported": "stream:/componentCreator",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -2482,7 +2474,6 @@
                 },
                 {
                     "name": "create_extents_hint",
-                    "uriImported": "stream:/componentCreator",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -2625,7 +2616,6 @@
                     "compounds": [
                         {
                             "name": "_create_extents_hint",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -2735,7 +2725,6 @@
                             "compounds": [
                                 {
                                     "name": "get_geo_extents_hint",
-                                    "uriImported": "stream:/componentCreator",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -2852,7 +2841,6 @@
                                     "compounds": [
                                         {
                                             "name": "compute_extentsHint",
-                                            "uriImported": "stream:/componentCreator",
                                             "metadata": [
                                                 {
                                                     "metaName": "ViewportRect",
@@ -3491,7 +3479,6 @@
                         },
                         {
                             "name": "resolve_file_path1",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -4054,7 +4041,6 @@
                 },
                 {
                     "name": "get_render_variant_info",
-                    "uriImported": "stream:/componentCreator",
                     "metadata": [
                         {
                             "metaName": "ViewportRect",
@@ -4172,7 +4158,6 @@
                     "compounds": [
                         {
                             "name": "get_variant_info",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "UILayout",
@@ -4762,7 +4747,6 @@
                         },
                         {
                             "name": "get_variant_info2",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "UILayout",
@@ -5352,7 +5336,6 @@
                         },
                         {
                             "name": "has_purpose1",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",

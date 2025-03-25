@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Arnold::define_arnold_usd_mesh_primvars",
-            "uriImported": "file:///define_arnold_usd_mesh_primvars.json",
             "metadata": [
                 {
                     "metaName": "icon",
@@ -183,31 +182,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Arnold,define_arnold_usd_mesh_disp"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Arnold,define_arnold_usd_mesh_subdiv"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Attribute,define_usd_transform"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Rendering::Arnold,set_Arnold_mesh_settings"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "backdrop"
-                },
-                {
                     "metaName": "ViewportRect",
                     "metaType": "string",
                     "metaValue": "45.5836 -259.283 1096.54 1424.21"
@@ -215,7 +189,7 @@
                 {
                     "metaName": "UILayout",
                     "metaType": "string",
-                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"stage\"\n            },\n            {\n                \"port\": \"prim_path\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Subdivision\",\n                \"items\": [\n                    {\n                        \"port\": \"subdiv_type\"\n                    },\n                    {\n                        \"port\": \"subdiv_iterations\"\n                    },\n                    {\n                        \"port\": \"subdiv_adaptive_error\"\n                    },\n                    {\n                        \"port\": \"subdiv_adaptive_metric\"\n                    },\n                    {\n                        \"port\": \"subdiv_adaptive_space\"\n                    },\n                    {\n                        \"port\": \"subdiv_frustum_ignore\"\n                    },\n                    {\n                        \"port\": \"subdiv_uv_smoothing\"\n                    },\n                    {\n                        \"port\": \"subdiv_smooth_derivs\"\n                    }\n                ],\n                \"unique_id\": 5\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Displacement\",\n                \"items\": [\n                    {\n                        \"port\": \"disp_padding\"\n                    },\n                    {\n                        \"port\": \"disp_height\"\n                    },\n                    {\n                        \"port\": \"disp_zero_value\"\n                    },\n                    {\n                        \"port\": \"disp_autobump\"\n                    },\n                    {\n                        \"port\": \"autobump_visibility_by_ray_type\"\n                    }\n                ],\n                \"unique_id\": 10\n            },\n            {\n                \"port\": \"prim_paths\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Normals\",\n                \"items\": [\n                    {\n                        \"port\": \"smoothing\"\n                    }\n                ],\n                \"unique_id\": 25\n            }\n        ]\n    }\n}\n"
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"expanded\": false,\n                \"group\": \"Subdivision\",\n                \"items\": [\n                    {\n                        \"port\": \"subdiv_type\"\n                    },\n                    {\n                        \"port\": \"subdiv_iterations\"\n                    },\n                    {\n                        \"port\": \"subdiv_adaptive_error\"\n                    },\n                    {\n                        \"port\": \"subdiv_adaptive_metric\"\n                    },\n                    {\n                        \"port\": \"subdiv_adaptive_space\"\n                    },\n                    {\n                        \"port\": \"subdiv_frustum_ignore\"\n                    },\n                    {\n                        \"port\": \"subdiv_uv_smoothing\"\n                    },\n                    {\n                        \"port\": \"subdiv_smooth_derivs\"\n                    }\n                ],\n                \"unique_id\": 5\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Displacement\",\n                \"items\": [\n                    {\n                        \"port\": \"disp_padding\"\n                    },\n                    {\n                        \"port\": \"disp_height\"\n                    },\n                    {\n                        \"port\": \"disp_zero_value\"\n                    },\n                    {\n                        \"port\": \"disp_autobump\"\n                    },\n                    {\n                        \"port\": \"autobump_visibility_by_ray_type\"\n                    }\n                ],\n                \"unique_id\": 10\n            },\n            {\n                \"port\": \"prim_paths\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Normals\",\n                \"items\": [\n                    {\n                        \"port\": \"smoothing\"\n                    }\n                ],\n                \"unique_id\": 25\n            }\n        ]\n    }\n}"
                 },
                 {
                     "metaName": "PortExpandedState",
@@ -260,20 +234,6 @@
             ],
             "ports": [
                 {
-                    "portName": "prim_paths",
-                    "portDirection": "input",
-                    "portType": "array<string>",
-                    "portDefault": [],
-                    "isDefaultFanIn": "true",
-                    "metadata": [
-                        {
-                            "metaName": "quick_create",
-                            "metaType": "string",
-                            "metaValue": "USDLab::PatternMatching::path_expression"
-                        }
-                    ]
-                },
-                {
                     "portName": "subdiv_type",
                     "portDirection": "input",
                     "portType": "Rendering::Arnold::SubdivType",
@@ -298,11 +258,6 @@
                     ]
                 },
                 {
-                    "portName": "primvar_definitions",
-                    "portDirection": "output",
-                    "portType": "Object"
-                },
-                {
                     "portName": "subdiv_adaptive_error",
                     "portDirection": "input",
                     "portType": "float",
@@ -313,24 +268,6 @@
                     "portDirection": "input",
                     "portType": "Rendering::Arnold::SubdivAdaptiveMetric",
                     "portDefault": "Auto"
-                },
-                {
-                    "portName": "disp_height",
-                    "portDirection": "input",
-                    "portType": "float",
-                    "portDefault": "1f"
-                },
-                {
-                    "portName": "disp_padding",
-                    "portDirection": "input",
-                    "portType": "float",
-                    "portDefault": "0f"
-                },
-                {
-                    "portName": "disp_zero_value",
-                    "portDirection": "input",
-                    "portType": "float",
-                    "portDefault": "0f"
                 },
                 {
                     "portName": "subdiv_adaptive_space",
@@ -357,6 +294,24 @@
                     "portDefault": "false"
                 },
                 {
+                    "portName": "disp_padding",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "0f"
+                },
+                {
+                    "portName": "disp_height",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "1f"
+                },
+                {
+                    "portName": "disp_zero_value",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "0f"
+                },
+                {
                     "portName": "disp_autobump",
                     "portDirection": "input",
                     "portType": "bool",
@@ -369,10 +324,29 @@
                     "portDefault": "255"
                 },
                 {
+                    "portName": "prim_paths",
+                    "portDirection": "input",
+                    "portType": "array<string>",
+                    "portDefault": [],
+                    "isDefaultFanIn": "true",
+                    "metadata": [
+                        {
+                            "metaName": "quick_create",
+                            "metaType": "string",
+                            "metaValue": "USDLab::PatternMatching::path_expression"
+                        }
+                    ]
+                },
+                {
                     "portName": "smoothing",
                     "portDirection": "input",
                     "portType": "bool",
                     "portDefault": "true"
+                },
+                {
+                    "portName": "primvar_definitions",
+                    "portDirection": "output",
+                    "portType": "Object"
                 }
             ],
             "compoundNodes": [

@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2025 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,24 +23,35 @@
 # plugin folder, ex.: maya_plugin, because they depend on the application's api.
 #==============================================================================
 
-set( usd_config_json_tpl ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json.tpl )
-set( usd_config_json ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json )
+set( usd_config_main_json_tpl ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json.tpl )
+set( usd_config_libs_json_tpl ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config_shared_libs.json.tpl )
+set( usd_config_comp_json_tpl ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config_compound.json.tpl )
+
+set( usd_config_main_json ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json )
+set( usd_config_libs_json ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config_shared_libs.json )
+set( usd_config_comp_json ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config_compound.json )
 
 # The name and version of the package/library are first substituted in the
 # generated config file (see usd_pack_config.json.in @xyz@ variables).
 # Namely, the @BIFUSD_PACKAGE_NAME@ variable is used to define the name of
 # this package/library.
-configure_file(usd_pack_config.json.in ${usd_config_json_tpl} @ONLY )
+configure_file(usd_pack_config.json.in ${usd_config_main_json_tpl} @ONLY )
+configure_file(usd_pack_config_shared_libs.json.in ${usd_config_libs_json_tpl} @ONLY )
+configure_file(usd_pack_config_compound.json.in ${usd_config_comp_json_tpl} @ONLY )
 
 # After the previous step, only the ${xyz} variables remain.
 # Now substitute the json and library locations.
 # (see usd_pack_config.json.in)
-configure_file(${usd_config_json_tpl} ${usd_config_json} )
+configure_file(${usd_config_main_json_tpl} ${usd_config_main_json} )
+configure_file(${usd_config_libs_json_tpl} ${usd_config_libs_json} )
+configure_file(${usd_config_comp_json_tpl} ${usd_config_comp_json} )
 
-install(FILES ${usd_config_json} DESTINATION ${BIFUSD_INSTALL_ROOT_DIR} )
+install(FILES ${usd_config_main_json} DESTINATION ${BIFUSD_INSTALL_ROOT_DIR} )
+install(FILES ${usd_config_libs_json} DESTINATION ${BIFUSD_INSTALL_ROOT_DIR} )
+install(FILES ${usd_config_comp_json} DESTINATION ${BIFUSD_INSTALL_ROOT_DIR} )
 
 # Add the config template file location.
 # The variables in that file can be substituted by CMake configure_file
 set_target_properties(${BIFUSD_PACKAGE_NAME}_config_info PROPERTIES
-                       BIFROST_USD_PACK_CONFIG_FILE_TPL "${usd_config_json_tpl}"
+                       BIFROST_USD_PACK_CONFIG_FILE_TPL "${usd_config_main_json_tpl}"
                        BIFROST_USD_PACK_INSTALL_RES_CONFIG_DIR "${BIFROST_USD_PACK_INSTALL_RES_CONFIG_DIR}")

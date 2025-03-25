@@ -1,0 +1,418 @@
+#usda 1.0
+(
+    defaultPrim = "geometries"
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def Xform "geometries" (
+    prepend apiSchemas = ["CollectionAPI:last_ball_row"]
+    kind = "component"
+)
+{
+    prepend rel collection:last_ball_row:includes = [
+        </geometries/balls/Ball20>,
+        </geometries/balls/Ball21>,
+        </geometries/balls/Ball22>,
+        </geometries/balls/Ball23>,
+        </geometries/balls/Ball24>,
+        </geometries/balls/Ball25>,
+        </geometries/balls/Ball26>,
+        </geometries/balls/Ball27>,
+        </geometries/balls/Ball28>,
+        </geometries/balls/Ball29>,
+    ]
+
+    def Scope "balls" (
+        kind = "group"
+    )
+    {
+        def Sphere "Ball" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 0
+            custom string primvars:bifrost:material_hint = "red"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball1" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 0
+            custom string primvars:bifrost:material_hint = "green"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (2.221, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball2" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 0
+            custom string primvars:bifrost:material_hint = "blue"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (4.442, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball3" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 0
+            custom string primvars:bifrost:material_hint = "red"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (6.663, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball4" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 0
+            custom string primvars:bifrost:material_hint = "green"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (8.884, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball5" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 1
+            custom string primvars:bifrost:material_hint = "blue"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0, 2, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball6" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 1
+            custom string primvars:bifrost:material_hint = "red"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (2.221, 2, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball7" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 1
+            custom string primvars:bifrost:material_hint = "green"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (4.442, 2, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball8" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 1
+            custom string primvars:bifrost:material_hint = "blue"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (6.663, 2, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball9" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 1
+            custom string primvars:bifrost:material_hint = "red"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (8.884, 2, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball10" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 2
+            custom string primvars:bifrost:material_hint = "green"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball11" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 2
+            custom string primvars:bifrost:material_hint = "blue"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (2.221, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball12" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 2
+            custom string primvars:bifrost:material_hint = "red"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (4.442, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball13" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 2
+            custom string primvars:bifrost:material_hint = "green"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (6.663, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball14" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 2
+            custom string primvars:bifrost:material_hint = "blue"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (8.884, 4, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball15" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 3
+            custom string primvars:bifrost:material_hint = "red"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0, 6, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball16" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 3
+            custom string primvars:bifrost:material_hint = "green"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (2.221, 6, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball17" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 3
+            custom string primvars:bifrost:material_hint = "blue"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (4.442, 6, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball18" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 3
+            custom string primvars:bifrost:material_hint = "red"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (6.663, 6, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball19" (
+            instanceable = true
+        )
+        {
+            custom float my_float = 3
+            custom string primvars:bifrost:material_hint = "green"
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (8.884, 6, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball20" (
+            instanceable = true
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball21" (
+            instanceable = true
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (2.221, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball22" (
+            instanceable = true
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (4.442, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball23" (
+            instanceable = true
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (6.663, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball24" (
+            instanceable = true
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (8.884, 8, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball25" (
+            instanceable = true
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0, 10, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball26" (
+            instanceable = true
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (2.221, 10, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball27" (
+            instanceable = true
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (4.442, 10, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball28" (
+            instanceable = true
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (6.663, 10, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        def Sphere "Ball29" (
+            instanceable = true
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (8.884, 10, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+    }
+
+    def Scope "pills" (
+        kind = "group"
+    )
+    {
+        def Xform "grp1" (
+            kind = "group"
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (0, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+            def Capsule "pile1"
+            {
+            }
+        }
+
+        def Xform "grp2" (
+            kind = "group"
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (4.5, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+            def Capsule "pile1"
+            {
+            }
+        }
+
+        def Xform "_grp" (
+            kind = "group"
+        )
+        {
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            float3 xformOp:translate = (9, 12, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+            def Capsule "pile1"
+            {
+            }
+        }
+    }
+}
+

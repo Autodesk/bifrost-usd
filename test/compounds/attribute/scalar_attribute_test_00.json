@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::Attribute::scalar_attribute_test_00",
-            "uriImported": "file:///scalar_attribute_test_00.json",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -199,31 +198,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,equal"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,not_equal"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Array,array_size"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,not"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Array,find_all_true_in_array"
-                },
-                {
                     "metaName": "backdrop10",
                     "metadata": [
                         {
@@ -297,15 +271,15 @@
             "terminalStates": [
                 {
                     "name": "Core::Graph::terminal::diagnostic",
-                    "enabled": "true"
+                    "enabled": "false"
                 },
                 {
                     "name": "Core::Graph::terminal::proxy",
-                    "enabled": "true"
+                    "enabled": "false"
                 },
                 {
                     "name": "Core::Graph::terminal::final",
-                    "enabled": "true"
+                    "enabled": "false"
                 }
             ],
             "ports": [
@@ -341,7 +315,6 @@
             "compounds": [
                 {
                     "name": "setup_red_pill_stage",
-                    "uriImported": "file:///scalar_attribute_test_00.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -988,7 +961,6 @@
                 },
                 {
                     "name": "setup_blue_pill_stage",
-                    "uriImported": "file:///scalar_attribute_test_00.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",

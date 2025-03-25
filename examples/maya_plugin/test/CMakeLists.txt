@@ -27,8 +27,10 @@ set(python_tests
     testImportMayaModel.py
     testImportMayaModelInNewStage.py
     testImportMayaVariants.py
+    testLookdevWorkflow.py
     testMaterialHintAttribute.py
     testModelExporter.py
+    testPatternMatching.py
     testPrimPath.py
     testValidateGeo.py
 )
@@ -45,8 +47,18 @@ endif()
 set(USD_PYTHON_PATH "${MAYA_USD_PLUGIN_DIR}/mayausd/USD/lib/python")
 set(MAYA_USD_PYTHON_PATH "${MAYA_USD_PLUGIN_DIR}/mayausd/MayaUSD/lib/python")
 
-list(APPEND env_vars "PYTHONPATH=${USD_PYTHON_PATH}::${MAYA_USD_PYTHON_PATH}:${CMAKE_INSTALL_PREFIX}/${BIFUSD_INSTALL_ROOT_DIR}/examples/maya_plugin/python")
-list(APPEND env_vars "MAYA_MODULE_PATH=${CMAKE_INSTALL_PREFIX}/${BIFUSD_INSTALL_ROOT_DIR}/examples/maya_plugin:${MAYA_USD_PLUGIN_DIR}:${LOOKDEVX_PLUGIN_DIR}:${BIFROST_LOCATION}/../../modules/")
+option(IS_MAYA_USD_LOCAL_ECG_BUILD "OFF" "Option not needed from the public side.")
+
+if (IS_MAYA_USD_LOCAL_ECG_BUILD)
+    set(USD_PYTHON_PATH "${USD_LOCATION}/lib/python")
+    set(MAYA_USD_PYTHON_PATH "${MAYA_USD_PLUGIN_DIR}/lib/python")
+endif()
+
+set(EXAMPLES_MAYA_PLUGIN ${CMAKE_INSTALL_PREFIX}/${BIFUSD_INSTALL_ROOT_DIR}/examples/maya_plugin)
+# Add extra modules search path for BMP local build case
+set(BIFROST_LOCATION ${BIFROST_LOCATION}/..:${BIFROST_LOCATION}/../../modules)
+list(APPEND env_vars "MAYA_MODULE_PATH=${BIFROST_LOCATION}:${MAYA_USD_PLUGIN_DIR}:${LOOKDEVX_PLUGIN_DIR}:${EXAMPLES_MAYA_PLUGIN}")
+list(APPEND env_vars "PYTHONPATH=${USD_PYTHON_PATH}::${MAYA_USD_PYTHON_PATH}:${EXAMPLES_MAYA_PLUGIN}/python")
 
 foreach(test_file ${python_tests})
     add_test(NAME examples_${test_file}

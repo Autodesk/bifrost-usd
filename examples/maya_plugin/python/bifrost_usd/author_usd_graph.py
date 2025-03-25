@@ -33,11 +33,14 @@ from bifrost_usd.constants import (
     kDefinePrim,
     kDefinePrimHierarchy,
     kDefineUsdCurves,
+    kDefineMaterialBinding,
     kDefineUsdMesh,
     kDefineUsdPointInstancer,
     kDefineUsdPreviewSurface,
     kMayaUsdProxyShape,
     kOverridePrim,
+    kPathExpression,
+    kUsdStringPathsToArray,
 )
 
 from bifrost_usd.node_def import NodeDef
@@ -140,7 +143,9 @@ def insert_stage_node(
             graphAPI.connect(newNode, new_node_def.output_name, "", cnxInfo.port)
         else:
             newNodeName = cnxInfo.node
-            graphAPI.connect(newNode, new_node_def.output_name, newNodeName, cnxInfo.port)
+            graphAPI.connect(
+                newNode, new_node_def.output_name, newNodeName, cnxInfo.port
+            )
 
     return newNode
 
@@ -446,7 +451,7 @@ def add_one_maya_selection_as_variant_to_stage(
 
 
 def _get_graph_selection_if_needed(
-    graph_selection: GraphEditorSelection,
+    graph_selection: GraphEditorSelection, warning_msg: str = ""
 ) -> GraphEditorSelection:
     """When the graph selection is empty, creates a new GraphEditorSelection from
     Bifrost Graph Editor selection, else do nothing and returns the graph selection unchanged.
@@ -456,9 +461,11 @@ def _get_graph_selection_if_needed(
         output = graph_selection.output
         graph_selection = get_graph_selection()
         if not graph_selection.nodeSelection:
-            warning(
-                "You must select a node upstream (with a stage output) in the Bifrost Graph Editor"
-            )
+            if not warning_msg:
+                msg = "You must select a node upstream (with a stage output) in the Bifrost Graph Editor"
+            else:
+                msg = warning_msg
+            warning(msg)
 
         graph_selection.output = output
 
@@ -791,6 +798,15 @@ def get_prim_selection() -> Dict[str, List[str]]:
     return selection
 
 
+def get_prim_selection_as_string() -> str:
+    primPaths: str = ""
+    selection = get_prim_selection()
+    for node in selection:
+        primPaths += ", ".join(selection[node])
+
+    return primPaths
+
+
 def get_bifrost_graph_from_prim_selection() -> tuple[str, str]:
     """Get the Bifrost graph connected to the MayaUsdProxyShape of the selected USD prim.
 
@@ -908,14 +924,141 @@ def update_prim_path(current_prim_path: str, new_prim_path: str) -> None:
             graphAPI.set_param(node, ("parent_path", new_prim_path))
 
 
-if __name__ == "__main__":
-    insert_prim_node(
+def add_string_to_array_compound() -> None:
+    graphSelection = _get_graph_selection_if_needed(
         GraphEditorSelection(),
-        NodeDef(
-            is_terminal=True,
-            type_name="BifrostGraph,USD::PointInstancer,usd_point_instancer_scope",
-            input_name="stage",
-            output_name="",
-            prim_path_param_name="point_instancer_path",
-        ),
+        warning_msg="You must select a 'define_usd_prim', "
+        "'define_usd_material_binding' or 'path_expression' node in the Bifrost Graph Editor\n"
+        "          from which a 'string_to_array' node will be connected. Or select a 'string_to_array' "
+        "to append prim paths to it.",
     )
+    if not graphSelection.nodeSelection:
+        return
+
+    selectedNode = graphSelection.nodeSelection[0]
+    if graphAPI.type_name(selectedNode) == kUsdStringPathsToArray:
+        previousPaths = graphAPI.param(selectedNode, "paths")
+        newPaths = previousPaths + ", " + get_prim_selection_as_string()
+        graphAPI.set_param(
+            selectedNode,
+            ("paths", newPaths),
+        )
+        return
+
+    stringToArrayNode = ""
+    typeName = graphAPI.type_name(selectedNode)
+
+    if typeName == kDefineMaterialBinding:
+        stringToArrayNode = graphAPI.add_node(kUsdStringPathsToArray)
+        graphAPI.connect_to_fanin_port(
+            stringToArrayNode,
+            selectedNode,
+            "prim_paths",
+            "path_array",
+        )
+
+    elif typeName == kDefinePrim:
+        stringToArrayNode = graphAPI.add_node(kUsdStringPathsToArray)
+        graphAPI.connect(stringToArrayNode, "path_array", selectedNode, "path")
+    elif typeName == kPathExpression:
+        stringToArrayNode = graphAPI.add_node(kUsdStringPathsToArray)
+        graphAPI.connect(stringToArrayNode, "path_array", selectedNode, "prim_path")
+
+    if stringToArrayNode:
+        graphAPI.set_param(
+            stringToArrayNode, ("paths", get_prim_selection_as_string())
+        )
+    else:
+        warning("Selected node is not supported")
+
+
+def remove_from_string_to_array_compound() -> None:
+    graphSelection = _get_graph_selection_if_needed(
+        GraphEditorSelection(),
+        warning_msg="You must select a 'string_to_array' node in the Bifrost Graph Editor",
+    )
+
+    if not graphSelection.nodeSelection:
+        return
+
+    selectedNode = graphSelection.nodeSelection[0]
+    if graphAPI.type_name(selectedNode) != kUsdStringPathsToArray:
+        return
+
+    originalValue = graphAPI.param(selectedNode, ("paths"))
+
+    originalTokens = originalValue.split(",")
+    originalTokens = [token.replace(" ", "") for token in originalTokens]
+    tokensToRemove = get_prim_selection_as_string().split(",")
+    tokensToRemove = [token.replace(" ", "") for token in tokensToRemove]
+    newTokens = []
+    for token in originalTokens:
+        keep = True
+        for badToken in tokensToRemove:
+            if token == badToken:
+                keep = False
+                break
+        if keep:
+            newTokens.append(token)
+
+    graphAPI.set_param(selectedNode, ("paths", ", ".join(newTokens)))
+
+
+def get_maya_usd_proxy_shape_from_bifrost_usd_graph(graph: str) -> str:
+    cnx = cmds.listConnections(graph, type=kMayaUsdProxyShape, shapes=True)
+    if cnx:
+        return cmds.ls(cnx[0], long=True)[0]
+
+    return ""
+
+
+def select_prims_from_selected_node() -> None:
+    primPaths: list[str] = []
+    mayaUsdProxyShape = get_maya_usd_proxy_shape_from_bifrost_usd_graph(
+        graphAPI._getGraphName()
+    )
+    if not mayaUsdProxyShape:
+        return
+
+    graphSelection = _get_graph_selection_if_needed(
+        GraphEditorSelection(),
+        warning_msg="You must select a node in the Bifrost Graph Editor",
+    )
+
+    if not graphSelection.nodeSelection:
+        return
+
+    selectedNode = graphSelection.nodeSelection[0]
+    if graphAPI.type_name(selectedNode) == kUsdStringPathsToArray:
+        primPaths = graphAPI.param(selectedNode, "paths").split(" ")
+        primPaths = [token.replace(" ", "") for token in primPaths]
+        primPaths = [token.replace(",", "") for token in primPaths]
+
+        if primPaths:
+            cmds.select(clear=True)
+
+        for item in primPaths:
+            cmds.select(f"{mayaUsdProxyShape},{item}", add=True)
+        return
+
+    elif graphAPI.type_name(selectedNode) == "BifrostGraph,USD::Model,define_usd_material_binding":
+        primPath = graphAPI.param(selectedNode, "material")
+        if primPath:
+            cmds.select(clear=True)
+            cmds.select(f"{mayaUsdProxyShape},{primPath}", add=True)
+
+    elif graphAPI.type_name(selectedNode) in (
+        kDefinePrim,
+        kDefineUsdMesh,
+        kDefineUsdCurves,
+        kDefineUsdPointInstancer,
+        kDefinePrimHierarchy,
+    ):
+        primPath = graphAPI.param(selectedNode, "path")
+        if primPath:
+            cmds.select(clear=True)
+            cmds.select(f"{mayaUsdProxyShape},{primPath}", add=True)
+
+
+if __name__ == "__main__":
+    add_string_to_array_compound()

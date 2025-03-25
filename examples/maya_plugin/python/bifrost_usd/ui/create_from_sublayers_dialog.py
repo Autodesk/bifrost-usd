@@ -41,12 +41,15 @@ class CreateFromSublayersDialog(QtWidgets.QFileDialog):
         self.setFileMode(QtWidgets.QFileDialog.ExistingFiles)
 
 
-def show():
+def show(workflow=None):
     dialog = CreateFromSublayersDialog(parent=None)
     if dialog.exec_():
         fileNames = dialog.selectedFiles()
         if fileNames:
-            cmds.bifrostUSDExamples(openStage=True, files=",".join(fileNames))
+            if workflow == "lookdev":
+                cmds.bifrostUSDExamples(openStage=True, lookdevWorkflow=True, files=",".join(fileNames))
+            else:
+                cmds.bifrostUSDExamples(openStage=True, files=",".join(fileNames))
 
 
 if __name__ == "__main__":
