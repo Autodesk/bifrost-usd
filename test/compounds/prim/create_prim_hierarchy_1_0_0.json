@@ -7,44 +7,11 @@
             }
         ]
     },
-    "dependencies": [
-        {
-            "uri": "file:///usd_stage.json"
-        },
-        {
-            "uri": "file:///Math_types.json"
-        },
-        {
-            "uri": "file:///bifrost_object_i.json"
-        },
-        {
-            "uri": "file:///usd_prim.json"
-        },
-        {
-            "uri": "file:///usd_variant_set.json"
-        },
-        {
-            "uri": "file:///usd_attribute.json"
-        },
-        {
-            "uri": "file:///usd_layer.json"
-        },
-        {
-            "uri": "file:///usd_prim_nodedefs.json"
-        },
-        {
-            "uri": "file:///CoreStringOps.json"
-        },
-        {
-            "uri": "file:///create_child_prim_path.json"
-        }
-    ],
     "namespaces": [],
     "types": [],
     "compounds": [
         {
             "name": "USD::Test::Prim::create_prim_hierarchy_1_0_0",
-            "uriImported": "file:///create_prim_hierarchy_1_0_0.json",
             "metadata": [
                 {
                     "metaName": "io_nodes",

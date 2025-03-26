@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2024 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -567,13 +567,15 @@ bool USD::Prim::get_usd_geom_points(
                 xform = xformCache.GetLocalToWorldTransform(prim.getPxrPrim());
 
                 for (size_t i = 0; i < pxr_points.size(); ++i) {
-                    PXR_NS::GfVec4f global_point(pxr_points[i][0],
-                                                 pxr_points[i][1],
-                                                 pxr_points[i][2], 1.f);
-                    global_point     = global_point * xform;
-                    pxr_points[i][0] = global_point[0];
-                    pxr_points[i][1] = global_point[1];
-                    pxr_points[i][2] = global_point[2];
+                    auto global_point =
+                        PXR_NS::GfVec4f(static_cast<double>(pxr_points[i][0]),
+                                        static_cast<double>(pxr_points[i][1]),
+                                        static_cast<double>(pxr_points[i][2]),
+                                        1.0) *
+                        xform;
+                    pxr_points[i][0] = static_cast<float>(global_point[0]);
+                    pxr_points[i][1] = static_cast<float>(global_point[1]);
+                    pxr_points[i][2] = static_cast<float>(global_point[2]);
                 }
             }
         }

@@ -1,0 +1,453 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::PointInstancer::set_usd_point_instances_invisible",
+            "metadata": [
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/def_point_instancer.svg"
+                },
+                {
+                    "metaName": "documentation",
+                    "metaType": "string",
+                    "metaValue": "../docs/${language}/USD_PointInstancer_set_usd_point_instances_invisible.md"
+                },
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "stage"
+                                                },
+                                                {
+                                                    "metaName": "prim_path"
+                                                },
+                                                {
+                                                    "metaName": "invisible_ids"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "NodeWidthOffset",
+                                            "metaType": "string",
+                                            "metaValue": "-180.658"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-389.686 455.116"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "31.000000"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "input1",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "enable"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1239.08 -196.238"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "34.000000"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "input2",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "642.681 462.563"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "37.000000"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "replace"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "out_stage"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1897.04 278.235"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "32.000000"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "UILayout",
+                    "metaType": "string",
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"enable\"\n            },\n            {\n                \"port\": \"stage\"\n            },\n            {\n                \"port\": \"prim_path\"\n            },\n            {\n                \"port\": \"invisible_ids\"\n            }\n        ]\n    }\n}\n"
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "131.249 11.5531 1133.67 1230.07"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "748 152"
+                },
+                {
+                    "metaName": "zValue",
+                    "metaType": "string",
+                    "metaValue": "89.000000"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "enable",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "true"
+                },
+                {
+                    "portName": "stage",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Stage",
+                    "portDefault": {}
+                },
+                {
+                    "portName": "prim_path",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "/bots_world/many_robots"
+                },
+                {
+                    "portName": "invisible_ids",
+                    "portDirection": "input",
+                    "portType": "array<long>",
+                    "portDefault": []
+                },
+                {
+                    "portName": "replace",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "false"
+                },
+                {
+                    "portName": "out_stage",
+                    "portDirection": "output",
+                    "portType": "BifrostUsd::Stage"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "set_prim_attribute",
+                    "nodeType": "USD::Attribute::set_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "NodeValueDisplay",
+                            "metadata": [
+                                {
+                                    "metaName": "show",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "format",
+                                    "metaType": "string",
+                                    "metaValue": "Set {name} Attribute"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1247.07 203.401"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "35.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1592.04 218.235"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "33.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "invisible_ids",
+                        "value"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "502.534 713.528"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "39.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if2",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "942.309 501.896"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "36.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_usd_attribute_value",
+                    "nodeType": "USD::Attribute::get_usd_attribute_value",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "86.229 815.867"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "38.000000"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": ".stage",
+                    "target": "set_prim_attribute.stage"
+                },
+                {
+                    "source": ".prim_path",
+                    "target": "set_prim_attribute.prim_path"
+                },
+                {
+                    "source": ".enable",
+                    "target": "if.condition"
+                },
+                {
+                    "source": "set_prim_attribute.out_stage",
+                    "target": "if.true_case"
+                },
+                {
+                    "source": ".stage",
+                    "target": "if.false_case"
+                },
+                {
+                    "source": "if.output",
+                    "target": ".out_stage"
+                },
+                {
+                    "source": "build_array.array",
+                    "target": "if2.false_case"
+                },
+                {
+                    "source": "if2.output",
+                    "target": "set_prim_attribute.value"
+                },
+                {
+                    "source": ".invisible_ids",
+                    "target": "build_array.first.invisible_ids"
+                },
+                {
+                    "source": ".stage",
+                    "target": "get_usd_attribute_value.stage"
+                },
+                {
+                    "source": ".prim_path",
+                    "target": "get_usd_attribute_value.prim_path"
+                },
+                {
+                    "source": ".invisible_ids",
+                    "target": "get_usd_attribute_value.type"
+                },
+                {
+                    "source": "get_usd_attribute_value.value",
+                    "target": "build_array.first.value"
+                },
+                {
+                    "source": ".replace",
+                    "target": "if2.condition"
+                },
+                {
+                    "source": ".invisible_ids",
+                    "target": "if2.true_case"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "set_prim_attribute.name",
+                    "valueType": "string",
+                    "value": "invisibleIds"
+                },
+                {
+                    "valueName": "set_prim_attribute.value",
+                    "valueType": "array<long>",
+                    "value": []
+                },
+                {
+                    "valueName": "get_usd_attribute_value.attribute_name",
+                    "valueType": "string",
+                    "value": "invisibleIds"
+                },
+                {
+                    "valueName": "get_usd_attribute_value.type",
+                    "valueType": "float",
+                    "value": "0f"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                },
+                {
+                    "name": "input1"
+                },
+                {
+                    "name": "input2"
+                }
+            ]
+        }
+    ]
+}

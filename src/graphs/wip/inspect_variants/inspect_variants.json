@@ -55,31 +55,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Stage,open_usd_stage"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Layer,open_usd_layer"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Utils,inspect_usd_variants"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Model,extract_component_variants"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Iterators,iterate"
-                },
-                {
                     "metaName": "sticky_note",
                     "metadata": [
                         {
@@ -270,7 +245,6 @@
             "compounds": [
                 {
                     "name": "inspect_usd_variants",
-                    "uriImported": "file:///inspect_usd_variants.json",
                     "metadata": [
                         {
                             "metaName": "icon",
@@ -427,7 +401,6 @@
                     "compounds": [
                         {
                             "name": "extract_component_variants",
-                            "uriImported": "file:///inspect_usd_variants.json",
                             "metadata": [
                                 {
                                     "metaName": "DisplayMode",
@@ -566,7 +539,6 @@
                             "compounds": [
                                 {
                                     "name": "iterate_on_variant_sets",
-                                    "uriImported": "file:///inspect_usd_variants.json",
                                     "metadata": [
                                         {
                                             "metaName": "icon",
@@ -739,7 +711,6 @@
                                     "compounds": [
                                         {
                                             "name": "iterate_on_variants",
-                                            "uriImported": "file:///inspect_usd_variants.json",
                                             "metadata": [
                                                 {
                                                     "metaName": "icon",
@@ -932,7 +903,6 @@
                                             "compounds": [
                                                 {
                                                     "name": "create_prim_from_variant",
-                                                    "uriImported": "file:///inspect_usd_variants.json",
                                                     "metadata": [
                                                         {
                                                             "metaName": "io_nodes",
@@ -1101,7 +1071,6 @@
                                                     "compounds": [
                                                         {
                                                             "name": "compute_translation_offset",
-                                                            "uriImported": "file:///inspect_usd_variants.json",
                                                             "metadata": [
                                                                 {
                                                                     "metaName": "_recentNode_",
@@ -1223,7 +1192,6 @@
                                                             "compounds": [
                                                                 {
                                                                     "name": "compute_meshes_extend",
-                                                                    "uriImported": "file:///inspect_usd_variants.json",
                                                                     "metadata": [
                                                                         {
                                                                             "metaName": "_recentNode_",
@@ -2275,7 +2243,6 @@
                                 },
                                 {
                                     "name": "resolve_prim_path",
-                                    "uriImported": "file:///inspect_usd_variants.json",
                                     "metadata": [
                                         {
                                             "metaName": "io_nodes",

@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USDLab::PatternMatching::parse_expression",
-            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "icon",
@@ -97,31 +96,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,equal"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,if"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::String,string_join"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Constants,float"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,not_equal"
-                },
-                {
                     "metaName": "ViewportRect",
                     "metaType": "string",
                     "metaValue": "546.436 -580.835 2097.93 1495.47"
@@ -183,7 +157,6 @@
             "compounds": [
                 {
                     "name": "space_char",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -271,7 +244,6 @@
                 },
                 {
                     "name": "remove_braces",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",

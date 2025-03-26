@@ -20,6 +20,9 @@
             "jsonLibs": [
                 {
                     "path": "${BIFROST_USD_CONFIG_JSON}"
+                },
+                {
+                    "path": "${BIFROST_USD_CONFIG_COMP}"
                 }
             ],
             "watchPointsTranslationLibs": [

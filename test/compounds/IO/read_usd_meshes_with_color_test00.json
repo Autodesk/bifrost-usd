@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::IO::read_usd_meshes_with_color_test00",
-            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -76,31 +75,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Array,build_array"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Prim,define_usd_mesh"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Graph,terminal"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Diagnostic,pull_port"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Array,array_size"
-                },
-                {
                     "metaName": "ViewportRect",
                     "metaType": "string",
                     "metaValue": "-2317.04 -100 2745.08 1158"
@@ -128,11 +102,11 @@
                 },
                 {
                     "name": "Core::Graph::terminal::proxy",
-                    "enabled": "true"
+                    "enabled": "false"
                 },
                 {
                     "name": "Core::Graph::terminal::diagnostic",
-                    "enabled": "true"
+                    "enabled": "false"
                 }
             ],
             "ports": [
@@ -150,7 +124,6 @@
             "compounds": [
                 {
                     "name": "create_stage_with_colored_mesh",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "ViewportRect",
@@ -236,7 +209,6 @@
                     "compounds": [
                         {
                             "name": "create_colored_torus",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -609,7 +581,6 @@
                         },
                         {
                             "name": "define_usd_display_color",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "documentation",
@@ -1313,7 +1284,6 @@
                 },
                 {
                     "name": "test_with_color",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -1432,7 +1402,6 @@
                     "compounds": [
                         {
                             "name": "first_mesh_with_varying_color",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "backdrop",
@@ -1555,7 +1524,6 @@
                             "compounds": [
                                 {
                                     "name": "expect_float3_equal",
-                                    "uriImported": "stream:/bifrostGraphShape1",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -2019,7 +1987,6 @@
                                 },
                                 {
                                     "name": "expect_float3_equal1",
-                                    "uriImported": "stream:/bifrostGraphShape1",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -2919,7 +2886,6 @@
                         },
                         {
                             "name": "second_mesh_with_constant_color",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -3067,7 +3033,6 @@
                             "compounds": [
                                 {
                                     "name": "expect_float3_equal",
-                                    "uriImported": "stream:/bifrostGraphShape1",
                                     "metadata": [
                                         {
                                             "metaName": "io_nodes",
@@ -3531,7 +3496,6 @@
                                 },
                                 {
                                     "name": "expect_float3_equal1",
-                                    "uriImported": "stream:/bifrostGraphShape1",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -4666,7 +4630,6 @@
                 },
                 {
                     "name": "test_without_color",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -4785,7 +4748,6 @@
                     "compounds": [
                         {
                             "name": "first_mesh_with_no_color",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -5016,7 +4978,6 @@
                         },
                         {
                             "name": "second_mesh_with_no_color",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",

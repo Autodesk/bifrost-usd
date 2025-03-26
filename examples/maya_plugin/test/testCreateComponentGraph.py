@@ -25,6 +25,8 @@ from distutils.dir_util import copy_tree
 from maya import cmds
 from maya import standalone
 
+from bifrost_usd.graph_api import bifrost_version
+
 
 class CreateComponentGraphTestCase(unittest.TestCase):
     plugins_loaded = False
@@ -148,8 +150,10 @@ class CreateComponentGraphTestCase(unittest.TestCase):
         self.assertEqual(metadata["host_scene"], "02_create_component.ma")
 
         expectedMayaDirPath = os.path.join(test_model_dir, version, "maya")
-        # Bifrost scene_info node adds a path separator at the end of host scene dir.
-        expectedMayaDirPath += os.sep
+        # Before Bifrost 2.11, the scene_info node was adding a path separator at the end of host scene dir
+        _, major, minor, patch = bifrost_version().split(".")
+        if int(major) < 11:
+            expectedMayaDirPath += os.sep
         self.assertEqual(metadata["host_scene_directory"], expectedMayaDirPath)
 
         default_prim = stage.GetDefaultPrim()

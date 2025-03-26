@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::Prim::define_usd_skeleton_animation_test00",
-            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -309,31 +308,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Math,matrix_to_SRT"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Prim,define_usd_skeleton_animation"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Geometry::Skeleton,get_joint_transform_matrices"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Prim,get_prim_at_path"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Attribute,get_prim_attribute_data"
-                },
-                {
                     "metaName": "backdrop9",
                     "metadata": [
                         {
@@ -399,7 +373,6 @@
             "compounds": [
                 {
                     "name": "test_joint_path_data",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "icon",

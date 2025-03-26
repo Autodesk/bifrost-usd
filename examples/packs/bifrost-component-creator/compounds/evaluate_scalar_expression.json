@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USDLab::PatternMatching::evaluate_scalar_expression",
-            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "icon",
@@ -272,31 +271,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,less_or_equal"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,less"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,greater"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,greater_or_equal"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,if"
-                },
-                {
                     "metaName": "NodeValueDisplay",
                     "metadata": [
                         {
@@ -358,7 +332,6 @@
             "compounds": [
                 {
                     "name": "value_is_equal_to_expected_value",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -483,7 +456,6 @@
                     "compounds": [
                         {
                             "name": "is_double",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -690,7 +662,6 @@
                         },
                         {
                             "name": "is_float",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -902,7 +873,6 @@
                         },
                         {
                             "name": "is_int",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -1416,7 +1386,6 @@
                 },
                 {
                     "name": "value_is_not_equal_to_expected_value",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -1541,7 +1510,6 @@
                     "compounds": [
                         {
                             "name": "is_double",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -1748,7 +1716,6 @@
                         },
                         {
                             "name": "is_float",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -1960,7 +1927,6 @@
                         },
                         {
                             "name": "is_int",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -2499,7 +2465,6 @@
                 },
                 {
                     "name": "value_is_greater_or_equal_to_expected_value",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -2684,7 +2649,6 @@
                     "compounds": [
                         {
                             "name": "is_double",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -2891,7 +2855,6 @@
                         },
                         {
                             "name": "is_float",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -3103,7 +3066,6 @@
                         },
                         {
                             "name": "is_int",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -3763,7 +3725,6 @@
                 },
                 {
                     "name": "value_is_less_or_equal_to_expected_value",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -3948,7 +3909,6 @@
                     "compounds": [
                         {
                             "name": "is_double",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -4155,7 +4115,6 @@
                         },
                         {
                             "name": "is_float",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -4367,7 +4326,6 @@
                         },
                         {
                             "name": "is_int",
-                            "uriImported": "stream:/bifrostGraphShape1",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",

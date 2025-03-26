@@ -414,9 +414,14 @@ class GraphAPI:
 
         return fanInName
 
-    def enable_fanin_port(self, node: str, port_name: str, graph_name: str) -> None:
+    def enable_fanin_port(self, node: str, port_name: str, graph_name: str = "") -> None:
         cmds.vnnPort(
             self._getGraphName(graph_name), f"/{node}.{port_name}", 0, 1, set=2
+        )
+
+    def disable_fanin_port(self, node: str, port_name: str, graph_name: str = "") -> None:
+        cmds.vnnPort(
+            self._getGraphName(graph_name), f"/{node}.{port_name}", 0, 1, clear=2
         )
 
     def connect_to_fanin_port(

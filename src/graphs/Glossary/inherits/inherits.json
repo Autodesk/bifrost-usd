@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "Graphs::USD::inherits",
-            "uriImported": "stream:/stream",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -54,31 +53,6 @@
                             ]
                         }
                     ]
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Stage,add_to_stage"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Randomization,curl_noise"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Fields,curl_field"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Randomization,fractal_noise"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Modeling::Primitive,create_mesh_sphere"
                 },
                 {
                     "metaName": "backdrop",
@@ -326,7 +300,6 @@
             "compounds": [
                 {
                     "name": "trunk_mesh",
-                    "uriImported": "stream:/stream",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -469,7 +442,6 @@
                     "compounds": [
                         {
                             "name": "add_noise_displacement",
-                            "uriImported": "stream:/stream",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -1754,7 +1726,6 @@
                 },
                 {
                     "name": "leaves_mesh",
-                    "uriImported": "stream:/stream",
                     "metadata": [
                         {
                             "metaName": "io_nodes",

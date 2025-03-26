@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::Layer::export_layer_to_file_test00",
-            "uriImported": "file:///export_layer_to_file_test00.json",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -138,31 +137,6 @@
                     "metaName": "ViewportRect",
                     "metaType": "string",
                     "metaValue": "-3285.85 -746.851 1205.8 1019.5"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Test::TestUtilities,make_file_path"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Test::Layer,export_layer_to_file_test00"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Transform,graph_space"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Test::Layer,create_empty_layer_test00"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Layer,export_layer_to_file"
                 },
                 {
                     "metaName": "DisplayMode",

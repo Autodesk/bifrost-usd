@@ -102,7 +102,7 @@ class ModelExporter(object):
         self.model_path = self.get_valid_selection()
 
         # remove the first "|" from the path
-        selectionName = self.model_path[1:]
+        self.selectionName = self.model_path[1:]
 
         if autoNaming:
             names = self.get_model_name_info()
@@ -110,7 +110,7 @@ class ModelExporter(object):
             self.variant = names[1]
             self.purpose = "" if names[2] == "default" else names[2]
         else:
-            self.model_name = selectionName if model_name == "" else model_name
+            self.model_name = self.selectionName if model_name == "" else model_name
             self.variant = "default" if variant == "" else variant
             self.purpose = "" if purpose == "default" else purpose
 
@@ -149,6 +149,7 @@ class ModelExporter(object):
                 exportComponentTags=True,
                 defaultMeshScheme=None,
                 defaultUSDFormat="usdc",
+                defaultPrim=self.selectionName,
                 parentScope=None,
                 exportInstances=True,
                 exportVisibility=True,

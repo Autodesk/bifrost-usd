@@ -1,6 +1,6 @@
 # -
 # *****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2024 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -78,6 +78,8 @@ class TestGraphs(unittest.TestCase):
         for config_file in self.lib_config_files:
             config_list += config_file + os.pathsep
         bifcmd_env["BIFROST_LIB_CONFIG_FILES"] = config_list
+        if( bifcmd_env.get("BIFUSD_ASAN_LIBRARY") ):
+            bifcmd_env["DYLD_INSERT_LIBRARIES"] = bifcmd_env["BIFUSD_ASAN_LIBRARY"]
         return bifcmd_env
 
     def run_bifcmd(self, command_to_run):
@@ -262,6 +264,7 @@ class TestGraphs(unittest.TestCase):
 
         # Make sure we support the schema version of the JSON log file
         self.assertTrue("schemaVersion" in json_content)
+        self.assertTrue("taskDescriptions" in json_content)
         self.assertEqual(json_content["schemaVersion"], "1.0.0")
 
         # Scan content of JSON Log File
@@ -368,9 +371,17 @@ class TestGraphs(unittest.TestCase):
             "tasks_add_to_stage_hierarchy.json",
             "tasks_fan_out_stages.json",
             "tasks_save_stage.json",
+        ]
+
+        sanitizer_sensitive_task_desc_files = [
             # VariantSet Tests
+            # Graph "USD::Test::VariantSet::select_variants_test00" has sanitizer leaks that are not suppressed.
+            # Ref.: BIFROST-11339
             "tasks_variants.json",
         ]
+        if not args.running_sanitizers:
+            task_desc_files.extend(sanitizer_sensitive_task_desc_files)
+
         cmd = [
             self.bifcmd_exec,
             "--log-level",
@@ -400,17 +411,18 @@ class TestGraphs(unittest.TestCase):
             cmd += ["--task-description", task_desc_pathname]
 
         # Launch all Tasks in sequence but in a single run of bifcmd:
-        return_code, _, _ = self.run_bifcmd(cmd)
+        return_code, out_std, out_err = self.run_bifcmd(cmd)
+        # NOTE: When running sanitizers, the return code is > 0.
+        # It is not negative, thus not a signal.
         return_code_ok = (return_code == 0)
         if not return_code_ok:
             logging.error("bifcmd return code=%d", return_code)
+            logging.error("bifcmd stdout=\n%s", out_std)
+            logging.error("bifcmd stderr=\n%s", out_err)
 
         # Inspect the bifcmd's log file to verify all Tasks results:
         check_std_outputs = True
         log_file_ok = self.checkJSONLogFile(json_log_file, check_std_outputs)
-
-        #logging.info("\nOUTPUTS=\n%s\n", outputs)
-        #logging.info("\nERRORS=\n%s\n", errors)
 
         success = return_code_ok and log_file_ok
         self.assertTrue(success)
@@ -489,6 +501,14 @@ def parse_arguments():
     parser.add_argument(
         "--debug", help="To enable debug logging.", action="store_true"
     )
+
+    parser.add_argument(
+        "--running-sanitizers",
+        dest="running_sanitizers",
+        help="To indicate that sanitizers are running.",
+        action="store_true"
+    )
+
     return parser.parse_args()
 
 

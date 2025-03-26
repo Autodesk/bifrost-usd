@@ -1,0 +1,1139 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::PointInstancer::replace_usd_point_instancer_proto",
+            "metadata": [
+                {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/def_point_instancer.svg"
+                },
+                {
+                    "metaName": "documentation",
+                    "metaType": "string",
+                    "metaValue": "../docs/${language}/USD_PointInstancer_replace_usd_point_instancer_proto.md"
+                },
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "46.000000"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-505.325 818.39"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "stage"
+                                                },
+                                                {
+                                                    "metaName": "point_instancer_path"
+                                                },
+                                                {
+                                                    "metaName": "proto_index"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "input1",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "47.000000"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "878.191 634.34"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "mode"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "input2",
+                                    "metadata": [
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "new_proto_index"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "49.000000"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1556.21 993.252"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "out_stage"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "52.000000"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "2492.97 295.197"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-585.295 -896.424 3384.87 3925.18"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "UILayout",
+                    "metaType": "string",
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"stage\"\n            },\n            {\n                \"port\": \"point_instancer_path\"\n            },\n            {\n                \"port\": \"mode\"\n            },\n            {\n                \"port\": \"proto_index\"\n            },\n            {\n                \"port\": \"new_proto_index\"\n            }\n        ]\n    }\n}\n"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "2119.71 -341.518"
+                },
+                {
+                    "metaName": "zValue",
+                    "metaType": "string",
+                    "metaValue": "122.000000"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "stage",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Stage",
+                    "portDefault": {}
+                },
+                {
+                    "portName": "point_instancer_path",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "mode",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "Equal to",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "ComboBox"
+                        },
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "editable=false;items={\"Less than\";\"Less or equal than\";\"Equal to\";\"Greater or equal to\";\"Greater than\"}"
+                        }
+                    ]
+                },
+                {
+                    "portName": "proto_index",
+                    "portDirection": "input",
+                    "portType": "int",
+                    "portDefault": "0L"
+                },
+                {
+                    "portName": "new_proto_index",
+                    "portDirection": "input",
+                    "portType": "int",
+                    "portDefault": "0L"
+                },
+                {
+                    "portName": "out_stage",
+                    "portDirection": "output",
+                    "portType": "BifrostUsd::Stage"
+                }
+            ],
+            "compounds": [
+                {
+                    "name": "mode_switch",
+                    "metadata": [
+                        {
+                            "metaName": "io_nodes",
+                            "metadata": [
+                                {
+                                    "metaName": "io_inodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "input",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "mode"
+                                                        },
+                                                        {
+                                                            "metaName": "less_than"
+                                                        },
+                                                        {
+                                                            "metaName": "less_or_equal_than_"
+                                                        },
+                                                        {
+                                                            "metaName": "equal_to"
+                                                        },
+                                                        {
+                                                            "metaName": "greater_or_equal"
+                                                        },
+                                                        {
+                                                            "metaName": "greater_than"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "-52.8351 432.321"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "40.000000"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "io_onodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "output",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "result"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "2145 206"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "32.000000"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "_recentNode_",
+                            "metaType": "string",
+                            "metaValue": "BifrostGraph,Core::Logic,if"
+                        },
+                        {
+                            "metaName": "_recentNode_",
+                            "metaType": "string",
+                            "metaValue": "BifrostGraph,Core::Logic,equal"
+                        },
+                        {
+                            "metaName": "_recentNode_",
+                            "metaType": "string",
+                            "metaValue": "input"
+                        },
+                        {
+                            "metaName": "_recentNode_",
+                            "metaType": "string",
+                            "metaValue": "BifrostGraph,Core::Constants,float"
+                        },
+                        {
+                            "metaName": "_recentNode_",
+                            "metaType": "string",
+                            "metaValue": "BifrostGraph,Core::Logic,greater_or_equal"
+                        },
+                        {
+                            "metaName": "ViewportRect",
+                            "metaType": "string",
+                            "metaValue": "-134 -759.554 2588 3001.11"
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "portName": "mode",
+                            "portDirection": "input",
+                            "portType": "string"
+                        },
+                        {
+                            "portName": "less_than",
+                            "portDirection": "input",
+                            "portType": "array<bool>"
+                        },
+                        {
+                            "portName": "result",
+                            "portDirection": "output",
+                            "portType": "array<bool>"
+                        },
+                        {
+                            "portName": "less_or_equal_than_",
+                            "portDirection": "input",
+                            "portType": "array<bool>"
+                        },
+                        {
+                            "portName": "equal_to",
+                            "portDirection": "input",
+                            "portType": "array<bool>"
+                        },
+                        {
+                            "portName": "greater_or_equal",
+                            "portDirection": "input",
+                            "portType": "array<bool>"
+                        },
+                        {
+                            "portName": "greater_than",
+                            "portDirection": "input",
+                            "portType": "array<bool>"
+                        }
+                    ],
+                    "compoundNodes": [
+                        {
+                            "nodeName": "equal",
+                            "nodeType": "Core::Logic::equal",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "1562.56 110.259"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "39.000000"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "if",
+                            "nodeType": "Core::Logic::if",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "1840 206"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "31.000000"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "equal1",
+                            "nodeType": "Core::Logic::equal",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "1267.06 389.389"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "33.000000"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "if1",
+                            "nodeType": "Core::Logic::if",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "1552.4 429.879"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "38.000000"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "equal2",
+                            "nodeType": "Core::Logic::equal",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "934.174 603.111"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "37.000000"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "if2",
+                            "nodeType": "Core::Logic::if",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "1226.57 690.916"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "34.000000"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "if3",
+                            "nodeType": "Core::Logic::if",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "923.876 954.329"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "42.000000"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "equal3",
+                            "nodeType": "Core::Logic::equal",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "671.243 809.138"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "41.000000"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "equal4",
+                            "nodeType": "Core::Logic::equal",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "397.74 1060.89"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "36.000000"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "if4",
+                            "nodeType": "Core::Logic::if",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "668.629 1145.7"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "35.000000"
+                                }
+                            ]
+                        }
+                    ],
+                    "connections": [
+                        {
+                            "source": ".mode",
+                            "target": "equal.first"
+                        },
+                        {
+                            "source": "equal.output",
+                            "target": "if.condition"
+                        },
+                        {
+                            "source": ".mode",
+                            "target": "equal1.first"
+                        },
+                        {
+                            "source": "equal1.output",
+                            "target": "if1.condition"
+                        },
+                        {
+                            "source": "if1.output",
+                            "target": "if.false_case"
+                        },
+                        {
+                            "source": "equal2.output",
+                            "target": "if2.condition"
+                        },
+                        {
+                            "source": ".mode",
+                            "target": "equal2.first"
+                        },
+                        {
+                            "source": "if2.output",
+                            "target": "if1.false_case"
+                        },
+                        {
+                            "source": "if.output",
+                            "target": ".result"
+                        },
+                        {
+                            "source": ".less_than",
+                            "target": "if.true_case"
+                        },
+                        {
+                            "source": ".less_or_equal_than_",
+                            "target": "if1.true_case"
+                        },
+                        {
+                            "source": ".equal_to",
+                            "target": "if2.true_case"
+                        },
+                        {
+                            "source": "equal3.output",
+                            "target": "if3.condition"
+                        },
+                        {
+                            "source": ".mode",
+                            "target": "equal3.first"
+                        },
+                        {
+                            "source": ".greater_or_equal",
+                            "target": "if3.true_case"
+                        },
+                        {
+                            "source": "if3.output",
+                            "target": "if2.false_case"
+                        },
+                        {
+                            "source": "equal4.output",
+                            "target": "if4.condition"
+                        },
+                        {
+                            "source": ".mode",
+                            "target": "equal4.first"
+                        },
+                        {
+                            "source": ".greater_than",
+                            "target": "if4.true_case"
+                        },
+                        {
+                            "source": "if4.output",
+                            "target": "if3.false_case"
+                        }
+                    ],
+                    "values": [
+                        {
+                            "valueName": "equal.second",
+                            "valueType": "string",
+                            "value": "Less than"
+                        },
+                        {
+                            "valueName": "equal1.second",
+                            "valueType": "string",
+                            "value": "Less or equal than"
+                        },
+                        {
+                            "valueName": "equal2.second",
+                            "valueType": "string",
+                            "value": "Equal to"
+                        },
+                        {
+                            "valueName": "equal3.second",
+                            "valueType": "string",
+                            "value": "Greater or equal to"
+                        },
+                        {
+                            "valueName": "equal4.second",
+                            "valueType": "string",
+                            "value": "Greater than"
+                        }
+                    ],
+                    "reservedNodeNames": [
+                        {
+                            "name": "input"
+                        },
+                        {
+                            "name": "output"
+                        }
+                    ]
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "get_usd_point_instancer_attributes",
+                    "nodeType": "USD::PointInstancer::get_usd_point_instancer_attributes",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-198.359 438.362"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "35.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_in_array",
+                    "nodeType": "Core::Array::set_in_array",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1864.97 542.726"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "50.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_prim_attribute",
+                    "nodeType": "USD::Attribute::set_prim_attribute",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "NodeValueDisplay",
+                            "metadata": [
+                                {
+                                    "metaName": "show",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "format",
+                                    "metaType": "string",
+                                    "metaValue": "Set {name} Attribute"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "51.000000"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "2187.97 296.197"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "equal1",
+                    "nodeType": "Core::Logic::equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "515.355 1149.78"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "33.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "find_all_true_in_array",
+                    "nodeType": "Core::Array::find_all_true_in_array",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1543.33 768.669"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "39.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "less",
+                    "nodeType": "Core::Logic::less",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "525.859 613.969"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "32.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "less_or_equal",
+                    "nodeType": "Core::Logic::less_or_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "523.758 901.84"
+                        },
+                        {
+                            "metaName": "NodeValueDisplay",
+                            "metadata": [
+                                {
+                                    "metaName": "show",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "format",
+                                    "metaType": "string",
+                                    "metaValue": "Less or equal than {second}"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "36.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "greater",
+                    "nodeType": "Core::Logic::greater",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "513.251 1637.27"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "41.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "greater_or_equal",
+                    "nodeType": "Core::Logic::greater_or_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "502.747 1393.53"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "40.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "mode_switch",
+                    "nodeType": "mode_switch",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "1223.48 749.465"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "53.000000"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": ".stage",
+                    "target": "get_usd_point_instancer_attributes.stage"
+                },
+                {
+                    "source": ".point_instancer_path",
+                    "target": "get_usd_point_instancer_attributes.prim_path"
+                },
+                {
+                    "source": "get_usd_point_instancer_attributes.proto_indices",
+                    "target": "set_in_array.array"
+                },
+                {
+                    "source": ".stage",
+                    "target": "set_prim_attribute.stage"
+                },
+                {
+                    "source": ".point_instancer_path",
+                    "target": "set_prim_attribute.prim_path"
+                },
+                {
+                    "source": ".new_proto_index",
+                    "target": "set_in_array.value"
+                },
+                {
+                    "source": "set_in_array.out_array",
+                    "target": "set_prim_attribute.value"
+                },
+                {
+                    "source": "set_prim_attribute.out_stage",
+                    "target": ".out_stage"
+                },
+                {
+                    "source": "get_usd_point_instancer_attributes.proto_indices",
+                    "target": "equal1.first"
+                },
+                {
+                    "source": "find_all_true_in_array.indices",
+                    "target": "set_in_array.index"
+                },
+                {
+                    "source": "get_usd_point_instancer_attributes.proto_indices",
+                    "target": "less.first"
+                },
+                {
+                    "source": ".proto_index",
+                    "target": "less.second"
+                },
+                {
+                    "source": "get_usd_point_instancer_attributes.proto_indices",
+                    "target": "less_or_equal.first"
+                },
+                {
+                    "source": "get_usd_point_instancer_attributes.proto_indices",
+                    "target": "greater_or_equal.first"
+                },
+                {
+                    "source": "get_usd_point_instancer_attributes.proto_indices",
+                    "target": "greater.first"
+                },
+                {
+                    "source": ".mode",
+                    "target": "mode_switch.mode"
+                },
+                {
+                    "source": "less.output",
+                    "target": "mode_switch.less_than"
+                },
+                {
+                    "source": "less_or_equal.output",
+                    "target": "mode_switch.less_or_equal_than_"
+                },
+                {
+                    "source": "equal1.output",
+                    "target": "mode_switch.equal_to"
+                },
+                {
+                    "source": "mode_switch.result",
+                    "target": "find_all_true_in_array.boolean_array"
+                },
+                {
+                    "source": "greater_or_equal.output",
+                    "target": "mode_switch.greater_or_equal"
+                },
+                {
+                    "source": "greater.output",
+                    "target": "mode_switch.greater_than"
+                },
+                {
+                    "source": ".proto_index",
+                    "target": "less_or_equal.second"
+                },
+                {
+                    "source": ".proto_index",
+                    "target": "equal1.second"
+                },
+                {
+                    "source": ".proto_index",
+                    "target": "greater_or_equal.second"
+                },
+                {
+                    "source": ".proto_index",
+                    "target": "greater.second"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "get_usd_point_instancer_attributes.stage",
+                    "valueType": "BifrostUsd::Stage",
+                    "value": {}
+                },
+                {
+                    "valueName": "get_usd_point_instancer_attributes.prim_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "set_in_array.value",
+                    "valueType": "int",
+                    "value": "1L"
+                },
+                {
+                    "valueName": "set_prim_attribute.name",
+                    "valueType": "string",
+                    "value": "protoIndices"
+                },
+                {
+                    "valueName": "mode_switch.mode",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "mode_switch.less_than",
+                    "valueType": "array<bool>",
+                    "value": []
+                },
+                {
+                    "valueName": "mode_switch.less_or_equal_than_",
+                    "valueType": "array<bool>",
+                    "value": []
+                },
+                {
+                    "valueName": "mode_switch.equal_to",
+                    "valueType": "array<bool>",
+                    "value": []
+                },
+                {
+                    "valueName": "mode_switch.greater_or_equal",
+                    "valueType": "array<bool>",
+                    "value": []
+                },
+                {
+                    "valueName": "mode_switch.greater_than",
+                    "valueType": "array<bool>",
+                    "value": []
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                },
+                {
+                    "name": "input1"
+                },
+                {
+                    "name": "input2"
+                }
+            ]
+        }
+    ]
+}

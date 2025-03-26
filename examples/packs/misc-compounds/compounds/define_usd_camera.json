@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Prim::define_usd_camera",
-            "uriImported": "file:///define_usd_camera.json",
             "metadata": [
                 {
                     "metaName": "icon",
@@ -22,7 +21,7 @@
                 {
                     "metaName": "documentation",
                     "metaType": "string",
-                    "metaValue": "../../docs/${language}/define_usd_camera.md"
+                    "metaValue": "../docs/${language}/USD_Prim_define_usd_camera.md"
                 },
                 {
                     "metaName": "io_nodes",
@@ -114,31 +113,6 @@
                             ]
                         }
                     ]
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Prim,define_usd_prim"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Prim,define_usd_camera"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Prim,define_usd_prim_hierarchy"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Stage,create_usd_stage"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "backdrop"
                 },
                 {
                     "metaName": "ViewportRect",

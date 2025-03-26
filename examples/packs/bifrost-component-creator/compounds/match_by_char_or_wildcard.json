@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USDLab::PatternMatching::match_by_char_or_wildcard",
-            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "icon",
@@ -237,31 +236,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "backdrop"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,if"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,greater_or_equal"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,greater"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Array,array_size"
-                },
-                {
                     "metaName": "sticky_note2",
                     "metadata": [
                         {
@@ -339,7 +313,6 @@
             "compounds": [
                 {
                     "name": "for_each",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "icon",
@@ -662,7 +635,6 @@
                 },
                 {
                     "name": "check_all_chars_match",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -842,7 +814,6 @@
                 },
                 {
                     "name": "append_wildcards_if_needed",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -1310,7 +1281,6 @@
                 },
                 {
                     "name": "prepend_wildcards_if_needed",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",

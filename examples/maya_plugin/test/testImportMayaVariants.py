@@ -39,6 +39,8 @@ class ImportMayaVariantsTestCase(unittest.TestCase):
     def setUpClass(cls):
         if not cls.plugins_loaded:
             standalone.initialize("bifrost-usd-import-maya-variants")
+            cmds.loadPlugin("mayaUsdPlugin", quiet=True)
+            cmds.loadPlugin("bifrostGraph", quiet=True)
             cmds.loadPlugin("bifrostUSDExamples.py", quiet=True)
             cls.plugins_loaded = True
 

@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2024 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -84,8 +84,8 @@ TEST(DictionarySerialization, serialize_dictionary_metadata) {
     // If the code was built against USD with no python, for example then
     // it may not run correctly against a USD with python because the
     // "function tables" changed.
-    // This issue is being investigated and it does not hurt to
-    // keep the test.
+    // This issue is being investigated under BIFROST-11249.
+    // The test is disable with (our internal) USD versions using oneTBB.
     //
     // Debugging : std::cout << "Metadata is " << result.c_str() << std::endl;
     Amino::String result;

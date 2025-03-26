@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::Stage::fan_out_stages_test00",
-            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "io_nodes",

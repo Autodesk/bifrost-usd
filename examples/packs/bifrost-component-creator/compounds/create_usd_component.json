@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Model::create_usd_component",
-            "uriImported": "stream:/componentCreator",
             "metadata": [
                 {
                     "metaName": "icon",
@@ -22,7 +21,7 @@
                 {
                     "metaName": "documentation",
                     "metaType": "string",
-                    "metaValue": "../docs/create_usd_component.md"
+                    "metaValue": "../docs/${language}/USD_Model_create_usd_component.md"
                 },
                 {
                     "metaName": "Model",
@@ -292,21 +291,6 @@
                     ]
                 },
                 {
-                    "metaName": "NodeValueDisplay",
-                    "metadata": [
-                        {
-                            "metaName": "show",
-                            "metaType": "string",
-                            "metaValue": "1"
-                        },
-                        {
-                            "metaName": "format",
-                            "metaType": "string",
-                            "metaValue": "Create {name} Component ({default_model_variant}, {default_look_variant})"
-                        }
-                    ]
-                },
-                {
                     "metaName": "sticky_note3",
                     "metadata": [
                         {
@@ -400,34 +384,49 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
+                    "metaName": "UILayout",
                     "metaType": "string",
-                    "metaValue": "sticky note"
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"save_model\"\n            },\n            {\n                \"port\": \"name\"\n            },\n            {\n                \"port\": \"version\"\n            },\n            {\n                \"port\": \"model_variants\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Project\",\n                \"items\": [\n                    {\n                        \"port\": \"meters_per_unit\"\n                    },\n                    {\n                        \"port\": \"enable_relative_path\"\n                    },\n                    {\n                        \"port\": \"search_mode\"\n                    },\n                    {\n                        \"port\": \"sub_directory\"\n                    }\n                ],\n                \"unique_id\": 4\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Model\",\n                \"items\": [\n                    {\n                        \"port\": \"geometry_scope_name\"\n                    },\n                    {\n                        \"port\": \"model_variant_set_name\"\n                    },\n                    {\n                        \"port\": \"default_model_variant\"\n                    },\n                    {\n                        \"port\": \"default_look_variant\"\n                    }\n                ],\n                \"unique_id\": 10\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Look\",\n                \"items\": [\n                    {\n                        \"port\": \"material_scope_name\"\n                    },\n                    {\n                        \"port\": \"look_variant_set_name\"\n                    },\n                    {\n                        \"condition\": {\n                            \"action\": \"hide\",\n                            \"op\": \"\",\n                            \"port\": \"create_material_library\",\n                            \"value\": \"\"\n                        },\n                        \"group\": \"Hide based on create_material_library\",\n                        \"items\": [\n                            {\n                                \"port\": \"material_library_file\"\n                            }\n                        ],\n                        \"unique_id\": 41\n                    },\n                    {\n                        \"condition\": {\n                            \"action\": \"show\",\n                            \"op\": \"\",\n                            \"port\": \"create_material_library\",\n                            \"value\": \"\"\n                        },\n                        \"group\": \"Show based on create_material_library\",\n                        \"items\": [],\n                        \"unique_id\": 64\n                    }\n                ],\n                \"unique_id\": 15\n            }\n        ]\n    }\n}"
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "backdrop"
+                    "metaName": "PortExpandedState",
+                    "metadata": [
+                        {
+                            "metaName": "model_variants",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "Project",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "Look",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        }
+                    ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Graph,terminal"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Diagnostic::IO,dump_object"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::String,string_join"
+                    "metaName": "NodeValueDisplay",
+                    "metadata": [
+                        {
+                            "metaName": "show",
+                            "metaType": "string",
+                            "metaValue": "0"
+                        },
+                        {
+                            "metaName": "format",
+                            "metaType": "string",
+                            "metaValue": "Create {name} Component ({default_model_variant}, {default_look_variant})"
+                        }
+                    ]
                 },
                 {
                     "metaName": "ViewportRect",
                     "metaType": "string",
-                    "metaValue": "-2117.19 283 1773.37 1142"
+                    "metaValue": "-2528 -124.126 2602 1963.25"
                 },
                 {
                     "metaName": "DisplayMode",
@@ -437,51 +436,26 @@
                 {
                     "metaName": "LayoutPos",
                     "metaType": "string",
-                    "metaValue": "124.315 -493.861"
+                    "metaValue": "-125.5 -187"
                 },
                 {
                     "metaName": "zValue",
                     "metaType": "string",
-                    "metaValue": "97.000000"
-                },
-                {
-                    "metaName": "UILayout",
-                    "metaType": "string",
-                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"save_model\"\n            },\n            {\n                \"port\": \"name\"\n            },\n            {\n                \"port\": \"version\"\n            },\n            {\n                \"port\": \"model_variants\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Project\",\n                \"items\": [\n                    {\n                        \"port\": \"meters_per_unit\"\n                    },\n                    {\n                        \"port\": \"enable_relative_path\"\n                    },\n                    {\n                        \"port\": \"search_mode\"\n                    },\n                    {\n                        \"port\": \"relative_to_maya_project\"\n                    },\n                    {\n                        \"port\": \"sub_directory\"\n                    }\n                ],\n                \"unique_id\": 4\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Model\",\n                \"items\": [\n                    {\n                        \"port\": \"geometry_scope_name\"\n                    },\n                    {\n                        \"port\": \"model_variant_set_name\"\n                    },\n                    {\n                        \"port\": \"geo_variants_files\"\n                    },\n                    {\n                        \"port\": \"geo_variants_names\"\n                    },\n                    {\n                        \"port\": \"default_model_variant\"\n                    },\n                    {\n                        \"port\": \"default_look_variant\"\n                    }\n                ],\n                \"unique_id\": 10\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Look\",\n                \"items\": [\n                    {\n                        \"port\": \"material_scope_name\"\n                    },\n                    {\n                        \"port\": \"mtl_file_path\"\n                    },\n                    {\n                        \"port\": \"look_variant_set_name\"\n                    },\n                    {\n                        \"port\": \"create_material_library\"\n                    },\n                    {\n                        \"condition\": {\n                            \"action\": \"hide\",\n                            \"op\": \"\",\n                            \"port\": \"create_material_library\",\n                            \"value\": \"\"\n                        },\n                        \"group\": \"Hide based on create_material_library\",\n                        \"items\": [\n                            {\n                                \"port\": \"material_library_file\"\n                            }\n                        ],\n                        \"unique_id\": 41\n                    },\n                    {\n                        \"condition\": {\n                            \"action\": \"show\",\n                            \"op\": \"\",\n                            \"port\": \"create_material_library\",\n                            \"value\": \"\"\n                        },\n                        \"group\": \"Show based on create_material_library\",\n                        \"items\": [\n                            {\n                                \"port\": \"material_library_name\"\n                            }\n                        ],\n                        \"unique_id\": 64\n                    }\n                ],\n                \"unique_id\": 15\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Debug\",\n                \"items\": [\n                    {\n                        \"port\": \"create_test_materials\"\n                    },\n                    {\n                        \"port\": \"show_payload_only\"\n                    }\n                ],\n                \"unique_id\": 19\n            }\n        ]\n    }\n}\n"
-                },
-                {
-                    "metaName": "PortExpandedState",
-                    "metadata": [
-                        {
-                            "metaName": "Look",
-                            "metaType": "string",
-                            "metaValue": "0"
-                        },
-                        {
-                            "metaName": "Project",
-                            "metaType": "string",
-                            "metaValue": "0"
-                        },
-                        {
-                            "metaName": "Model",
-                            "metaType": "string",
-                            "metaValue": "0"
-                        }
-                    ]
+                    "metaValue": "36.000000"
                 }
             ],
             "terminalStates": [
                 {
                     "name": "Core::Graph::terminal::final",
-                    "enabled": "true"
+                    "enabled": "false"
                 },
                 {
                     "name": "Core::Graph::terminal::proxy",
-                    "enabled": "true"
+                    "enabled": "false"
                 },
                 {
                     "name": "Core::Graph::terminal::diagnostic",
-                    "enabled": "true"
+                    "enabled": "false"
                 }
             ],
             "ports": [
@@ -504,6 +478,32 @@
                     "portDefault": ""
                 },
                 {
+                    "portName": "model_variants",
+                    "portDirection": "input",
+                    "portType": "array<Object>",
+                    "portDefault": [],
+                    "isDefaultFanIn": "true",
+                    "metadata": [
+                        {
+                            "metaName": "quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Model::define_usd_model_variant"
+                        }
+                    ]
+                },
+                {
+                    "portName": "meters_per_unit",
+                    "portDirection": "input",
+                    "portType": "double",
+                    "portDefault": "0.01"
+                },
+                {
+                    "portName": "enable_relative_path",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "true"
+                },
+                {
                     "portName": "search_mode",
                     "portDirection": "input",
                     "portType": "string",
@@ -520,12 +520,6 @@
                             "metaValue": "editable=false;items={\"Relative to Project\";\"Relative to Scene\";Custom}"
                         }
                     ]
-                },
-                {
-                    "portName": "enable_relative_path",
-                    "portDirection": "input",
-                    "portType": "bool",
-                    "portDefault": "true"
                 },
                 {
                     "portName": "sub_directory",
@@ -570,55 +564,6 @@
                     "portDefault": "Model"
                 },
                 {
-                    "portName": "material_scope_name",
-                    "portDirection": "input",
-                    "portType": "string",
-                    "portDefault": "mtl",
-                    "metadata": [
-                        {
-                            "metaName": "UIWidget",
-                            "metaType": "string",
-                            "metaValue": "ComboBox"
-                        },
-                        {
-                            "metaName": "UIWidgetProp",
-                            "metaType": "string",
-                            "metaValue": "items={mtl;Materials;Look}"
-                        }
-                    ]
-                },
-                {
-                    "portName": "stage",
-                    "portDirection": "output",
-                    "portType": "BifrostUsd::Stage"
-                },
-                {
-                    "portName": "look_variant_set_name",
-                    "portDirection": "input",
-                    "portType": "string",
-                    "portDefault": "Look"
-                },
-                {
-                    "portName": "model_variants",
-                    "portDirection": "input",
-                    "portType": "array<Object>",
-                    "portDefault": [],
-                    "isDefaultFanIn": "true",
-                    "metadata": [
-                        {
-                            "metaName": "quick_create",
-                            "metaType": "string",
-                            "metaValue": "USD::Model::define_usd_model_variant"
-                        }
-                    ]
-                },
-                {
-                    "portName": "meters_per_unit",
-                    "portDirection": "input",
-                    "portType": "double",
-                    "portDefault": "0.01"
-                },
-                {
                     "portName": "default_model_variant",
                     "portDirection": "input",
                     "portType": "string",
@@ -639,6 +584,30 @@
                     "portDefault": "look1"
                 },
                 {
+                    "portName": "material_scope_name",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "mtl",
+                    "metadata": [
+                        {
+                            "metaName": "UIWidget",
+                            "metaType": "string",
+                            "metaValue": "ComboBox"
+                        },
+                        {
+                            "metaName": "UIWidgetProp",
+                            "metaType": "string",
+                            "metaValue": "items={mtl;Materials;Look}"
+                        }
+                    ]
+                },
+                {
+                    "portName": "look_variant_set_name",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": "Look"
+                },
+                {
                     "portName": "material_library_file",
                     "portDirection": "input",
                     "portType": "string",
@@ -655,12 +624,16 @@
                             "metaValue": "filter=\"USD (*.usd *.usda *.usdc *.usdz);;All (*.*)\""
                         }
                     ]
+                },
+                {
+                    "portName": "stage",
+                    "portDirection": "output",
+                    "portType": "BifrostUsd::Stage"
                 }
             ],
             "compounds": [
                 {
                     "name": "create_component",
-                    "uriImported": "stream:/componentCreator",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -779,7 +752,6 @@
                     "compounds": [
                         {
                             "name": "create_class_prims",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -1032,7 +1004,6 @@
                         },
                         {
                             "name": "create_default_prim",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -1478,7 +1449,6 @@
                         },
                         {
                             "name": "create_inherite",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -1706,7 +1676,6 @@
                         },
                         {
                             "name": "create_model_stage",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -1956,7 +1925,6 @@
                         },
                         {
                             "name": "create_payload",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -2327,7 +2295,6 @@
                         },
                         {
                             "name": "create_model_variants",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -2452,8 +2419,17 @@
                             "compounds": [
                                 {
                                     "name": "iterate_on_model_variants",
-                                    "uriImported": "stream:/componentCreator",
                                     "metadata": [
+                                        {
+                                            "metaName": "icon",
+                                            "metaType": "string",
+                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
+                                        },
+                                        {
+                                            "metaName": "icon",
+                                            "metaType": "string",
+                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
+                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -2647,7 +2623,6 @@
                                     "compounds": [
                                         {
                                             "name": "create_extents_hint",
-                                            "uriImported": "stream:/componentCreator",
                                             "metadata": [
                                                 {
                                                     "metaName": "io_nodes",
@@ -2757,7 +2732,6 @@
                                             "compounds": [
                                                 {
                                                     "name": "get_geo_extents_hint",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
                                                         {
                                                             "metaName": "_recentNode_",
@@ -2874,7 +2848,6 @@
                                                     "compounds": [
                                                         {
                                                             "name": "compute_extentsHint",
-                                                            "uriImported": "stream:/componentCreator",
                                                             "metadata": [
                                                                 {
                                                                     "metaName": "ViewportRect",
@@ -3352,7 +3325,6 @@
                                                 },
                                                 {
                                                     "name": "draw_mode_color",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
                                                         {
                                                             "metaName": "io_nodes",
@@ -3862,7 +3834,6 @@
                                         },
                                         {
                                             "name": "resolve_file_name",
-                                            "uriImported": "stream:/componentCreator",
                                             "metadata": [
                                                 {
                                                     "metaName": "io_nodes",
@@ -4844,7 +4815,6 @@
                         },
                         {
                             "name": "create_look_variants",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -5350,7 +5320,6 @@
                         },
                         {
                             "name": "set_root_layer_metadata",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -5502,7 +5471,6 @@
                             "compounds": [
                                 {
                                     "name": "set_host_scene_property",
-                                    "uriImported": "stream:/componentCreator",
                                     "metadata": [
                                         {
                                             "metaName": "io_nodes",
@@ -6022,7 +5990,6 @@
                         },
                         {
                             "name": "set_default_variants",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -7023,7 +6990,6 @@
                 },
                 {
                     "name": "create_payload",
-                    "uriImported": "stream:/componentCreator",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -7298,7 +7264,7 @@
                         {
                             "metaName": "ViewportRect",
                             "metaType": "string",
-                            "metaValue": "-1307.07 -846 2222.15 1431"
+                            "metaValue": "-1085 -812.545 1625 1226.09"
                         }
                     ],
                     "ports": [
@@ -7316,7 +7282,6 @@
                     "compounds": [
                         {
                             "name": "create_default_prim",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -7638,7 +7603,6 @@
                         },
                         {
                             "name": "create_payload_stage",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -7873,7 +7837,6 @@
                         },
                         {
                             "name": "create_model_variants",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -8164,7 +8127,7 @@
                                 {
                                     "metaName": "ViewportRect",
                                     "metaType": "string",
-                                    "metaValue": "25.5634 -42.1228 3342.44 2152.44"
+                                    "metaValue": "479 -134.486 2208 1665.97"
                                 }
                             ],
                             "ports": [
@@ -8192,8 +8155,17 @@
                             "compounds": [
                                 {
                                     "name": "iterate_on_model_variants",
-                                    "uriImported": "stream:/componentCreator",
                                     "metadata": [
+                                        {
+                                            "metaName": "icon",
+                                            "metaType": "string",
+                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
+                                        },
+                                        {
+                                            "metaName": "icon",
+                                            "metaType": "string",
+                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
+                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -8274,7 +8246,7 @@
                                                                 {
                                                                     "metaName": "zValue",
                                                                     "metaType": "string",
-                                                                    "metaValue": "45.000000"
+                                                                    "metaValue": "44.000000"
                                                                 }
                                                             ]
                                                         },
@@ -8387,7 +8359,7 @@
                                                                 {
                                                                     "metaName": "zValue",
                                                                     "metaType": "string",
-                                                                    "metaValue": "43.000000"
+                                                                    "metaValue": "42.000000"
                                                                 }
                                                             ]
                                                         }
@@ -8481,7 +8453,7 @@
                                         {
                                             "metaName": "ViewportRect",
                                             "metaType": "string",
-                                            "metaValue": "-301.654 -3205.27 3571.78 2300.13"
+                                            "metaValue": "1833 -2272.5 998 753.007"
                                         }
                                     ],
                                     "ports": [
@@ -8577,8 +8549,17 @@
                                     "compounds": [
                                         {
                                             "name": "iterate_on_look_variants",
-                                            "uriImported": "stream:/componentCreator",
                                             "metadata": [
+                                                {
+                                                    "metaName": "icon",
+                                                    "metaType": "string",
+                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
+                                                },
+                                                {
+                                                    "metaName": "icon",
+                                                    "metaType": "string",
+                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
+                                                },
                                                 {
                                                     "metaName": "icon",
                                                     "metaType": "string",
@@ -8690,12 +8671,12 @@
                                                                         {
                                                                             "metaName": "LayoutPos",
                                                                             "metaType": "string",
-                                                                            "metaValue": "1113.91 959.823"
+                                                                            "metaValue": "1773.88 1266.47"
                                                                         },
                                                                         {
                                                                             "metaName": "zValue",
                                                                             "metaType": "string",
-                                                                            "metaValue": "37.000000"
+                                                                            "metaValue": "40.000000"
                                                                         }
                                                                     ]
                                                                 }
@@ -8726,12 +8707,12 @@
                                                                         {
                                                                             "metaName": "LayoutPos",
                                                                             "metaType": "string",
-                                                                            "metaValue": "3704 804.661"
+                                                                            "metaValue": "3220.19 918.501"
                                                                         },
                                                                         {
                                                                             "metaName": "zValue",
                                                                             "metaType": "string",
-                                                                            "metaValue": "39.000000"
+                                                                            "metaValue": "41.000000"
                                                                         }
                                                                     ]
                                                                 }
@@ -8858,6 +8839,11 @@
                                                 {
                                                     "metaName": "_recentNode_",
                                                     "metaType": "string",
+                                                    "metaValue": "BifrostGraph,USD::Model,apply_look_v2"
+                                                },
+                                                {
+                                                    "metaName": "_recentNode_",
+                                                    "metaType": "string",
                                                     "metaValue": "BifrostGraph,USD::Model,apply_look"
                                                 },
                                                 {
@@ -8876,14 +8862,9 @@
                                                     "metaValue": "BifrostGraph,Core::Graph,pass"
                                                 },
                                                 {
-                                                    "metaName": "_recentNode_",
-                                                    "metaType": "string",
-                                                    "metaValue": "BifrostGraph,Core::Iterators,iterate"
-                                                },
-                                                {
                                                     "metaName": "ViewportRect",
                                                     "metaType": "string",
-                                                    "metaValue": "901.78 -246.449 1956.98 1404.7"
+                                                    "metaValue": "302.839 -482.62 3227.22 2434.99"
                                                 }
                                             ],
                                             "ports": [
@@ -8994,7 +8975,6 @@
                                             "compounds": [
                                                 {
                                                     "name": "add_variant",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
                                                         {
                                                             "metaName": "io_nodes",
@@ -9336,8 +9316,17 @@
                                                 },
                                                 {
                                                     "name": "iterate",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
+                                                        {
+                                                            "metaName": "icon",
+                                                            "metaType": "string",
+                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
+                                                        },
+                                                        {
+                                                            "metaName": "icon",
+                                                            "metaType": "string",
+                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
+                                                        },
                                                         {
                                                             "metaName": "icon",
                                                             "metaType": "string",
@@ -9540,7 +9529,6 @@
                                                     "compounds": [
                                                         {
                                                             "name": "get_default_or_first_prim",
-                                                            "uriImported": "stream:/componentCreator",
                                                             "metadata": [
                                                                 {
                                                                     "metaName": "_recentNode_",
@@ -10078,7 +10066,6 @@
                                                 },
                                                 {
                                                     "name": "resolve_default_or_render_mtl_scope_path",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
                                                         {
                                                             "metaName": "_recentNode_",
@@ -10213,7 +10200,6 @@
                                                     "compounds": [
                                                         {
                                                             "name": "has_purpose1",
-                                                            "uriImported": "stream:/componentCreator",
                                                             "metadata": [
                                                                 {
                                                                     "metaName": "_recentNode_",
@@ -10801,7 +10787,6 @@
                                                 },
                                                 {
                                                     "name": "resolve_proxy_mtl_path",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
                                                         {
                                                             "metaName": "_recentNode_",
@@ -10941,7 +10926,6 @@
                                                     "compounds": [
                                                         {
                                                             "name": "has_purpose1",
-                                                            "uriImported": "stream:/componentCreator",
                                                             "metadata": [
                                                                 {
                                                                     "metaName": "_recentNode_",
@@ -11516,7 +11500,7 @@
                                                         {
                                                             "metaName": "zValue",
                                                             "metaType": "string",
-                                                            "metaValue": "43.000000"
+                                                            "metaValue": "39.000000"
                                                         }
                                                     ]
                                                 },
@@ -11551,7 +11535,7 @@
                                                         {
                                                             "metaName": "zValue",
                                                             "metaType": "string",
-                                                            "metaValue": "41.000000"
+                                                            "metaValue": "38.000000"
                                                         }
                                                     ]
                                                 },
@@ -11593,7 +11577,7 @@
                                                         {
                                                             "metaName": "zValue",
                                                             "metaType": "string",
-                                                            "metaValue": "40.000000"
+                                                            "metaValue": "37.000000"
                                                         }
                                                     ]
                                                 },
@@ -11645,8 +11629,8 @@
                                                     ]
                                                 },
                                                 {
-                                                    "nodeName": "apply_look",
-                                                    "nodeType": "USD::Model::apply_look",
+                                                    "nodeName": "apply_look_v2",
+                                                    "nodeType": "USD::Model::apply_look_v2",
                                                     "terminalStates": [
                                                         {
                                                             "name": "Core::Graph::terminal::final",
@@ -11670,12 +11654,12 @@
                                                         {
                                                             "metaName": "LayoutPos",
                                                             "metaType": "string",
-                                                            "metaValue": "2767.33 812.085"
+                                                            "metaValue": "2780.28 832.548"
                                                         },
                                                         {
                                                             "metaName": "zValue",
                                                             "metaType": "string",
-                                                            "metaValue": "38.000000"
+                                                            "metaValue": "45.000000"
                                                         }
                                                     ]
                                                 }
@@ -11755,67 +11739,67 @@
                                                 },
                                                 {
                                                     "source": "iterate.out_stage",
-                                                    "target": "apply_look.stage"
+                                                    "target": "apply_look_v2.stage"
                                                 },
                                                 {
                                                     "source": ".model_variant",
-                                                    "target": "apply_look.model_variant"
+                                                    "target": "apply_look_v2.model_variant"
                                                 },
                                                 {
                                                     "source": ".look_variants",
-                                                    "target": "apply_look.look_variant"
+                                                    "target": "apply_look_v2.look_variant"
                                                 },
                                                 {
                                                     "source": ".mtl_scope_name",
-                                                    "target": "apply_look.mtl_scope_name"
+                                                    "target": "apply_look_v2.mtl_scope_name"
                                                 },
                                                 {
                                                     "source": ".material_library_file",
-                                                    "target": "apply_look.material_library_file"
-                                                },
-                                                {
-                                                    "source": "apply_look.out_stage",
-                                                    "target": ".out_stage"
-                                                },
-                                                {
-                                                    "source": "apply_look.out_look_variant",
-                                                    "target": ".out_look_variant"
+                                                    "target": "apply_look_v2.material_library_file"
                                                 },
                                                 {
                                                     "source": ".model_directory_path",
-                                                    "target": "apply_look.model_directory_path"
+                                                    "target": "apply_look_v2.model_directory_path"
                                                 },
                                                 {
                                                     "source": ".geo_scope_name",
-                                                    "target": "apply_look.geo_scope_name"
-                                                },
-                                                {
-                                                    "source": ".model_file",
-                                                    "target": "apply_look.model_file"
-                                                },
-                                                {
-                                                    "source": ".material_library_layer",
-                                                    "target": "apply_look.material_library_layer"
-                                                },
-                                                {
-                                                    "source": ".proxy_model_path",
-                                                    "target": "apply_look.proxy_model_path"
-                                                },
-                                                {
-                                                    "source": ".proxy_model_file",
-                                                    "target": "apply_look.proxy_model_file"
-                                                },
-                                                {
-                                                    "source": "model_anchor_path.output",
-                                                    "target": "apply_look.model_anchor_path"
-                                                },
-                                                {
-                                                    "source": ".save",
-                                                    "target": "apply_look.save"
+                                                    "target": "apply_look_v2.geo_scope_name"
                                                 },
                                                 {
                                                     "source": ".model_path",
-                                                    "target": "apply_look.prim_path"
+                                                    "target": "apply_look_v2.model_path"
+                                                },
+                                                {
+                                                    "source": ".model_file",
+                                                    "target": "apply_look_v2.model_file"
+                                                },
+                                                {
+                                                    "source": ".material_library_layer",
+                                                    "target": "apply_look_v2.material_library_layer"
+                                                },
+                                                {
+                                                    "source": ".proxy_model_path",
+                                                    "target": "apply_look_v2.proxy_model_path"
+                                                },
+                                                {
+                                                    "source": ".proxy_model_file",
+                                                    "target": "apply_look_v2.proxy_model_file"
+                                                },
+                                                {
+                                                    "source": "model_anchor_path.output",
+                                                    "target": "apply_look_v2.model_anchor_path"
+                                                },
+                                                {
+                                                    "source": ".save",
+                                                    "target": "apply_look_v2.save"
+                                                },
+                                                {
+                                                    "source": "apply_look_v2.out_stage",
+                                                    "target": ".out_stage"
+                                                },
+                                                {
+                                                    "source": "apply_look_v2.out_look_variant",
+                                                    "target": ".out_look_variant"
                                                 }
                                             ],
                                             "values": [
@@ -11908,7 +11892,6 @@
                                         },
                                         {
                                             "name": "add_variant",
-                                            "uriImported": "stream:/componentCreator",
                                             "metadata": [
                                                 {
                                                     "metaName": "io_nodes",
@@ -12280,7 +12263,6 @@
                                         },
                                         {
                                             "name": "set_reference_for_each_purposes",
-                                            "uriImported": "stream:/componentCreator",
                                             "metadata": [
                                                 {
                                                     "metaName": "io_nodes",
@@ -12414,8 +12396,17 @@
                                             "compounds": [
                                                 {
                                                     "name": "iterate",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
+                                                        {
+                                                            "metaName": "icon",
+                                                            "metaType": "string",
+                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
+                                                        },
+                                                        {
+                                                            "metaName": "icon",
+                                                            "metaType": "string",
+                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
+                                                        },
                                                         {
                                                             "metaName": "icon",
                                                             "metaType": "string",
@@ -12567,7 +12558,6 @@
                                                     "compounds": [
                                                         {
                                                             "name": "setup_purpose",
-                                                            "uriImported": "stream:/componentCreator",
                                                             "metadata": [
                                                                 {
                                                                     "metaName": "DisplayMode",
@@ -12744,7 +12734,6 @@
                                                             "compounds": [
                                                                 {
                                                                     "name": "create_purpose_and_reference",
-                                                                    "uriImported": "stream:/componentCreator",
                                                                     "metadata": [
                                                                         {
                                                                             "metaName": "_recentNode_",
@@ -12919,7 +12908,6 @@
                                                                     "compounds": [
                                                                         {
                                                                             "name": "create_purpose_prim",
-                                                                            "uriImported": "stream:/componentCreator",
                                                                             "metadata": [
                                                                                 {
                                                                                     "metaName": "io_nodes",
@@ -13588,7 +13576,6 @@
                                                                         },
                                                                         {
                                                                             "name": "create_model_variant_scope",
-                                                                            "uriImported": "stream:/componentCreator",
                                                                             "metadata": [
                                                                                 {
                                                                                     "metaName": "DisplayMode",
@@ -14147,7 +14134,6 @@
                                                                 },
                                                                 {
                                                                     "name": "has_purpose",
-                                                                    "uriImported": "stream:/componentCreator",
                                                                     "metadata": [
                                                                         {
                                                                             "metaName": "_recentNode_",
@@ -14445,7 +14431,6 @@
                                                                 },
                                                                 {
                                                                     "name": "resolve_file_path",
-                                                                    "uriImported": "stream:/componentCreator",
                                                                     "metadata": [
                                                                         {
                                                                             "metaName": "_recentNode_",
@@ -14881,7 +14866,6 @@
                                                                 },
                                                                 {
                                                                     "name": "create_mtl_scope",
-                                                                    "uriImported": "stream:/componentCreator",
                                                                     "metadata": [
                                                                         {
                                                                             "metaName": "DisplayMode",
@@ -15821,7 +15805,6 @@
                                         },
                                         {
                                             "name": "get_variant_info1",
-                                            "uriImported": "stream:/componentCreator",
                                             "metadata": [
                                                 {
                                                     "metaName": "UILayout",
@@ -16411,7 +16394,6 @@
                                         },
                                         {
                                             "name": "create_extents_hint",
-                                            "uriImported": "stream:/componentCreator",
                                             "metadata": [
                                                 {
                                                     "metaName": "io_nodes",
@@ -16554,7 +16536,6 @@
                                             "compounds": [
                                                 {
                                                     "name": "_create_extents_hint",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
                                                         {
                                                             "metaName": "io_nodes",
@@ -16664,7 +16645,6 @@
                                                     "compounds": [
                                                         {
                                                             "name": "get_geo_extents_hint",
-                                                            "uriImported": "stream:/componentCreator",
                                                             "metadata": [
                                                                 {
                                                                     "metaName": "_recentNode_",
@@ -16781,7 +16761,6 @@
                                                             "compounds": [
                                                                 {
                                                                     "name": "compute_extentsHint",
-                                                                    "uriImported": "stream:/componentCreator",
                                                                     "metadata": [
                                                                         {
                                                                             "metaName": "ViewportRect",
@@ -17420,7 +17399,6 @@
                                                 },
                                                 {
                                                     "name": "has_purpose1",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
                                                         {
                                                             "metaName": "_recentNode_",
@@ -17718,7 +17696,6 @@
                                                 },
                                                 {
                                                     "name": "resolve_file_path",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
                                                         {
                                                             "metaName": "_recentNode_",
@@ -18154,7 +18131,6 @@
                                                 },
                                                 {
                                                     "name": "resolve_file_path1",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
                                                         {
                                                             "metaName": "_recentNode_",
@@ -18854,7 +18830,6 @@
                                         },
                                         {
                                             "name": "get_render_variant_info",
-                                            "uriImported": "stream:/componentCreator",
                                             "metadata": [
                                                 {
                                                     "metaName": "io_nodes",
@@ -18972,7 +18947,6 @@
                                             "compounds": [
                                                 {
                                                     "name": "get_variant_info",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
                                                         {
                                                             "metaName": "UILayout",
@@ -19562,7 +19536,6 @@
                                                 },
                                                 {
                                                     "name": "get_variant_info2",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
                                                         {
                                                             "metaName": "UILayout",
@@ -20152,7 +20125,6 @@
                                                 },
                                                 {
                                                     "name": "has_purpose1",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
                                                         {
                                                             "metaName": "_recentNode_",
@@ -20767,7 +20739,7 @@
                                                 {
                                                     "metaName": "zValue",
                                                     "metaType": "string",
-                                                    "metaValue": "46.000000"
+                                                    "metaValue": "47.000000"
                                                 }
                                             ]
                                         },
@@ -20830,7 +20802,7 @@
                                                 {
                                                     "metaName": "zValue",
                                                     "metaType": "string",
-                                                    "metaValue": "47.000000"
+                                                    "metaValue": "45.000000"
                                                 }
                                             ]
                                         },
@@ -20877,7 +20849,7 @@
                                                 {
                                                     "metaName": "zValue",
                                                     "metaType": "string",
-                                                    "metaValue": "41.000000"
+                                                    "metaValue": "40.000000"
                                                 }
                                             ]
                                         },
@@ -20960,7 +20932,7 @@
                                                 {
                                                     "metaName": "zValue",
                                                     "metaType": "string",
-                                                    "metaValue": "44.000000"
+                                                    "metaValue": "43.000000"
                                                 }
                                             ]
                                         },
@@ -20981,7 +20953,7 @@
                                                 {
                                                     "metaName": "zValue",
                                                     "metaType": "string",
-                                                    "metaValue": "42.000000"
+                                                    "metaValue": "41.000000"
                                                 }
                                             ]
                                         }
@@ -21327,7 +21299,6 @@
                                 },
                                 {
                                     "name": "has_non_default_purpose",
-                                    "uriImported": "stream:/componentCreator",
                                     "metadata": [
                                         {
                                             "metaName": "io_nodes",
@@ -21444,8 +21415,17 @@
                                     "compounds": [
                                         {
                                             "name": "for_each",
-                                            "uriImported": "stream:/componentCreator",
                                             "metadata": [
+                                                {
+                                                    "metaName": "icon",
+                                                    "metaType": "string",
+                                                    "metaValue": "<NATIVE>../icons/LoopForEach.svg"
+                                                },
+                                                {
+                                                    "metaName": "icon",
+                                                    "metaType": "string",
+                                                    "metaValue": "<NATIVE>../icons/LoopForEach.svg"
+                                                },
                                                 {
                                                     "metaName": "icon",
                                                     "metaType": "string",
@@ -21564,7 +21544,6 @@
                                             "compounds": [
                                                 {
                                                     "name": "has_purpose",
-                                                    "uriImported": "stream:/componentCreator",
                                                     "metadata": [
                                                         {
                                                             "metaName": "_recentNode_",
@@ -22197,7 +22176,6 @@
                                 },
                                 {
                                     "name": "has_look_variants",
-                                    "uriImported": "stream:/componentCreator",
                                     "metadata": [
                                         {
                                             "metaName": "io_nodes",
@@ -23322,7 +23300,6 @@
                         },
                         {
                             "name": "set_default_variants",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -23691,7 +23668,6 @@
                         },
                         {
                             "name": "set_payload_layer_property",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -23810,7 +23786,6 @@
                             "compounds": [
                                 {
                                     "name": "payload_layer_from_file",
-                                    "uriImported": "stream:/componentCreator",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -24348,14 +24323,14 @@
                                     "metaValue": "2"
                                 },
                                 {
-                                    "metaName": "LayoutPos",
-                                    "metaType": "string",
-                                    "metaValue": "-458.298 -364.892"
-                                },
-                                {
                                     "metaName": "zValue",
                                     "metaType": "string",
                                     "metaValue": "45.000000"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "-456.571 -360.6"
                                 }
                             ]
                         },
@@ -24628,7 +24603,6 @@
                 },
                 {
                     "name": "create_model_object",
-                    "uriImported": "stream:/componentCreator",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -25118,7 +25092,7 @@
                         {
                             "metaName": "ViewportRect",
                             "metaType": "string",
-                            "metaValue": "722.558 -1798.12 8152.89 4041.75"
+                            "metaValue": "723 -3343.44 8153 7133.88"
                         }
                     ],
                     "ports": [
@@ -25206,7 +25180,6 @@
                     "compounds": [
                         {
                             "name": "resolve_property__payload_file_path",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -25632,7 +25605,6 @@
                         },
                         {
                             "name": "resolve_property__model_directory_path",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "DisplayMode",
@@ -25832,7 +25804,6 @@
                             "compounds": [
                                 {
                                     "name": "set_drive_to_lower_case",
-                                    "uriImported": "stream:/componentCreator",
                                     "metadata": [
                                         {
                                             "metaName": "io_nodes",
@@ -26739,7 +26710,6 @@
                         },
                         {
                             "name": "resolve_property__default_prim",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -26972,7 +26942,6 @@
                         },
                         {
                             "name": "resolve_property__model_file_path",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -27356,7 +27325,6 @@
                         },
                         {
                             "name": "resolve_root_dir_path_property",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -27519,7 +27487,6 @@
                             "compounds": [
                                 {
                                     "name": "remove_last_path_separator",
-                                    "uriImported": "stream:/componentCreator",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -27932,7 +27899,6 @@
                                 },
                                 {
                                     "name": "normalize_file_path",
-                                    "uriImported": "stream:/componentCreator",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -28091,8 +28057,17 @@
                                     "compounds": [
                                         {
                                             "name": "do_while",
-                                            "uriImported": "stream:/componentCreator",
                                             "metadata": [
+                                                {
+                                                    "metaName": "icon",
+                                                    "metaType": "string",
+                                                    "metaValue": "<NATIVE>../icons/LoopDo_While.svg"
+                                                },
+                                                {
+                                                    "metaName": "icon",
+                                                    "metaType": "string",
+                                                    "metaValue": "<NATIVE>../icons/LoopDo_While.svg"
+                                                },
                                                 {
                                                     "metaName": "icon",
                                                     "metaType": "string",
@@ -29479,7 +29454,6 @@
                         },
                         {
                             "name": "resolve_geo_dir_path",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -29762,7 +29736,6 @@
                         },
                         {
                             "name": "set_version",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -30004,7 +29977,6 @@
                         },
                         {
                             "name": "resolve_material_library_path",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -30183,7 +30155,6 @@
                             "compounds": [
                                 {
                                     "name": "set_drive_to_lower_case",
-                                    "uriImported": "stream:/componentCreator",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -30945,7 +30916,6 @@
                         },
                         {
                             "name": "set_anchor_path",
-                            "uriImported": "stream:/componentCreator",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -32398,7 +32368,6 @@
                 },
                 {
                     "name": "set_material_layer_editable",
-                    "uriImported": "stream:/componentCreator",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -32732,7 +32701,7 @@
                         {
                             "metaName": "LayoutPos",
                             "metaType": "string",
-                            "metaValue": "-1536.35 792.346"
+                            "metaValue": "-1536.35 794.462"
                         },
                         {
                             "metaName": "zValue",

@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::IO::read_usd_meshes_test00",
-            "uriImported": "file:///read_usd_meshes_test00.json",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -175,31 +174,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Test::TestUtilities,make_file_path"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Constants,float"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Graph,terminal"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Test::IO,read_usd_mesh_test00"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Test::Stage,fan_out_stages_test00"
-                },
-                {
                     "metaName": "ViewportRect",
                     "metaType": "string",
                     "metaValue": "-593.333 -866.609 2831.33 2393.89"
@@ -218,15 +192,15 @@
             "terminalStates": [
                 {
                     "name": "Core::Graph::terminal::final",
-                    "enabled": "true"
+                    "enabled": "false"
                 },
                 {
                     "name": "Core::Graph::terminal::proxy",
-                    "enabled": "true"
+                    "enabled": "false"
                 },
                 {
                     "name": "Core::Graph::terminal::diagnostic",
-                    "enabled": "true"
+                    "enabled": "false"
                 }
             ],
             "ports": [
@@ -334,7 +308,6 @@
             "compounds": [
                 {
                     "name": "test_face",
-                    "uriImported": "file:///read_usd_meshes_test00.json",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -459,7 +432,6 @@
                     "compounds": [
                         {
                             "name": "test_face_component",
-                            "uriImported": "file:///read_usd_meshes_test00.json",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -818,7 +790,6 @@
                         },
                         {
                             "name": "test_face_offset",
-                            "uriImported": "file:///read_usd_meshes_test00.json",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -1152,7 +1123,6 @@
                 },
                 {
                     "name": "test_face_vertex",
-                    "uriImported": "file:///read_usd_meshes_test00.json",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -1309,7 +1279,6 @@
                     "compounds": [
                         {
                             "name": "test_face_vertex_component",
-                            "uriImported": "file:///read_usd_meshes_test00.json",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -1668,7 +1637,6 @@
                         },
                         {
                             "name": "test_face_vertex",
-                            "uriImported": "file:///read_usd_meshes_test00.json",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -1886,7 +1854,6 @@
                         },
                         {
                             "name": "test_face_vertex_normal",
-                            "uriImported": "file:///read_usd_meshes_test00.json",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -2002,7 +1969,6 @@
                             "compounds": [
                                 {
                                     "name": "for_each",
-                                    "uriImported": "file:///read_usd_meshes_test00.json",
                                     "metadata": [
                                         {
                                             "metaName": "icon",
@@ -2625,7 +2591,6 @@
                         },
                         {
                             "name": "test_face_vertex_normal_index",
-                            "uriImported": "file:///read_usd_meshes_test00.json",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -2898,7 +2863,6 @@
                         },
                         {
                             "name": "test_face_vertex_uv",
-                            "uriImported": "file:///read_usd_meshes_test00.json",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -3014,7 +2978,6 @@
                             "compounds": [
                                 {
                                     "name": "for_each",
-                                    "uriImported": "file:///read_usd_meshes_test00.json",
                                     "metadata": [
                                         {
                                             "metaName": "icon",
@@ -3580,7 +3543,6 @@
                         },
                         {
                             "name": "test_face_vertex_uv_index",
-                            "uriImported": "file:///read_usd_meshes_test00.json",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -4137,7 +4099,6 @@
                 },
                 {
                     "name": "test_point",
-                    "uriImported": "file:///read_usd_meshes_test00.json",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -4262,7 +4223,6 @@
                     "compounds": [
                         {
                             "name": "test_point_count",
-                            "uriImported": "file:///read_usd_meshes_test00.json",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -4616,7 +4576,6 @@
                         },
                         {
                             "name": "test_point_position",
-                            "uriImported": "file:///read_usd_meshes_test00.json",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -4732,7 +4691,6 @@
                             "compounds": [
                                 {
                                     "name": "for_each",
-                                    "uriImported": "file:///read_usd_meshes_test00.json",
                                     "metadata": [
                                         {
                                             "metaName": "icon",

@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::Integration::load_all_compounds_test00",
-            "uriImported": "file:///load_all_compounds_test00.json",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -81,34 +80,9 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::IO,read_usd_curves"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Utils,create_child_prim_path"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::VariantSet,add_variant"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Stage,create_usd_stage"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Stage,add_to_stage"
-                },
-                {
                     "metaName": "ViewportRect",
                     "metaType": "string",
-                    "metaValue": "220.441 442.398 1908.99 1431.38"
+                    "metaValue": "220 401.748 1664.85 1513.5"
                 },
                 {
                     "metaName": "DisplayMode",
@@ -118,18 +92,18 @@
                 {
                     "metaName": "LayoutPos",
                     "metaType": "string",
-                    "metaValue": "-483.5 -102"
+                    "metaValue": "-129.475 -87.8222"
                 },
                 {
                     "metaName": "zValue",
                     "metaType": "string",
-                    "metaValue": "46.000000"
+                    "metaValue": "50.000000"
                 }
             ],
             "terminalStates": [
                 {
                     "name": "Core::Graph::terminal::diagnostic",
-                    "enabled": "true"
+                    "enabled": "false"
                 }
             ],
             "ports": [
@@ -147,7 +121,6 @@
             "compounds": [
                 {
                     "name": "attribute_compounds_and_nodedefs",
-                    "uriImported": "file:///load_all_compounds_test00.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -782,7 +755,6 @@
                 },
                 {
                     "name": "prim_compounds_and_nodedefs",
-                    "uriImported": "file:///load_all_compounds_test00.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -806,7 +778,7 @@
                                                 {
                                                     "metaName": "zValue",
                                                     "metaType": "string",
-                                                    "metaValue": "95.000000"
+                                                    "metaValue": "94.000000"
                                                 }
                                             ]
                                         }
@@ -831,13 +803,18 @@
                                                 {
                                                     "metaName": "zValue",
                                                     "metaType": "string",
-                                                    "metaValue": "96.000000"
+                                                    "metaValue": "95.000000"
                                                 }
                                             ]
                                         }
                                     ]
                                 }
                             ]
+                        },
+                        {
+                            "metaName": "_recentNode_",
+                            "metaType": "string",
+                            "metaValue": "BifrostGraph,USD::PointInstancer,define_usd_point_instancer"
                         },
                         {
                             "metaName": "_recentNode_",
@@ -860,14 +837,9 @@
                             "metaValue": "BifrostGraph,USD::IO,read_usd_curves"
                         },
                         {
-                            "metaName": "_recentNode_",
-                            "metaType": "string",
-                            "metaValue": "BifrostGraph,USD::Utils,create_child_prim_path"
-                        },
-                        {
                             "metaName": "ViewportRect",
                             "metaType": "string",
-                            "metaValue": "-1480.84 -1847.26 5495.75 2397.45"
+                            "metaValue": "770.843 -1223.12 552.211 502.01"
                         }
                     ],
                     "ports": [],
@@ -1158,30 +1130,6 @@
                             ]
                         },
                         {
-                            "nodeName": "define_usd_point_instancer",
-                            "nodeType": "USD::Prim::define_usd_point_instancer",
-                            "fanInPortNames": {
-                                "prototype_definitions": []
-                            },
-                            "metadata": [
-                                {
-                                    "metaName": "DisplayMode",
-                                    "metaType": "string",
-                                    "metaValue": "2"
-                                },
-                                {
-                                    "metaName": "LayoutPos",
-                                    "metaType": "string",
-                                    "metaValue": "938.675 -1191.36"
-                                },
-                                {
-                                    "metaName": "zValue",
-                                    "metaType": "string",
-                                    "metaValue": "97.000000"
-                                }
-                            ]
-                        },
-                        {
                             "nodeName": "define_usd_prim",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
@@ -1205,7 +1153,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "45.000000"
+                                    "metaValue": "44.000000"
                                 }
                             ]
                         },
@@ -1226,7 +1174,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "46.000000"
+                                    "metaValue": "45.000000"
                                 }
                             ]
                         },
@@ -1247,7 +1195,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "47.000000"
+                                    "metaValue": "46.000000"
                                 }
                             ]
                         },
@@ -1268,7 +1216,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "48.000000"
+                                    "metaValue": "47.000000"
                                 }
                             ]
                         },
@@ -1289,7 +1237,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "49.000000"
+                                    "metaValue": "48.000000"
                                 }
                             ]
                         },
@@ -1310,7 +1258,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "50.000000"
+                                    "metaValue": "49.000000"
                                 }
                             ]
                         },
@@ -1331,7 +1279,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "51.000000"
+                                    "metaValue": "50.000000"
                                 }
                             ]
                         },
@@ -1352,7 +1300,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "52.000000"
+                                    "metaValue": "51.000000"
                                 }
                             ]
                         },
@@ -1373,7 +1321,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "53.000000"
+                                    "metaValue": "52.000000"
                                 }
                             ]
                         },
@@ -1394,7 +1342,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "54.000000"
+                                    "metaValue": "53.000000"
                                 }
                             ]
                         },
@@ -1415,7 +1363,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "55.000000"
+                                    "metaValue": "54.000000"
                                 }
                             ]
                         },
@@ -1436,7 +1384,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "56.000000"
+                                    "metaValue": "55.000000"
                                 }
                             ]
                         },
@@ -1457,7 +1405,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "57.000000"
+                                    "metaValue": "56.000000"
                                 }
                             ]
                         },
@@ -1478,7 +1426,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "58.000000"
+                                    "metaValue": "57.000000"
                                 }
                             ]
                         },
@@ -1499,7 +1447,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "59.000000"
+                                    "metaValue": "58.000000"
                                 }
                             ]
                         },
@@ -1520,7 +1468,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "60.000000"
+                                    "metaValue": "59.000000"
                                 }
                             ]
                         },
@@ -1541,7 +1489,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "61.000000"
+                                    "metaValue": "60.000000"
                                 }
                             ]
                         },
@@ -1562,7 +1510,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "62.000000"
+                                    "metaValue": "61.000000"
                                 }
                             ]
                         },
@@ -1583,7 +1531,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "63.000000"
+                                    "metaValue": "62.000000"
                                 }
                             ]
                         },
@@ -1604,7 +1552,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "64.000000"
+                                    "metaValue": "63.000000"
                                 }
                             ]
                         },
@@ -1625,7 +1573,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "65.000000"
+                                    "metaValue": "64.000000"
                                 }
                             ]
                         },
@@ -1646,7 +1594,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "66.000000"
+                                    "metaValue": "65.000000"
                                 }
                             ]
                         },
@@ -1667,7 +1615,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "67.000000"
+                                    "metaValue": "66.000000"
                                 }
                             ]
                         },
@@ -1688,7 +1636,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "68.000000"
+                                    "metaValue": "67.000000"
                                 }
                             ]
                         },
@@ -1709,7 +1657,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "69.000000"
+                                    "metaValue": "68.000000"
                                 }
                             ]
                         },
@@ -1730,7 +1678,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "70.000000"
+                                    "metaValue": "69.000000"
                                 }
                             ]
                         },
@@ -1751,7 +1699,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "71.000000"
+                                    "metaValue": "70.000000"
                                 }
                             ]
                         },
@@ -1772,7 +1720,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "72.000000"
+                                    "metaValue": "71.000000"
                                 }
                             ]
                         },
@@ -1793,7 +1741,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "73.000000"
+                                    "metaValue": "72.000000"
                                 }
                             ]
                         },
@@ -1814,7 +1762,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "74.000000"
+                                    "metaValue": "73.000000"
                                 }
                             ]
                         },
@@ -1835,7 +1783,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "75.000000"
+                                    "metaValue": "74.000000"
                                 }
                             ]
                         },
@@ -1856,7 +1804,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "76.000000"
+                                    "metaValue": "75.000000"
                                 }
                             ]
                         },
@@ -1877,7 +1825,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "77.000000"
+                                    "metaValue": "76.000000"
                                 }
                             ]
                         },
@@ -1898,7 +1846,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "78.000000"
+                                    "metaValue": "77.000000"
                                 }
                             ]
                         },
@@ -1919,7 +1867,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "79.000000"
+                                    "metaValue": "78.000000"
                                 }
                             ]
                         },
@@ -1940,7 +1888,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "80.000000"
+                                    "metaValue": "79.000000"
                                 }
                             ]
                         },
@@ -1961,7 +1909,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "81.000000"
+                                    "metaValue": "80.000000"
                                 }
                             ]
                         },
@@ -1982,7 +1930,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "82.000000"
+                                    "metaValue": "81.000000"
                                 }
                             ]
                         },
@@ -2003,7 +1951,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "83.000000"
+                                    "metaValue": "82.000000"
                                 }
                             ]
                         },
@@ -2024,7 +1972,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "84.000000"
+                                    "metaValue": "83.000000"
                                 }
                             ]
                         },
@@ -2045,7 +1993,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "85.000000"
+                                    "metaValue": "84.000000"
                                 }
                             ]
                         },
@@ -2066,7 +2014,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "86.000000"
+                                    "metaValue": "85.000000"
                                 }
                             ]
                         },
@@ -2087,7 +2035,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "87.000000"
+                                    "metaValue": "86.000000"
                                 }
                             ]
                         },
@@ -2108,7 +2056,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "88.000000"
+                                    "metaValue": "87.000000"
                                 }
                             ]
                         },
@@ -2129,7 +2077,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "89.000000"
+                                    "metaValue": "88.000000"
                                 }
                             ]
                         },
@@ -2150,7 +2098,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "90.000000"
+                                    "metaValue": "89.000000"
                                 }
                             ]
                         },
@@ -2171,7 +2119,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "91.000000"
+                                    "metaValue": "90.000000"
                                 }
                             ]
                         },
@@ -2192,7 +2140,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "92.000000"
+                                    "metaValue": "91.000000"
                                 }
                             ]
                         },
@@ -2213,7 +2161,7 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "93.000000"
+                                    "metaValue": "92.000000"
                                 }
                             ]
                         },
@@ -2234,7 +2182,31 @@
                                 {
                                     "metaName": "zValue",
                                     "metaType": "string",
-                                    "metaValue": "94.000000"
+                                    "metaValue": "93.000000"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "define_usd_point_instancer",
+                            "nodeType": "USD::PointInstancer::define_usd_point_instancer",
+                            "fanInPortNames": {
+                                "prototype_definitions": []
+                            },
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "932.507 -1181.18"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "102.000000"
                                 }
                             ]
                         }
@@ -2400,104 +2372,6 @@
                             "valueName": "define_usd_mesh.material",
                             "valueType": "Object",
                             "value": {}
-                        },
-                        {
-                            "valueName": "define_usd_point_instancer.instancer_path",
-                            "valueType": "string",
-                            "value": "/instancer"
-                        },
-                        {
-                            "valueName": "define_usd_point_instancer.points",
-                            "valueType": "Object",
-                            "value": {}
-                        },
-                        {
-                            "valueName": "define_usd_point_instancer.prototype_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_point_instancer.create_default_material",
-                            "valueType": "bool",
-                            "value": "true"
-                        },
-                        {
-                            "valueName": "define_usd_point_instancer.diffuse_color",
-                            "valueType": "Math::float3",
-                            "value": {
-                                "x": "0.50999999f",
-                                "y": "0.540000021f",
-                                "z": "0.600000024f"
-                            }
-                        },
-                        {
-                            "valueName": "define_usd_point_instancer.texture_file_path",
-                            "valueType": "string",
-                            "value": ""
-                        },
-                        {
-                            "valueName": "define_usd_point_instancer.selection_mode",
-                            "valueType": "Modeling::Points::CreateInstancesSelectionMode",
-                            "value": "Sequential"
-                        },
-                        {
-                            "valueName": "define_usd_point_instancer.instance_id_override",
-                            "valueType": "array<long>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_point_instancer.probability_curve",
-                            "valueType": "Math::FCurve",
-                            "value": {
-                                "version": "1",
-                                "preExtrapolation": "0",
-                                "postExtrapolation": "0",
-                                "points": [
-                                    {
-                                        "point": {
-                                            "locked": "1",
-                                            "interpolation": "1",
-                                            "pcn": {
-                                                "xp": "-0.63807499999999995",
-                                                "yp": "-0.180645",
-                                                "x": "0",
-                                                "y": "0",
-                                                "xn": "0.63807499999999995",
-                                                "yn": "0.180645"
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "point": {
-                                            "locked": "1",
-                                            "interpolation": "1",
-                                            "pcn": {
-                                                "xp": "0.67824300000000004",
-                                                "yp": "0.91612899999999997",
-                                                "x": "1",
-                                                "y": "1",
-                                                "xn": "1.3217570000000001",
-                                                "yn": "1.083871"
-                                            }
-                                        }
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "valueName": "define_usd_point_instancer.seed",
-                            "valueType": "long",
-                            "value": "354"
-                        },
-                        {
-                            "valueName": "define_usd_point_instancer.frame",
-                            "valueType": "float",
-                            "value": "0f"
-                        },
-                        {
-                            "valueName": "define_usd_point_instancer.use_frame",
-                            "valueType": "bool",
-                            "value": "false"
                         },
                         {
                             "valueName": "define_usd_prim.path",
@@ -2780,7 +2654,6 @@
                 },
                 {
                     "name": "collection_compounds_and_nodedefs",
-                    "uriImported": "file:///load_all_compounds_test00.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -2913,7 +2786,6 @@
                 },
                 {
                     "name": "layer_compounds_and_nodedefs",
-                    "uriImported": "file:///load_all_compounds_test00.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -3224,7 +3096,6 @@
                 },
                 {
                     "name": "shading_compounds_and_nodedefs",
-                    "uriImported": "file:///load_all_compounds_test00.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -3445,7 +3316,6 @@
                 },
                 {
                     "name": "stage_compounds_and_nodedefs",
-                    "uriImported": "file:///load_all_compounds_test00.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -3900,7 +3770,6 @@
                 },
                 {
                     "name": "variantset_compounds_and_nodedefs",
-                    "uriImported": "file:///load_all_compounds_test00.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -4096,7 +3965,6 @@
                 },
                 {
                     "name": "utils_compounds_and_nodedefs",
-                    "uriImported": "file:///load_all_compounds_test00.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -4192,7 +4060,6 @@
                 },
                 {
                     "name": "io_compounds_and_nodedefs",
-                    "uriImported": "file:///load_all_compounds_test00.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -4362,7 +4229,6 @@
                 },
                 {
                     "name": "point_instancer_compounds",
-                    "uriImported": "file:///load_all_compounds_test00.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -4461,7 +4327,8 @@
                             "nodeName": "delete_usd_point_instances",
                             "nodeType": "USD::PointInstancer::delete_usd_point_instances",
                             "fanInPortNames": {
-                                "geometry": []
+                                "geometries": [],
+                                "indices": []
                             },
                             "metadata": [
                                 {
@@ -4704,7 +4571,7 @@
                         {
                             "metaName": "zValue",
                             "metaType": "string",
-                            "metaValue": "44.000000"
+                            "metaValue": "46.000000"
                         }
                     ]
                 },
@@ -4878,7 +4745,7 @@
                         {
                             "metaName": "zValue",
                             "metaType": "string",
-                            "metaValue": "46.000000"
+                            "metaValue": "45.000000"
                         }
                     ]
                 }

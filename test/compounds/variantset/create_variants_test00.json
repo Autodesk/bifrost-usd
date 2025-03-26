@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::VariantSet::create_variants_test00",
-            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "io_nodes",

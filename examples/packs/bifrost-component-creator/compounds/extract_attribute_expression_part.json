@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USDLab::PatternMatching::extract_attribute_expression_part",
-            "uriImported": "file:///extract_attribute_expression_part.json",
             "metadata": [
                 {
                     "metaName": "icon",
@@ -97,31 +96,6 @@
                     "metaName": "ViewportRect",
                     "metaType": "string",
                     "metaValue": "281.93 -499 1933.14 1249"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Math,decrement"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Math,increment"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,equal"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,if"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::String,string_length"
                 },
                 {
                     "metaName": "DisplayMode",

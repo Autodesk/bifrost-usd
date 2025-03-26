@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::Stage::add_to_stage_test00",
-            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -137,31 +136,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "backdrop"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "sticky note"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::VariantSet,set_variant_selection"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,User::Compounds,pull_port"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Compound_Tests,expect_true"
-                },
-                {
                     "metaName": "sticky_note1",
                     "metadata": [
                         {
@@ -210,7 +184,7 @@
             "terminalStates": [
                 {
                     "name": "Core::Graph::terminal::diagnostic",
-                    "enabled": "true"
+                    "enabled": "false"
                 }
             ],
             "ports": [
@@ -233,7 +207,6 @@
             "compounds": [
                 {
                     "name": "test_pseudo_root_prim_children_count",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -464,7 +437,6 @@
                 },
                 {
                     "name": "test_pseudo_root_prim_descendant_count",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -695,7 +667,6 @@
                 },
                 {
                     "name": "test_attribute_foo_on_prim_A",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -1276,7 +1247,6 @@
                 },
                 {
                     "name": "test_red_variant_on_prim_A",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -1955,7 +1925,6 @@
                 },
                 {
                     "name": "test_blue_variant_on_prim_A",
-                    "uriImported": "stream:/bifrostGraphShape1",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",

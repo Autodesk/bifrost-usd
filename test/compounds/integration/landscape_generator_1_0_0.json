@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::Integration::landscape_generator_1_0_0",
-            "uriImported": "file:///landscape_generator_1_0_0.json",
             "metadata": [
                 {
                     "metaName": "backdrop",
@@ -261,34 +260,9 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Layer,get_root_layer"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "input"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Type_Conversion,to_int"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Constants,float"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Math,multiply"
-                },
-                {
                     "metaName": "UILayout",
                     "metaType": "string",
-                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"root_directory\"\n            },\n            {\n                \"group\": \"Mesh Plane\",\n                \"items\": [\n                    {\n                        \"port\": \"length\"\n                    },\n                    {\n                        \"port\": \"width\"\n                    }\n                ]\n            },\n            {\n                \"group\": \"Scattering Settings\",\n                \"items\": [\n                    {\n                        \"expanded\": false,\n                        \"group\": \"Grass\",\n                        \"items\": [\n                            {\n                                \"port\": \"grass_radius\"\n                            }\n                        ]\n                    },\n                    {\n                        \"expanded\": true,\n                        \"group\": \"Trees\",\n                        \"items\": [\n                            {\n                                \"port\": \"tree_radius\"\n                            },\n                            {\n                                \"port\": \"Proto_distribution\"\n                            },\n                            {\n                                \"port\": \"custom_index\"\n                            },\n                            {\n                                \"port\": \"custom_indices\"\n                            },\n                            {\n                                \"port\": \"seed\"\n                            },\n                            {\n                                \"port\": \"max_scale\"\n                            },\n                            {\n                                \"port\": \"min_scale\"\n                            }\n                        ]\n                    },\n                    {\n                        \"group\": \"Mushrooms\",\n                        \"items\": [\n                            {\n                                \"port\": \"mushrooms_radius\"\n                            },\n                            {\n                                \"port\": \"fcurve\"\n                            },\n                            {\n                                \"port\": \"trunk_distance\"\n                            }\n                        ]\n                    }\n                ]\n            }\n        ]\n    }\n}\n"
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"root_directory\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Mesh Plane\",\n                \"items\": [\n                    {\n                        \"port\": \"length\"\n                    },\n                    {\n                        \"port\": \"width\"\n                    }\n                ]\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"Scattering Settings\",\n                \"items\": [\n                    {\n                        \"expanded\": false,\n                        \"group\": \"Grass\",\n                        \"items\": [\n                            {\n                                \"port\": \"grass_radius\"\n                            }\n                        ]\n                    },\n                    {\n                        \"expanded\": true,\n                        \"group\": \"Trees\",\n                        \"items\": [\n                            {\n                                \"port\": \"tree_radius\"\n                            },\n                            {\n                                \"port\": \"seed\"\n                            },\n                            {\n                                \"port\": \"max_scale\"\n                            },\n                            {\n                                \"port\": \"min_scale\"\n                            }\n                        ]\n                    },\n                    {\n                        \"group\": \"Mushrooms\",\n                        \"items\": [\n                            {\n                                \"port\": \"mushrooms_radius\"\n                            },\n                            {\n                                \"port\": \"trunk_distance\"\n                            }\n                        ]\n                    }\n                ]\n            }\n        ]\n    }\n}"
                 },
                 {
                     "metaName": "PortExpandedState",
@@ -323,11 +297,6 @@
             ],
             "ports": [
                 {
-                    "portName": "success",
-                    "portDirection": "output",
-                    "portType": "bool"
-                },
-                {
                     "portName": "root_directory",
                     "portDirection": "input",
                     "portType": "string",
@@ -344,11 +313,6 @@
                             "metaValue": "FileBrowserWidget"
                         }
                     ]
-                },
-                {
-                    "portName": "out_layer",
-                    "portDirection": "output",
-                    "portType": "BifrostUsd::Layer"
                 },
                 {
                     "portName": "length",
@@ -381,16 +345,16 @@
                     "portDefault": "235"
                 },
                 {
-                    "portName": "min_scale",
-                    "portDirection": "input",
-                    "portType": "float",
-                    "portDefault": "0.600000024f"
-                },
-                {
                     "portName": "max_scale",
                     "portDirection": "input",
                     "portType": "float",
                     "portDefault": "1.39999998f"
+                },
+                {
+                    "portName": "min_scale",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "0.600000024f"
                 },
                 {
                     "portName": "mushrooms_radius",
@@ -403,12 +367,21 @@
                     "portDirection": "input",
                     "portType": "float",
                     "portDefault": "4f"
+                },
+                {
+                    "portName": "success",
+                    "portDirection": "output",
+                    "portType": "bool"
+                },
+                {
+                    "portName": "out_layer",
+                    "portDirection": "output",
+                    "portType": "BifrostUsd::Layer"
                 }
             ],
             "compounds": [
                 {
                     "name": "build_grass_stage",
-                    "uriImported": "file:///landscape_generator_1_0_0.json",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -567,7 +540,6 @@
                     "compounds": [
                         {
                             "name": "grass_instancer",
-                            "uriImported": "file:///landscape_generator_1_0_0.json",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -801,7 +773,6 @@
                             "compounds": [
                                 {
                                     "name": "create_proto_prims",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "icon",
@@ -1162,7 +1133,6 @@
                                 },
                                 {
                                     "name": "create_usd_instancer_properties",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -1299,7 +1269,6 @@
                                     "compounds": [
                                         {
                                             "name": "prototypes_data",
-                                            "uriImported": "file:///landscape_generator_1_0_0.json",
                                             "metadata": [
                                                 {
                                                     "metaName": "_recentNode_",
@@ -1759,7 +1728,6 @@
                                 },
                                 {
                                     "name": "get_proto_root_path",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -1985,7 +1953,6 @@
                                 },
                                 {
                                     "name": "get_prototypes_paths",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -2332,7 +2299,6 @@
                                 },
                                 {
                                     "name": "build_protoindices_from_paths_indices",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -2590,7 +2556,6 @@
                                 },
                                 {
                                     "name": "build_protoindices_from_index",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -2826,7 +2791,6 @@
                                 },
                                 {
                                     "name": "build_random_protoindices",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -3150,7 +3114,6 @@
                                 },
                                 {
                                     "name": "get_base_names",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "icon",
@@ -3267,7 +3230,6 @@
                                     "compounds": [
                                         {
                                             "name": "get_base_name",
-                                            "uriImported": "file:///landscape_generator_1_0_0.json",
                                             "metadata": [
                                                 {
                                                     "metaName": "_recentNode_",
@@ -3608,7 +3570,6 @@
                                 },
                                 {
                                     "name": "create_random_orientations",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -4166,7 +4127,6 @@
                                 },
                                 {
                                     "name": "create_random_scales",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -5656,7 +5616,6 @@
                 },
                 {
                     "name": "build_ground_stage",
-                    "uriImported": "file:///landscape_generator_1_0_0.json",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -7017,7 +6976,6 @@
                 },
                 {
                     "name": "build_mushrooms_stage",
-                    "uriImported": "file:///landscape_generator_1_0_0.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -7175,7 +7133,6 @@
                     "compounds": [
                         {
                             "name": "mushroom_instancer",
-                            "uriImported": "file:///landscape_generator_1_0_0.json",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -7406,7 +7363,6 @@
                             "compounds": [
                                 {
                                     "name": "create_proto_prims",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "icon",
@@ -7767,7 +7723,6 @@
                                 },
                                 {
                                     "name": "create_usd_instancer_properties",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -7904,7 +7859,6 @@
                                     "compounds": [
                                         {
                                             "name": "prototypes_data",
-                                            "uriImported": "file:///landscape_generator_1_0_0.json",
                                             "metadata": [
                                                 {
                                                     "metaName": "_recentNode_",
@@ -8364,7 +8318,6 @@
                                 },
                                 {
                                     "name": "get_proto_root_path",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -8590,7 +8543,6 @@
                                 },
                                 {
                                     "name": "get_prototypes_paths",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -8937,7 +8889,6 @@
                                 },
                                 {
                                     "name": "build_protoindices_from_paths_indices",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -9195,7 +9146,6 @@
                                 },
                                 {
                                     "name": "build_protoindices_from_index",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -9431,7 +9381,6 @@
                                 },
                                 {
                                     "name": "build_random_protoindices",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -9755,7 +9704,6 @@
                                 },
                                 {
                                     "name": "get_base_names",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "icon",
@@ -9872,7 +9820,6 @@
                                     "compounds": [
                                         {
                                             "name": "get_base_name",
-                                            "uriImported": "file:///landscape_generator_1_0_0.json",
                                             "metadata": [
                                                 {
                                                     "metaName": "_recentNode_",
@@ -10213,7 +10160,6 @@
                                 },
                                 {
                                     "name": "create_random_orientations",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -10771,7 +10717,6 @@
                                 },
                                 {
                                     "name": "create_random_scales",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -11424,22 +11369,6 @@
                                     ]
                                 },
                                 {
-                                    "nodeName": "if5",
-                                    "nodeType": "Core::Logic::if",
-                                    "metadata": [
-                                        {
-                                            "metaName": "DisplayMode",
-                                            "metaType": "string",
-                                            "metaValue": "2"
-                                        },
-                                        {
-                                            "metaName": "LayoutPos",
-                                            "metaType": "string",
-                                            "metaValue": "825.756 -775.084"
-                                        }
-                                    ]
-                                },
-                                {
                                     "nodeName": "array_size2",
                                     "nodeType": "Core::Array::array_size",
                                     "metadata": [
@@ -11947,7 +11876,6 @@
                         },
                         {
                             "name": "mushroom_positions",
-                            "uriImported": "file:///landscape_generator_1_0_0.json",
                             "metadata": [
                                 {
                                     "metaName": "ViewportRect",
@@ -12061,7 +11989,6 @@
                             "compounds": [
                                 {
                                     "name": "compute_summed_distances",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "icon",
@@ -12225,7 +12152,6 @@
                                     "compounds": [
                                         {
                                             "name": "set_lenghts",
-                                            "uriImported": "file:///landscape_generator_1_0_0.json",
                                             "metadata": [
                                                 {
                                                     "metaName": "icon",
@@ -12433,7 +12359,6 @@
                                         },
                                         {
                                             "name": "create_valid_lenghts",
-                                            "uriImported": "file:///landscape_generator_1_0_0.json",
                                             "metadata": [
                                                 {
                                                     "metaName": "icon",
@@ -13468,7 +13393,6 @@
                 },
                 {
                     "name": "build_trees_stage",
-                    "uriImported": "file:///landscape_generator_1_0_0.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -13676,7 +13600,6 @@
                     "compounds": [
                         {
                             "name": "trees_and_rocks_instancer",
-                            "uriImported": "file:///landscape_generator_1_0_0.json",
                             "metadata": [
                                 {
                                     "metaName": "_recentNode_",
@@ -13907,7 +13830,6 @@
                             "compounds": [
                                 {
                                     "name": "create_proto_prims",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "icon",
@@ -14268,7 +14190,6 @@
                                 },
                                 {
                                     "name": "create_usd_instancer_properties",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -14405,7 +14326,6 @@
                                     "compounds": [
                                         {
                                             "name": "prototypes_data",
-                                            "uriImported": "file:///landscape_generator_1_0_0.json",
                                             "metadata": [
                                                 {
                                                     "metaName": "_recentNode_",
@@ -14865,7 +14785,6 @@
                                 },
                                 {
                                     "name": "get_proto_root_path",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "ViewportRect",
@@ -15091,7 +15010,6 @@
                                 },
                                 {
                                     "name": "get_prototypes_paths",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -15438,7 +15356,6 @@
                                 },
                                 {
                                     "name": "build_protoindices_from_paths_indices",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -15696,7 +15613,6 @@
                                 },
                                 {
                                     "name": "build_protoindices_from_index",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -15932,7 +15848,6 @@
                                 },
                                 {
                                     "name": "build_random_protoindices",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -16256,7 +16171,6 @@
                                 },
                                 {
                                     "name": "get_base_names",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "icon",
@@ -16373,7 +16287,6 @@
                                     "compounds": [
                                         {
                                             "name": "get_base_name",
-                                            "uriImported": "file:///landscape_generator_1_0_0.json",
                                             "metadata": [
                                                 {
                                                     "metaName": "_recentNode_",
@@ -16714,7 +16627,6 @@
                                 },
                                 {
                                     "name": "create_random_orientations",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -17272,7 +17184,6 @@
                                 },
                                 {
                                     "name": "create_random_scales",
-                                    "uriImported": "file:///landscape_generator_1_0_0.json",
                                     "metadata": [
                                         {
                                             "metaName": "_recentNode_",
@@ -17921,22 +17832,6 @@
                                             "metaName": "valuenode_defaultvalue",
                                             "metaType": "string",
                                             "metaValue": "0"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "nodeName": "if5",
-                                    "nodeType": "Core::Logic::if",
-                                    "metadata": [
-                                        {
-                                            "metaName": "DisplayMode",
-                                            "metaType": "string",
-                                            "metaValue": "2"
-                                        },
-                                        {
-                                            "metaName": "LayoutPos",
-                                            "metaType": "string",
-                                            "metaValue": "825.756 -775.084"
                                         }
                                     ]
                                 },
@@ -18886,7 +18781,6 @@
                 },
                 {
                     "name": "set_ground_color",
-                    "uriImported": "file:///landscape_generator_1_0_0.json",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -19203,7 +19097,6 @@
                 },
                 {
                     "name": "landscape_layer",
-                    "uriImported": "file:///landscape_generator_1_0_0.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -19373,7 +19266,6 @@
                 },
                 {
                     "name": "ground_layer",
-                    "uriImported": "file:///landscape_generator_1_0_0.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -19543,7 +19435,6 @@
                 },
                 {
                     "name": "grass_layer",
-                    "uriImported": "file:///landscape_generator_1_0_0.json",
                     "metadata": [
                         {
                             "metaName": "ViewportRect",
@@ -19713,7 +19604,6 @@
                 },
                 {
                     "name": "trees_layer",
-                    "uriImported": "file:///landscape_generator_1_0_0.json",
                     "metadata": [
                         {
                             "metaName": "ViewportRect",
@@ -19883,7 +19773,6 @@
                 },
                 {
                     "name": "mushrooms_layer",
-                    "uriImported": "file:///landscape_generator_1_0_0.json",
                     "metadata": [
                         {
                             "metaName": "ViewportRect",
@@ -20053,7 +19942,6 @@
                 },
                 {
                     "name": "color_overrides_layer",
-                    "uriImported": "file:///landscape_generator_1_0_0.json",
                     "metadata": [
                         {
                             "metaName": "ViewportRect",
@@ -20223,7 +20111,6 @@
                 },
                 {
                     "name": "multiply_by_two",
-                    "uriImported": "file:///landscape_generator_1_0_0.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",

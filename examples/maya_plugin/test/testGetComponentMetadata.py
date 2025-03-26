@@ -26,6 +26,9 @@ from distutils.dir_util import copy_tree
 from maya import cmds
 from maya import standalone
 
+from bifrost_usd.graph_api import bifrost_version
+
+
 test_dir = os.path.dirname(os.path.realpath(__file__))
 maya_usd_model_dir = os.path.join(test_dir, "..", "python")
 sys.path.append(maya_usd_model_dir)
@@ -108,8 +111,10 @@ class GetComponentMetadataTestCase(unittest.TestCase):
         self.assertEqual(metadata.get("host_scene"), '02_create_component.ma')
 
         expectedMayaDirPath = os.path.join(testModelDir, "maya")
-        # Bifrost scene_info node adds a path separator at the end of host scene dir.
-        expectedMayaDirPath += os.sep
+        # Before Bifrost 2.11, the scene_info node was adding a path separator at the end of host scene dir
+        _, major, minor, patch = bifrost_version().split(".")
+        if int(major) < 11:
+            expectedMayaDirPath += os.sep
         self.assertEqual(metadata["host_scene_directory"], expectedMayaDirPath)
 
 

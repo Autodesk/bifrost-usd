@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Arnold::define_arnold_usd_mesh_subdiv",
-            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -105,31 +104,6 @@
                             ]
                         }
                     ]
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,if"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,not_equal"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Arnold,define_arnold_usd_mesh_subdiv"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Rendering::Arnold,set_Arnold_mesh_settings"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Model,define_usd_look_variant"
                 },
                 {
                     "metaName": "ViewportRect",

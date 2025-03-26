@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Model::define_usd_look_variant",
-            "uriImported": "file:///define_usd_look_variant.json",
             "metadata": [
                 {
                     "metaName": "icon",
@@ -105,31 +104,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Prim,define_usd_prim"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Object,set_property"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Prim,set_prim_purpose"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::String,string_empty"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Logic,if"
-                },
-                {
                     "metaName": "NodeValueDisplay",
                     "metadata": [
                         {
@@ -177,7 +151,7 @@
                 {
                     "metaName": "UILayout",
                     "metaType": "string",
-                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"variant_name\"\n            },\n            {\n                \"port\": \"remove_dir_path\"\n            },\n            {\n                \"port\": \"use_existing_material_file\"\n            },\n            {\n                \"port\": \"info\"\n            },\n            {\n                \"port\": \"purpose\"\n            },\n            {\n                \"port\": \"create_materials_file\"\n            },\n            {\n                \"port\": \"materials_file\"\n            },\n            {\n                \"port\": \"use_existing_bidings_file\"\n            },\n            {\n                \"port\": \"create_bindings_file\"\n            },\n            {\n                \"port\": \"materials_bindings_file\"\n            },\n            {\n                \"port\": \"material_bindings\"\n            },\n            {\n                \"port\": \"proxy_geo_scope_name\"\n            },\n            {\n                \"port\": \"proxy_material_bindings\"\n            }\n        ]\n    }\n}\n"
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"variant_name\"\n            },\n            {\n                \"port\": \"material_bindings\"\n            },\n            {\n                \"port\": \"proxy_material_bindings\"\n            }\n        ]\n    }\n}"
                 },
                 {
                     "metaName": "zValue",

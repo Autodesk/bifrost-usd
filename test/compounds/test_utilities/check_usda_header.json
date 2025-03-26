@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::TestUtilities::check_usda_header",
-            "uriImported": "stream:/bifrostGraphShape1",
             "metadata": [
                 {
                     "metaName": "io_nodes",

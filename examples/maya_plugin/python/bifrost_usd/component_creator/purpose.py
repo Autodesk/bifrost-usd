@@ -25,6 +25,10 @@ def setPurposes(purpose, show=True):
         drawPurposeAttrName = f"{proxyShapeNodeName}.draw{purpose}"
         cmds.setAttr(drawPurposeAttrName, show)
 
+    # On a machine without GPU (using maya-batch or mayapy), calling the ogs command would fail.
+    if cmds.about(batch=True):
+        return
+
     cmds.ogs(reset=True)
 
 

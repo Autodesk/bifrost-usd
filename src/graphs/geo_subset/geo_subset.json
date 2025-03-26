@@ -10,7 +10,6 @@
     "compounds": [
         {
             "name": "Graphs::USD::geo_subset",
-            "uriImported": "stream:/stream",
             "metadata": [
                 {
                     "metaName": "compoundIsGraph",
@@ -49,7 +48,7 @@
                     "metaType": "string",
                     "metaValue": "geo_subset_thumb.png"
                 },
-{
+                {
                     "metaName": "io_nodes",
                     "metadata": [
                         {

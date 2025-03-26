@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Model::create_stage_at_model_site",
-            "uriImported": "file:///create_usd_component.json",
             "metadata": [
                 {
                     "metaName": "backdrop",
@@ -239,7 +238,6 @@
             "compounds": [
                 {
                     "name": "add_default_prim_to_layer",
-                    "uriImported": "file:///create_usd_component.json",
                     "metadata": [
                         {
                             "metaName": "io_nodes",
@@ -761,27 +759,6 @@
                     ]
                 },
                 {
-                    "nodeName": "define_usd_reference_from_file1",
-                    "nodeType": "USD::Prim::define_usd_reference_from_file",
-                    "metadata": [
-                        {
-                            "metaName": "DisplayMode",
-                            "metaType": "string",
-                            "metaValue": "1"
-                        },
-                        {
-                            "metaName": "LayoutPos",
-                            "metaType": "string",
-                            "metaValue": "-902 601"
-                        },
-                        {
-                            "metaName": "zValue",
-                            "metaType": "string",
-                            "metaValue": "41.000000"
-                        }
-                    ]
-                },
-                {
                     "nodeName": "define_usd_reference",
                     "nodeType": "USD::Prim::define_usd_reference",
                     "metadata": [
@@ -851,10 +828,6 @@
                 {
                     "source": ".model_file",
                     "target": "define_usd_reference_from_file.file"
-                },
-                {
-                    "source": ".material_library_file",
-                    "target": "define_usd_reference_from_file1.file"
                 },
                 {
                     "source": ".root_layer_identifier",
@@ -1131,41 +1104,6 @@
                 },
                 {
                     "valueName": "define_usd_reference_from_file.anchor_path",
-                    "valueType": "string",
-                    "value": ""
-                },
-                {
-                    "valueName": "define_usd_reference_from_file1.file",
-                    "valueType": "string",
-                    "value": ""
-                },
-                {
-                    "valueName": "define_usd_reference_from_file1.arc_type",
-                    "valueType": "BifrostUsd::ArcType",
-                    "value": "Reference"
-                },
-                {
-                    "valueName": "define_usd_reference_from_file1.prim_path",
-                    "valueType": "string",
-                    "value": ""
-                },
-                {
-                    "valueName": "define_usd_reference_from_file1.layer_offset",
-                    "valueType": "double",
-                    "value": "0"
-                },
-                {
-                    "valueName": "define_usd_reference_from_file1.layer_scale",
-                    "valueType": "double",
-                    "value": "1"
-                },
-                {
-                    "valueName": "define_usd_reference_from_file1.position",
-                    "valueType": "BifrostUsd::UsdListPosition",
-                    "value": "UsdListPositionFrontOfPrependList"
-                },
-                {
-                    "valueName": "define_usd_reference_from_file1.anchor_path",
                     "valueType": "string",
                     "value": ""
                 }

@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "Graphs::USD::edit_target",
-            "uriImported": "stream:/stream",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -104,31 +103,6 @@
                             "metaValue": "Add displayColor on color sublayer"
                         }
                     ]
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "backdrop"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Stage,create_usd_stage"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Stage,add_to_stage"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Stage,set_stage_up_axis"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Stage,open_stage_from_layer"
                 },
                 {
                     "metaName": "sticky_note_backdrop",

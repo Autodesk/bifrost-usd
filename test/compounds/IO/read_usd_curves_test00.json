@@ -12,7 +12,6 @@
     "compounds": [
         {
             "name": "USD::Test::IO::read_usd_curves_test00",
-            "uriImported": "file:///read_usd_curves_test00.json",
             "metadata": [
                 {
                     "metaName": "io_nodes",
@@ -108,31 +107,6 @@
                     ]
                 },
                 {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::Test::TestUtilities,make_file_path"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Constants,float"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,User::Compounds,save_object_to_text_file"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,USD::IO,read_usd_curves"
-                },
-                {
-                    "metaName": "_recentNode_",
-                    "metaType": "string",
-                    "metaValue": "BifrostGraph,Core::Graph,terminal"
-                },
-                {
                     "metaName": "ViewportRect",
                     "metaType": "string",
                     "metaValue": "-501.304 -940.636 2716.63 2296.9"
@@ -151,15 +125,15 @@
             "terminalStates": [
                 {
                     "name": "Core::Graph::terminal::final",
-                    "enabled": "true"
+                    "enabled": "false"
                 },
                 {
                     "name": "Core::Graph::terminal::proxy",
-                    "enabled": "true"
+                    "enabled": "false"
                 },
                 {
                     "name": "Core::Graph::terminal::diagnostic",
-                    "enabled": "true"
+                    "enabled": "false"
                 }
             ],
             "ports": [
@@ -213,7 +187,6 @@
             "compounds": [
                 {
                     "name": "test_point",
-                    "uriImported": "file:///read_usd_curves_test00.json",
                     "metadata": [
                         {
                             "metaName": "_recentNode_",
@@ -338,7 +311,6 @@
                     "compounds": [
                         {
                             "name": "test_point_count",
-                            "uriImported": "file:///read_usd_curves_test00.json",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -692,7 +664,6 @@
                         },
                         {
                             "name": "test_point_position",
-                            "uriImported": "file:///read_usd_curves_test00.json",
                             "metadata": [
                                 {
                                     "metaName": "io_nodes",
@@ -808,7 +779,6 @@
                             "compounds": [
                                 {
                                     "name": "for_each",
-                                    "uriImported": "file:///read_usd_curves_test00.json",
                                     "metadata": [
                                         {
                                             "metaName": "icon",

@@ -25,6 +25,7 @@ from typing import Final
 from maya import cmds
 from maya import standalone
 
+import ufe
 import mayaUsd
 
 from bifrost_usd import graph_api
@@ -109,14 +110,11 @@ class BifrostStageCmdsTestCase(unittest.TestCase):
         graph = create_stage.create_graph_from_usd_files([filePath], as_shape=True)
         self.assertEqual(graph, f"{kGraphName}Shape")
 
-        # check the mayaUsdProxyShape content
-        import ufe
-        import mayaUsd.ufe
-
         mayaUsdShapes = cmds.ls(type=kMayaUsdProxyShape, long=True)
         self.assertTrue(mayaUsdShapes)
         proxyShapePath = ufe.PathString.path(mayaUsdShapes[0])
-        stage = mayaUsd.ufe.getStage(str(proxyShapePath))
+        stage = mayaUsd.ufe.getStage(ufe.PathString.string(proxyShapePath))
+        self.assertTrue(stage)
         obj = stage.GetPrimAtPath("/obj")
         self.assertEqual(obj.GetPath(), "/obj")
 
@@ -126,11 +124,6 @@ class BifrostStageCmdsTestCase(unittest.TestCase):
         self.assertEqual(graph, [f"{kGraphName}Shape"])
 
     def testCreateGraphFromTwoFilesCommand(self):
-        cmds.file(
-            rename=os.path.join(self.test_dir, "testCreateGraphFromTwoFilesCommand.ma")
-        )
-        cmds.file(save=True, type="mayaAscii")
-
         geoFilePath = os.path.join(kCurrentDir, "resources", "capsule.usd")
         colorsFilePath = os.path.join(kCurrentDir, "resources", "capsule_colors.usd")
 
@@ -138,6 +131,12 @@ class BifrostStageCmdsTestCase(unittest.TestCase):
             openStage=True, files=",".join([geoFilePath, colorsFilePath])
         )
         self.assertEqual(graph, [f"{kGraphName}Shape"])
+
+        # Save the Maya scene to get usd file path relative to scene_info.scene_directory jobPort
+        cmds.file(
+            rename=os.path.join(self.test_dir, "testCreateGraphFromTwoFilesCommand.ma")
+        )
+        cmds.file(save=True, type="mayaAscii")
 
         # check the mayaUsdProxyShape content
         import ufe
@@ -150,7 +149,8 @@ class BifrostStageCmdsTestCase(unittest.TestCase):
         # share the Bifrost stage with the mayaUsdProxyShape stage to
         # get the same sublayers.
         create_stage._set_shared_stage(graph, True)
-        stage = mayaUsd.ufe.getStage(str(proxyShapePath))
+        stage = mayaUsd.ufe.getStage(ufe.PathString.string(proxyShapePath))
+        self.assertTrue(stage)
         self.assertEqual(
             stage.GetRootLayer().subLayerPaths, [colorsFilePath, geoFilePath]
         )

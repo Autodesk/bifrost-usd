@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2023 Autodesk, Inc.
+# Copyright 2024 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -58,6 +58,22 @@ function(configure_bifusd_unittest unittest_src_file test_module_name)
     set(env_vars
        "AMINO_ALWAYS_PRINT_ERRORS=1"
         ${ENV_VARS})
+
+    if(BIFUSD_ENABLE_UNDEFINED_SANITIZER)
+        list(APPEND env_vars "UBSAN_OPTIONS=print_stacktrace=1")
+    endif()
+
+    list(APPEND env_vars ${BIFUSD_EXTRA_SANITIZER_ENV_VARS})
+
+    # The google tests are causing some issues with Clang address sanitizer when linking with USD libraries.
+    # The sanitizer will detect some container overflows in USD libs just be creating
+    # an executable with the following empty google test "TEST(TEST_EMPTY, empty_test) {}"!
+    #
+    # See this ticket related to sanitizer errors in OpenUSD:
+    # https://github.com/PixarAnimationStudios/OpenUSD/issues/3088
+    if(BIFUSD_ENABLE_ADDRESS_SANITIZER)
+        list(APPEND env_vars "ASAN_OPTIONS=detect_container_overflow=0")
+    endif()
 
     bifusd_configure_unittest(${unittest_target}
                                SRC_FILES       ${unittest_src_file}
