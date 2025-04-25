@@ -19,6 +19,7 @@ from maya import cmds
 import maya.api.OpenMaya as om
 
 from bifrost_usd import maya_commands as buc
+from bifrost_usd import maya_main_window_menu
 
 
 def maya_useNewAPI():
@@ -78,7 +79,6 @@ def initializePlugin(plugin):
     cc_rtc.help_cmd()
 
     # Add "Bifrost USD" menu
-    from bifrost_usd import maya_main_window_menu
 
     maya_main_window_menu.create_usd_menu()
 
@@ -117,5 +117,6 @@ def initializePlugin(plugin):
 
 
 def uninitializePlugin(plugin):
+    maya_main_window_menu.delete_usd_menu()
     pluginFn = om.MFnPlugin(plugin)
     pluginFn.deregisterCommand(buc.BifrostUsdCmd.kPluginCmdName)

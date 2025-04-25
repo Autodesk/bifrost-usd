@@ -1,6 +1,6 @@
 # -
 # *****************************************************************************
-# Copyright 2024 Autodesk, Inc.
+# Copyright 2025 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -363,6 +363,7 @@ class TestGraphs(unittest.TestCase):
             "tasks_create_geom_subset.json",
             "tasks_define_usd_skeleton.json",
             "tasks_define_usd_skeleton_animation.json",
+            "tasks_duplicate_usd_prim_definition.json",
             # Point Instancer Tests
             "tasks_delete_usd_point_instances.json",
             # Stage Tests
