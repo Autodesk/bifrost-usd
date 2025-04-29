@@ -62,7 +62,6 @@ public:
 
     /// \brief Returns whether this Prim object is valid or not.
     explicit operator bool() const {
-        assert((stage_ptr != nullptr) == (pxr_prim.IsValid()));
         return stage_ptr != nullptr;
     }
 

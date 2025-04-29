@@ -3,6 +3,15 @@
 Require the [Bifrost Executor SDK](https://help.autodesk.com/view/BIFROST/ENU/?guid=Bifrost_DevHelp_BifrostExecutorSDK_html) introduced in Bifrost 2.10.
 Register a new Hydra Generative Procedural plugin capable of running a Bifrost Graph that will output
 Bifrost geometries to the Hydra Scene Index without using any scene delegate.
+
+
+## Building
+
+You must provide the following variable to the cmake command:
+* BIFUSD_BUILD_HYDRA : Enable the build of Bifrost Hydra Experimental plugin.
+
+## Environment Setup
+
 In your Hydra based application (usdview for example), the following variables are needed:
 ```
 export BIFROST_LOCATION=<bifrost path>

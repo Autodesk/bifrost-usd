@@ -68,7 +68,7 @@ Controls the visibility:
 Declares whether the defined prim can be used for instances. Only prims that have `instanceable` explicitly set to `True` can be instanced.
 - `None`: No `instanceable` metadata is created.
 - `False`: The prim is not a candidate for instancing.
-- `True`: The prim is a candidate for instancing. The prim becomes an instance of an implicit master when composed on a stage, if it also contains one or more direct composition arcs.
+- `True`: The prim is a candidate for instancing. The prim becomes an instance of an implicit prototype when composed on a stage, if it also contains one or more direct composition arcs.
 
 ### `applied_schema_names`
 

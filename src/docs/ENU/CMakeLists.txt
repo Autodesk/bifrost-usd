@@ -85,6 +85,7 @@ set(doc_files
     USD_Prim_define_usd_relationship.md
     USD_Prim_define_usd_skeleton.md
     USD_Prim_define_usd_skeleton_animation.md
+    USD_Prim_duplicate_usd_prim_definition.md
     USD_Prim_get_all_attribute_names.md
     USD_Prim_get_applied_schemas.md
     USD_Prim_get_authored_attribute_names.md

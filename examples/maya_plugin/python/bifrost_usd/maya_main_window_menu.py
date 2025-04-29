@@ -17,13 +17,12 @@
 # +
 from maya import cmds
 
+kTopMenu = "BifrostUSDMenu"
 
 def create_usd_menu():
     # Do not need the menu in batch mode.
     if cmds.about(batch=1):
         return
-
-    kTopMenu = "BifrostUSDMenu"
 
     # Bifrost USD menu
     cmds.menu(kTopMenu, label="Bifrost USD", parent="MayaWindow", tearOff=True)
@@ -500,6 +499,9 @@ def create_usd_menu():
         tearOff=True,
     )
 
+
+def delete_usd_menu():
+    cmds.deleteUI(kTopMenu, menu=True)
 
 if __name__ == "__main__":
     create_usd_menu()

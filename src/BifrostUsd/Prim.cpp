@@ -25,7 +25,7 @@
 namespace BifrostUsd {
 Prim::Prim(PXR_NS::UsdPrim prim, Amino::Ptr<Stage> stage)
     : pxr_prim(std::move(prim)), stage_ptr(std::move(stage)) {
-    assert((stage_ptr != nullptr) == (pxr_prim.IsValid()));
+    assert(stage_ptr != nullptr);
 }
 Prim::~Prim() = default;
 

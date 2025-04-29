@@ -1,3 +1,28 @@
+## [1.4.0] - 2025-04-30 (Bifrost 2.14)
+
+### Bugfix
+ - BIFROST-11582 - Bifrost USD examples plugin menu duplication.
+ - BIFROST-11799 - Fix and improve _duplicate_prim_definition_ node.
+    Using an array of float3 for position, rotation or scale was giving unexpected result in previous version.
+    You can now simply use Bifrost points to set the copy transforms.
+
+   - Backward compatibility break:
+
+      Using array of float3 is not supported anymore
+
+   - New input parameters:
+
+      If a point based Bifrost geometry is connected to the _from_points_ input, the prim is duplicated using the _point_position_,
+      _point_orientation_ and _point_scale_ geo properties of the connected geometry.
+
+      If _ignore_source_transform_ is enabled, the source prim definition transform is not applied to the duplicated prim.
+
+      If _uniform_rotation_ is enabled, the rotation is applied uniformly to duplicated prim(s).
+      If disabled, the rotation is applied relative to the previous prim.
+
+ - BIFROST-11363 - Undoing the creation of a component material library crashes Maya.
+
+
 ## [1.3.3] - 2025-03-26 (Bifrost 2.13)
 
 ### Build

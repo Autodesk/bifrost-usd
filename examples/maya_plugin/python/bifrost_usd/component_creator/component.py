@@ -287,20 +287,26 @@ def get_create_usd_component_node() -> str:
 
 
 def _create_material_library_proxy_shape(material_library_path: str) -> None:
-    if not cmds.ls(kMatLibShapeFullName):
-        shape = cmds.createNode(kMayaUsdProxyShape, skipSelect=True)
+    if cmds.ls(kMatLibShapeFullName):
+        shape = kMatLibShapeFullName
+    else:
+        # Set the name of the shape at creation time instead of renaming the transform / shape
+        # with the rename command because that will cause Maya to crash in UFE during a undo operation.
+        shape = cmds.createNode(kMayaUsdProxyShape, skipSelect=True, name=f"{kMatLibName}Shape")
+
         transform = cmds.listRelatives(shape, parent=True)[0]
-        cmds.rename(transform, f"{kMatLibName}")
 
         hideInOutliner = False
         if os.getenv("BIFROST_USD_LAB_HIDE_MATERIAL_LIBRARY_STAGE", ""):
             hideInOutliner = True
 
-        cmds.setAttr(f"{kMatLibName}.hiddenInOutliner", hideInOutliner)
-        cmds.setAttr(f"{kMatLibName}Shape.intermediateObject", hideInOutliner)
+        cmds.setAttr(f"{transform}.hiddenInOutliner", hideInOutliner)
+        cmds.setAttr(f"{shape}.intermediateObject", hideInOutliner)
 
-    cmds.setAttr(f"{kMatLibName}Shape.filePath", material_library_path, type="string")
-    cmds.setAttr(f"{kMatLibName}Shape.filePathRelative", False)
+    assert cmds.ls(shape) == [f"{kMatLibName}Shape"], "Material Library shape not found"
+
+    cmds.setAttr(f"{shape}.filePath", material_library_path, type="string")
+    cmds.setAttr(f"{shape}.filePathRelative", False)
 
 
 def _create_empty_graph() -> str:
