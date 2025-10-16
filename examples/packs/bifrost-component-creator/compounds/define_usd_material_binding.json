@@ -553,6 +553,9 @@
                             ],
                             "forEachCompound": {
                                 "ports": []
+                            },
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9"
                             }
                         }
                     ],
@@ -672,7 +675,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -834,7 +840,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_misc": "1.0.0"
+            }
         }
     ]
 }

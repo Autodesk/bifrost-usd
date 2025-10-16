@@ -125,13 +125,13 @@
                 },
                 {
                     "portName": "out_stage",
-                    "portType": "BifrostUsd::Stage",
-                    "portDirection": "output"
+                    "portDirection": "output",
+                    "portType": "BifrostUsd::Stage"
                 },
                 {
                     "portName": "success",
-                    "portType": "bool",
-                    "portDirection": "output"
+                    "portDirection": "output",
+                    "portType": "bool"
                 }
             ],
             "compoundNodes": [
@@ -193,7 +193,11 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

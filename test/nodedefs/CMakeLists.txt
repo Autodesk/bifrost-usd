@@ -84,8 +84,7 @@ function(configure_bifusd_runtime_unittests)
     set(lib_config_files
         ${BIFUSD_EXTRA_CONFIG_FILES}
         ${usd_test_dir}/usd_pack_test_config.json
-        ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config_shared_libs.json
-        ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config_compound.json
+        ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json
     )
     set(env_vars)
     if(IS_BIFUSD_STANDALONE)

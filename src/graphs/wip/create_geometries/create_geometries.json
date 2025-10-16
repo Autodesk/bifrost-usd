@@ -58,9 +58,7 @@
                     "metaName": "sticky_note_backdrop",
                     "metadata": [
                         {
-                            "metaName": "title",
-                            "metaType": "string",
-                            "metaValue": ""
+                            "metaName": "title"
                         },
                         {
                             "metaName": "type",
@@ -1036,6 +1034,16 @@
                             "value": "0.100000001f"
                         },
                         {
+                            "valueName": "convert_to_volume.adaptivity",
+                            "valueType": "Geometry::Volume::Adaptivity",
+                            "value": "Off"
+                        },
+                        {
+                            "valueName": "convert_to_volume.enable_resolution_bounds",
+                            "valueType": "bool",
+                            "value": "false"
+                        },
+                        {
                             "valueName": "convert_to_volume.enable_bandwidth",
                             "valueType": "bool",
                             "value": "false"
@@ -1049,16 +1057,6 @@
                             "valueName": "convert_to_volume.volume_subdivision_structure",
                             "valueType": "Geometry::Volume::AutoSubdivisionStructure",
                             "value": "Automatic"
-                        },
-                        {
-                            "valueName": "convert_to_volume.adaptivity",
-                            "valueType": "Geometry::Volume::Adaptivity",
-                            "value": "Off"
-                        },
-                        {
-                            "valueName": "convert_to_volume.enable_resolution_bounds",
-                            "valueType": "bool",
-                            "value": "false"
                         },
                         {
                             "valueName": "displace_points.scale",
@@ -1209,7 +1207,7 @@
                             "valueName": "set_strands_size_profile.profile",
                             "valueType": "Math::FCurve",
                             "value": {
-                                "version": "1",
+                                "version": "2",
                                 "preExtrapolation": "0",
                                 "postExtrapolation": "0",
                                 "points": [
@@ -1217,6 +1215,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "-0.16610900000000001",
                                                 "yp": "0.029031999999999999",
@@ -1231,6 +1230,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "0.15606600000000001",
                                                 "yp": "0.99354799999999999",
@@ -1245,6 +1245,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "0.85397500000000004",
                                                 "yp": "0.117742",
@@ -1264,7 +1265,53 @@
                             "value": "1f"
                         },
                         {
-                            "valueName": "vector_field_scope.min__bounds",
+                            "valueName": "vector_field_scope.length_remap",
+                            "valueType": "Math::FCurve",
+                            "value": {
+                                "version": "2",
+                                "preExtrapolation": "0",
+                                "postExtrapolation": "1",
+                                "points": [
+                                    {
+                                        "point": {
+                                            "locked": "1",
+                                            "interpolation": "1",
+                                            "curveInterpolation": "0",
+                                            "pcn": {
+                                                "xp": "-0.33333299999999999",
+                                                "yp": "-0.33333299999999999",
+                                                "x": "0",
+                                                "y": "0",
+                                                "xn": "0.33333299999999999",
+                                                "yn": "0.33333299999999999"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "point": {
+                                            "locked": "1",
+                                            "interpolation": "1",
+                                            "curveInterpolation": "0",
+                                            "pcn": {
+                                                "xp": "0.66666700000000001",
+                                                "yp": "0.66666700000000001",
+                                                "x": "1",
+                                                "y": "1",
+                                                "xn": "1.3333330000000001",
+                                                "yn": "1.3333330000000001"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "valueName": "vector_field_scope.width",
+                            "valueType": "float",
+                            "value": "0.0199999996f"
+                        },
+                        {
+                            "valueName": "vector_field_scope.min_bounds",
                             "valueType": "Math::float3",
                             "value": {
                                 "x": "-10f",
@@ -1287,69 +1334,25 @@
                             "value": "30f"
                         },
                         {
-                            "valueName": "vector_field_scope.width",
-                            "valueType": "float",
-                            "value": "0.0199999996f"
-                        },
-                        {
-                            "valueName": "vector_field_scope.display_flowlines",
-                            "valueType": "bool",
-                            "value": "true"
-                        },
-                        {
-                            "valueName": "vector_field_scope.flowline_length_in_sec",
-                            "valueType": "float",
-                            "value": "1f"
-                        },
-                        {
-                            "valueName": "vector_field_scope.flowline_samples_per_second",
+                            "valueName": "vector_field_scope.skip_probe_samples",
                             "valueType": "long",
-                            "value": "25"
+                            "value": "0"
                         },
                         {
-                            "valueName": "vector_field_scope.length_remap",
-                            "valueType": "Math::FCurve",
-                            "value": {
-                                "version": "1",
-                                "preExtrapolation": "0",
-                                "postExtrapolation": "1",
-                                "points": [
-                                    {
-                                        "point": {
-                                            "locked": "1",
-                                            "interpolation": "1",
-                                            "pcn": {
-                                                "xp": "-0.33333299999999999",
-                                                "yp": "-0.33333299999999999",
-                                                "x": "0",
-                                                "y": "0",
-                                                "xn": "0.33333299999999999",
-                                                "yn": "0.33333299999999999"
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "point": {
-                                            "locked": "1",
-                                            "interpolation": "1",
-                                            "pcn": {
-                                                "xp": "0.66666700000000001",
-                                                "yp": "0.66666700000000001",
-                                                "x": "1",
-                                                "y": "1",
-                                                "xn": "1.3333330000000001",
-                                                "yn": "1.3333330000000001"
-                                            }
-                                        }
-                                    }
-                                ]
-                            }
+                            "valueName": "vector_field_scope.apply_bounds_to_probe",
+                            "valueType": "bool",
+                            "value": "false"
+                        },
+                        {
+                            "valueName": "vector_field_scope.base_brightness",
+                            "valueType": "float",
+                            "value": "0.5f"
                         },
                         {
                             "valueName": "vector_field_scope.color_R",
                             "valueType": "Math::FCurve",
                             "value": {
-                                "version": "1",
+                                "version": "2",
                                 "preExtrapolation": "0",
                                 "postExtrapolation": "0",
                                 "points": [
@@ -1357,6 +1360,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "1",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "-0.33333299999999999",
                                                 "yp": "-0.33333299999999999",
@@ -1371,6 +1375,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "1",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "0.66666700000000001",
                                                 "yp": "0.66666700000000001",
@@ -1388,7 +1393,7 @@
                             "valueName": "vector_field_scope.color_G",
                             "valueType": "Math::FCurve",
                             "value": {
-                                "version": "1",
+                                "version": "2",
                                 "preExtrapolation": "0",
                                 "postExtrapolation": "0",
                                 "points": [
@@ -1396,6 +1401,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "-0.33333299999999999",
                                                 "yp": "-0.33333299999999999",
@@ -1410,6 +1416,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "1",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "0.16666700000000001",
                                                 "yp": "0.16666700000000001",
@@ -1424,6 +1431,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "1",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "0.89895400000000003",
                                                 "yp": "0",
@@ -1441,7 +1449,7 @@
                             "valueName": "vector_field_scope.color_B",
                             "valueType": "Math::FCurve",
                             "value": {
-                                "version": "1",
+                                "version": "2",
                                 "preExtrapolation": "0",
                                 "postExtrapolation": "0",
                                 "points": [
@@ -1449,6 +1457,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "1",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "-0.10000000000000001",
                                                 "yp": "1",
@@ -1463,6 +1472,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "1",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "0.90000000000000002",
                                                 "yp": "0",
@@ -1480,7 +1490,7 @@
                             "valueName": "vector_field_scope.color_remap",
                             "valueType": "Math::FCurve",
                             "value": {
-                                "version": "1",
+                                "version": "2",
                                 "preExtrapolation": "1",
                                 "postExtrapolation": "1",
                                 "points": [
@@ -1488,6 +1498,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "1",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "-0.33333299999999999",
                                                 "yp": "-0.33333299999999999",
@@ -1502,6 +1513,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "1",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "0.66666700000000001",
                                                 "yp": "0.66666700000000001",
@@ -1516,29 +1528,29 @@
                             }
                         },
                         {
-                            "valueName": "vector_field_scope.base_brighness",
-                            "valueType": "float",
-                            "value": "0.5f"
-                        },
-                        {
                             "valueName": "vector_field_scope.draw_arrowheads",
                             "valueType": "bool",
                             "value": "false"
                         },
                         {
-                            "valueName": "vector_field_scope.apply_bounds_to_probe",
-                            "valueType": "bool",
-                            "value": "false"
-                        },
-                        {
-                            "valueName": "vector_field_scope.skip_probe_samples",
-                            "valueType": "long",
-                            "value": "0"
-                        },
-                        {
                             "valueName": "vector_field_scope.numeric_display",
                             "valueType": "bool",
                             "value": "false"
+                        },
+                        {
+                            "valueName": "vector_field_scope.display_flowlines",
+                            "valueType": "bool",
+                            "value": "true"
+                        },
+                        {
+                            "valueName": "vector_field_scope.flowline_length_in_sec",
+                            "valueType": "float",
+                            "value": "1f"
+                        },
+                        {
+                            "valueName": "vector_field_scope.flowline_samples_per_second",
+                            "valueType": "long",
+                            "value": "25"
                         },
                         {
                             "valueName": "voxel_field.property",
@@ -1561,7 +1573,14 @@
                         {
                             "name": "input1"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "fields": "2.15.0.9",
+                        "geometries": "2.15.0.9",
+                        "scatter": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -1650,14 +1669,14 @@
                     "nodeName": "define_usd_prim",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
                         "variant_set_definitions": [],
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
                         "children": [
                             "mesh_definition",
                             "curves_definition1"
-                        ]
+                        ],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -1691,12 +1710,12 @@
                     "nodeName": "define_usd_mesh",
                     "nodeType": "USD::Prim::define_usd_mesh",
                     "fanInPortNames": {
+                        "reference_definitions": [],
                         "attribute_definitions": [
                             "attribute_definition1"
                         ],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
-                        "children": []
+                        "children": [],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -1720,13 +1739,13 @@
                     "nodeName": "define_usd_curves",
                     "nodeType": "USD::Prim::define_usd_curves",
                     "fanInPortNames": {
+                        "reference_definitions": [],
                         "attribute_definitions": [
                             "attribute_definition1",
                             "attribute_definition"
                         ],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
-                        "children": []
+                        "children": [],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -1801,6 +1820,12 @@
                 {
                     "nodeName": "create_mesh_torus",
                     "nodeType": "Modeling::Primitive::create_mesh_torus",
+                    "terminalStates": [
+                        {
+                            "name": "Core::Graph::terminal::diagnostic",
+                            "enabled": "false"
+                        }
+                    ],
                     "metadata": [
                         {
                             "metaName": "DisplayMode",
@@ -2040,6 +2065,11 @@
                     "value": "widths"
                 },
                 {
+                    "valueName": "define_usd_attribute.custom",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
                     "valueName": "define_usd_attribute.type",
                     "valueType": "BifrostUsd::SdfValueTypeName",
                     "value": "Float"
@@ -2085,19 +2115,14 @@
                     "value": "PrimVarVarying"
                 },
                 {
-                    "valueName": "define_usd_attribute.custom",
-                    "valueType": "bool",
-                    "value": "false"
+                    "valueName": "define_usd_attribute.frame",
+                    "valueType": "float",
+                    "value": "0f"
                 },
                 {
                     "valueName": "define_usd_attribute.use_frame",
                     "valueType": "bool",
                     "value": "false"
-                },
-                {
-                    "valueName": "define_usd_attribute.frame",
-                    "valueType": "float",
-                    "value": "0f"
                 },
                 {
                     "valueName": "create_usd_stage.layer",
@@ -2109,7 +2134,15 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "fields": "2.15.0.9",
+                "geometries": "2.15.0.9",
+                "scatter": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

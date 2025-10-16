@@ -288,16 +288,6 @@
                                     "metaValue": "<NATIVE>../icons/LoopIterate.svg"
                                 },
                                 {
-                                    "metaName": "icon",
-                                    "metaType": "string",
-                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                },
-                                {
-                                    "metaName": "icon",
-                                    "metaType": "string",
-                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                },
-                                {
                                     "metaName": "io_nodes",
                                     "metadata": [
                                         {
@@ -454,16 +444,6 @@
                                 {
                                     "name": "iterate_on_variants",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -1292,7 +1272,11 @@
                                                                 {
                                                                     "name": "output"
                                                                 }
-                                                            ]
+                                                            ],
+                                                            "libraryDependencies": {
+                                                                "Amino": "2.15.0.9",
+                                                                "usd_pack": "1.4.0"
+                                                            }
                                                         }
                                                     ],
                                                     "compoundNodes": [
@@ -1374,7 +1358,11 @@
                                                         {
                                                             "name": "output"
                                                         }
-                                                    ]
+                                                    ],
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "usd_pack": "1.4.0"
+                                                    }
                                                 }
                                             ],
                                             "compoundNodes": [
@@ -1695,7 +1683,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -1806,6 +1798,10 @@
                                                 "outputPortName": "out_offset"
                                             }
                                         ]
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 }
                             ],
@@ -1981,6 +1977,10 @@
                                         "outputPortName": "out_stage"
                                     }
                                 ]
+                            },
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
                             }
                         },
                         {
@@ -2253,7 +2253,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -2432,7 +2436,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -2558,7 +2566,11 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

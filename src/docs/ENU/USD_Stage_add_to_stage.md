@@ -6,7 +6,7 @@ Adds one or more Bifrost-USD prim definitions to a new or existing USD stage. Th
 
 ### `stage`
 
-The USD stage to add to. If nothing is connected, an empty stage is created. You can right-click on the port and choose **Connect Node** to quickly add and connect a node that opens or creates a new stage.
+The USD stage to add to. If nothing is connected, an empty stage is created. You can right-click on the port and choose **Create Node** to quickly add and connect a node that opens or creates a new stage.
 
 ### `prim_definitions`
 

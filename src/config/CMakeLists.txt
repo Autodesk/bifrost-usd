@@ -23,35 +23,41 @@
 # plugin folder, ex.: maya_plugin, because they depend on the application's api.
 #==============================================================================
 
-set( usd_config_main_json_tpl ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json.tpl )
-set( usd_config_libs_json_tpl ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config_shared_libs.json.tpl )
-set( usd_config_comp_json_tpl ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config_compound.json.tpl )
+set( usd_config_main_json_tpl       ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json.tpl )
+set( usd_config_comp_dev_json_tpl   ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config_compound_dev.json.tpl )
 
-set( usd_config_main_json ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json )
-set( usd_config_libs_json ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config_shared_libs.json )
-set( usd_config_comp_json ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config_compound.json )
+set( usd_config_main_json           ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json )
+set( usd_config_comp_dev_json       ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config_compound_dev.json )
+
 
 # The name and version of the package/library are first substituted in the
-# generated config file (see usd_pack_config.json.in @xyz@ variables).
+# input config files (see the @xyz@ variables in `usd_pack_config.json.in` and
+# `usd_pack_config_compound_dev.json.in`).
 # Namely, the @BIFUSD_PACKAGE_NAME@ variable is used to define the name of
 # this package/library.
-configure_file(usd_pack_config.json.in ${usd_config_main_json_tpl} @ONLY )
-configure_file(usd_pack_config_shared_libs.json.in ${usd_config_libs_json_tpl} @ONLY )
-configure_file(usd_pack_config_compound.json.in ${usd_config_comp_json_tpl} @ONLY )
+configure_file(usd_pack_config.json.in              ${usd_config_main_json_tpl} @ONLY )
+configure_file(usd_pack_config_compound_dev.json.in ${usd_config_comp_dev_json_tpl} @ONLY )
 
-# After the previous step, only the ${xyz} variables remain.
-# Now substitute the json and library locations.
-# (see usd_pack_config.json.in)
-configure_file(${usd_config_main_json_tpl} ${usd_config_main_json} )
-configure_file(${usd_config_libs_json_tpl} ${usd_config_libs_json} )
-configure_file(${usd_config_comp_json_tpl} ${usd_config_comp_json} )
+# After the previous steps, only the ${xyz} variables remain in the generated config files.
 
-install(FILES ${usd_config_main_json} DESTINATION ${BIFUSD_INSTALL_ROOT_DIR} )
-install(FILES ${usd_config_libs_json} DESTINATION ${BIFUSD_INSTALL_ROOT_DIR} )
-install(FILES ${usd_config_comp_json} DESTINATION ${BIFUSD_INSTALL_ROOT_DIR} )
+# Define some overrides for the CMake variables used to replace the ${xyz} variables in the main
+# config file. Others are left unchanged and are defined in setup.cmake.
+set(BIFROST_USD_CONFIG_GRAPHS "")
 
-# Add the config template file location.
-# The variables in that file can be substituted by CMake configure_file
+# Define the CMake variables to replace the ${xyz} variables in the compound_dev config:
+set(USD_SRC_COMPOUND_DEV_CONFIG    ${BIFUSD_COMPOUND_DEV_SOURCE_DIR}/compound-dev.json)
+set(USD_SRC_COMPOUND_DEV_COMPOUNDS ${BIFUSD_COMPOUND_DEV_SOURCE_DIR}/src/compounds)
+set(USD_SRC_COMPOUND_DEV_GRAPHS    ${BIFUSD_COMPOUND_DEV_SOURCE_DIR}/src/graphs)
+
+# Now substitute the ${xyz} variables (e.g. the json and library locations).
+configure_file(${usd_config_main_json_tpl}      ${usd_config_main_json} )
+configure_file(${usd_config_comp_dev_json_tpl}  ${usd_config_comp_dev_json} )
+
+install(FILES ${usd_config_main_json} DESTINATION       ${BIFUSD_INSTALL_ROOT_DIR} )
+install(FILES ${usd_config_comp_dev_json} DESTINATION   ${BIFUSD_INSTALL_ROOT_DIR} )
+
+# Add the location of the intermediate main config template file.
+# The ${xyz} variables in that file can be later substituted by CMake configure_file
 set_target_properties(${BIFUSD_PACKAGE_NAME}_config_info PROPERTIES
                        BIFROST_USD_PACK_CONFIG_FILE_TPL "${usd_config_main_json_tpl}"
                        BIFROST_USD_PACK_INSTALL_RES_CONFIG_DIR "${BIFROST_USD_PACK_INSTALL_RES_CONFIG_DIR}")

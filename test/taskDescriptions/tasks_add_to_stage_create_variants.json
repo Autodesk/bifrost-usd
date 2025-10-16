@@ -9,9 +9,6 @@
         "   - If selecting second variant creates a Cone prim."
     ],
     "options": {
-        "definitionFiles": [
-            "add_to_stage_create_variants_test00.json"
-        ],
         "compound": "USD::Test::Stage::add_to_stage_create_variants_test00"
     },
     "task": {

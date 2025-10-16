@@ -644,7 +644,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "mushroom_generator",
@@ -1123,7 +1128,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "create_noisy_color",
@@ -1518,7 +1527,7 @@
                                             "valueName": "evaluate_fcurve.fcurve",
                                             "valueType": "Math::FCurve",
                                             "value": {
-                                                "version": "1",
+                                                "version": "2",
                                                 "preExtrapolation": "0",
                                                 "postExtrapolation": "0",
                                                 "points": [
@@ -1526,6 +1535,7 @@
                                                         "point": {
                                                             "locked": "1",
                                                             "interpolation": "2",
+                                                            "curveInterpolation": "0",
                                                             "pcn": {
                                                                 "xp": "-2.071186",
                                                                 "yp": "-0.0016130000000000001",
@@ -1540,6 +1550,7 @@
                                                         "point": {
                                                             "locked": "1",
                                                             "interpolation": "2",
+                                                            "curveInterpolation": "0",
                                                             "pcn": {
                                                                 "xp": "-0.24406800000000001",
                                                                 "yp": "0.99838700000000002",
@@ -1619,7 +1630,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "create_texture",
@@ -1979,7 +1994,7 @@
                                                     "valueName": "evaluate_fcurve.fcurve",
                                                     "valueType": "Math::FCurve",
                                                     "value": {
-                                                        "version": "1",
+                                                        "version": "2",
                                                         "preExtrapolation": "0",
                                                         "postExtrapolation": "0",
                                                         "points": [
@@ -1987,6 +2002,7 @@
                                                                 "point": {
                                                                     "locked": "1",
                                                                     "interpolation": "2",
+                                                                    "curveInterpolation": "0",
                                                                     "pcn": {
                                                                         "xp": "-0.10451100000000001",
                                                                         "yp": "0.38822600000000002",
@@ -2001,6 +2017,7 @@
                                                                 "point": {
                                                                     "locked": "1",
                                                                     "interpolation": "2",
+                                                                    "curveInterpolation": "0",
                                                                     "pcn": {
                                                                         "xp": "-0.0061479999999999998",
                                                                         "yp": "0.99354900000000002",
@@ -2022,7 +2039,10 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -2131,7 +2151,7 @@
                                             "valueName": "velocity_weighted_color.fcurve",
                                             "valueType": "Math::FCurve",
                                             "value": {
-                                                "version": "1",
+                                                "version": "2",
                                                 "preExtrapolation": "0",
                                                 "postExtrapolation": "0",
                                                 "points": [
@@ -2139,6 +2159,7 @@
                                                         "point": {
                                                             "locked": "1",
                                                             "interpolation": "2",
+                                                            "curveInterpolation": "0",
                                                             "pcn": {
                                                                 "xp": "-0.10451100000000001",
                                                                 "yp": "0.38822600000000002",
@@ -2153,6 +2174,7 @@
                                                         "point": {
                                                             "locked": "1",
                                                             "interpolation": "2",
+                                                            "curveInterpolation": "0",
                                                             "pcn": {
                                                                 "xp": "-0.0061479999999999998",
                                                                 "yp": "0.99354900000000002",
@@ -2195,7 +2217,7 @@
                                             "valueName": "evaluate_fcurve.fcurve",
                                             "valueType": "Math::FCurve",
                                             "value": {
-                                                "version": "1",
+                                                "version": "2",
                                                 "preExtrapolation": "0",
                                                 "postExtrapolation": "0",
                                                 "points": [
@@ -2203,6 +2225,7 @@
                                                         "point": {
                                                             "locked": "1",
                                                             "interpolation": "2",
+                                                            "curveInterpolation": "0",
                                                             "pcn": {
                                                                 "xp": "-0.61186399999999996",
                                                                 "yp": "-0.050000000000000003",
@@ -2217,6 +2240,7 @@
                                                         "point": {
                                                             "locked": "1",
                                                             "interpolation": "2",
+                                                            "curveInterpolation": "0",
                                                             "pcn": {
                                                                 "xp": "0.94745800000000002",
                                                                 "yp": "0.26774199999999998",
@@ -2247,7 +2271,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -2643,7 +2670,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -2698,6 +2729,12 @@
                         {
                             "nodeName": "create_mesh_sphere",
                             "nodeType": "Modeling::Primitive::create_mesh_sphere",
+                            "terminalStates": [
+                                {
+                                    "name": "Core::Graph::terminal::diagnostic",
+                                    "enabled": "false"
+                                }
+                            ],
                             "metadata": [
                                 {
                                     "metaName": "DisplayMode",
@@ -2719,6 +2756,12 @@
                         {
                             "nodeName": "create_mesh_sphere1",
                             "nodeType": "Modeling::Primitive::create_mesh_sphere",
+                            "terminalStates": [
+                                {
+                                    "name": "Core::Graph::terminal::diagnostic",
+                                    "enabled": "false"
+                                }
+                            ],
                             "metadata": [
                                 {
                                     "metaName": "DisplayMode",
@@ -2983,6 +3026,10 @@
                                 {
                                     "name": "Core::Graph::terminal::proxy",
                                     "enabled": "false"
+                                },
+                                {
+                                    "name": "Core::Graph::terminal::diagnostic",
+                                    "enabled": "false"
                                 }
                             ],
                             "metadata": [
@@ -3159,6 +3206,11 @@
                             "value": "1f"
                         },
                         {
+                            "valueName": "aero_solver_settings.store_mass_density",
+                            "valueType": "bool",
+                            "value": "false"
+                        },
+                        {
                             "valueName": "aero_solver_settings.ambient_temperature",
                             "valueType": "float",
                             "value": "20f"
@@ -3174,6 +3226,16 @@
                             "value": "fluffy"
                         },
                         {
+                            "valueName": "aero_solver_settings.simulation_speed",
+                            "valueType": "float",
+                            "value": "1f"
+                        },
+                        {
+                            "valueName": "aero_solver_settings.enable_buoyancy",
+                            "valueType": "bool",
+                            "value": "true"
+                        },
+                        {
                             "valueName": "aero_solver_settings.buoyancy",
                             "valueType": "Math::float3",
                             "value": {
@@ -3183,9 +3245,29 @@
                             }
                         },
                         {
-                            "valueName": "aero_solver_settings.simulation_speed",
+                            "valueName": "aero_solver_settings.kinematic_viscosity",
+                            "valueType": "float",
+                            "value": "0f"
+                        },
+                        {
+                            "valueName": "aero_solver_settings.velocity_smoothness",
+                            "valueType": "float",
+                            "value": "0f"
+                        },
+                        {
+                            "valueName": "aero_solver_settings.kill_voxel_fog_threshold",
+                            "valueType": "float",
+                            "value": "0.00999999978f"
+                        },
+                        {
+                            "valueName": "aero_solver_settings.scene_units_in_meters",
                             "valueType": "float",
                             "value": "1f"
+                        },
+                        {
+                            "valueName": "aero_solver_settings.enhanced_accuracy",
+                            "valueType": "bool",
+                            "value": "true"
                         },
                         {
                             "valueName": "aero_solver_settings.time_step_size",
@@ -3201,41 +3283,6 @@
                             "valueName": "aero_solver_settings.max_steps",
                             "valueType": "int",
                             "value": "1L"
-                        },
-                        {
-                            "valueName": "aero_solver_settings.velocity_smoothness",
-                            "valueType": "float",
-                            "value": "0f"
-                        },
-                        {
-                            "valueName": "aero_solver_settings.scene_units_in_meters",
-                            "valueType": "float",
-                            "value": "1f"
-                        },
-                        {
-                            "valueName": "aero_solver_settings.kill_voxel_fog_threshold",
-                            "valueType": "float",
-                            "value": "0.00999999978f"
-                        },
-                        {
-                            "valueName": "aero_solver_settings.enable_buoyancy",
-                            "valueType": "bool",
-                            "value": "true"
-                        },
-                        {
-                            "valueName": "aero_solver_settings.store_mass_density",
-                            "valueType": "bool",
-                            "value": "false"
-                        },
-                        {
-                            "valueName": "aero_solver_settings.enhanced_accuracy",
-                            "valueType": "bool",
-                            "value": "true"
-                        },
-                        {
-                            "valueName": "aero_solver_settings.kinematic_viscosity",
-                            "valueType": "float",
-                            "value": "0f"
                         },
                         {
                             "valueName": "collider.enable",
@@ -3293,12 +3340,12 @@
                             "value": "1.5f"
                         },
                         {
-                            "valueName": "create_mesh_sphere.height_segments",
+                            "valueName": "create_mesh_sphere.axis_segments",
                             "valueType": "int",
                             "value": "20L"
                         },
                         {
-                            "valueName": "create_mesh_sphere.axis_segments",
+                            "valueName": "create_mesh_sphere.height_segments",
                             "valueType": "int",
                             "value": "20L"
                         },
@@ -3331,12 +3378,12 @@
                             "value": "1.5f"
                         },
                         {
-                            "valueName": "create_mesh_sphere1.height_segments",
+                            "valueName": "create_mesh_sphere1.axis_segments",
                             "valueType": "int",
                             "value": "20L"
                         },
                         {
-                            "valueName": "create_mesh_sphere1.axis_segments",
+                            "valueName": "create_mesh_sphere1.height_segments",
                             "valueType": "int",
                             "value": "20L"
                         },
@@ -3367,7 +3414,7 @@
                             "valueName": "evaluate_fcurve.fcurve",
                             "valueType": "Math::FCurve",
                             "value": {
-                                "version": "1",
+                                "version": "2",
                                 "preExtrapolation": "0",
                                 "postExtrapolation": "0",
                                 "points": [
@@ -3375,6 +3422,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "-11.339919999999999",
                                                 "yp": "2.566452",
@@ -3389,6 +3437,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "16.021925",
                                                 "yp": "0.00088699999999999998",
@@ -3403,6 +3452,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "45.227016999999996",
                                                 "yp": "2.5499999999999998",
@@ -3420,7 +3470,7 @@
                             "valueName": "evaluate_fcurve1.fcurve",
                             "valueType": "Math::FCurve",
                             "value": {
-                                "version": "1",
+                                "version": "2",
                                 "preExtrapolation": "0",
                                 "postExtrapolation": "0",
                                 "points": [
@@ -3428,6 +3478,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "-7.8290319999999998",
                                                 "yp": "-0.021759000000000001",
@@ -3442,6 +3493,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "17.508064000000001",
                                                 "yp": "2.485919",
@@ -3456,6 +3508,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "45.489759999999997",
                                                 "yp": "0",
@@ -3473,7 +3526,7 @@
                             "valueName": "evaluate_fcurve2.fcurve",
                             "valueType": "Math::FCurve",
                             "value": {
-                                "version": "1",
+                                "version": "2",
                                 "preExtrapolation": "0",
                                 "postExtrapolation": "0",
                                 "points": [
@@ -3481,6 +3534,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "-7.8290319999999998",
                                                 "yp": "-0.021759000000000001",
@@ -3495,6 +3549,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "17.508064000000001",
                                                 "yp": "2.485919",
@@ -3509,6 +3564,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "45.489759999999997",
                                                 "yp": "1.27",
@@ -3782,7 +3838,14 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "fluids": "2.15.0.9",
+                        "geometries": "2.15.0.9",
+                        "simulation": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -3811,12 +3874,12 @@
                     "nodeName": "define_usd_mesh",
                     "nodeType": "USD::Prim::define_usd_mesh",
                     "fanInPortNames": {
+                        "reference_definitions": [],
                         "attribute_definitions": [
                             "attribute_definition"
                         ],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
-                        "children": []
+                        "children": [],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -3950,13 +4013,13 @@
                     "nodeName": "define_usd_prim",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
                         "variant_set_definitions": [],
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
                         "children": [
                             "mesh_definition"
-                        ]
+                        ],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -4313,6 +4376,11 @@
                     "value": "displayColor"
                 },
                 {
+                    "valueName": "define_usd_attribute.custom",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
                     "valueName": "define_usd_attribute.type",
                     "valueType": "BifrostUsd::SdfValueTypeName",
                     "value": "Color3fArray"
@@ -4353,19 +4421,14 @@
                     "value": "PrimVarVertex"
                 },
                 {
-                    "valueName": "define_usd_attribute.custom",
-                    "valueType": "bool",
-                    "value": "false"
+                    "valueName": "define_usd_attribute.frame",
+                    "valueType": "float",
+                    "value": "0f"
                 },
                 {
                     "valueName": "define_usd_attribute.use_frame",
                     "valueType": "bool",
                     "value": "true"
-                },
-                {
-                    "valueName": "define_usd_attribute.frame",
-                    "valueType": "float",
-                    "value": "0f"
                 },
                 {
                     "valueName": "set_property.key",
@@ -4377,7 +4440,15 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "fluids": "2.15.0.9",
+                "geometries": "2.15.0.9",
+                "simulation": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

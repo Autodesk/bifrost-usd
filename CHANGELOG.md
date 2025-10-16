@@ -1,3 +1,12 @@
+## [1.4.1] - 2025-10-15 (Bifrost 2.15)
+
+### Build
+ - BIFROST-12652 - Relocate Bifrost USD pack's graphs from `/resources/jsonLibs/graphs` to `/resources/graphs` in the installation folder.
+ - BIFROST-12791 - Add `BIFUSD_MAYA_TRANSLATIONS_NAME` variable to override usdMayaTranslations extension loaded from Bifrost install.
+
+### Bugfix
+ - BIFROST-12866 - Fix cpp2json error when setting MaterialPurpose default value.
+
 ## [1.4.0] - 2025-04-30 (Bifrost 2.14)
 
 ### Bugfix
@@ -126,12 +135,12 @@
     Allow to create a VariantSet inside an existing VariantSet on its prim.
     It changes the _set_variant_selection_ operator behavior.
     Previously the "clear" parameter was used to mimic a clear variant set.
-    In the new implementation, the "clear" parameter clear the current variant
-    selection and add a new one in current VariantSet.
+    In the new implementation, the "clear" parameter clears the current variant
+    selection and adds a new one in current VariantSet.
     To only clear the variant selection without setting a new one, use the
     _clear_variant_selection_ operator.
 
-    This change allow users to create a variant set and a variant by just specifying it in the Variant Selection section of the _define_usd_prim_.
+    This change allows users to create a variant set and a variant by just specifying it in the Variant Selection section of the _define_usd_prim_.
     Creating a _define_usd_variant_set_ on the parent prim is needed only to set the variant selection in a particular variant set.
 
  - BIFROST-9637 - Add clear_variant_selection operator.
@@ -302,9 +311,9 @@
  - BIFROST-8426 - Inconsistent UI in define_usd_prim
 
  - BIFROST-8273 - fix sublayers not saved if relative_path is on
-	- Use the layer's save file path (m_filePath) instead of the sdfLayerIdentifier in the recursive call to Layer::exportToFile().
-	- Add new more complete unit test for export_layer_to_file() that covers multiple cases for relative and absolute paths to sublayers.
-	- removed call to changeDir() that has side effect and is not required anymore for unit tests.
+    - use the layer's save file path (m_filePath) instead of the sdfLayerIdentifier in the recursive call to Layer::exportToFile().
+    - add new more complete unit test for export_layer_to_file() that covers multiple cases for relative and absolute paths to sublayers.
+    - remove call to changeDir() that has side effect and is not required anymore for unit tests.
 
 
 ## [1.1.0] - 2023-03-29 (Bifrost 2.7)
@@ -322,11 +331,9 @@
 ### Feature
 
 - BIFROST-7955 - Add applied schema nodes
-	- add_applied_schema: This node adds the applied API schema name to the apiSchema metadata of the prim
-	- remove_applied_schema: This node removes the applied API schema name from the apiSchema metadata of the prim
+    - add_applied_schema: This node adds the applied API schema name to the apiSchema metadata of the prim
+    - remove_applied_schema: This node removes the applied API schema name from the apiSchema metadata of the prim
 
-
-### Bugfix
 
 ## [1.0.0] - 2022-12-12 (Bifrost 2.6)
 

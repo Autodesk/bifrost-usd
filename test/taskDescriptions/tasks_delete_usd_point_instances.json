@@ -2,9 +2,6 @@
     "schemaVersion": "1.0.0",
     "comment": "Test delete_usd_point_instances compound",
     "options": {
-        "definitionFiles": [
-            "delete_usd_point_instances_test00.json"
-        ],
         "compound": "USD::Test::PointInstancer::delete_usd_point_instances_test00"
     },
     "task": {

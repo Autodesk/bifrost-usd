@@ -12,9 +12,6 @@
         "   - if the '/A/geo/obj' prim is assigned to the '/A/mtl/Blue' material in the 'blue' variant."
     ],
     "options": {
-        "definitionFiles": [
-            "add_to_stage_test00.json"
-        ],
         "compound": "USD::Test::Stage::add_to_stage_test00"
     },
     "task": {

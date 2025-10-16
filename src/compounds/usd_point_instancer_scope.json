@@ -1130,6 +1130,11 @@
                                         "outputPortName": "out_scale"
                                     }
                                 ]
+                            },
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
                             }
                         }
                     ],
@@ -1233,7 +1238,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "if_equal_to_all",
@@ -1409,7 +1419,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "if_less",
@@ -1708,7 +1721,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "if_less_or_equal",
@@ -2012,7 +2028,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "if_equal",
@@ -2316,7 +2335,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "if_greater_or_equal",
@@ -2620,7 +2642,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "if_greater",
@@ -2924,7 +2949,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "terminals",
@@ -3677,7 +3705,10 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -4805,7 +4836,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -4973,7 +5008,7 @@
                                     "valueName": "create_instances.probability_curve",
                                     "valueType": "Math::FCurve",
                                     "value": {
-                                        "version": "1",
+                                        "version": "2",
                                         "preExtrapolation": "0",
                                         "postExtrapolation": "0",
                                         "points": [
@@ -4981,6 +5016,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "1",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "-0.63807499999999995",
                                                         "yp": "-0.180645",
@@ -4995,6 +5031,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "1",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "0.67824300000000004",
                                                         "yp": "0.91612899999999997",
@@ -5026,7 +5063,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "scatter": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -5244,7 +5286,7 @@
                             "valueName": "point_scope.heatmap_R",
                             "valueType": "Math::FCurve",
                             "value": {
-                                "version": "1",
+                                "version": "2",
                                 "preExtrapolation": "0",
                                 "postExtrapolation": "0",
                                 "points": [
@@ -5252,6 +5294,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "-0.40000000000000002",
                                                 "yp": "0.10000000000000001",
@@ -5266,6 +5309,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "9.5999999999999996",
                                                 "yp": "1",
@@ -5283,7 +5327,7 @@
                             "valueName": "point_scope.heatmap_G",
                             "valueType": "Math::FCurve",
                             "value": {
-                                "version": "1",
+                                "version": "2",
                                 "preExtrapolation": "0",
                                 "postExtrapolation": "0",
                                 "points": [
@@ -5291,6 +5335,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "-1.3999999999999999",
                                                 "yp": "0",
@@ -5305,6 +5350,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "4.7000000000000002",
                                                 "yp": "1",
@@ -5319,6 +5365,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "9.5999999999999996",
                                                 "yp": "0",
@@ -5336,7 +5383,7 @@
                             "valueName": "point_scope.heatmap_B",
                             "valueType": "Math::FCurve",
                             "value": {
-                                "version": "1",
+                                "version": "2",
                                 "preExtrapolation": "0",
                                 "postExtrapolation": "0",
                                 "points": [
@@ -5344,6 +5391,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "-0.40000000000000002",
                                                 "yp": "1",
@@ -5358,6 +5406,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "9.5999999999999996",
                                                 "yp": "0.10000000000000001",
@@ -5419,7 +5468,13 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "geometries": "2.15.0.9",
+                        "scatter": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "prototypes_to_meshes",
@@ -5719,6 +5774,10 @@
                             ],
                             "forEachCompound": {
                                 "ports": []
+                            },
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
                             }
                         }
                     ],
@@ -5831,7 +5890,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -6814,7 +6877,14 @@
                 {
                     "name": "output1"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "geometries": "2.15.0.9",
+                "scatter": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

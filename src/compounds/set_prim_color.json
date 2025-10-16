@@ -296,7 +296,11 @@
                     "valueType": "BifrostUsd::SdfValueTypeName",
                     "value": "Color3fArray"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

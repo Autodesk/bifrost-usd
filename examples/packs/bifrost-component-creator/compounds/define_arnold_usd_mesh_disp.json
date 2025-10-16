@@ -725,6 +725,11 @@
                     "value": "primvars:arnold:disp_height"
                 },
                 {
+                    "valueName": "define_usd_attribute2.custom",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
                     "valueName": "define_usd_attribute2.type",
                     "valueType": "BifrostUsd::SdfValueTypeName",
                     "value": "Float"
@@ -770,9 +775,9 @@
                     "value": "PrimVarConstant"
                 },
                 {
-                    "valueName": "define_usd_attribute2.custom",
-                    "valueType": "bool",
-                    "value": "false"
+                    "valueName": "define_usd_attribute2.frame",
+                    "valueType": "float",
+                    "value": "0f"
                 },
                 {
                     "valueName": "define_usd_attribute2.use_frame",
@@ -780,14 +785,14 @@
                     "value": "false"
                 },
                 {
-                    "valueName": "define_usd_attribute2.frame",
-                    "valueType": "float",
-                    "value": "0f"
-                },
-                {
                     "valueName": "define_usd_attribute3.name",
                     "valueType": "string",
                     "value": "primvars:arnold:disp_padding"
+                },
+                {
+                    "valueName": "define_usd_attribute3.custom",
+                    "valueType": "bool",
+                    "value": "false"
                 },
                 {
                     "valueName": "define_usd_attribute3.type",
@@ -835,9 +840,9 @@
                     "value": "PrimVarConstant"
                 },
                 {
-                    "valueName": "define_usd_attribute3.custom",
-                    "valueType": "bool",
-                    "value": "false"
+                    "valueName": "define_usd_attribute3.frame",
+                    "valueType": "float",
+                    "value": "0f"
                 },
                 {
                     "valueName": "define_usd_attribute3.use_frame",
@@ -845,14 +850,14 @@
                     "value": "false"
                 },
                 {
-                    "valueName": "define_usd_attribute3.frame",
-                    "valueType": "float",
-                    "value": "0f"
-                },
-                {
                     "valueName": "define_usd_attribute4.name",
                     "valueType": "string",
                     "value": "primvars:arnold:disp_zero_value"
+                },
+                {
+                    "valueName": "define_usd_attribute4.custom",
+                    "valueType": "bool",
+                    "value": "false"
                 },
                 {
                     "valueName": "define_usd_attribute4.type",
@@ -900,19 +905,14 @@
                     "value": "PrimVarConstant"
                 },
                 {
-                    "valueName": "define_usd_attribute4.custom",
-                    "valueType": "bool",
-                    "value": "false"
+                    "valueName": "define_usd_attribute4.frame",
+                    "valueType": "float",
+                    "value": "0f"
                 },
                 {
                     "valueName": "define_usd_attribute4.use_frame",
                     "valueType": "bool",
                     "value": "false"
-                },
-                {
-                    "valueName": "define_usd_attribute4.frame",
-                    "valueType": "float",
-                    "value": "0f"
                 },
                 {
                     "valueName": "not_equal.second",
@@ -933,6 +933,11 @@
                     "valueName": "define_usd_attribute5.name",
                     "valueType": "string",
                     "value": "primvars:arnold:disp_autobump"
+                },
+                {
+                    "valueName": "define_usd_attribute5.custom",
+                    "valueType": "bool",
+                    "value": "false"
                 },
                 {
                     "valueName": "define_usd_attribute5.type",
@@ -980,19 +985,14 @@
                     "value": "PrimVarConstant"
                 },
                 {
-                    "valueName": "define_usd_attribute5.custom",
-                    "valueType": "bool",
-                    "value": "false"
+                    "valueName": "define_usd_attribute5.frame",
+                    "valueType": "float",
+                    "value": "0f"
                 },
                 {
                     "valueName": "define_usd_attribute5.use_frame",
                     "valueType": "bool",
                     "value": "false"
-                },
-                {
-                    "valueName": "define_usd_attribute5.frame",
-                    "valueType": "float",
-                    "value": "0f"
                 },
                 {
                     "valueName": "not_equal4.first",
@@ -1008,6 +1008,11 @@
                     "valueName": "define_usd_attribute6.name",
                     "valueType": "string",
                     "value": "primvars:arnold:autobump_visibility"
+                },
+                {
+                    "valueName": "define_usd_attribute6.custom",
+                    "valueType": "bool",
+                    "value": "false"
                 },
                 {
                     "valueName": "define_usd_attribute6.type",
@@ -1055,9 +1060,9 @@
                     "value": "PrimVarConstant"
                 },
                 {
-                    "valueName": "define_usd_attribute6.custom",
-                    "valueType": "bool",
-                    "value": "false"
+                    "valueName": "define_usd_attribute6.frame",
+                    "valueType": "float",
+                    "value": "0f"
                 },
                 {
                     "valueName": "define_usd_attribute6.use_frame",
@@ -1065,14 +1070,14 @@
                     "value": "false"
                 },
                 {
-                    "valueName": "define_usd_attribute6.frame",
-                    "valueType": "float",
-                    "value": "0f"
-                },
-                {
                     "valueName": "define_usd_attribute7.name",
                     "valueType": "string",
                     "value": "primvars:arnold:smoothing"
+                },
+                {
+                    "valueName": "define_usd_attribute7.custom",
+                    "valueType": "bool",
+                    "value": "false"
                 },
                 {
                     "valueName": "define_usd_attribute7.type",
@@ -1120,19 +1125,14 @@
                     "value": "PrimVarConstant"
                 },
                 {
-                    "valueName": "define_usd_attribute7.custom",
-                    "valueType": "bool",
-                    "value": "false"
+                    "valueName": "define_usd_attribute7.frame",
+                    "valueType": "float",
+                    "value": "0f"
                 },
                 {
                     "valueName": "define_usd_attribute7.use_frame",
                     "valueType": "bool",
                     "value": "false"
-                },
-                {
-                    "valueName": "define_usd_attribute7.frame",
-                    "valueType": "float",
-                    "value": "0f"
                 }
             ],
             "reservedNodeNames": [
@@ -1142,7 +1142,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

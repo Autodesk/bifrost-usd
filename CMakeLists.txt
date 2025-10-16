@@ -44,8 +44,6 @@ project(${BIFUSD_PACKAGE_NAME}
         VERSION ${BIFROST_USD_PACK_MAJOR_VERSION}.${BIFROST_USD_PACK_MINOR_VERSION}.${BIFROST_USD_PACK_PATCH_LEVEL}
         LANGUAGES NONE)
 
-include(CMakePrintHelpers)
-
 # Generates a 'compile_commands.json' file containing the exact compilation
 # command for all translation units of the project in a machine-readable form.
 #
@@ -94,6 +92,14 @@ include(${BIFUSD_TOOLS_DIR}/utils.cmake)
 include(${BIFUSD_TOOLS_DIR}/setup.cmake)
 include(${BIFUSD_TOOLS_DIR}/version.cmake)
 
+# A calling package can also set the source directory for where the
+# "compound-dev" config will look for the USD Pack's compound and graph
+# directories. The "compound-dev" config files can be used to load and publish
+# compounds directly to and from the source directories.
+if ( NOT BIFUSD_COMPOUND_DEV_SOURCE_DIR )
+    set(BIFUSD_COMPOUND_DEV_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+endif()
+
 #==============================================================================
 # PACKAGES USED WHILE BUILDING
 #==============================================================================
@@ -105,6 +111,10 @@ include(${BIFUSD_TOOLS_DIR}/python.cmake)
 #==============================================================================
 include(cmake/setup.cmake)
 include(cmake/utils.cmake)
+
+if (NOT DEFINED BIFUSD_MAYA_TRANSLATIONS_NAME)
+    set(BIFUSD_MAYA_TRANSLATIONS_NAME "usdMayaTranslations")
+endif()
 
 # Standalone build setup the compiler
 # Else use the parent environment's compiler
@@ -202,9 +212,6 @@ endif()
 
 #==============================================================================
 # Bifrost Hydra
-# NOT PART OF PUBLIC BIFROST SDK YET
-# NOT PART OF PUBLIC BIFROST SDK YET
-# NOT PART OF PUBLIC BIFROST SDK YET
 #==============================================================================
 #
 if( BIFUSD_BUILD_HYDRA )

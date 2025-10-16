@@ -7,9 +7,6 @@
         "   - if the geosubset attributes types and values are correct."
     ],
     "options": {
-        "definitionFiles": [
-            "create_geom_subset_test00.json"
-        ],
         "compound": "USD::Test::Prim::create_geom_subset_test00"
     },
     "task": {

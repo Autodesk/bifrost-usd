@@ -362,6 +362,12 @@
                                 {
                                     "nodeName": "create_mesh_torus",
                                     "nodeType": "Modeling::Primitive::create_mesh_torus",
+                                    "terminalStates": [
+                                        {
+                                            "name": "Core::Graph::terminal::diagnostic",
+                                            "enabled": "false"
+                                        }
+                                    ],
                                     "metadata": [
                                         {
                                             "metaName": "DisplayMode",
@@ -538,6 +544,11 @@
                                     "value": "20U"
                                 },
                                 {
+                                    "valueName": "create_mesh_torus.normals",
+                                    "valueType": "Modeling::Primitive::Normals",
+                                    "value": "smooth"
+                                },
+                                {
                                     "valueName": "create_mesh_torus.position",
                                     "valueType": "Math::float3",
                                     "value": {
@@ -563,11 +574,6 @@
                                         "y": "1f",
                                         "z": "0f"
                                     }
-                                },
-                                {
-                                    "valueName": "create_mesh_torus.normals",
-                                    "valueType": "Modeling::Primitive::Normals",
-                                    "value": "smooth"
                                 }
                             ],
                             "reservedNodeNames": [
@@ -577,7 +583,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         },
                         {
                             "name": "define_usd_display_color",
@@ -739,6 +749,11 @@
                                     "value": "displayColor"
                                 },
                                 {
+                                    "valueName": "define_usd_attribute.custom",
+                                    "valueType": "bool",
+                                    "value": "false"
+                                },
+                                {
                                     "valueName": "define_usd_attribute.type",
                                     "valueType": "BifrostUsd::SdfValueTypeName",
                                     "value": "Color3fArray"
@@ -779,19 +794,14 @@
                                     "value": "PrimVarVarying"
                                 },
                                 {
-                                    "valueName": "define_usd_attribute.custom",
-                                    "valueType": "bool",
-                                    "value": "false"
+                                    "valueName": "define_usd_attribute.frame",
+                                    "valueType": "float",
+                                    "value": "0f"
                                 },
                                 {
                                     "valueName": "define_usd_attribute.use_frame",
                                     "valueType": "bool",
                                     "value": "false"
-                                },
-                                {
-                                    "valueName": "define_usd_attribute.frame",
-                                    "valueType": "float",
-                                    "value": "0f"
                                 }
                             ],
                             "reservedNodeNames": [
@@ -801,7 +811,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -913,12 +927,12 @@
                             "nodeName": "define_usd_mesh",
                             "nodeType": "USD::Prim::define_usd_mesh",
                             "fanInPortNames": {
+                                "reference_definitions": [],
                                 "attribute_definitions": [
                                     "attribute_definition"
                                 ],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
-                                "children": []
+                                "children": [],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -952,13 +966,13 @@
                             "nodeName": "define_usd_mesh1",
                             "nodeType": "USD::Prim::define_usd_mesh",
                             "fanInPortNames": {
+                                "reference_definitions": [],
                                 "attribute_definitions": [
                                     "attribute_definitions",
                                     "attribute_definition"
                                 ],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
-                                "children": []
+                                "children": [],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -1075,14 +1089,14 @@
                     ],
                     "values": [
                         {
-                            "valueName": "add_to_stage.enable",
-                            "valueType": "bool",
-                            "value": "true"
-                        },
-                        {
                             "valueName": "add_to_stage.prim_definitions",
                             "valueType": "array<Object>",
                             "value": []
+                        },
+                        {
+                            "valueName": "add_to_stage.enable",
+                            "valueType": "bool",
+                            "value": "true"
                         },
                         {
                             "valueName": "add_to_stage.parent_path",
@@ -1119,49 +1133,14 @@
                             "value": {}
                         },
                         {
-                            "valueName": "define_usd_mesh.subdivision_scheme",
-                            "valueType": "BifrostUsd::SubdivisionScheme",
-                            "value": "catmullClark"
-                        },
-                        {
-                            "valueName": "define_usd_mesh.attribute_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_mesh.reference_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_mesh.relationship_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_mesh.children",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_mesh.material",
-                            "valueType": "Object",
-                            "value": {}
-                        },
-                        {
                             "valueName": "define_usd_mesh.normal_per_vertex",
                             "valueType": "bool",
                             "value": "true"
                         },
                         {
-                            "valueName": "define_usd_mesh.variant_set_name",
-                            "valueType": "string",
-                            "value": ""
-                        },
-                        {
-                            "valueName": "define_usd_mesh.variant_name",
-                            "valueType": "string",
-                            "value": ""
+                            "valueName": "define_usd_mesh.subdivision_scheme",
+                            "valueType": "BifrostUsd::SubdivisionScheme",
+                            "value": "catmullClark"
                         },
                         {
                             "valueName": "define_usd_mesh.use_frame",
@@ -1174,6 +1153,41 @@
                             "value": "0f"
                         },
                         {
+                            "valueName": "define_usd_mesh.variant_set_name",
+                            "valueType": "string",
+                            "value": ""
+                        },
+                        {
+                            "valueName": "define_usd_mesh.variant_name",
+                            "valueType": "string",
+                            "value": ""
+                        },
+                        {
+                            "valueName": "define_usd_mesh.reference_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_mesh.attribute_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_mesh.children",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_mesh.relationship_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_mesh.material",
+                            "valueType": "Object",
+                            "value": {}
+                        },
+                        {
                             "valueName": "define_usd_mesh1.path",
                             "valueType": "string",
                             "value": "/mesh_with_constant_color"
@@ -1184,39 +1198,24 @@
                             "value": {}
                         },
                         {
+                            "valueName": "define_usd_mesh1.normal_per_vertex",
+                            "valueType": "bool",
+                            "value": "true"
+                        },
+                        {
                             "valueName": "define_usd_mesh1.subdivision_scheme",
                             "valueType": "BifrostUsd::SubdivisionScheme",
                             "value": "catmullClark"
                         },
                         {
-                            "valueName": "define_usd_mesh1.attribute_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_mesh1.reference_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_mesh1.relationship_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_mesh1.children",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_mesh1.material",
-                            "valueType": "Object",
-                            "value": {}
-                        },
-                        {
-                            "valueName": "define_usd_mesh1.normal_per_vertex",
+                            "valueName": "define_usd_mesh1.use_frame",
                             "valueType": "bool",
-                            "value": "true"
+                            "value": "false"
+                        },
+                        {
+                            "valueName": "define_usd_mesh1.frame",
+                            "valueType": "float",
+                            "value": "0f"
                         },
                         {
                             "valueName": "define_usd_mesh1.variant_set_name",
@@ -1229,14 +1228,29 @@
                             "value": ""
                         },
                         {
-                            "valueName": "define_usd_mesh1.use_frame",
-                            "valueType": "bool",
-                            "value": "false"
+                            "valueName": "define_usd_mesh1.reference_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
                         },
                         {
-                            "valueName": "define_usd_mesh1.frame",
-                            "valueType": "float",
-                            "value": "0f"
+                            "valueName": "define_usd_mesh1.attribute_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_mesh1.children",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_mesh1.relationship_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_mesh1.material",
+                            "valueType": "Object",
+                            "value": {}
                         },
                         {
                             "valueName": "define_usd_transform.translation",
@@ -1280,7 +1294,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "test_with_color",
@@ -1983,7 +2002,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "expect_float3_equal1",
@@ -2446,7 +2468,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -2882,7 +2907,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         },
                         {
                             "name": "second_mesh_with_constant_color",
@@ -3492,7 +3521,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "expect_float3_equal1",
@@ -3955,7 +3987,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -4422,7 +4457,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -4626,7 +4665,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "test_without_color",
@@ -4974,7 +5017,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         },
                         {
                             "name": "second_mesh_with_no_color",
@@ -5229,7 +5276,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -5427,7 +5478,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -5833,7 +5888,12 @@
                 {
                     "name": "input"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

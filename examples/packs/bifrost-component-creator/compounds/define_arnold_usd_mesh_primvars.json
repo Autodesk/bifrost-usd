@@ -602,7 +602,12 @@
                 {
                     "name": "input"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_component_creator": "1.0.0"
+            }
         }
     ]
 }

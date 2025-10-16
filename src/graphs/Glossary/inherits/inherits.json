@@ -1336,7 +1336,7 @@
                                     "valueName": "evaluate_fcurve.fcurve",
                                     "valueType": "Math::FCurve",
                                     "value": {
-                                        "version": "1",
+                                        "version": "2",
                                         "preExtrapolation": "0",
                                         "postExtrapolation": "0",
                                         "points": [
@@ -1344,6 +1344,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "2",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "-0.39258900000000002",
                                                         "yp": "0.0016130000000000001",
@@ -1358,6 +1359,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "2",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "0.73294999999999999",
                                                         "yp": "0.074193999999999996",
@@ -1372,6 +1374,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "2",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "0.87773599999999996",
                                                         "yp": "0.50483900000000004",
@@ -1389,7 +1392,7 @@
                                     "valueName": "evaluate_fcurve1.fcurve",
                                     "valueType": "Math::FCurve",
                                     "value": {
-                                        "version": "1",
+                                        "version": "2",
                                         "preExtrapolation": "0",
                                         "postExtrapolation": "0",
                                         "points": [
@@ -1397,6 +1400,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "2",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "-0.42033799999999999",
                                                         "yp": "0.59516199999999997",
@@ -1411,6 +1415,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "2",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "0.25069599999999997",
                                                         "yp": "0.61560700000000002",
@@ -1425,6 +1430,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "2",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "0.47545900000000002",
                                                         "yp": "0.781134",
@@ -1439,6 +1445,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "2",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "0.525424",
                                                         "yp": "0.57741900000000002",
@@ -1456,7 +1463,7 @@
                                     "valueName": "evaluate_fcurve2.fcurve",
                                     "valueType": "Math::FCurve",
                                     "value": {
-                                        "version": "1",
+                                        "version": "2",
                                         "preExtrapolation": "0",
                                         "postExtrapolation": "0",
                                         "points": [
@@ -1464,6 +1471,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "2",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "-0.30169499999999999",
                                                         "yp": "1.008065",
@@ -1478,6 +1486,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "2",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "0.61694899999999997",
                                                         "yp": "0",
@@ -1547,7 +1556,11 @@
                                 {
                                     "name": "input1"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -1651,12 +1664,12 @@
                     ],
                     "values": [
                         {
-                            "valueName": "create_mesh_cylinder1.bottom_cap",
+                            "valueName": "create_mesh_cylinder1.top_cap",
                             "valueType": "bool",
                             "value": "false"
                         },
                         {
-                            "valueName": "create_mesh_cylinder1.top_cap",
+                            "valueName": "create_mesh_cylinder1.bottom_cap",
                             "valueType": "bool",
                             "value": "false"
                         },
@@ -1722,7 +1735,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "leaves_mesh",
@@ -1810,6 +1827,12 @@
                         {
                             "nodeName": "create_mesh_sphere",
                             "nodeType": "Modeling::Primitive::create_mesh_sphere",
+                            "terminalStates": [
+                                {
+                                    "name": "Core::Graph::terminal::diagnostic",
+                                    "enabled": "false"
+                                }
+                            ],
                             "metadata": [
                                 {
                                     "metaName": "DisplayMode",
@@ -2122,14 +2145,14 @@
                             "value": "0.528100014f"
                         },
                         {
-                            "valueName": "create_mesh_sphere.height_segments",
-                            "valueType": "int",
-                            "value": "14L"
-                        },
-                        {
                             "valueName": "create_mesh_sphere.axis_segments",
                             "valueType": "int",
                             "value": "34L"
+                        },
+                        {
+                            "valueName": "create_mesh_sphere.height_segments",
+                            "valueType": "int",
+                            "value": "14L"
                         },
                         {
                             "valueName": "create_mesh_sphere.position",
@@ -2179,7 +2202,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -2224,14 +2251,14 @@
                     "nodeName": "define_usd_prim",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
                         "variant_set_definitions": [],
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
                         "children": [
                             "mesh_definition",
                             "mesh_definition1"
-                        ]
+                        ],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -2265,12 +2292,12 @@
                     "nodeName": "define_usd_mesh",
                     "nodeType": "USD::Prim::define_usd_mesh",
                     "fanInPortNames": {
+                        "reference_definitions": [],
                         "attribute_definitions": [
                             "attribute_definition"
                         ],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
-                        "children": []
+                        "children": [],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -2336,12 +2363,12 @@
                     "nodeName": "define_usd_mesh1",
                     "nodeType": "USD::Prim::define_usd_mesh",
                     "fanInPortNames": {
+                        "reference_definitions": [],
                         "attribute_definitions": [
                             "attribute_definition"
                         ],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
-                        "children": []
+                        "children": [],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -2407,13 +2434,13 @@
                     "nodeName": "define_usd_prim1",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
+                        "variant_set_definitions": [],
                         "reference_definitions": [
                             "reference_definitions"
                         ],
-                        "relationship_definitions": [],
-                        "variant_set_definitions": [],
-                        "children": []
+                        "attribute_definitions": [],
+                        "children": [],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -2458,17 +2485,17 @@
                     "nodeName": "define_usd_prim2",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [
-                            "attribute_definitions"
-                        ],
+                        "variant_set_definitions": [],
                         "reference_definitions": [
                             "reference_definitions"
                         ],
-                        "relationship_definitions": [],
-                        "variant_set_definitions": [],
+                        "attribute_definitions": [
+                            "attribute_definitions"
+                        ],
                         "children": [
                             "prim_definition"
-                        ]
+                        ],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -2513,13 +2540,13 @@
                     "nodeName": "define_usd_prim3",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
+                        "variant_set_definitions": [],
+                        "reference_definitions": [],
                         "attribute_definitions": [
                             "attribute_definition"
                         ],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
-                        "variant_set_definitions": [],
-                        "children": []
+                        "children": [],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -2771,6 +2798,31 @@
                     "value": "/TreeB"
                 },
                 {
+                    "valueName": "define_usd_prim2.variant_set_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim2.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim2.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim2.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim2.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
                     "valueName": "define_usd_prim2.type",
                     "valueType": "string",
                     "value": "Xform"
@@ -2786,6 +2838,11 @@
                     "value": "None"
                 },
                 {
+                    "valueName": "define_usd_prim2.purpose",
+                    "valueType": "BifrostUsd::ImageablePurpose",
+                    "value": "Default"
+                },
+                {
                     "valueName": "define_usd_prim2.active",
                     "valueType": "BifrostUsd::ActivatePrim",
                     "value": "None"
@@ -2796,39 +2853,9 @@
                     "value": "None"
                 },
                 {
-                    "valueName": "define_usd_prim2.purpose",
-                    "valueType": "BifrostUsd::ImageablePurpose",
-                    "value": "Default"
-                },
-                {
-                    "valueName": "define_usd_prim2.attribute_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim2.reference_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim2.relationship_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim2.variant_set_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim2.children",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim2.material",
-                    "valueType": "Object",
-                    "value": {}
+                    "valueName": "define_usd_prim2.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
                 },
                 {
                     "valueName": "define_usd_prim2.variant_name",
@@ -2836,9 +2863,9 @@
                     "value": ""
                 },
                 {
-                    "valueName": "define_usd_prim2.variant_set_name",
-                    "valueType": "string",
-                    "value": ""
+                    "valueName": "define_usd_prim2.material",
+                    "valueType": "Object",
+                    "value": {}
                 },
                 {
                     "valueName": "define_usd_transform.translation",
@@ -2892,7 +2919,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

@@ -1,20 +1,4 @@
 {
-    "AminoConfigurations": [
-        {
-            "libraryName": "bifrostUsdPackCompounds",
-            "libraryVersion": "",
-            "vendorName": "Autodesk",
-            "libraryDependencies": [],
-            "jsonLibs": [
-                {
-                    "path": "src/compounds"
-                },
-                {
-                    "path": "src/graphs"
-                }
-            ]
-        }
-    ],
     "include":  "examples/packs/bifrost_config.json",
     "include":  "test/usd_pack_test_config.json"
 }

@@ -8,6 +8,3 @@ __pycache__
 .vscode
 # jetbrains solutions
 .idea
-
-# Compilation database
-compile_commands.json
