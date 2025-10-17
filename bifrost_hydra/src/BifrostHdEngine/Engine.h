@@ -1,5 +1,5 @@
 //-
-// Copyright 2024 Autodesk, Inc.
+// Copyright 2025 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,15 +31,14 @@
 namespace BifrostHd {
 class Workspace;
 
+using Output =
+    std::pair<std::string, Amino::Array<Amino::Ptr<Bifrost::Object>>>;
+
 /// \class Engine
 ///
 /// Interface to access the Bifrost Graph and parameters stored
 /// in a HdSceneIndexPrim of type hydraGenerativeProcedural
 ///
-
-using Output =
-    std::pair<std::string, Amino::Array<Amino::Ptr<Bifrost::Object>>>;
-
 class BIFROST_HD_ENGINE_SHARED_DECL Engine {
 public:
     Engine();

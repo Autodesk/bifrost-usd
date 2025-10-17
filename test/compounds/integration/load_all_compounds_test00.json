@@ -509,6 +509,11 @@
                             "value": "info:id"
                         },
                         {
+                            "valueName": "define_usd_attribute.custom",
+                            "valueType": "bool",
+                            "value": "false"
+                        },
+                        {
                             "valueName": "define_usd_attribute.type",
                             "valueType": "BifrostUsd::SdfValueTypeName",
                             "value": "Token"
@@ -549,19 +554,14 @@
                             "value": "PrimVarConstant"
                         },
                         {
-                            "valueName": "define_usd_attribute.custom",
-                            "valueType": "bool",
-                            "value": "false"
+                            "valueName": "define_usd_attribute.frame",
+                            "valueType": "float",
+                            "value": "0f"
                         },
                         {
                             "valueName": "define_usd_attribute.use_frame",
                             "valueType": "bool",
                             "value": "false"
-                        },
-                        {
-                            "valueName": "define_usd_attribute.frame",
-                            "valueType": "float",
-                            "value": "0f"
                         },
                         {
                             "valueName": "define_usd_display_color.color",
@@ -751,7 +751,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "prim_compounds_and_nodedefs",
@@ -1133,11 +1138,11 @@
                             "nodeName": "define_usd_prim",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
-                                "attribute_definitions": [],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
                                 "variant_set_definitions": [],
-                                "children": []
+                                "reference_definitions": [],
+                                "attribute_definitions": [],
+                                "children": [],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -1202,6 +1207,20 @@
                         {
                             "nodeName": "duplicate_usd_prim_definition",
                             "nodeType": "USD::Prim::duplicate_usd_prim_definition",
+                            "terminalStates": [
+                                {
+                                    "name": "Core::Graph::terminal::diagnostic",
+                                    "enabled": "false"
+                                },
+                                {
+                                    "name": "Core::Graph::terminal::proxy",
+                                    "enabled": "false"
+                                },
+                                {
+                                    "name": "Core::Graph::terminal::final",
+                                    "enabled": "false"
+                                }
+                            ],
                             "metadata": [
                                 {
                                     "metaName": "DisplayMode",
@@ -2379,6 +2398,31 @@
                             "value": "/obj"
                         },
                         {
+                            "valueName": "define_usd_prim.variant_set_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim.reference_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim.attribute_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim.children",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim.relationship_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
                             "valueName": "define_usd_prim.type",
                             "valueType": "string",
                             "value": "Xform"
@@ -2394,6 +2438,11 @@
                             "value": "None"
                         },
                         {
+                            "valueName": "define_usd_prim.purpose",
+                            "valueType": "BifrostUsd::ImageablePurpose",
+                            "value": "Default"
+                        },
+                        {
                             "valueName": "define_usd_prim.active",
                             "valueType": "BifrostUsd::ActivatePrim",
                             "value": "None"
@@ -2404,39 +2453,9 @@
                             "value": "None"
                         },
                         {
-                            "valueName": "define_usd_prim.purpose",
-                            "valueType": "BifrostUsd::ImageablePurpose",
-                            "value": "Default"
-                        },
-                        {
-                            "valueName": "define_usd_prim.attribute_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim.reference_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim.relationship_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim.variant_set_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim.children",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim.material",
-                            "valueType": "Object",
-                            "value": {}
+                            "valueName": "define_usd_prim.variant_set_name",
+                            "valueType": "string",
+                            "value": ""
                         },
                         {
                             "valueName": "define_usd_prim.variant_name",
@@ -2444,9 +2463,9 @@
                             "value": ""
                         },
                         {
-                            "valueName": "define_usd_prim.variant_set_name",
-                            "valueType": "string",
-                            "value": ""
+                            "valueName": "define_usd_prim.material",
+                            "valueType": "Object",
+                            "value": {}
                         },
                         {
                             "valueName": "define_usd_reference.arc_type",
@@ -2650,7 +2669,13 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "scatter": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "collection_compounds_and_nodedefs",
@@ -2782,7 +2807,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "layer_compounds_and_nodedefs",
@@ -3092,7 +3121,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "shading_compounds_and_nodedefs",
@@ -3251,6 +3284,11 @@
                             }
                         },
                         {
+                            "valueName": "define_usd_preview_surface.texture_file_path",
+                            "valueType": "string",
+                            "value": ""
+                        },
+                        {
                             "valueName": "define_usd_preview_surface.emissive_color",
                             "valueType": "Math::float3",
                             "value": {
@@ -3260,14 +3298,9 @@
                             }
                         },
                         {
-                            "valueName": "define_usd_preview_surface.metallic",
+                            "valueName": "define_usd_preview_surface.clearcoat",
                             "valueType": "float",
                             "value": "0f"
-                        },
-                        {
-                            "valueName": "define_usd_preview_surface.roughness",
-                            "valueType": "float",
-                            "value": "0.460000008f"
                         },
                         {
                             "valueName": "define_usd_preview_surface.index_of_refraction",
@@ -3275,7 +3308,7 @@
                             "value": "1.51999998f"
                         },
                         {
-                            "valueName": "define_usd_preview_surface.clearcoat",
+                            "valueName": "define_usd_preview_surface.metallic",
                             "valueType": "float",
                             "value": "0f"
                         },
@@ -3285,9 +3318,9 @@
                             "value": "1f"
                         },
                         {
-                            "valueName": "define_usd_preview_surface.texture_file_path",
-                            "valueType": "string",
-                            "value": ""
+                            "valueName": "define_usd_preview_surface.roughness",
+                            "valueType": "float",
+                            "value": "0.460000008f"
                         },
                         {
                             "valueName": "define_usd_preview_surface.attribute_definitions",
@@ -3312,7 +3345,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "stage_compounds_and_nodedefs",
@@ -3709,11 +3747,6 @@
                     "connections": [],
                     "values": [
                         {
-                            "valueName": "add_to_stage.layer_index",
-                            "valueType": "int",
-                            "value": "-1L"
-                        },
-                        {
                             "valueName": "add_to_stage.prim_definitions",
                             "valueType": "array<Object>",
                             "value": []
@@ -3727,6 +3760,11 @@
                             "valueName": "add_to_stage.parent_path",
                             "valueType": "string",
                             "value": ""
+                        },
+                        {
+                            "valueName": "add_to_stage.layer_index",
+                            "valueType": "int",
+                            "value": "-1L"
                         },
                         {
                             "valueName": "add_to_stage.use_material_name_or_tag",
@@ -3766,7 +3804,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "variantset_compounds_and_nodedefs",
@@ -3961,7 +4004,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "utils_compounds_and_nodedefs",
@@ -4056,7 +4103,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "io_compounds_and_nodedefs",
@@ -4225,7 +4276,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "point_instancer_compounds",
@@ -4330,6 +4385,12 @@
                                 "geometries": [],
                                 "indices": []
                             },
+                            "terminalStates": [
+                                {
+                                    "name": "Core::Graph::terminal::diagnostic",
+                                    "enabled": "false"
+                                }
+                            ],
                             "metadata": [
                                 {
                                     "metaName": "DisplayMode",
@@ -4414,6 +4475,12 @@
                         {
                             "nodeName": "usd_point_instancer_scope",
                             "nodeType": "USD::PointInstancer::usd_point_instancer_scope",
+                            "terminalStates": [
+                                {
+                                    "name": "Core::Graph::terminal::diagnostic",
+                                    "enabled": "false"
+                                }
+                            ],
                             "metadata": [
                                 {
                                     "metaName": "DisplayMode",
@@ -4453,7 +4520,13 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "scatter": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -4783,7 +4856,13 @@
                 {
                     "name": "input"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "scatter": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

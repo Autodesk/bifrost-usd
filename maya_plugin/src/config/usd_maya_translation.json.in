@@ -2,9 +2,9 @@
     "AminoConfigurations": [
         {
             "vendorName": "Autodesk",
-            "libraryVersion": "",
             "libraryDependencies": [ "bif" ],
-            "libraryName": "usdMayaTranslations",
+            "libraryName": "@BIFUSD_MAYA_TRANSLATIONS_NAME@",
+            "libraryVersion": "@BIFUSD_MAJOR_VERSION@.@BIFUSD_MINOR_VERSION@.@BIFUSD_PATCH_LEVEL@",
             "typesTranslationlibs": [
                 {
                     "path": "${BIFROST_USD_CONFIG_SHARED_LIB}",

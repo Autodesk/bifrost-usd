@@ -477,7 +477,7 @@
                         },
                         {
                             "nodeName": "update_joint_path",
-                            "nodeType": "Geometry::Skeleton::update_joint_path",
+                            "nodeType": "Rigging::Skeleton::update_joint_path",
                             "metadata": [
                                 {
                                     "metaName": "DisplayMode",
@@ -547,7 +547,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "rigging": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "get_or_update_pivot_and_pivot_local",
@@ -793,6 +798,9 @@
                             ],
                             "forEachCompound": {
                                 "ports": []
+                            },
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9"
                             }
                         },
                         {
@@ -1177,7 +1185,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "compute_pivot_local_matrix",
@@ -1369,7 +1381,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -1529,6 +1544,10 @@
                             ],
                             "forEachCompound": {
                                 "ports": []
+                            },
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
                             }
                         }
                     ],
@@ -1556,7 +1575,7 @@
                         },
                         {
                             "nodeName": "get_skeleton_structure",
-                            "nodeType": "Geometry::Skeleton::get_skeleton_structure",
+                            "nodeType": "Rigging::Skeleton::get_skeleton_structure",
                             "metadata": [
                                 {
                                     "metaName": "DisplayMode",
@@ -1709,7 +1728,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "rigging": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -1840,21 +1864,21 @@
                     "nodeName": "define_usd_prim1",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
+                        "variant_set_definitions": [],
+                        "reference_definitions": [
+                            "reference_definitions"
+                        ],
                         "attribute_definitions": [
                             "attribute_definition",
                             "attribute_definition1",
                             "attribute_definition2",
                             "attribute_definitions"
                         ],
-                        "reference_definitions": [
-                            "reference_definitions"
+                        "children": [
+                            "children"
                         ],
                         "relationship_definitions": [
                             "relationship_definitions"
-                        ],
-                        "variant_set_definitions": [],
-                        "children": [
-                            "children"
                         ]
                     },
                     "metadata": [
@@ -2053,6 +2077,11 @@
                     "value": "bindTransforms"
                 },
                 {
+                    "valueName": "define_usd_attribute4.custom",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
                     "valueName": "define_usd_attribute4.type",
                     "valueType": "BifrostUsd::SdfValueTypeName",
                     "value": "Matrix4dArray"
@@ -2093,9 +2122,9 @@
                     "value": "PrimVarConstant"
                 },
                 {
-                    "valueName": "define_usd_attribute4.custom",
-                    "valueType": "bool",
-                    "value": "false"
+                    "valueName": "define_usd_attribute4.frame",
+                    "valueType": "float",
+                    "value": "0f"
                 },
                 {
                     "valueName": "define_usd_attribute4.use_frame",
@@ -2103,14 +2132,14 @@
                     "value": "false"
                 },
                 {
-                    "valueName": "define_usd_attribute4.frame",
-                    "valueType": "float",
-                    "value": "0f"
-                },
-                {
                     "valueName": "define_usd_attribute5.name",
                     "valueType": "string",
                     "value": "restTransforms"
+                },
+                {
+                    "valueName": "define_usd_attribute5.custom",
+                    "valueType": "bool",
+                    "value": "false"
                 },
                 {
                     "valueName": "define_usd_attribute5.type",
@@ -2153,9 +2182,9 @@
                     "value": "PrimVarConstant"
                 },
                 {
-                    "valueName": "define_usd_attribute5.custom",
-                    "valueType": "bool",
-                    "value": "false"
+                    "valueName": "define_usd_attribute5.frame",
+                    "valueType": "float",
+                    "value": "0f"
                 },
                 {
                     "valueName": "define_usd_attribute5.use_frame",
@@ -2163,14 +2192,14 @@
                     "value": "false"
                 },
                 {
-                    "valueName": "define_usd_attribute5.frame",
-                    "valueType": "float",
-                    "value": "0f"
-                },
-                {
                     "valueName": "define_usd_attribute6.name",
                     "valueType": "string",
                     "value": "joints"
+                },
+                {
+                    "valueName": "define_usd_attribute6.custom",
+                    "valueType": "bool",
+                    "value": "false"
                 },
                 {
                     "valueName": "define_usd_attribute6.type",
@@ -2213,9 +2242,9 @@
                     "value": "PrimVarConstant"
                 },
                 {
-                    "valueName": "define_usd_attribute6.custom",
-                    "valueType": "bool",
-                    "value": "false"
+                    "valueName": "define_usd_attribute6.frame",
+                    "valueType": "float",
+                    "value": "0f"
                 },
                 {
                     "valueName": "define_usd_attribute6.use_frame",
@@ -2223,14 +2252,34 @@
                     "value": "false"
                 },
                 {
-                    "valueName": "define_usd_attribute6.frame",
-                    "valueType": "float",
-                    "value": "0f"
-                },
-                {
                     "valueName": "define_usd_prim1.path",
                     "valueType": "string",
                     "value": "/Skel"
+                },
+                {
+                    "valueName": "define_usd_prim1.variant_set_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim1.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim1.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim1.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim1.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
                 },
                 {
                     "valueName": "define_usd_prim1.type",
@@ -2248,6 +2297,11 @@
                     "value": "Component"
                 },
                 {
+                    "valueName": "define_usd_prim1.purpose",
+                    "valueType": "BifrostUsd::ImageablePurpose",
+                    "value": "Default"
+                },
+                {
                     "valueName": "define_usd_prim1.active",
                     "valueType": "BifrostUsd::ActivatePrim",
                     "value": "None"
@@ -2258,39 +2312,9 @@
                     "value": "None"
                 },
                 {
-                    "valueName": "define_usd_prim1.purpose",
-                    "valueType": "BifrostUsd::ImageablePurpose",
-                    "value": "Default"
-                },
-                {
-                    "valueName": "define_usd_prim1.attribute_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim1.reference_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim1.relationship_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim1.variant_set_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim1.children",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim1.material",
-                    "valueType": "Object",
-                    "value": {}
+                    "valueName": "define_usd_prim1.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
                 },
                 {
                     "valueName": "define_usd_prim1.variant_name",
@@ -2298,9 +2322,9 @@
                     "value": ""
                 },
                 {
-                    "valueName": "define_usd_prim1.variant_set_name",
-                    "valueType": "string",
-                    "value": ""
+                    "valueName": "define_usd_prim1.material",
+                    "valueType": "Object",
+                    "value": {}
                 },
                 {
                     "valueName": "get_or_update_joint_path.skeleton",
@@ -2329,7 +2353,13 @@
                 {
                     "name": "input4"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "rigging": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

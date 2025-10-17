@@ -884,7 +884,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "get_mesh_geo",
@@ -1339,6 +1343,10 @@
                                     ],
                                     "forEachCompound": {
                                         "ports": []
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
                                     }
                                 }
                             ],
@@ -1443,7 +1451,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -1570,7 +1582,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "set_vertex_normals",
@@ -1850,7 +1866,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -1991,7 +2011,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -2305,19 +2330,19 @@
                     "nodeName": "define_usd_prim",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
+                        "variant_set_definitions": [],
+                        "reference_definitions": [
+                            "reference_definitions"
+                        ],
                         "attribute_definitions": [
                             "array",
                             "attribute_definitions"
                         ],
-                        "reference_definitions": [
-                            "reference_definitions"
+                        "children": [
+                            "children"
                         ],
                         "relationship_definitions": [
                             "relationship_definitions"
-                        ],
-                        "variant_set_definitions": [],
-                        "children": [
-                            "children"
                         ]
                     },
                     "metadata": [
@@ -2799,7 +2824,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

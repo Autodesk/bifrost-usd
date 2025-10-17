@@ -172,7 +172,8 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {}
         }
     ]
 }

@@ -7,6 +7,8 @@
             }
         ]
     },
+    "namespaces": [],
+    "types": [],
     "compounds": [
         {
             "name": "Graphs::USD::geo_subset",
@@ -170,7 +172,8 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {}
         }
     ]
 }

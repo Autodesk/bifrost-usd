@@ -2,9 +2,6 @@
     "schemaVersion": "1.0.0",
     "comment": "Test landscape_generator integration compound",
     "options": {
-        "definitionFiles": [
-            "landscape_generator_test00.json"
-        ],
         "compound": "USD::Test::Integration::landscape_generator_test00"
     },
     "task": {

@@ -874,7 +874,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "xform_op_order",
@@ -1113,7 +1116,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -1437,7 +1443,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

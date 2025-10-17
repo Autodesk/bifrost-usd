@@ -240,7 +240,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "remove_braces",
@@ -496,7 +499,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -1005,7 +1011,10 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9"
+            }
         }
     ]
 }

@@ -780,16 +780,6 @@
                                             "metaValue": "<NATIVE>../icons/LoopIterate.svg"
                                         },
                                         {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
                                             "metaName": "io_nodes",
                                             "metadata": [
                                                 {
@@ -1129,6 +1119,10 @@
                                                 "outputPortName": "out_stage"
                                             }
                                         ]
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 },
                                 {
@@ -1563,7 +1557,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -1724,7 +1722,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "get_proto_root_path",
@@ -1949,7 +1951,12 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "get_prototypes_paths",
@@ -2295,7 +2302,12 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "build_protoindices_from_paths_indices",
@@ -2552,7 +2564,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "build_protoindices_from_index",
@@ -2787,7 +2803,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "build_random_protoindices",
@@ -3110,21 +3130,14 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "get_base_names",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -3518,7 +3531,10 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -3566,6 +3582,9 @@
                                     ],
                                     "iterateCompound": {
                                         "ports": []
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
                                     }
                                 },
                                 {
@@ -4123,7 +4142,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "create_random_scales",
@@ -4344,7 +4366,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -5282,7 +5307,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -5612,7 +5642,13 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "scatter": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "build_ground_stage",
@@ -5936,16 +5972,6 @@
                                                     "metaValue": "<NATIVE>../icons/LoopIterate.svg"
                                                 },
                                                 {
-                                                    "metaName": "icon",
-                                                    "metaType": "string",
-                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                },
-                                                {
-                                                    "metaName": "icon",
-                                                    "metaType": "string",
-                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                },
-                                                {
                                                     "metaName": "ViewportRect",
                                                     "metaType": "string",
                                                     "metaValue": "-68.3731 -536.335 2258.58 1250.34"
@@ -6223,6 +6249,9 @@
                                                         "outputPortName": "cumulative_array"
                                                     }
                                                 ]
+                                            },
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9"
                                             }
                                         }
                                     ],
@@ -6387,7 +6416,10 @@
                                             "valueType": "long",
                                             "value": "1"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -6870,7 +6902,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -6972,7 +7009,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "build_mushrooms_stage",
@@ -7091,7 +7133,7 @@
                         {
                             "portName": "fcurve",
                             "portDirection": "input",
-                            "portType": "Amino::FCurve"
+                            "portType": "Math::FCurve"
                         },
                         {
                             "portName": "geometry",
@@ -7364,16 +7406,6 @@
                                 {
                                     "name": "create_proto_prims",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -7719,6 +7751,10 @@
                                                 "outputPortName": "out_stage"
                                             }
                                         ]
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 },
                                 {
@@ -8153,7 +8189,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -8314,7 +8354,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "get_proto_root_path",
@@ -8539,7 +8583,12 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "get_prototypes_paths",
@@ -8885,7 +8934,12 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "build_protoindices_from_paths_indices",
@@ -9142,7 +9196,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "build_protoindices_from_index",
@@ -9377,7 +9435,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "build_random_protoindices",
@@ -9700,21 +9762,14 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "get_base_names",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -10108,7 +10163,10 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -10156,6 +10214,9 @@
                                     ],
                                     "iterateCompound": {
                                         "ports": []
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
                                     }
                                 },
                                 {
@@ -10713,7 +10774,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "create_random_scales",
@@ -10934,7 +10998,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -11872,7 +11939,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "mushroom_positions",
@@ -11964,7 +12036,7 @@
                                 {
                                     "portName": "fcurve",
                                     "portDirection": "input",
-                                    "portType": "Amino::FCurve"
+                                    "portType": "Math::FCurve"
                                 },
                                 {
                                     "portName": "cutoff_distance",
@@ -11990,16 +12062,6 @@
                                 {
                                     "name": "compute_summed_distances",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -12153,16 +12215,6 @@
                                         {
                                             "name": "set_lenghts",
                                             "metadata": [
-                                                {
-                                                    "metaName": "icon",
-                                                    "metaType": "string",
-                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                },
-                                                {
-                                                    "metaName": "icon",
-                                                    "metaType": "string",
-                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                },
                                                 {
                                                     "metaName": "icon",
                                                     "metaType": "string",
@@ -12355,21 +12407,14 @@
                                             ],
                                             "iterateCompound": {
                                                 "ports": []
+                                            },
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9"
                                             }
                                         },
                                         {
                                             "name": "create_valid_lenghts",
                                             "metadata": [
-                                                {
-                                                    "metaName": "icon",
-                                                    "metaType": "string",
-                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                },
-                                                {
-                                                    "metaName": "icon",
-                                                    "metaType": "string",
-                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                },
                                                 {
                                                     "metaName": "icon",
                                                     "metaType": "string",
@@ -12581,6 +12626,9 @@
                                             ],
                                             "iterateCompound": {
                                                 "ports": []
+                                            },
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9"
                                             }
                                         }
                                     ],
@@ -12836,6 +12884,9 @@
                                     ],
                                     "forEachCompound": {
                                         "ports": []
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
                                     }
                                 }
                             ],
@@ -12970,9 +13021,9 @@
                                 },
                                 {
                                     "valueName": "evaluate_fcurve.fcurve",
-                                    "valueType": "Amino::FCurve",
+                                    "valueType": "Math::FCurve",
                                     "value": {
-                                        "version": "1",
+                                        "version": "2",
                                         "preExtrapolation": "0",
                                         "postExtrapolation": "0",
                                         "points": [
@@ -12980,6 +13031,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "2",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "-0.55660399999999999",
                                                         "yp": "-0.002735",
@@ -12994,6 +13046,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "2",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "0.40054800000000002",
                                                         "yp": "1.0002759999999999",
@@ -13008,6 +13061,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "2",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "0.73773599999999995",
                                                         "yp": "0.002735",
@@ -13064,7 +13118,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "scatter": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -13305,9 +13364,9 @@
                         },
                         {
                             "valueName": "mushroom_positions.fcurve",
-                            "valueType": "Amino::FCurve",
+                            "valueType": "Math::FCurve",
                             "value": {
-                                "version": "1",
+                                "version": "2",
                                 "preExtrapolation": "0",
                                 "postExtrapolation": "0",
                                 "points": [
@@ -13315,6 +13374,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "-0.55660399999999999",
                                                 "yp": "-0.002735",
@@ -13329,6 +13389,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "0.40054800000000002",
                                                 "yp": "1.0002759999999999",
@@ -13343,6 +13404,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "0.73773599999999995",
                                                 "yp": "0.002735",
@@ -13389,7 +13451,13 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "scatter": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "build_trees_stage",
@@ -13837,16 +13905,6 @@
                                             "metaValue": "<NATIVE>../icons/LoopIterate.svg"
                                         },
                                         {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
                                             "metaName": "io_nodes",
                                             "metadata": [
                                                 {
@@ -14186,6 +14244,10 @@
                                                 "outputPortName": "out_stage"
                                             }
                                         ]
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 },
                                 {
@@ -14620,7 +14682,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -14781,7 +14847,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "get_proto_root_path",
@@ -15006,7 +15076,12 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "get_prototypes_paths",
@@ -15352,7 +15427,12 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "build_protoindices_from_paths_indices",
@@ -15609,7 +15689,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "build_protoindices_from_index",
@@ -15844,7 +15928,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "build_random_protoindices",
@@ -16167,21 +16255,14 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "get_base_names",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -16575,7 +16656,10 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -16623,6 +16707,9 @@
                                     ],
                                     "iterateCompound": {
                                         "ports": []
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
                                     }
                                 },
                                 {
@@ -17180,7 +17267,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "create_random_scales",
@@ -17401,7 +17491,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -18339,7 +18432,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -18777,7 +18875,13 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "scatter": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "set_ground_color",
@@ -19093,7 +19197,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "landscape_layer",
@@ -19262,7 +19370,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "ground_layer",
@@ -19431,7 +19543,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "grass_layer",
@@ -19600,7 +19716,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "trees_layer",
@@ -19769,7 +19889,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "mushrooms_layer",
@@ -19938,7 +20062,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "color_overrides_layer",
@@ -20107,7 +20235,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "multiply_by_two",
@@ -20373,7 +20505,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -20920,9 +21055,9 @@
                 },
                 {
                     "valueName": "build_mushrooms_stage.fcurve",
-                    "valueType": "Amino::FCurve",
+                    "valueType": "Math::FCurve",
                     "value": {
-                        "version": "1",
+                        "version": "2",
                         "preExtrapolation": "0",
                         "postExtrapolation": "0",
                         "points": [
@@ -20930,6 +21065,7 @@
                                 "point": {
                                     "locked": "1",
                                     "interpolation": "2",
+                                    "curveInterpolation": "0",
                                     "pcn": {
                                         "xp": "-0.54067799999999999",
                                         "yp": "0.0080929999999999995",
@@ -20944,6 +21080,7 @@
                                 "point": {
                                     "locked": "1",
                                     "interpolation": "2",
+                                    "curveInterpolation": "0",
                                     "pcn": {
                                         "xp": "0.30169499999999999",
                                         "yp": "0.98893600000000004",
@@ -20958,6 +21095,7 @@
                                 "point": {
                                     "locked": "1",
                                     "interpolation": "2",
+                                    "curveInterpolation": "0",
                                     "pcn": {
                                         "xp": "0.84067800000000004",
                                         "yp": "0.093876000000000001",
@@ -21081,20 +21219,20 @@
                     "value": "60L"
                 },
                 {
-                    "valueName": "create_mesh_plane.up_axis",
-                    "valueType": "Math::float3",
-                    "value": {
-                        "x": "0f",
-                        "y": "1f",
-                        "z": "0f"
-                    }
-                },
-                {
                     "valueName": "create_mesh_plane.position",
                     "valueType": "Math::float3",
                     "value": {
                         "x": "0f",
                         "y": "0f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_plane.up_axis",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "1f",
                         "z": "0f"
                     }
                 },
@@ -21182,7 +21320,13 @@
                 {
                     "name": "input2"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "scatter": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

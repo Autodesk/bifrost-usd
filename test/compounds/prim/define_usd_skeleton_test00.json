@@ -355,11 +355,6 @@
                             "metaValue": "<NATIVE>../icons/LoopIterate.svg"
                         },
                         {
-                            "metaName": "icon",
-                            "metaType": "string",
-                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                        },
-                        {
                             "metaName": "_recentNode_",
                             "metaType": "string",
                             "metaValue": "BifrostGraph,Core::Math,subtract"
@@ -647,6 +642,9 @@
                     ],
                     "iterateCompound": {
                         "ports": []
+                    },
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
                     }
                 }
             ],
@@ -724,7 +722,7 @@
                 },
                 {
                     "nodeName": "construct_skeleton",
-                    "nodeType": "Geometry::Skeleton::construct_skeleton",
+                    "nodeType": "Rigging::Skeleton::construct_skeleton",
                     "metadata": [
                         {
                             "metaName": "DisplayMode",
@@ -1166,7 +1164,7 @@
                 },
                 {
                     "nodeName": "transform_joints",
-                    "nodeType": "Geometry::Skeleton::transform_joints",
+                    "nodeType": "Rigging::Skeleton::transform_joints",
                     "fanInPortNames": {
                         "transforms": [
                             "transform",
@@ -2144,7 +2142,7 @@
                 },
                 {
                     "nodeName": "get_joint_transform_matrices",
-                    "nodeType": "Geometry::Skeleton::get_joint_transform_matrices",
+                    "nodeType": "Rigging::Skeleton::get_joint_transform_matrices",
                     "metadata": [
                         {
                             "metaName": "DisplayMode",
@@ -2761,7 +2759,13 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "rigging": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

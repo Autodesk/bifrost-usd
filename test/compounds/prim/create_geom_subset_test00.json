@@ -335,7 +335,10 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -1049,7 +1052,11 @@
                         {
                             "name": "input1"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "test_long_array_overload",
@@ -1273,7 +1280,10 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -1987,7 +1997,11 @@
                         {
                             "name": "input1"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -2542,11 +2556,6 @@
                     "value": {}
                 },
                 {
-                    "valueName": "add_to_stage.layer_index",
-                    "valueType": "int",
-                    "value": "-1L"
-                },
-                {
                     "valueName": "add_to_stage.prim_definitions",
                     "valueType": "array<Object>",
                     "value": []
@@ -2560,6 +2569,11 @@
                     "valueName": "add_to_stage.parent_path",
                     "valueType": "string",
                     "value": ""
+                },
+                {
+                    "valueName": "add_to_stage.layer_index",
+                    "valueType": "int",
+                    "value": "-1L"
                 },
                 {
                     "valueName": "add_to_stage.use_material_name_or_tag",
@@ -2701,7 +2715,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

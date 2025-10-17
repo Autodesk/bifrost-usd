@@ -380,11 +380,6 @@
                             "metaValue": "<NATIVE>../icons/LoopIterate.svg"
                         },
                         {
-                            "metaName": "icon",
-                            "metaType": "string",
-                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                        },
-                        {
                             "metaName": "_recentNode_",
                             "metaType": "string",
                             "metaValue": "BifrostGraph,Core::Math,subtract"
@@ -672,6 +667,9 @@
                     ],
                     "iterateCompound": {
                         "ports": []
+                    },
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
                     }
                 }
             ],
@@ -751,7 +749,7 @@
                 },
                 {
                     "nodeName": "construct_skeleton",
-                    "nodeType": "Geometry::Skeleton::construct_skeleton",
+                    "nodeType": "Rigging::Skeleton::construct_skeleton",
                     "metadata": [
                         {
                             "metaName": "DisplayMode",
@@ -1193,7 +1191,7 @@
                 },
                 {
                     "nodeName": "transform_joints",
-                    "nodeType": "Geometry::Skeleton::transform_joints",
+                    "nodeType": "Rigging::Skeleton::transform_joints",
                     "fanInPortNames": {
                         "transforms": [
                             "transform",
@@ -2066,7 +2064,7 @@
                 },
                 {
                     "nodeName": "get_joint_transform_matrices",
-                    "nodeType": "Geometry::Skeleton::get_joint_transform_matrices",
+                    "nodeType": "Rigging::Skeleton::get_joint_transform_matrices",
                     "metadata": [
                         {
                             "metaName": "DisplayMode",
@@ -2910,14 +2908,9 @@
                     "value": "/Skel"
                 },
                 {
-                    "valueName": "define_usd_skeleton.variant_name",
-                    "valueType": "string",
-                    "value": ""
-                },
-                {
-                    "valueName": "define_usd_skeleton.variant_set_name",
-                    "valueType": "string",
-                    "value": ""
+                    "valueName": "define_usd_skeleton.skeleton",
+                    "valueType": "Object",
+                    "value": {}
                 },
                 {
                     "valueName": "define_usd_skeleton.use_frame",
@@ -2928,6 +2921,16 @@
                     "valueName": "define_usd_skeleton.frame",
                     "valueType": "float",
                     "value": "0f"
+                },
+                {
+                    "valueName": "define_usd_skeleton.variant_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_skeleton.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
                 },
                 {
                     "valueName": "define_usd_skeleton.reference_definitions",
@@ -2955,19 +2958,9 @@
                     "value": {}
                 },
                 {
-                    "valueName": "define_usd_skeleton.skeleton",
-                    "valueType": "Object",
-                    "value": {}
-                },
-                {
                     "valueName": "add_to_stage.stage",
                     "valueType": "BifrostUsd::Stage",
                     "value": {}
-                },
-                {
-                    "valueName": "add_to_stage.layer_index",
-                    "valueType": "int",
-                    "value": "-1L"
                 },
                 {
                     "valueName": "add_to_stage.prim_definitions",
@@ -2983,6 +2976,11 @@
                     "valueName": "add_to_stage.parent_path",
                     "valueType": "string",
                     "value": ""
+                },
+                {
+                    "valueName": "add_to_stage.layer_index",
+                    "valueType": "int",
+                    "value": "-1L"
                 },
                 {
                     "valueName": "add_to_stage.use_material_name_or_tag",
@@ -3127,7 +3125,13 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "rigging": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

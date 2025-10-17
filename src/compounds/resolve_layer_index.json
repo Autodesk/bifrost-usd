@@ -11,6 +11,420 @@
     "types": [],
     "compounds": [
         {
+            "name": "USD::Layer::resolve_layer_index",
+            "metadata": [
+                {
+                    "metaName": "internal",
+                    "metaValue": "true"
+                },
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "10 58"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "stage"
+                                                },
+                                                {
+                                                    "metaName": "layer_index"
+                                                },
+                                                {
+                                                    "metaName": "layer"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "31.000000"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "out_layer_index"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "620 10"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "32.000000"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-68.5 -277 994 848"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "zValue",
+                    "metaType": "string",
+                    "metaValue": "39.000000"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "202.842 -32.3598"
+                }
+            ],
+            "isDefaultOverload": "true",
+            "ports": [
+                {
+                    "portName": "stage",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Stage",
+                    "portDefault": {}
+                },
+                {
+                    "portName": "layer_index",
+                    "portDirection": "input",
+                    "portType": "int",
+                    "portDefault": "-1L"
+                },
+                {
+                    "portName": "layer",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Layer",
+                    "portDefault": {}
+                },
+                {
+                    "portName": "out_layer_index",
+                    "portDirection": "output",
+                    "portType": "int"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "_resolve_layer_index",
+                    "nodeType": "USD::Layers::_resolve_layer_index",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "40.000000"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "322 19"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "_resolve_layer_index.out_layer_index",
+                    "target": ".out_layer_index"
+                },
+                {
+                    "source": ".stage",
+                    "target": "_resolve_layer_index.stage"
+                },
+                {
+                    "source": ".layer_index",
+                    "target": "_resolve_layer_index.layer_index"
+                },
+                {
+                    "source": ".layer",
+                    "target": "_resolve_layer_index.layer"
+                }
+            ],
+            "values": [],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
+        },
+        {
+            "name": "USD::Layer::resolve_layer_index",
+            "metadata": [
+                {
+                    "metaName": "internal",
+                    "metaValue": "true"
+                },
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "stage"
+                                                },
+                                                {
+                                                    "metaName": "layer_index"
+                                                },
+                                                {
+                                                    "metaName": "layer"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "34.000000"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-147 15"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "out_layer_index"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "620 10"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "32.000000"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-120.884 -276.09 1099.9 847.153"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "202.842 -32.3598"
+                },
+                {
+                    "metaName": "zValue",
+                    "metaType": "string",
+                    "metaValue": "40.000000"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "stage",
+                    "portDirection": "input",
+                    "portType": "BifrostUsd::Stage",
+                    "portDefault": {}
+                },
+                {
+                    "portName": "layer_index",
+                    "portDirection": "input",
+                    "portType": "int",
+                    "portDefault": "-1L"
+                },
+                {
+                    "portName": "layer",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "out_layer_index",
+                    "portDirection": "output",
+                    "portType": "int"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "_resolve_layer_index",
+                    "nodeType": "USD::Layers::_resolve_layer_index",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "322 19"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "33.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_usd_layer",
+                    "nodeType": "USD::Layer::create_usd_layer",
+                    "fanInPortNames": {
+                        "sublayers": []
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "NodeValueDisplay",
+                            "metadata": [
+                                {
+                                    "metaName": "format",
+                                    "metaType": "string",
+                                    "metaValue": "Create Layer {layer}"
+                                },
+                                {
+                                    "metaName": "show",
+                                    "metaType": "string",
+                                    "metaValue": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "37.000000"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "93.3111 189.452"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "_resolve_layer_index.out_layer_index",
+                    "target": ".out_layer_index"
+                },
+                {
+                    "source": ".stage",
+                    "target": "_resolve_layer_index.stage"
+                },
+                {
+                    "source": ".layer_index",
+                    "target": "_resolve_layer_index.layer_index"
+                },
+                {
+                    "source": ".layer",
+                    "target": "create_usd_layer.layer"
+                },
+                {
+                    "source": "create_usd_layer.new_layer",
+                    "target": "_resolve_layer_index.layer"
+                }
+            ],
+            "values": [],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
+        },
+        {
             "name": "USD::Layers::_resolve_layer_index",
             "metadata": [
                 {
@@ -689,7 +1103,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "get_sublayer_identifiers",
@@ -1024,7 +1442,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -1812,413 +2234,11 @@
                 {
                     "name": "output"
                 }
-            ]
-        },
-        {
-            "name": "USD::Layer::resolve_layer_index",
-            "metadata": [
-                {
-                    "metaName": "internal",
-                    "metaValue": "true"
-                },
-                {
-                    "metaName": "io_nodes",
-                    "metadata": [
-                        {
-                            "metaName": "io_inodes",
-                            "metadata": [
-                                {
-                                    "metaName": "input",
-                                    "metadata": [
-                                        {
-                                            "metaName": "DisplayMode",
-                                            "metaType": "string",
-                                            "metaValue": "2"
-                                        },
-                                        {
-                                            "metaName": "LayoutPos",
-                                            "metaType": "string",
-                                            "metaValue": "10 58"
-                                        },
-                                        {
-                                            "metaName": "io_ports",
-                                            "metadata": [
-                                                {
-                                                    "metaName": "stage"
-                                                },
-                                                {
-                                                    "metaName": "layer_index"
-                                                },
-                                                {
-                                                    "metaName": "layer"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "metaName": "zValue",
-                                            "metaType": "string",
-                                            "metaValue": "31.000000"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "metaName": "io_onodes",
-                            "metadata": [
-                                {
-                                    "metaName": "output",
-                                    "metadata": [
-                                        {
-                                            "metaName": "io_ports",
-                                            "metadata": [
-                                                {
-                                                    "metaName": "out_layer_index"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "metaName": "DisplayMode",
-                                            "metaType": "string",
-                                            "metaValue": "2"
-                                        },
-                                        {
-                                            "metaName": "LayoutPos",
-                                            "metaType": "string",
-                                            "metaValue": "620 10"
-                                        },
-                                        {
-                                            "metaName": "zValue",
-                                            "metaType": "string",
-                                            "metaValue": "32.000000"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "metaName": "ViewportRect",
-                    "metaType": "string",
-                    "metaValue": "-68.5 -277 994 848"
-                },
-                {
-                    "metaName": "DisplayMode",
-                    "metaType": "string",
-                    "metaValue": "2"
-                },
-                {
-                    "metaName": "zValue",
-                    "metaType": "string",
-                    "metaValue": "39.000000"
-                },
-                {
-                    "metaName": "LayoutPos",
-                    "metaType": "string",
-                    "metaValue": "202.842 -32.3598"
-                }
             ],
-            "isDefaultOverload": "true",
-            "ports": [
-                {
-                    "portName": "stage",
-                    "portDirection": "input",
-                    "portType": "BifrostUsd::Stage",
-                    "portDefault": {}
-                },
-                {
-                    "portName": "layer_index",
-                    "portDirection": "input",
-                    "portType": "int",
-                    "portDefault": "-1L"
-                },
-                {
-                    "portName": "layer",
-                    "portDirection": "input",
-                    "portType": "BifrostUsd::Layer",
-                    "portDefault": {}
-                },
-                {
-                    "portName": "out_layer_index",
-                    "portDirection": "output",
-                    "portType": "int"
-                }
-            ],
-            "compoundNodes": [
-                {
-                    "nodeName": "_resolve_layer_index",
-                    "nodeType": "USD::Layers::_resolve_layer_index",
-                    "metadata": [
-                        {
-                            "metaName": "DisplayMode",
-                            "metaType": "string",
-                            "metaValue": "2"
-                        },
-                        {
-                            "metaName": "zValue",
-                            "metaType": "string",
-                            "metaValue": "40.000000"
-                        },
-                        {
-                            "metaName": "LayoutPos",
-                            "metaType": "string",
-                            "metaValue": "322 19"
-                        }
-                    ]
-                }
-            ],
-            "connections": [
-                {
-                    "source": "_resolve_layer_index.out_layer_index",
-                    "target": ".out_layer_index"
-                },
-                {
-                    "source": ".stage",
-                    "target": "_resolve_layer_index.stage"
-                },
-                {
-                    "source": ".layer_index",
-                    "target": "_resolve_layer_index.layer_index"
-                },
-                {
-                    "source": ".layer",
-                    "target": "_resolve_layer_index.layer"
-                }
-            ],
-            "values": [],
-            "reservedNodeNames": [
-                {
-                    "name": "input"
-                },
-                {
-                    "name": "output"
-                }
-            ]
-        },
-        {
-            "name": "USD::Layer::resolve_layer_index",
-            "metadata": [
-                {
-                    "metaName": "internal",
-                    "metaValue": "true"
-                },
-                {
-                    "metaName": "io_nodes",
-                    "metadata": [
-                        {
-                            "metaName": "io_inodes",
-                            "metadata": [
-                                {
-                                    "metaName": "input",
-                                    "metadata": [
-                                        {
-                                            "metaName": "DisplayMode",
-                                            "metaType": "string",
-                                            "metaValue": "2"
-                                        },
-                                        {
-                                            "metaName": "io_ports",
-                                            "metadata": [
-                                                {
-                                                    "metaName": "stage"
-                                                },
-                                                {
-                                                    "metaName": "layer_index"
-                                                },
-                                                {
-                                                    "metaName": "layer"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "metaName": "zValue",
-                                            "metaType": "string",
-                                            "metaValue": "34.000000"
-                                        },
-                                        {
-                                            "metaName": "LayoutPos",
-                                            "metaType": "string",
-                                            "metaValue": "-147 15"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "metaName": "io_onodes",
-                            "metadata": [
-                                {
-                                    "metaName": "output",
-                                    "metadata": [
-                                        {
-                                            "metaName": "io_ports",
-                                            "metadata": [
-                                                {
-                                                    "metaName": "out_layer_index"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "metaName": "DisplayMode",
-                                            "metaType": "string",
-                                            "metaValue": "2"
-                                        },
-                                        {
-                                            "metaName": "LayoutPos",
-                                            "metaType": "string",
-                                            "metaValue": "620 10"
-                                        },
-                                        {
-                                            "metaName": "zValue",
-                                            "metaType": "string",
-                                            "metaValue": "32.000000"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "metaName": "ViewportRect",
-                    "metaType": "string",
-                    "metaValue": "-120.884 -276.09 1099.9 847.153"
-                },
-                {
-                    "metaName": "DisplayMode",
-                    "metaType": "string",
-                    "metaValue": "2"
-                },
-                {
-                    "metaName": "LayoutPos",
-                    "metaType": "string",
-                    "metaValue": "202.842 -32.3598"
-                },
-                {
-                    "metaName": "zValue",
-                    "metaType": "string",
-                    "metaValue": "40.000000"
-                }
-            ],
-            "ports": [
-                {
-                    "portName": "stage",
-                    "portDirection": "input",
-                    "portType": "BifrostUsd::Stage",
-                    "portDefault": {}
-                },
-                {
-                    "portName": "layer_index",
-                    "portDirection": "input",
-                    "portType": "int",
-                    "portDefault": "-1L"
-                },
-                {
-                    "portName": "layer",
-                    "portDirection": "input",
-                    "portType": "string",
-                    "portDefault": ""
-                },
-                {
-                    "portName": "out_layer_index",
-                    "portDirection": "output",
-                    "portType": "int"
-                }
-            ],
-            "compoundNodes": [
-                {
-                    "nodeName": "_resolve_layer_index",
-                    "nodeType": "USD::Layers::_resolve_layer_index",
-                    "metadata": [
-                        {
-                            "metaName": "DisplayMode",
-                            "metaType": "string",
-                            "metaValue": "2"
-                        },
-                        {
-                            "metaName": "LayoutPos",
-                            "metaType": "string",
-                            "metaValue": "322 19"
-                        },
-                        {
-                            "metaName": "zValue",
-                            "metaType": "string",
-                            "metaValue": "33.000000"
-                        }
-                    ]
-                },
-                {
-                    "nodeName": "create_usd_layer",
-                    "nodeType": "USD::Layer::create_usd_layer",
-                    "fanInPortNames": {
-                        "sublayers": []
-                    },
-                    "metadata": [
-                        {
-                            "metaName": "DisplayMode",
-                            "metaType": "string",
-                            "metaValue": "2"
-                        },
-                        {
-                            "metaName": "NodeValueDisplay",
-                            "metadata": [
-                                {
-                                    "metaName": "format",
-                                    "metaType": "string",
-                                    "metaValue": "Create Layer {layer}"
-                                },
-                                {
-                                    "metaName": "show",
-                                    "metaType": "string",
-                                    "metaValue": "0"
-                                }
-                            ]
-                        },
-                        {
-                            "metaName": "zValue",
-                            "metaType": "string",
-                            "metaValue": "37.000000"
-                        },
-                        {
-                            "metaName": "LayoutPos",
-                            "metaType": "string",
-                            "metaValue": "93.3111 189.452"
-                        }
-                    ]
-                }
-            ],
-            "connections": [
-                {
-                    "source": "_resolve_layer_index.out_layer_index",
-                    "target": ".out_layer_index"
-                },
-                {
-                    "source": ".stage",
-                    "target": "_resolve_layer_index.stage"
-                },
-                {
-                    "source": ".layer_index",
-                    "target": "_resolve_layer_index.layer_index"
-                },
-                {
-                    "source": ".layer",
-                    "target": "create_usd_layer.layer"
-                },
-                {
-                    "source": "create_usd_layer.new_layer",
-                    "target": "_resolve_layer_index.layer"
-                }
-            ],
-            "values": [],
-            "reservedNodeNames": [
-                {
-                    "name": "input"
-                },
-                {
-                    "name": "output"
-                }
-            ]
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

@@ -2,9 +2,6 @@
     "schemaVersion": "1.0.0",
     "comment": "Test save_usd_stage compound",
     "options": {
-        "definitionFiles": [
-            "save_stage_test00.json"
-        ],
         "compound": "USD::Test::Stage::save_stage_test00"
     },
     "task": {

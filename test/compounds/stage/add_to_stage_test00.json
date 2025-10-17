@@ -433,7 +433,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "test_pseudo_root_prim_descendant_count",
@@ -663,7 +667,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "test_attribute_foo_on_prim_A",
@@ -1243,7 +1251,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "test_red_variant_on_prim_A",
@@ -1921,7 +1933,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "test_blue_variant_on_prim_A",
@@ -2599,7 +2615,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -2729,16 +2749,16 @@
                     "nodeName": "define_usd_prim",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
                         "variant_set_definitions": [
                             "variant_set_definition"
                         ],
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
                         "children": [
                             "prim_definition",
                             "prim_definition1"
-                        ]
+                        ],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -2772,13 +2792,13 @@
                     "nodeName": "define_usd_prim2",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
                         "variant_set_definitions": [],
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
                         "children": [
                             "prim_definition"
-                        ]
+                        ],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -2892,11 +2912,11 @@
                     "nodeName": "define_usd_prim3",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
                         "variant_set_definitions": [],
-                        "children": []
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
+                        "children": [],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -2941,13 +2961,13 @@
                     "nodeName": "define_usd_prim4",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
                         "variant_set_definitions": [],
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
                         "children": [
                             "prim_definition"
-                        ]
+                        ],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -2971,13 +2991,13 @@
                     "nodeName": "define_usd_prim5",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
+                        "variant_set_definitions": [],
                         "reference_definitions": [
                             "reference_definitions"
                         ],
-                        "relationship_definitions": [],
-                        "variant_set_definitions": [],
-                        "children": []
+                        "attribute_definitions": [],
+                        "children": [],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -3001,14 +3021,14 @@
                     "nodeName": "define_usd_prim6",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
                         "variant_set_definitions": [],
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
                         "children": [
                             "material_definition",
                             "material_definition1"
-                        ]
+                        ],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -3332,16 +3352,16 @@
                     "nodeName": "define_usd_prim10",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
+                        "variant_set_definitions": [],
+                        "reference_definitions": [],
                         "attribute_definitions": [
                             "attribute_definition"
                         ],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
-                        "variant_set_definitions": [],
                         "children": [
                             "prim_definition1",
                             "prim_definition"
-                        ]
+                        ],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -3375,13 +3395,13 @@
                     "nodeName": "define_usd_prim11",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
                         "variant_set_definitions": [],
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
                         "children": [
                             "prim_definition"
-                        ]
+                        ],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -3420,13 +3440,13 @@
                     "nodeName": "define_usd_prim12",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
+                        "variant_set_definitions": [],
                         "reference_definitions": [],
+                        "attribute_definitions": [],
+                        "children": [],
                         "relationship_definitions": [
                             "relationship_definition"
-                        ],
-                        "variant_set_definitions": [],
-                        "children": []
+                        ]
                     },
                     "metadata": [
                         {
@@ -3450,13 +3470,13 @@
                     "nodeName": "define_usd_prim13",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
                         "variant_set_definitions": [],
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
                         "children": [
                             "prim_definition"
-                        ]
+                        ],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -3495,13 +3515,13 @@
                     "nodeName": "define_usd_prim14",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
+                        "variant_set_definitions": [],
                         "reference_definitions": [],
+                        "attribute_definitions": [],
+                        "children": [],
                         "relationship_definitions": [
                             "relationship_definition"
-                        ],
-                        "variant_set_definitions": [],
-                        "children": []
+                        ]
                     },
                     "metadata": [
                         {
@@ -3815,11 +3835,6 @@
                     "value": {}
                 },
                 {
-                    "valueName": "add_to_stage.layer_index",
-                    "valueType": "int",
-                    "value": "0L"
-                },
-                {
                     "valueName": "add_to_stage.prim_definitions",
                     "valueType": "array<Object>",
                     "value": []
@@ -3835,6 +3850,11 @@
                     "value": ""
                 },
                 {
+                    "valueName": "add_to_stage.layer_index",
+                    "valueType": "int",
+                    "value": "0L"
+                },
+                {
                     "valueName": "add_to_stage.use_material_name_or_tag",
                     "valueType": "bool",
                     "value": "false"
@@ -3843,6 +3863,31 @@
                     "valueName": "define_usd_prim.path",
                     "valueType": "string",
                     "value": "/A"
+                },
+                {
+                    "valueName": "define_usd_prim.variant_set_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
                 },
                 {
                     "valueName": "define_usd_prim.type",
@@ -3860,6 +3905,11 @@
                     "value": "None"
                 },
                 {
+                    "valueName": "define_usd_prim.purpose",
+                    "valueType": "BifrostUsd::ImageablePurpose",
+                    "value": "Default"
+                },
+                {
                     "valueName": "define_usd_prim.active",
                     "valueType": "BifrostUsd::ActivatePrim",
                     "value": "None"
@@ -3870,39 +3920,9 @@
                     "value": "None"
                 },
                 {
-                    "valueName": "define_usd_prim.purpose",
-                    "valueType": "BifrostUsd::ImageablePurpose",
-                    "value": "Default"
-                },
-                {
-                    "valueName": "define_usd_prim.attribute_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim.reference_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim.relationship_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim.variant_set_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim.children",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim.material",
-                    "valueType": "Object",
-                    "value": {}
+                    "valueName": "define_usd_prim.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
                 },
                 {
                     "valueName": "define_usd_prim.variant_name",
@@ -3910,14 +3930,39 @@
                     "value": ""
                 },
                 {
-                    "valueName": "define_usd_prim.variant_set_name",
-                    "valueType": "string",
-                    "value": ""
+                    "valueName": "define_usd_prim.material",
+                    "valueType": "Object",
+                    "value": {}
                 },
                 {
                     "valueName": "define_usd_prim2.path",
                     "valueType": "string",
                     "value": "/__class__"
+                },
+                {
+                    "valueName": "define_usd_prim2.variant_set_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim2.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim2.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim2.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim2.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
                 },
                 {
                     "valueName": "define_usd_prim2.type",
@@ -3935,6 +3980,11 @@
                     "value": "None"
                 },
                 {
+                    "valueName": "define_usd_prim2.purpose",
+                    "valueType": "BifrostUsd::ImageablePurpose",
+                    "value": "Default"
+                },
+                {
                     "valueName": "define_usd_prim2.active",
                     "valueType": "BifrostUsd::ActivatePrim",
                     "value": "None"
@@ -3945,39 +3995,9 @@
                     "value": "None"
                 },
                 {
-                    "valueName": "define_usd_prim2.purpose",
-                    "valueType": "BifrostUsd::ImageablePurpose",
-                    "value": "Default"
-                },
-                {
-                    "valueName": "define_usd_prim2.attribute_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim2.reference_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim2.relationship_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim2.variant_set_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim2.children",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim2.material",
-                    "valueType": "Object",
-                    "value": {}
+                    "valueName": "define_usd_prim2.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
                 },
                 {
                     "valueName": "define_usd_prim2.variant_name",
@@ -3985,9 +4005,9 @@
                     "value": ""
                 },
                 {
-                    "valueName": "define_usd_prim2.variant_set_name",
-                    "valueType": "string",
-                    "value": ""
+                    "valueName": "define_usd_prim2.material",
+                    "valueType": "Object",
+                    "value": {}
                 },
                 {
                     "valueName": "get_prim_at_path.path",
@@ -4045,12 +4065,12 @@
                     "value": "Scope"
                 },
                 {
-                    "valueName": "define_usd_prim4.variant_name",
+                    "valueName": "define_usd_prim4.variant_set_name",
                     "valueType": "string",
                     "value": ""
                 },
                 {
-                    "valueName": "define_usd_prim4.variant_set_name",
+                    "valueName": "define_usd_prim4.variant_name",
                     "valueType": "string",
                     "value": ""
                 },
@@ -4060,12 +4080,12 @@
                     "value": ""
                 },
                 {
-                    "valueName": "define_usd_prim5.variant_name",
+                    "valueName": "define_usd_prim5.variant_set_name",
                     "valueType": "string",
                     "value": ""
                 },
                 {
-                    "valueName": "define_usd_prim5.variant_set_name",
+                    "valueName": "define_usd_prim5.variant_name",
                     "valueType": "string",
                     "value": ""
                 },
@@ -4073,6 +4093,31 @@
                     "valueName": "define_usd_prim6.path",
                     "valueType": "string",
                     "value": "/mtl"
+                },
+                {
+                    "valueName": "define_usd_prim6.variant_set_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim6.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim6.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim6.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim6.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
                 },
                 {
                     "valueName": "define_usd_prim6.type",
@@ -4090,6 +4135,11 @@
                     "value": "None"
                 },
                 {
+                    "valueName": "define_usd_prim6.purpose",
+                    "valueType": "BifrostUsd::ImageablePurpose",
+                    "value": "Default"
+                },
+                {
                     "valueName": "define_usd_prim6.active",
                     "valueType": "BifrostUsd::ActivatePrim",
                     "value": "None"
@@ -4100,39 +4150,9 @@
                     "value": "None"
                 },
                 {
-                    "valueName": "define_usd_prim6.purpose",
-                    "valueType": "BifrostUsd::ImageablePurpose",
-                    "value": "Default"
-                },
-                {
-                    "valueName": "define_usd_prim6.attribute_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim6.reference_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim6.relationship_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim6.variant_set_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim6.children",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim6.material",
-                    "valueType": "Object",
-                    "value": {}
+                    "valueName": "define_usd_prim6.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
                 },
                 {
                     "valueName": "define_usd_prim6.variant_name",
@@ -4140,9 +4160,9 @@
                     "value": ""
                 },
                 {
-                    "valueName": "define_usd_prim6.variant_set_name",
-                    "valueType": "string",
-                    "value": ""
+                    "valueName": "define_usd_prim6.material",
+                    "valueType": "Object",
+                    "value": {}
                 },
                 {
                     "valueName": "define_usd_preview_surface.path",
@@ -4193,6 +4213,11 @@
                     }
                 },
                 {
+                    "valueName": "define_usd_preview_surface1.texture_file_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
                     "valueName": "define_usd_preview_surface1.emissive_color",
                     "valueType": "Math::float3",
                     "value": {
@@ -4202,14 +4227,9 @@
                     }
                 },
                 {
-                    "valueName": "define_usd_preview_surface1.metallic",
+                    "valueName": "define_usd_preview_surface1.clearcoat",
                     "valueType": "float",
                     "value": "0f"
-                },
-                {
-                    "valueName": "define_usd_preview_surface1.roughness",
-                    "valueType": "float",
-                    "value": "0.460000008f"
                 },
                 {
                     "valueName": "define_usd_preview_surface1.index_of_refraction",
@@ -4217,7 +4237,7 @@
                     "value": "1.51999998f"
                 },
                 {
-                    "valueName": "define_usd_preview_surface1.clearcoat",
+                    "valueName": "define_usd_preview_surface1.metallic",
                     "valueType": "float",
                     "value": "0f"
                 },
@@ -4227,9 +4247,9 @@
                     "value": "1f"
                 },
                 {
-                    "valueName": "define_usd_preview_surface1.texture_file_path",
-                    "valueType": "string",
-                    "value": ""
+                    "valueName": "define_usd_preview_surface1.roughness",
+                    "valueType": "float",
+                    "value": "0.460000008f"
                 },
                 {
                     "valueName": "define_usd_preview_surface1.attribute_definitions",
@@ -4292,11 +4312,6 @@
                     "value": {}
                 },
                 {
-                    "valueName": "add_to_stage1.layer_index",
-                    "valueType": "int",
-                    "value": "0L"
-                },
-                {
                     "valueName": "add_to_stage1.prim_definitions",
                     "valueType": "array<Object>",
                     "value": []
@@ -4312,6 +4327,11 @@
                     "value": ""
                 },
                 {
+                    "valueName": "add_to_stage1.layer_index",
+                    "valueType": "int",
+                    "value": "0L"
+                },
+                {
                     "valueName": "add_to_stage1.use_material_name_or_tag",
                     "valueType": "bool",
                     "value": "false"
@@ -4320,6 +4340,31 @@
                     "valueName": "define_usd_prim10.path",
                     "valueType": "string",
                     "value": "/A"
+                },
+                {
+                    "valueName": "define_usd_prim10.variant_set_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim10.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim10.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim10.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim10.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
                 },
                 {
                     "valueName": "define_usd_prim10.type",
@@ -4337,6 +4382,11 @@
                     "value": "None"
                 },
                 {
+                    "valueName": "define_usd_prim10.purpose",
+                    "valueType": "BifrostUsd::ImageablePurpose",
+                    "value": "Default"
+                },
+                {
                     "valueName": "define_usd_prim10.active",
                     "valueType": "BifrostUsd::ActivatePrim",
                     "value": "None"
@@ -4347,39 +4397,9 @@
                     "value": "None"
                 },
                 {
-                    "valueName": "define_usd_prim10.purpose",
-                    "valueType": "BifrostUsd::ImageablePurpose",
-                    "value": "Default"
-                },
-                {
-                    "valueName": "define_usd_prim10.attribute_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim10.reference_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim10.relationship_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim10.variant_set_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim10.children",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim10.material",
-                    "valueType": "Object",
-                    "value": {}
+                    "valueName": "define_usd_prim10.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
                 },
                 {
                     "valueName": "define_usd_prim10.variant_name",
@@ -4387,9 +4407,9 @@
                     "value": ""
                 },
                 {
-                    "valueName": "define_usd_prim10.variant_set_name",
-                    "valueType": "string",
-                    "value": ""
+                    "valueName": "define_usd_prim10.material",
+                    "valueType": "Object",
+                    "value": {}
                 },
                 {
                     "valueName": "define_usd_prim11.path",
@@ -4412,6 +4432,31 @@
                     "value": "/obj"
                 },
                 {
+                    "valueName": "define_usd_prim12.variant_set_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim12.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim12.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim12.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim12.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
                     "valueName": "define_usd_prim12.type",
                     "valueType": "string",
                     "value": ""
@@ -4427,6 +4472,11 @@
                     "value": "None"
                 },
                 {
+                    "valueName": "define_usd_prim12.purpose",
+                    "valueType": "BifrostUsd::ImageablePurpose",
+                    "value": "Default"
+                },
+                {
                     "valueName": "define_usd_prim12.active",
                     "valueType": "BifrostUsd::ActivatePrim",
                     "value": "None"
@@ -4437,39 +4487,9 @@
                     "value": "None"
                 },
                 {
-                    "valueName": "define_usd_prim12.purpose",
-                    "valueType": "BifrostUsd::ImageablePurpose",
-                    "value": "Default"
-                },
-                {
-                    "valueName": "define_usd_prim12.attribute_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim12.reference_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim12.relationship_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim12.variant_set_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim12.children",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim12.material",
-                    "valueType": "Object",
-                    "value": {}
+                    "valueName": "define_usd_prim12.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
                 },
                 {
                     "valueName": "define_usd_prim12.variant_name",
@@ -4477,14 +4497,39 @@
                     "value": ""
                 },
                 {
-                    "valueName": "define_usd_prim12.variant_set_name",
-                    "valueType": "string",
-                    "value": ""
+                    "valueName": "define_usd_prim12.material",
+                    "valueType": "Object",
+                    "value": {}
                 },
                 {
                     "valueName": "define_usd_prim13.path",
                     "valueType": "string",
                     "value": "/geo"
+                },
+                {
+                    "valueName": "define_usd_prim13.variant_set_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim13.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim13.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim13.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim13.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
                 },
                 {
                     "valueName": "define_usd_prim13.type",
@@ -4502,6 +4547,11 @@
                     "value": "None"
                 },
                 {
+                    "valueName": "define_usd_prim13.purpose",
+                    "valueType": "BifrostUsd::ImageablePurpose",
+                    "value": "Default"
+                },
+                {
                     "valueName": "define_usd_prim13.active",
                     "valueType": "BifrostUsd::ActivatePrim",
                     "value": "None"
@@ -4512,39 +4562,9 @@
                     "value": "None"
                 },
                 {
-                    "valueName": "define_usd_prim13.purpose",
-                    "valueType": "BifrostUsd::ImageablePurpose",
-                    "value": "Default"
-                },
-                {
-                    "valueName": "define_usd_prim13.attribute_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim13.reference_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim13.relationship_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim13.variant_set_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim13.children",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim13.material",
-                    "valueType": "Object",
-                    "value": {}
+                    "valueName": "define_usd_prim13.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
                 },
                 {
                     "valueName": "define_usd_prim13.variant_name",
@@ -4552,14 +4572,39 @@
                     "value": ""
                 },
                 {
-                    "valueName": "define_usd_prim13.variant_set_name",
-                    "valueType": "string",
-                    "value": ""
+                    "valueName": "define_usd_prim13.material",
+                    "valueType": "Object",
+                    "value": {}
                 },
                 {
                     "valueName": "define_usd_prim14.path",
                     "valueType": "string",
                     "value": "/obj"
+                },
+                {
+                    "valueName": "define_usd_prim14.variant_set_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim14.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim14.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim14.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim14.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
                 },
                 {
                     "valueName": "define_usd_prim14.type",
@@ -4577,6 +4622,11 @@
                     "value": "None"
                 },
                 {
+                    "valueName": "define_usd_prim14.purpose",
+                    "valueType": "BifrostUsd::ImageablePurpose",
+                    "value": "Default"
+                },
+                {
                     "valueName": "define_usd_prim14.active",
                     "valueType": "BifrostUsd::ActivatePrim",
                     "value": "None"
@@ -4587,39 +4637,9 @@
                     "value": "None"
                 },
                 {
-                    "valueName": "define_usd_prim14.purpose",
-                    "valueType": "BifrostUsd::ImageablePurpose",
-                    "value": "Default"
-                },
-                {
-                    "valueName": "define_usd_prim14.attribute_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim14.reference_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim14.relationship_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim14.variant_set_definitions",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim14.children",
-                    "valueType": "array<Object>",
-                    "value": []
-                },
-                {
-                    "valueName": "define_usd_prim14.material",
-                    "valueType": "Object",
-                    "value": {}
+                    "valueName": "define_usd_prim14.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
                 },
                 {
                     "valueName": "define_usd_prim14.variant_name",
@@ -4627,9 +4647,9 @@
                     "value": ""
                 },
                 {
-                    "valueName": "define_usd_prim14.variant_set_name",
-                    "valueType": "string",
-                    "value": ""
+                    "valueName": "define_usd_prim14.material",
+                    "valueType": "Object",
+                    "value": {}
                 },
                 {
                     "valueName": "value3.value",
@@ -4651,7 +4671,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

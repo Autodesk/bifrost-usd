@@ -838,7 +838,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         },
                         {
                             "name": "get_name_from_path",
@@ -1059,7 +1063,10 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -1139,7 +1146,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "extract_file_name",
@@ -1549,7 +1560,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "extract_proxy_file_name",
@@ -1959,7 +1973,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "extract_render_file_name",
@@ -2369,7 +2386,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "resolve_default_file_name",
@@ -2728,7 +2748,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "extract_proxy_file_name1",
@@ -3138,7 +3162,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -3803,7 +3830,11 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9"
+            }
         }
     ]
 }

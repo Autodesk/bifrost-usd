@@ -2,9 +2,6 @@
     "schemaVersion": "1.0.0",
     "comment": "Test resolve_layer_index compound",
     "options": {
-        "definitionFiles": [
-            "resolve_layer_index_test00.json"
-        ],
         "compound": "USD::Test::Layer::resolve_layer_index_test_00"
     },
     "task": {

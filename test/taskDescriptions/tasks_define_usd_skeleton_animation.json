@@ -2,9 +2,6 @@
     "schemaVersion": "1.0.0",
     "comment": "Test define_usd_skeleton_animation compound",
     "options": {
-        "definitionFiles": [
-            "define_usd_skeleton_animation_test00.json"
-        ],
         "compound": "USD::Test::Prim::define_usd_skeleton_animation_test00"
     },
     "task": {

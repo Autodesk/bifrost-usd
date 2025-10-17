@@ -2,9 +2,6 @@
     "schemaVersion": "1.0.0",
     "comment": "Test create_layer and export_layer_to_string nodedefs",
     "options": {
-        "definitionFiles": [
-            "create_empty_layer_test00.json"
-        ],
         "compound": "USD::Test::Layer::create_empty_layer_test00"
     },
     "task": {

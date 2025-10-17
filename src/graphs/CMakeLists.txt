@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2024 Autodesk, Inc.
+# Copyright 2025 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ set(main_content
 	robot_with_purpose
 )
 
-install(DIRECTORY ${main_content} DESTINATION ${BIFROST_USD_PACK_INSTALL_RES_JSON_DIR}/graphs )
+install(DIRECTORY ${main_content} DESTINATION ${BIFROST_USD_PACK_INSTALL_RES_GRAPHS_DIR} )
 
 add_subdirectory(Glossary)
 add_subdirectory(Rigging)

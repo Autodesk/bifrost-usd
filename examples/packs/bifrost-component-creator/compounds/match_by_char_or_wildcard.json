@@ -320,11 +320,6 @@
                             "metaValue": "<NATIVE>../icons/LoopForEach.svg"
                         },
                         {
-                            "metaName": "icon",
-                            "metaType": "string",
-                            "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                        },
-                        {
                             "metaName": "_recentNode_",
                             "metaType": "string",
                             "metaValue": "BifrostGraph,Core::Logic,or"
@@ -631,6 +626,9 @@
                     ],
                     "forEachCompound": {
                         "ports": []
+                    },
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
                     }
                 },
                 {
@@ -810,7 +808,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "append_wildcards_if_needed",
@@ -1277,7 +1278,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "prepend_wildcards_if_needed",
@@ -1769,7 +1773,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -2078,7 +2085,10 @@
                 {
                     "name": "input"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9"
+            }
         }
     ]
 }

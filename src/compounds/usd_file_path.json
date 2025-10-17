@@ -176,7 +176,10 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9"
+            }
         }
     ]
 }

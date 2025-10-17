@@ -343,11 +343,6 @@
                                             "metaValue": "<NATIVE>../icons/LoopIterate.svg"
                                         },
                                         {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
                                             "metaName": "_recentNode_",
                                             "metaType": "string",
                                             "metaValue": "BifrostGraph,Core::Object,get_property"
@@ -625,7 +620,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "is_payload_type",
@@ -780,7 +779,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "is_inherit_type",
@@ -930,7 +933,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -1608,6 +1615,11 @@
                                                 "outputPortName": "stage1"
                                             }
                                         ]
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 }
                             ],
@@ -1731,7 +1743,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "has_arcs",
@@ -1901,7 +1918,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -2013,7 +2034,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "create_prim",
@@ -2303,7 +2329,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "set_kind",
@@ -2611,7 +2642,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "if_component",
@@ -2828,7 +2863,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "if_group",
@@ -3045,7 +3084,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "if_subcomponenent",
@@ -3262,7 +3305,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -3428,7 +3475,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "set_instanceable",
@@ -3743,7 +3795,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "set_purpose",
@@ -4042,7 +4099,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "prim_path_is_valid",
@@ -4381,7 +4443,10 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -4926,7 +4991,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "add_attributes",
@@ -5182,11 +5252,6 @@
                                 {
                                     "name": "iterate_attributes",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -6335,7 +6400,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "create_interger_attributes",
@@ -7392,7 +7462,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "create_quat_attributes",
@@ -8147,7 +8222,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "create_tex_coord_attributes",
@@ -8483,7 +8563,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "create_normal_attributes",
@@ -8820,7 +8905,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "create_color_attributes",
@@ -9157,7 +9247,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "create_bool_attributes",
@@ -9470,7 +9565,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "create_asset_attributes",
@@ -9773,7 +9873,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "create_token_attributes",
@@ -10076,7 +10181,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "create_string_attributes",
@@ -10379,7 +10489,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "create_scalar_attributes",
@@ -11048,7 +11163,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "create_vector_attributes",
@@ -13120,7 +13240,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -13735,6 +13860,11 @@
                                                 "outputPortName": "out_stage"
                                             }
                                         ]
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 }
                             ],
@@ -13858,7 +13988,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -13995,7 +14130,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "apply_schemas",
@@ -14126,11 +14266,6 @@
                         {
                             "name": "iterate",
                             "metadata": [
-                                {
-                                    "metaName": "icon",
-                                    "metaType": "string",
-                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                },
                                 {
                                     "metaName": "icon",
                                     "metaType": "string",
@@ -14330,6 +14465,10 @@
                                         "outputPortName": "out_stage"
                                     }
                                 ]
+                            },
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
                             }
                         }
                     ],
@@ -14620,7 +14759,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -14791,7 +14935,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

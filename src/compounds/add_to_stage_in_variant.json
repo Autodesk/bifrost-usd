@@ -659,7 +659,11 @@
                         {
                             "name": "input1"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "select_variant",
@@ -1172,7 +1176,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "select_current_variant",
@@ -1724,7 +1733,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -1955,7 +1969,12 @@
                         {
                             "name": "input1"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "can_enable_variant",
@@ -2152,7 +2171,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -2533,11 +2555,6 @@
                     "value": {}
                 },
                 {
-                    "valueName": "add_to_stage.layer_index",
-                    "valueType": "int",
-                    "value": "-1L"
-                },
-                {
                     "valueName": "add_to_stage.prim_definitions",
                     "valueType": "array<Object>",
                     "value": []
@@ -2551,6 +2568,11 @@
                     "valueName": "add_to_stage.parent_path",
                     "valueType": "string",
                     "value": "/foo"
+                },
+                {
+                    "valueName": "add_to_stage.layer_index",
+                    "valueType": "int",
+                    "value": "-1L"
                 },
                 {
                     "valueName": "add_to_stage.use_material_name_or_tag",
@@ -2631,7 +2653,12 @@
                 {
                     "name": "input"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

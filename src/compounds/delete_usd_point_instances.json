@@ -851,7 +851,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -1353,7 +1357,12 @@
                         {
                             "name": "output2"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "tag_from_indices",
@@ -1740,7 +1749,11 @@
                         {
                             "name": "input1"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -1791,15 +1804,15 @@
                     "nodeType": "Geometry::Tags::tag_inside_geometry",
                     "terminalStates": [
                         {
+                            "name": "Core::Graph::terminal::diagnostic",
+                            "enabled": "false"
+                        },
+                        {
                             "name": "Core::Graph::terminal::final",
                             "enabled": "false"
                         },
                         {
                             "name": "Core::Graph::terminal::proxy",
-                            "enabled": "false"
-                        },
-                        {
-                            "name": "Core::Graph::terminal::diagnostic",
                             "enabled": "false"
                         }
                     ],
@@ -1970,16 +1983,16 @@
                     "nodeType": "USD::PointInstancer::usd_point_instancer_scope",
                     "terminalStates": [
                         {
+                            "name": "Core::Graph::terminal::diagnostic",
+                            "enabled": "false"
+                        },
+                        {
                             "name": "Core::Graph::terminal::final",
                             "enabled": "true"
                         },
                         {
                             "name": "Core::Graph::terminal::proxy",
                             "enabled": "true"
-                        },
-                        {
-                            "name": "Core::Graph::terminal::diagnostic",
-                            "enabled": "false"
                         }
                     ],
                     "metadata": [
@@ -2225,6 +2238,11 @@
                     "value": "point_component"
                 },
                 {
+                    "valueName": "tag_inside_geometry.merge_mode",
+                    "valueType": "Geometry::Tags::MergeMode",
+                    "value": "Intersection"
+                },
+                {
                     "valueName": "tag_inside_geometry.position_property",
                     "valueType": "string",
                     "value": "point_position"
@@ -2243,7 +2261,7 @@
                     "valueName": "tag_inside_geometry.weights_curve",
                     "valueType": "Math::FCurve",
                     "value": {
-                        "version": "1",
+                        "version": "2",
                         "preExtrapolation": "1",
                         "postExtrapolation": "1",
                         "points": [
@@ -2251,6 +2269,7 @@
                                 "point": {
                                     "locked": "1",
                                     "interpolation": "2",
+                                    "curveInterpolation": "0",
                                     "pcn": {
                                         "xp": "-0.40000000000000002",
                                         "yp": "0",
@@ -2265,6 +2284,7 @@
                                 "point": {
                                     "locked": "1",
                                     "interpolation": "2",
+                                    "curveInterpolation": "0",
                                     "pcn": {
                                         "xp": "0.59999999999999998",
                                         "yp": "1",
@@ -2314,11 +2334,6 @@
                     "value": "0.0500000007f"
                 },
                 {
-                    "valueName": "tag_inside_geometry.merge_mode",
-                    "valueType": "Geometry::Tags::MergeMode",
-                    "value": "Intersection"
-                },
-                {
                     "valueName": "tag_randomly.geometry",
                     "valueType": "Object",
                     "value": {}
@@ -2329,9 +2344,14 @@
                     "value": "point_component"
                 },
                 {
-                    "valueName": "tag_randomly.elements_to_tag",
+                    "valueName": "tag_randomly.tag_to_merge",
                     "valueType": "array<bool>",
                     "value": []
+                },
+                {
+                    "valueName": "tag_randomly.merge_mode",
+                    "valueType": "Geometry::Tags::MergeMode",
+                    "value": "Intersection"
                 },
                 {
                     "valueName": "tag_randomly.tag",
@@ -2347,7 +2367,7 @@
                     "valueName": "tag_randomly.weights_curve",
                     "valueType": "Math::FCurve",
                     "value": {
-                        "version": "1",
+                        "version": "2",
                         "preExtrapolation": "0",
                         "postExtrapolation": "0",
                         "points": [
@@ -2355,6 +2375,7 @@
                                 "point": {
                                     "locked": "1",
                                     "interpolation": "2",
+                                    "curveInterpolation": "0",
                                     "pcn": {
                                         "xp": "-0.40000000000000002",
                                         "yp": "0",
@@ -2369,6 +2390,7 @@
                                 "point": {
                                     "locked": "1",
                                     "interpolation": "2",
+                                    "curveInterpolation": "0",
                                     "pcn": {
                                         "xp": "0.59999999999999998",
                                         "yp": "1",
@@ -2418,11 +2440,6 @@
                     "value": "0.25f"
                 },
                 {
-                    "valueName": "tag_randomly.merge_mode",
-                    "valueType": "Geometry::Tags::MergeMode",
-                    "value": "Intersection"
-                },
-                {
                     "valueName": "equal.second",
                     "valueType": "string",
                     "value": "Inside Geometry"
@@ -2436,6 +2453,11 @@
                     "valueName": "usd_point_instancer_scope.point_instancer_path",
                     "valueType": "string",
                     "value": ""
+                },
+                {
+                    "valueName": "usd_point_instancer_scope.local_space",
+                    "valueType": "bool",
+                    "value": "false"
                 },
                 {
                     "valueName": "usd_point_instancer_scope.filter_mode",
@@ -2456,11 +2478,6 @@
                     "valueName": "usd_point_instancer_scope.default_size",
                     "valueType": "float",
                     "value": "1f"
-                },
-                {
-                    "valueName": "usd_point_instancer_scope.local_space",
-                    "valueType": "bool",
-                    "value": "false"
                 },
                 {
                     "valueName": "usd_point_instancer_scope.show_axis",
@@ -2519,7 +2536,13 @@
                 {
                     "name": "input3"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "geometries": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

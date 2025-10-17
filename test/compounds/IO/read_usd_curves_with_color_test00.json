@@ -988,14 +988,14 @@
                                             "value": "1f"
                                         },
                                         {
-                                            "valueName": "standard_surface_mat.subsurface_anisotropy",
-                                            "valueType": "float",
-                                            "value": "0f"
-                                        },
-                                        {
                                             "valueName": "standard_surface_mat.subsurface_type",
                                             "valueType": "char",
                                             "value": "0"
+                                        },
+                                        {
+                                            "valueName": "standard_surface_mat.subsurface_anisotropy",
+                                            "valueType": "float",
+                                            "value": "0f"
                                         },
                                         {
                                             "valueName": "standard_surface_mat.coat",
@@ -1089,7 +1089,11 @@
                                         {
                                             "name": "input1"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -1135,7 +1139,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -1271,12 +1279,12 @@
                             "nodeName": "define_usd_curves",
                             "nodeType": "USD::Prim::define_usd_curves",
                             "fanInPortNames": {
+                                "reference_definitions": [],
                                 "attribute_definitions": [
                                     "attribute_definition"
                                 ],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
-                                "children": []
+                                "children": [],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -1349,14 +1357,14 @@
                     ],
                     "values": [
                         {
-                            "valueName": "add_to_stage.enable",
-                            "valueType": "bool",
-                            "value": "true"
-                        },
-                        {
                             "valueName": "add_to_stage.prim_definitions",
                             "valueType": "array<Object>",
                             "value": []
+                        },
+                        {
+                            "valueName": "add_to_stage.enable",
+                            "valueType": "bool",
+                            "value": "true"
                         },
                         {
                             "valueName": "add_to_stage.parent_path",
@@ -1387,6 +1395,11 @@
                             "valueName": "define_usd_attribute.name",
                             "valueType": "string",
                             "value": "displayColor"
+                        },
+                        {
+                            "valueName": "define_usd_attribute.custom",
+                            "valueType": "bool",
+                            "value": "false"
                         },
                         {
                             "valueName": "define_usd_attribute.type",
@@ -1429,26 +1442,26 @@
                             "value": "PrimVarVarying"
                         },
                         {
-                            "valueName": "define_usd_attribute.custom",
-                            "valueType": "bool",
-                            "value": "false"
+                            "valueName": "define_usd_attribute.frame",
+                            "valueType": "float",
+                            "value": "0f"
                         },
                         {
                             "valueName": "define_usd_attribute.use_frame",
                             "valueType": "bool",
                             "value": "false"
-                        },
-                        {
-                            "valueName": "define_usd_attribute.frame",
-                            "valueType": "float",
-                            "value": "0f"
                         }
                     ],
                     "reservedNodeNames": [
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "test",
@@ -2176,7 +2189,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "expect_float3_equal1",
@@ -2639,7 +2655,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -3087,7 +3106,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -3261,7 +3284,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -3543,7 +3570,12 @@
                 {
                     "name": "input"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

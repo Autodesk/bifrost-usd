@@ -352,6 +352,12 @@
                         {
                             "nodeName": "create_mesh_sphere",
                             "nodeType": "Modeling::Primitive::create_mesh_sphere",
+                            "terminalStates": [
+                                {
+                                    "name": "Core::Graph::terminal::diagnostic",
+                                    "enabled": "false"
+                                }
+                            ],
                             "metadata": [
                                 {
                                     "metaName": "DisplayMode",
@@ -500,14 +506,14 @@
                             "value": "25f"
                         },
                         {
-                            "valueName": "create_mesh_sphere.height_segments",
-                            "valueType": "int",
-                            "value": "14L"
-                        },
-                        {
                             "valueName": "create_mesh_sphere.axis_segments",
                             "valueType": "int",
                             "value": "20L"
+                        },
+                        {
+                            "valueName": "create_mesh_sphere.height_segments",
+                            "valueType": "int",
+                            "value": "14L"
                         },
                         {
                             "valueName": "create_mesh_sphere.position",
@@ -558,7 +564,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "show_instances",
@@ -697,7 +707,10 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "bif": "2.15.0.9"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -792,7 +805,7 @@
                 },
                 {
                     "nodeName": "define_usd_point_instancer",
-                    "nodeType": "USD::Prim::define_usd_point_instancer",
+                    "nodeType": "USD::PointInstancer::define_usd_point_instancer",
                     "fanInPortNames": {
                         "prototype_definitions": []
                     },
@@ -817,6 +830,12 @@
                 {
                     "nodeName": "create_mesh_torus",
                     "nodeType": "Modeling::Primitive::create_mesh_torus",
+                    "terminalStates": [
+                        {
+                            "name": "Core::Graph::terminal::diagnostic",
+                            "enabled": "false"
+                        }
+                    ],
                     "metadata": [
                         {
                             "metaName": "DisplayMode",
@@ -838,6 +857,12 @@
                 {
                     "nodeName": "create_mesh_torus1",
                     "nodeType": "Modeling::Primitive::create_mesh_torus",
+                    "terminalStates": [
+                        {
+                            "name": "Core::Graph::terminal::diagnostic",
+                            "enabled": "false"
+                        }
+                    ],
                     "metadata": [
                         {
                             "metaName": "DisplayMode",
@@ -859,6 +884,12 @@
                 {
                     "nodeName": "create_mesh_sphere",
                     "nodeType": "Modeling::Primitive::create_mesh_sphere",
+                    "terminalStates": [
+                        {
+                            "name": "Core::Graph::terminal::diagnostic",
+                            "enabled": "false"
+                        }
+                    ],
                     "metadata": [
                         {
                             "metaName": "DisplayMode",
@@ -880,6 +911,12 @@
                 {
                     "nodeName": "create_mesh_sphere1",
                     "nodeType": "Modeling::Primitive::create_mesh_sphere",
+                    "terminalStates": [
+                        {
+                            "name": "Core::Graph::terminal::diagnostic",
+                            "enabled": "false"
+                        }
+                    ],
                     "metadata": [
                         {
                             "metaName": "DisplayMode",
@@ -1129,6 +1166,11 @@
                     "value": "8U"
                 },
                 {
+                    "valueName": "create_mesh_torus1.normals",
+                    "valueType": "Modeling::Primitive::Normals",
+                    "value": "smooth"
+                },
+                {
                     "valueName": "create_mesh_torus1.position",
                     "valueType": "Math::float3",
                     "value": {
@@ -1156,11 +1198,6 @@
                     }
                 },
                 {
-                    "valueName": "create_mesh_torus1.normals",
-                    "valueType": "Modeling::Primitive::Normals",
-                    "value": "smooth"
-                },
-                {
                     "valueName": "create_mesh_sphere.radius",
                     "valueType": "float",
                     "value": "2f"
@@ -1171,12 +1208,12 @@
                     "value": "2f"
                 },
                 {
-                    "valueName": "create_mesh_sphere1.height_segments",
+                    "valueName": "create_mesh_sphere1.axis_segments",
                     "valueType": "int",
                     "value": "6L"
                 },
                 {
-                    "valueName": "create_mesh_sphere1.axis_segments",
+                    "valueName": "create_mesh_sphere1.height_segments",
                     "valueType": "int",
                     "value": "6L"
                 },
@@ -1217,7 +1254,7 @@
                     "valueName": "create_instances.probability_curve",
                     "valueType": "Math::FCurve",
                     "value": {
-                        "version": "1",
+                        "version": "2",
                         "preExtrapolation": "0",
                         "postExtrapolation": "0",
                         "points": [
@@ -1225,6 +1262,7 @@
                                 "point": {
                                     "locked": "1",
                                     "interpolation": "1",
+                                    "curveInterpolation": "0",
                                     "pcn": {
                                         "xp": "-0.63807499999999995",
                                         "yp": "-0.180645",
@@ -1239,6 +1277,7 @@
                                 "point": {
                                     "locked": "1",
                                     "interpolation": "1",
+                                    "curveInterpolation": "0",
                                     "pcn": {
                                         "xp": "0.67824300000000004",
                                         "yp": "0.91612899999999997",
@@ -1276,7 +1315,13 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "scatter": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

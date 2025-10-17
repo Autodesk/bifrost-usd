@@ -7,13 +7,6 @@
         "    - 'select_variants_test00' compound tests selecting variants on prim",
         "      used as prototypes in a define_usd_point_instancer workflow"
     ],
-    "options": {
-        "definitionFiles": [
-            "create_variants_test00.json",
-            "define_variants_test00.json",
-            "select_variants_test00.json"
-        ]
-    },
    "task": {
         "type": "sequence",
         "tasks": [

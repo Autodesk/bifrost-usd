@@ -7,6 +7,8 @@
             }
         ]
     },
+    "namespaces": [],
+    "types": [],
     "compounds": [
         {
             "name": "Graphs::USD::robot_with_purpose",
@@ -48,7 +50,7 @@
                     "metaType": "string",
                     "metaValue": "robot_with_purpose_thumb.png"
                 },
-{
+                {
                     "metaName": "io_nodes",
                     "metadata": [
                         {
@@ -170,7 +172,8 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {}
         }
     ]
 }
