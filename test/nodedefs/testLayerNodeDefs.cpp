@@ -1,5 +1,5 @@
 //-
-// Copyright 2024 Autodesk, Inc.
+// Copyright 2025 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -39,20 +39,7 @@ BIFUSD_WARNING_POP
 using namespace BifrostUsd::TestUtils;
 
 namespace {
-Amino::String getThisTestOutputDir_rel() {
-    return Bifrost::FileUtils::makePreferred("./testLayerNodeDefs");
-}
-Amino::String getThisTestOutputDir() {
-    return Bifrost::FileUtils::filePath(getTestOutputDir(),
-                                        "testLayerNodeDefs");
-}
-Amino::String getThisTestOutputPath(const Amino::String& filename) {
-    return Bifrost::FileUtils::filePath(getThisTestOutputDir(), filename);
-}
-} // namespace
-
-TEST(LayerNodeDefs, initial_cleanup) {
-    ASSERT_TRUE(Bifrost::FileUtils::removeAll(getThisTestOutputDir()));
+UniqueTestOutputSubdir g_OutputDir{"testLayerNodeDefs", true /*autoDelete*/};
 }
 
 TEST(LayerNodeDefs, get_root_layer) {
@@ -170,18 +157,18 @@ TEST(LayerNodeDefs, create_layer) {
     };
 
     // Save an ASCII file with a .usd extension
-    create_and_save(getThisTestOutputPath("testUSD_Default.usd"), "",
+    create_and_save(g_OutputDir.getPath_abs("testUSD_Default.usd"), "",
                     usdCrateContent);
-    create_and_save(getThisTestOutputPath("testUSD_USDA.usd"), "usda",
+    create_and_save(g_OutputDir.getPath_abs("testUSD_USDA.usd"), "usda",
                     usdAsciiContent);
-    create_and_save(getThisTestOutputPath("testUSD_USDC.usd"), "usdc",
+    create_and_save(g_OutputDir.getPath_abs("testUSD_USDC.usd"), "usdc",
                     usdCrateContent);
 
-    create_and_save(getThisTestOutputPath("testUSDA_Default.usda"), "",
+    create_and_save(g_OutputDir.getPath_abs("testUSDA_Default.usda"), "",
                     usdAsciiContent);
-    create_and_save(getThisTestOutputPath("testUSDA_USDA.usda"), "usda",
+    create_and_save(g_OutputDir.getPath_abs("testUSDA_USDA.usda"), "usda",
                     usdAsciiContent);
-    create_and_save(getThisTestOutputPath("testUSDA_USDC.usda"), "usdc",
+    create_and_save(g_OutputDir.getPath_abs("testUSDA_USDC.usda"), "usdc",
                     usdCrateContent);
 }
 
@@ -232,15 +219,16 @@ TEST(LayerNodeDefs, set_layer_permission) {
 TEST(LayerNodeDefs, duplicate_layer) {
     Amino::MutablePtr<BifrostUsd::Layer> sourceLayer;
     auto                                 sourceSaveFilepath =
-        getThisTestOutputPath("testDuplicateLayer_source_output.usda");
+        g_OutputDir.getPath_abs("testDuplicateLayer_source_output.usda");
     USD::Layer::open_layer(getResourcePath("helloworld.usd").c_str(),
                            sourceSaveFilepath.c_str(),
-                           /*read_only=*/ false, sourceLayer);
+                           /*read_only=*/false, sourceLayer);
     ASSERT_TRUE(sourceLayer);
     ASSERT_TRUE(*sourceLayer);
 
     Amino::MutablePtr<BifrostUsd::Layer> newLayer;
-    auto saveFilepath = getThisTestOutputPath("testDuplicateLayer_output.usda");
+    auto                                 saveFilepath =
+        g_OutputDir.getPath_abs("testDuplicateLayer_output.usda");
 
     USD::Layer::duplicate_layer(*sourceLayer, saveFilepath.c_str(), newLayer);
     ASSERT_TRUE(newLayer);
@@ -248,7 +236,6 @@ TEST(LayerNodeDefs, duplicate_layer) {
     ASSERT_TRUE(newLayer->getFilePath().c_str() == saveFilepath);
 
     // At this point of the test, the layer file should not yet exist on disk
-    // (see the initial_cleanup test phase above):
     ASSERT_FALSE(Bifrost::FileUtils::filePathExists(saveFilepath))
         << "The output layer file " << saveFilepath.c_str()
         << " must not already exist when this test runs.\n";
@@ -338,7 +325,7 @@ def Xform "hello"
 )usda";
     auto        layer             = Amino::newClassPtr<BifrostUsd::Layer>(
         getResourcePath("helloworld.usd").c_str(), "", "", true);
-    auto filepath = getThisTestOutputPath("testLayerExport.usda");
+    auto filepath = g_OutputDir.getPath_abs("testLayerExport.usda");
     bool success =
         USD::Layer::export_layer_to_file(*layer, filepath.c_str(), false);
     ASSERT_TRUE(success);
@@ -666,7 +653,7 @@ TEST(LayerNodeDefs, export_to_file_with_edit_layer) {
         temp = "export_to_file_with_edit_layer_SUBLAYER_";
         temp += (useRelPath ? "Rel" : "Abs");
         temp += "Path.usda";
-        auto              subFilePath = getThisTestOutputPath(temp.c_str());
+        auto              subFilePath = g_OutputDir.getPath_abs(temp);
         BifrostUsd::Layer subLayer{};
         subLayer.setFilePath(subFilePath);
         ASSERT_TRUE(subLayer);
@@ -675,7 +662,7 @@ TEST(LayerNodeDefs, export_to_file_with_edit_layer) {
         temp = "export_to_file_with_edit_layer_ROOT_";
         temp += (useRelPath ? "Rel" : "Abs");
         temp += "Path.usda";
-        auto              rootFilePath = getThisTestOutputPath(temp.c_str());
+        auto              rootFilePath = g_OutputDir.getPath_abs(temp);
         BifrostUsd::Layer rootLayer{getResourcePath("helloworld.usd").c_str(),
                                     ""};
         ASSERT_TRUE(rootLayer);
@@ -694,7 +681,7 @@ TEST(LayerNodeDefs, export_to_file_with_edit_layer) {
         ASSERT_TRUE(newprim.IsValid());
 
         // At this point of the test, the root and sublayer files should not yet
-        // exist on disk (see the initial_cleanup test phase above):
+        // exist on disk:
         ASSERT_FALSE(Bifrost::FileUtils::filePathExists(rootFilePath))
             << "The output root layer file " << rootFilePath.c_str()
             << " must not already exist when this test runs.\n";
@@ -733,8 +720,8 @@ TEST(LayerNodeDefs, export_layer_to_file_multicases) {
         // Build either a relative or absolute path for the root layer's
         // directory to use in this test:
         std::string rootDir = Bifrost::FileUtils::filePath(
-                                  (relativeFilePath ? getThisTestOutputDir_rel()
-                                                    : getThisTestOutputDir()),
+                                  (relativeFilePath ? g_OutputDir.getDir_rel()
+                                                    : g_OutputDir.getDir_abs()),
                                   commonTestDir)
                                   .c_str();
         rootDir += relativeFilePath ? "/relFilePathCases/" : "/absFilePathCases/";
@@ -771,7 +758,6 @@ TEST(LayerNodeDefs, export_layer_to_file_multicases) {
                         .c_str();
 
                 // At beginning of the test, the output files should not exist
-                // (see the initial_cleanup test phase above):
                 ASSERT_FALSE(
                     Bifrost::FileUtils::filePathExists(rootFilePath))
                     << "The output root layer file " << rootFilePath

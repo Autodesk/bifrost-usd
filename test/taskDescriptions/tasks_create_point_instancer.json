@@ -1,0 +1,11 @@
+{
+    "schemaVersion": "1.0.0",
+    "comment": "Test create_point_instancer compound",
+    "options": {
+        "compound": "USD::Test::PointInstancer::create_point_instancer_test00"
+    },
+    "task": {
+        "type": "single",
+        "name": "Use Default Params"
+    }
+}

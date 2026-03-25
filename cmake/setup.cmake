@@ -32,7 +32,7 @@ set(BIFROST_USD_PACK_CONFIG_FILE_MAIN            "usd_pack/usd_pack_config.json"
 set(BIFROST_USD_PACK_CONFIG_FILE_COMP_DEV        "usd_pack/usd_pack_config_compound_dev.json")
 
 set(BIFROST_USD_PACK_SHARED_LIB_DIR ${BIFUSD_INSTALL_LIB_DIR})
-if( BIFUSD_IS_WINDOWS)
+if(BIFUSD_IS_WINDOWS)
     set(BIFROST_USD_PACK_SHARED_LIB_DIR ${BIFUSD_INSTALL_BIN_DIR})
 endif()
 
@@ -65,7 +65,7 @@ if(IS_BIFUSD_STANDALONE)
 
     include(${BIFROST_LOCATION}/sdk/cmake/setup.cmake)
 
-    if( BIFUSD_IS_WINDOWS)
+    if(BIFUSD_IS_WINDOWS)
         # Maya runtime location is optional.
         # If it is there we use it to find python dlls.
         # if not we use the python that we found to support
@@ -75,28 +75,34 @@ if(IS_BIFUSD_STANDALONE)
         else()
             get_filename_component( python_dir ${BIFUSD_PYTHON_EXECUTABLE} DIRECTORY)
         endif()
-    endif()
-
-    if( BIFUSD_IS_WINDOWS)
-        set(bifrost_lib_paths
-            ${BIFROST_LOCATION}/bin
-            ${BIFROST_LOCATION}/thirdparty/bin
-            ${USD_LOCATION}/lib
-            ${python_dir})
 
         # On Windows, the path to shared libraries must be explicitly
         # specified. While on Unix platforms, the libraries are automatically found
         # through the RPATH mechanism. Note that the default bifusd shared library
         # directory is always implicitly appended.
-        set( BIFUSD_EXTRA_BUILD_AND_TEST_PATHS    "${bifrost_lib_paths}" )
-
+        set(bifrost_lib_paths
+            # Note: USD/lib also includes TBB, so this TBB will be found first,
+            #       and it is usually more recent than TBB in Bifrost/Amino.
+            ${USD_LOCATION}/lib
+            ${BIFROST_LOCATION}/bin
+            ${BIFROST_LOCATION}/thirdparty/bin
+            ${python_dir})
+        set(BIFUSD_EXTRA_BUILD_AND_TEST_PATHS    "${bifrost_lib_paths}" )
+    else()
+        # Note: USD/lib also includes TBB, so this TBB will be found first,
+        #       and it is usually more recent than TBB in Bifrost/Amino.
+        set(BIFUSD_EXTRA_BUILD_AND_TEST_PATHS    "${USD_LOCATION}/lib" )
     endif()
 endif()
 
-if( BIFUSD_IS_WINDOWS)
-    # Add properties to be able to merge of json files and run tests externally
-    set_target_properties( ${BIFUSD_PACKAGE_NAME}_config_info PROPERTIES
-        BIFUSD_EXTRA_WIN_LIBS "${BIFUSD_EXTRA_BUILD_AND_TEST_PATHS}"
+# Add properties to be able to merge of json files and run tests externally
+if(BIFUSD_IS_WINDOWS)
+    set_target_properties(${BIFUSD_PACKAGE_NAME}_config_info PROPERTIES
+        BIFUSD_EXTRA_TEST_LIBS "${BIFUSD_EXTRA_BUILD_AND_TEST_PATHS}"
+    )
+else()
+    set_target_properties(${BIFUSD_PACKAGE_NAME}_config_info PROPERTIES
+        BIFUSD_EXTRA_TEST_LIBS "${USD_LOCATION}/lib"
     )
 endif()
 

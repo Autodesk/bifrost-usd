@@ -15,21 +15,22 @@ For Maya users, the project also includes a Maya plugin allowing to visualize US
 
 You must provide the following variables to the cmake command:
 
-* BIFUSD_PACKAGE_NAME : By default Bifrost will load the USD Pack, named `usd_pack`, from its installation directory. You must use a different name for your custom build of the pack.
+* BIFUSD_PACKAGE_NAME: By default Bifrost will load the USD Pack, named `usd_pack`, from its installation directory. You must use a different name for your custom build of the pack.
 * BIFUSD_MAYA_TRANSLATIONS_NAME: By default Bifrost will load the Maya USD translation plugin, named `usdMayaTranslations`, from its installation directory. You must use a different name for your custom build of the Maya USD translation plugin.
-* CMAKE_BUILD_TYPE : Debug, Release, RelWithDebInfo
-* CMAKE_INSTALL_PREFIX : Where you want to install the bifrost-usd-pack library
-* BIFROST_LOCATION : The full path to the root directory of your Bifrost installation that contains, among others, the `sdk` subdirectory. The USD Pack will be built against this `sdk` subdirectory of your Bifrost installation.
-* USD_LOCATION : The full path to the root directory of your USD library installation that contains, among others, the `cmake`, `include`, `lib`, `plugin` and `share` subdirectories.
-* MAYA_RUNTIME_LOCATION : (for the Maya extension only) The full path to the root directory of your Maya development installation that contains, among others, the `bin`, `include` and `lib` subdirectories.
-* BIFUSD_OSX_ACTIVE_SDK : (optional) Can be set to choose a specific macOS SDK. If not set, the currently available SDK will be used.
-* BIFUSD_OSX_MIN_OS : (optional) Can be set to choose the minimum macOS deployement target. If not set, macOS 11.0 will be used.
-* BIFUSD_OSX_BINARY_ARCH : (optional) Can be set to choose the target architecture to build on macOS. Acceptable values are `x64` (Intel CPU), `arm64` (Apple M1 CPU), `ub2` (Universal Binary 2 - both x64 and arm64) and empty (default) (host system's processor).
-* BIFUSD_EXAMPLES : (optional) Install the examples. ON by default. Set it to OFF if you don't want to install the extra compounds packs and Maya plugin.
+* CMAKE_BUILD_TYPE: Debug, Release, RelWithDebInfo
+* CMAKE_INSTALL_PREFIX: Where you want to install the bifrost-usd-pack library
+* BIFROST_LOCATION: The full path to the root directory of your Bifrost installation that contains, among others, the `sdk` subdirectory. The USD Pack will be built against this `sdk` subdirectory of your Bifrost installation.
+* USD_LOCATION: The full path to the root directory of your USD library installation that contains, among others, the `cmake`, `include`, `lib`, `plugin` and `share` subdirectories.
+* MAYA_RUNTIME_LOCATION: (for the Maya extension only) The full path to the root directory of your Maya development installation that contains, among others, the `bin`, `include` and `lib` subdirectories.
+* BIFUSD_OSX_ACTIVE_SDK: (optional) Can be set to choose a specific macOS SDK. If not set, the currently available SDK will be used.
+* BIFUSD_OSX_MIN_OS: (optional) Can be set to choose the minimum macOS deployement target. If not set, macOS 11.0 will be used.
+* BIFUSD_OSX_BINARY_ARCH: (optional) Can be set to choose the target architecture to build on macOS. Acceptable values are `x64` (Intel CPU), `arm64` (Apple M1 CPU), `ub2` (Universal Binary 2 - both x64 and arm64) and empty (default) (host system's processor).
+* BIFUSD_EXAMPLES: (optional) Install the examples. ON by default. Set it to OFF if you don't want to install the extra compounds packs and Maya plugin.
 * BIFUSD_EXAMPLES_TESTS: (optional) Creates the examples tests. OFF by default (requires MAYA_USD_PLUGIN_DIR and LOOKDEVX_PLUGIN_DIR).
-* BIFUSD_BUILD_HYDRA : Enable the build of Bifrost Hydra Experimental plugin.
+* BIFUSD_BUILD_HYDRA: Enable the build of Bifrost Hydra Experimental plugin.
 * MAYA_USD_PLUGIN_DIR: (optional) Root directory of the Maya USD plugin where the mayaUSD.mod file is located. Only required to run examples tests.
 * LOOKDEVX_PLUGIN_DIR: (optional) Root directory of the LookdevX plugin where the lookdevx.mod file is located. Only required to run examples tests.
+* MULTI_USD_VERSION_SUFFIX: (optional) USD version suffix (e.g., "_0.25.5") to append to MayaUSD and USD subdirectories when Maya USD supports multiple USD versions. If not set, no suffix is appended. Only required when BIFUSD_EXAMPLES_TESTS=ON.
 
 __C++17 is the minimal required version going forward.__
 

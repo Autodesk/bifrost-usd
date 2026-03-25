@@ -1,0 +1,2269 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "USD::Test::PointInstancer::create_point_instancer_test00",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes"
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "test_info"
+                                                },
+                                                {
+                                                    "metaName": "failure_msgs"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1233.55 -317.356"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "51.000000"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "title",
+                            "metaType": "string",
+                            "metaValue": "Build Stage"
+                        },
+                        {
+                            "metaName": "fontScaleOffset",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "color",
+                            "metaType": "string",
+                            "metaValue": "#286487ce"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-2853.05 -645.555 2700.87 1263.48"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "backdrop1",
+                    "metadata": [
+                        {
+                            "metaName": "type",
+                            "metaType": "string",
+                            "metaValue": "backdrop"
+                        },
+                        {
+                            "metaName": "color",
+                            "metaType": "string",
+                            "metaValue": "#2835b073"
+                        },
+                        {
+                            "metaName": "fontScaleOffset",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "title",
+                            "metaType": "string",
+                            "metaValue": "Test proto Indices array values"
+                        },
+                        {
+                            "metaName": "coords",
+                            "metaType": "string",
+                            "metaValue": "-0.62904 -529.058 1131.34 826.06"
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-2901.63 -991.646 3014.1 1738.46"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "2334.25 650.086"
+                },
+                {
+                    "metaName": "zValue",
+                    "metaType": "string",
+                    "metaValue": "47.000000"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "test_info",
+                    "portDirection": "output",
+                    "portType": "string"
+                },
+                {
+                    "portName": "failure_msgs",
+                    "portDirection": "output",
+                    "portType": "array<string>"
+                }
+            ],
+            "compounds": [
+                {
+                    "name": "create_bifrost_instancer",
+                    "metadata": [
+                        {
+                            "metaName": "io_nodes",
+                            "metadata": [
+                                {
+                                    "metaName": "io_inodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "input",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "torus_mesh"
+                                                        },
+                                                        {
+                                                            "metaName": "cube_mesh"
+                                                        },
+                                                        {
+                                                            "metaName": "sphere_mesh"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "196.181 544.089"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "31.000000"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "io_onodes",
+                                    "metadata": [
+                                        {
+                                            "metaName": "output",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "io_ports",
+                                                    "metadata": [
+                                                        {
+                                                            "metaName": "out_geometry"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "metaName": "DisplayMode",
+                                                    "metaType": "string",
+                                                    "metaValue": "2"
+                                                },
+                                                {
+                                                    "metaName": "LayoutPos",
+                                                    "metaType": "string",
+                                                    "metaValue": "1335.99 544.089"
+                                                },
+                                                {
+                                                    "metaName": "zValue",
+                                                    "metaType": "string",
+                                                    "metaValue": "32.000000"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "ViewportRect",
+                            "metaType": "string",
+                            "metaValue": "116 239.921 1526 880.159"
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "portName": "torus_mesh",
+                            "portDirection": "input",
+                            "portType": "Object"
+                        },
+                        {
+                            "portName": "cube_mesh",
+                            "portDirection": "input",
+                            "portType": "Object"
+                        },
+                        {
+                            "portName": "sphere_mesh",
+                            "portDirection": "input",
+                            "portType": "Object"
+                        },
+                        {
+                            "portName": "out_geometry",
+                            "portDirection": "output",
+                            "portType": "Object"
+                        }
+                    ],
+                    "compoundNodes": [
+                        {
+                            "nodeName": "construct_points",
+                            "nodeType": "Geometry::Points::construct_points",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "2"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "501.181 512.37"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "35.000000"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "create_instances",
+                            "nodeType": "Modeling::Instances::create_instances",
+                            "fanInPortNames": {
+                                "instance_geometries": [
+                                    "torus_mesh",
+                                    "cube_mesh",
+                                    "sphere_mesh"
+                                ],
+                                "preview_geometries": []
+                            },
+                            "metadata": [
+                                {
+                                    "metaName": "portMetadata:instance_geometries.torus_mesh:quick_create",
+                                    "metaType": "string",
+                                    "metaValue": "Geometry::Instances::compound_instance;Geometry::Instances::geo_instance;Geometry::Instances::render_archive_instance;Geometry::Instances::selector_instance"
+                                },
+                                {
+                                    "metaName": "portMetadata:instance_geometries.cube_mesh:quick_create",
+                                    "metaType": "string",
+                                    "metaValue": "Geometry::Instances::compound_instance;Geometry::Instances::geo_instance;Geometry::Instances::render_archive_instance;Geometry::Instances::selector_instance"
+                                },
+                                {
+                                    "metaName": "portMetadata:instance_geometries.sphere_mesh:quick_create",
+                                    "metaType": "string",
+                                    "metaValue": "Geometry::Instances::compound_instance;Geometry::Instances::geo_instance;Geometry::Instances::render_archive_instance;Geometry::Instances::selector_instance"
+                                },
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "777.118 575.807"
+                                },
+                                {
+                                    "metaName": "PortExpandedState",
+                                    "metadata": [
+                                        {
+                                            "metaName": "instance_geometries",
+                                            "metaType": "string",
+                                            "metaValue": "1"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "33.000000"
+                                }
+                            ]
+                        },
+                        {
+                            "nodeName": "set_geo_property",
+                            "nodeType": "Geometry::Properties::set_geo_property",
+                            "metadata": [
+                                {
+                                    "metaName": "DisplayMode",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "LayoutPos",
+                                    "metaType": "string",
+                                    "metaValue": "1030.99 563.997"
+                                },
+                                {
+                                    "metaName": "zValue",
+                                    "metaType": "string",
+                                    "metaValue": "36.000000"
+                                }
+                            ]
+                        }
+                    ],
+                    "connections": [
+                        {
+                            "source": "construct_points.points",
+                            "target": "create_instances.points"
+                        },
+                        {
+                            "source": "create_instances.instances",
+                            "target": "set_geo_property.geometry"
+                        },
+                        {
+                            "source": "set_geo_property.out_geometry",
+                            "target": ".out_geometry"
+                        },
+                        {
+                            "source": ".torus_mesh",
+                            "target": "create_instances.instance_geometries.torus_mesh"
+                        },
+                        {
+                            "source": ".cube_mesh",
+                            "target": "create_instances.instance_geometries.cube_mesh"
+                        },
+                        {
+                            "source": ".sphere_mesh",
+                            "target": "create_instances.instance_geometries.sphere_mesh"
+                        }
+                    ],
+                    "values": [
+                        {
+                            "valueName": "construct_points.point_position",
+                            "valueType": "array<Math::float3>",
+                            "value": [
+                                {
+                                    "x": "0f",
+                                    "y": "0f",
+                                    "z": "0f"
+                                },
+                                {
+                                    "x": "0f",
+                                    "y": "2.5f",
+                                    "z": "0f"
+                                },
+                                {
+                                    "x": "0f",
+                                    "y": "5f",
+                                    "z": "0f"
+                                }
+                            ]
+                        },
+                        {
+                            "valueName": "create_instances.selection_mode",
+                            "valueType": "Modeling::Points::CreateInstancesSelectionMode",
+                            "value": "Random"
+                        },
+                        {
+                            "valueName": "create_instances.seed",
+                            "valueType": "long",
+                            "value": "354"
+                        },
+                        {
+                            "valueName": "create_instances.probability_curve",
+                            "valueType": "Math::FCurve",
+                            "value": {
+                                "version": "2",
+                                "preExtrapolation": "0",
+                                "postExtrapolation": "0",
+                                "points": [
+                                    {
+                                        "point": {
+                                            "locked": "1",
+                                            "interpolation": "1",
+                                            "curveInterpolation": "0",
+                                            "pcn": {
+                                                "xp": "-0.63807499999999995",
+                                                "yp": "-0.180645",
+                                                "x": "0",
+                                                "y": "0",
+                                                "xn": "0.63807499999999995",
+                                                "yn": "0.180645"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "point": {
+                                            "locked": "1",
+                                            "interpolation": "1",
+                                            "curveInterpolation": "0",
+                                            "pcn": {
+                                                "xp": "0.67824300000000004",
+                                                "yp": "0.91612899999999997",
+                                                "x": "1",
+                                                "y": "1",
+                                                "xn": "1.3217570000000001",
+                                                "yn": "1.083871"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "valueName": "create_instances.instance_id_override",
+                            "valueType": "array<long>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "create_instances.preview_mode",
+                            "valueType": "Modeling::Points::CreateInstancesPreviewGeometry",
+                            "value": "PreviewGeometry"
+                        },
+                        {
+                            "valueName": "set_geo_property.property",
+                            "valueType": "string",
+                            "value": "point_instance_id"
+                        },
+                        {
+                            "valueName": "set_geo_property.default",
+                            "valueType": "long",
+                            "value": "0"
+                        },
+                        {
+                            "valueName": "set_geo_property.data",
+                            "valueType": "array<long>",
+                            "value": [
+                                "0",
+                                "1",
+                                "2"
+                            ]
+                        },
+                        {
+                            "valueName": "set_geo_property.target",
+                            "valueType": "string",
+                            "value": "point_component"
+                        },
+                        {
+                            "valueName": "set_geo_property.interpolation_mode",
+                            "valueType": "Geometry::Common::DataInterpolationMode",
+                            "value": "Linear"
+                        }
+                    ],
+                    "reservedNodeNames": [
+                        {
+                            "name": "input"
+                        },
+                        {
+                            "name": "output"
+                        }
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.16.0.11",
+                        "bif": "2.16.0.11",
+                        "scatter": "2.16.0.11"
+                    }
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "test_info",
+                    "valueType": "string",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "valuenode_defaultvalue",
+                            "metaType": "string",
+                            "metaValue": "Test description goes here"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "895.712 -453.511"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "52.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "result",
+                        "result1"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "892.407 -136.269"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "45.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "add_to_stage",
+                    "nodeType": "USD::Stage::add_to_stage",
+                    "fanInPortNames": {
+                        "prim_definitions": [
+                            "point_instancer_definition",
+                            "point_instancer_definition1"
+                        ]
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "portMetadata:prim_definitions.point_instancer_definition:quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Prim::define_usd_prim;USD::Prim::define_usd_mesh;USD::Prim::define_usd_curves;USD::Prim::define_usd_prim_hierarchy;USD::PointInstancer::define_usd_point_instancer;USD::Shading::define_usd_preview_surface"
+                        },
+                        {
+                            "metaName": "portMetadata:prim_definitions.point_instancer_definition1:quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Prim::define_usd_prim;USD::Prim::define_usd_mesh;USD::Prim::define_usd_curves;USD::Prim::define_usd_prim_hierarchy;USD::PointInstancer::define_usd_point_instancer;USD::Shading::define_usd_preview_surface"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "prim_definitions",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-680.489 -296.448"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "44.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "define_usd_point_instancer1",
+                    "nodeType": "USD::PointInstancer::define_usd_point_instancer",
+                    "fanInPortNames": {
+                        "prototype_definitions": []
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "portMetadata:prototype_definitions.array:quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Prim::define_usd_prim;USD::Prim::define_usd_mesh;USD::Prim::define_usd_curves"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "prototype_definitions",
+                                    "metaType": "string",
+                                    "metaValue": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1181.68 -570.008"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "43.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_usd_attribute_value",
+                    "nodeType": "USD::Attribute::get_usd_attribute_value",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "12.2179 -404.998"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "48.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "define_usd_prim",
+                    "nodeType": "USD::Prim::define_usd_prim",
+                    "fanInPortNames": {
+                        "variant_set_definitions": [],
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
+                        "children": [
+                            "mesh_definition"
+                        ],
+                        "relationship_definitions": []
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "portMetadata:children.mesh_definition:quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Prim::define_usd_prim;USD::Prim::define_usd_mesh;USD::Prim::define_usd_curves;USD::Prim::define_usd_prim_hierarchy;USD::PointInstancer::define_usd_point_instancer;USD::Shading::define_usd_preview_surface"
+                        },
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "attribute_definitions",
+                                    "metaType": "string",
+                                    "metaValue": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1950.48 1.25741"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "35.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_arrays_equal",
+                    "nodeType": "Core::Compound_Tests::expect_arrays_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "473.752 -242.026"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "49.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "define_usd_mesh1",
+                    "nodeType": "USD::Prim::define_usd_mesh",
+                    "fanInPortNames": {
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
+                        "children": [],
+                        "relationship_definitions": []
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "portMetadata:attribute_definitions.attribute_definition:quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Attribute::define_usd_attribute;USD::Attribute::define_usd_transform;USD::Attribute::define_usd_display_color"
+                        },
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2218.78 -8.52249"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "36.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "build_array1",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "prim_definition",
+                        "prim_definition1",
+                        "prim_definition2"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1617.73 161.241"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "41.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "define_usd_mesh",
+                    "nodeType": "USD::Prim::define_usd_mesh",
+                    "fanInPortNames": {
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
+                        "children": [],
+                        "relationship_definitions": []
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "portMetadata:attribute_definitions.attribute_definition:quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Attribute::define_usd_attribute;USD::Attribute::define_usd_transform;USD::Attribute::define_usd_display_color"
+                        },
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "attribute_definitions",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2223.22 196.501"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "38.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_bifrost_instancer",
+                    "nodeType": "create_bifrost_instancer",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2078.35 -390.31"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "53.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "define_usd_prim1",
+                    "nodeType": "USD::Prim::define_usd_prim",
+                    "fanInPortNames": {
+                        "variant_set_definitions": [],
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
+                        "children": [
+                            "mesh_definition"
+                        ],
+                        "relationship_definitions": []
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "portMetadata:children.mesh_definition:quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Prim::define_usd_prim;USD::Prim::define_usd_mesh;USD::Prim::define_usd_curves;USD::Prim::define_usd_prim_hierarchy;USD::PointInstancer::define_usd_point_instancer;USD::Shading::define_usd_preview_surface"
+                        },
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1943.87 209.146"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "37.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "value",
+                    "valueType": "array<int>",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "96.172 -153.834"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "46.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_mesh_cube1",
+                    "nodeType": "Modeling::Primitive::create_mesh_cube",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2819.17 37.0721"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "32.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_mesh_sphere",
+                    "nodeType": "Modeling::Primitive::create_mesh_sphere",
+                    "terminalStates": [
+                        {
+                            "name": "Core::Graph::terminal::diagnostic",
+                            "enabled": "false"
+                        }
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2824.11 257.752"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "33.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_mesh_torus",
+                    "nodeType": "Modeling::Primitive::create_mesh_torus",
+                    "terminalStates": [
+                        {
+                            "name": "Core::Graph::terminal::diagnostic",
+                            "enabled": "false"
+                        }
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2843.05 -168.492"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "31.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "define_usd_mesh2",
+                    "nodeType": "USD::Prim::define_usd_mesh",
+                    "fanInPortNames": {
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
+                        "children": [],
+                        "relationship_definitions": []
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "portMetadata:attribute_definitions.attribute_definition:quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Attribute::define_usd_attribute;USD::Attribute::define_usd_transform;USD::Attribute::define_usd_display_color"
+                        },
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "attribute_definitions",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2231.09 416.474"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "39.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "define_usd_prim2",
+                    "nodeType": "USD::Prim::define_usd_prim",
+                    "fanInPortNames": {
+                        "variant_set_definitions": [],
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
+                        "children": [
+                            "mesh_definition"
+                        ],
+                        "relationship_definitions": []
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "portMetadata:children.mesh_definition:quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Prim::define_usd_prim;USD::Prim::define_usd_mesh;USD::Prim::define_usd_curves;USD::Prim::define_usd_prim_hierarchy;USD::PointInstancer::define_usd_point_instancer;USD::Shading::define_usd_preview_surface"
+                        },
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "children",
+                                    "metaType": "string",
+                                    "metaValue": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1957.91 432.924"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "40.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "define_usd_point_instancer2",
+                    "nodeType": "USD::PointInstancer::define_usd_point_instancer",
+                    "fanInPortNames": {
+                        "prototype_definitions": [
+                            "array"
+                        ]
+                    },
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "portMetadata:prototype_definitions.array:quick_create",
+                            "metaType": "string",
+                            "metaValue": "USD::Prim::define_usd_prim;USD::Prim::define_usd_mesh;USD::Prim::define_usd_curves"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "prototype_definitions",
+                                    "metaType": "string",
+                                    "metaValue": "0"
+                                },
+                                {
+                                    "metaName": "Time",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-1183.35 -55.3069"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "34.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "get_usd_attribute_value1",
+                    "nodeType": "USD::Attribute::get_usd_attribute_value",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "9.37096 59.0878"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "47.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "expect_arrays_equal1",
+                    "nodeType": "Core::Compound_Tests::expect_arrays_equal",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "466.826 88.0017"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "50.000000"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "add_to_stage.out_stage",
+                    "target": "get_usd_attribute_value.stage"
+                },
+                {
+                    "source": "define_usd_point_instancer1.point_instancer_definition",
+                    "target": "add_to_stage.prim_definitions.point_instancer_definition"
+                },
+                {
+                    "source": "get_usd_attribute_value.value",
+                    "target": "expect_arrays_equal.first_array"
+                },
+                {
+                    "source": "define_usd_prim.prim_definition",
+                    "target": "build_array1.first.prim_definition"
+                },
+                {
+                    "source": "define_usd_mesh1.mesh_definition",
+                    "target": "define_usd_prim.children.mesh_definition"
+                },
+                {
+                    "source": "define_usd_mesh.mesh_definition",
+                    "target": "define_usd_prim1.children.mesh_definition"
+                },
+                {
+                    "source": "define_usd_prim1.prim_definition",
+                    "target": "build_array1.first.prim_definition1"
+                },
+                {
+                    "source": "value.output",
+                    "target": "expect_arrays_equal.second_array"
+                },
+                {
+                    "source": "create_mesh_cube1.cube_mesh",
+                    "target": "define_usd_mesh.mesh"
+                },
+                {
+                    "source": "create_mesh_cube1.cube_mesh",
+                    "target": "create_bifrost_instancer.cube_mesh"
+                },
+                {
+                    "source": "create_mesh_sphere.sphere_mesh",
+                    "target": "define_usd_mesh2.mesh"
+                },
+                {
+                    "source": "create_mesh_sphere.sphere_mesh",
+                    "target": "create_bifrost_instancer.sphere_mesh"
+                },
+                {
+                    "source": "create_mesh_torus.torus_mesh",
+                    "target": "define_usd_mesh1.mesh"
+                },
+                {
+                    "source": "create_mesh_torus.torus_mesh",
+                    "target": "create_bifrost_instancer.torus_mesh"
+                },
+                {
+                    "source": "define_usd_mesh2.mesh_definition",
+                    "target": "define_usd_prim2.children.mesh_definition"
+                },
+                {
+                    "source": "define_usd_prim2.prim_definition",
+                    "target": "build_array1.first.prim_definition2"
+                },
+                {
+                    "source": "expect_arrays_equal.result",
+                    "target": "build_array.first.result"
+                },
+                {
+                    "source": "create_bifrost_instancer.out_geometry",
+                    "target": "define_usd_point_instancer1.points"
+                },
+                {
+                    "source": "create_bifrost_instancer.out_geometry",
+                    "target": "define_usd_point_instancer2.points"
+                },
+                {
+                    "source": "build_array1.array",
+                    "target": "define_usd_point_instancer2.prototype_definitions.array"
+                },
+                {
+                    "source": "define_usd_point_instancer2.point_instancer_definition",
+                    "target": "add_to_stage.prim_definitions.point_instancer_definition1"
+                },
+                {
+                    "source": "test_info.output",
+                    "target": ".test_info"
+                },
+                {
+                    "source": "build_array.array",
+                    "target": ".failure_msgs"
+                },
+                {
+                    "source": "get_usd_attribute_value1.value",
+                    "target": "expect_arrays_equal1.first_array"
+                },
+                {
+                    "source": "add_to_stage.out_stage",
+                    "target": "get_usd_attribute_value1.stage"
+                },
+                {
+                    "source": "value.output",
+                    "target": "expect_arrays_equal1.second_array"
+                },
+                {
+                    "source": "expect_arrays_equal1.result",
+                    "target": "build_array.first.result1"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "test_info.value",
+                    "valueType": "string",
+                    "value": "Test: BIFROST-12119 - point_instance_id correctness"
+                },
+                {
+                    "valueName": "add_to_stage.stage",
+                    "valueType": "BifrostUsd::Stage",
+                    "value": {}
+                },
+                {
+                    "valueName": "add_to_stage.prim_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "add_to_stage.enable",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "add_to_stage.parent_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "add_to_stage.layer_index",
+                    "valueType": "int",
+                    "value": "-1L"
+                },
+                {
+                    "valueName": "add_to_stage.use_material_name_or_tag",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.instancer_path",
+                    "valueType": "string",
+                    "value": "/instancer_WITHOUT_proto_definitions"
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.points",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.prototype_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.selection_mode",
+                    "valueType": "Modeling::Points::CreateInstancesSelectionMode",
+                    "value": "Sequential"
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.instance_id_override",
+                    "valueType": "array<long>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.probability_curve",
+                    "valueType": "Math::FCurve",
+                    "value": {
+                        "version": "2",
+                        "preExtrapolation": "0",
+                        "postExtrapolation": "0",
+                        "points": [
+                            {
+                                "point": {
+                                    "locked": "1",
+                                    "interpolation": "1",
+                                    "curveInterpolation": "0",
+                                    "pcn": {
+                                        "xp": "-0.63807499999999995",
+                                        "yp": "-0.180645",
+                                        "x": "0",
+                                        "y": "0",
+                                        "xn": "0.63807499999999995",
+                                        "yn": "0.180645"
+                                    }
+                                }
+                            },
+                            {
+                                "point": {
+                                    "locked": "1",
+                                    "interpolation": "1",
+                                    "curveInterpolation": "0",
+                                    "pcn": {
+                                        "xp": "0.67824300000000004",
+                                        "yp": "0.91612899999999997",
+                                        "x": "1",
+                                        "y": "1",
+                                        "xn": "1.3217570000000001",
+                                        "yn": "1.083871"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.seed",
+                    "valueType": "long",
+                    "value": "354"
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.create_default_material",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.diffuse_color",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0.50999999f",
+                        "y": "0.540000021f",
+                        "z": "0.600000024f"
+                    }
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.texture_file_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.frame",
+                    "valueType": "float",
+                    "value": "0f"
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.use_frame",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_point_instancer1.variant_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "get_usd_attribute_value.stage",
+                    "valueType": "BifrostUsd::Stage",
+                    "value": {}
+                },
+                {
+                    "valueName": "get_usd_attribute_value.prim_path",
+                    "valueType": "string",
+                    "value": "/instancer_WITHOUT_proto_definitions"
+                },
+                {
+                    "valueName": "get_usd_attribute_value.attribute_name",
+                    "valueType": "string",
+                    "value": "protoIndices"
+                },
+                {
+                    "valueName": "get_usd_attribute_value.type",
+                    "valueType": "array<int>",
+                    "value": []
+                },
+                {
+                    "valueName": "get_usd_attribute_value.frame",
+                    "valueType": "float",
+                    "value": "0f"
+                },
+                {
+                    "valueName": "define_usd_prim.path",
+                    "valueType": "string",
+                    "value": "/torus"
+                },
+                {
+                    "valueName": "define_usd_prim.variant_set_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim.type",
+                    "valueType": "string",
+                    "value": "Xform"
+                },
+                {
+                    "valueName": "define_usd_prim.specifier",
+                    "valueType": "BifrostUsd::SdfSpecifier",
+                    "value": "Def"
+                },
+                {
+                    "valueName": "define_usd_prim.kind",
+                    "valueType": "BifrostUsd::ModelKind",
+                    "value": "None"
+                },
+                {
+                    "valueName": "define_usd_prim.purpose",
+                    "valueType": "BifrostUsd::ImageablePurpose",
+                    "value": "Default"
+                },
+                {
+                    "valueName": "define_usd_prim.active",
+                    "valueType": "BifrostUsd::ActivatePrim",
+                    "value": "None"
+                },
+                {
+                    "valueName": "define_usd_prim.instanceable",
+                    "valueType": "BifrostUsd::InstanceablePrim",
+                    "value": "None"
+                },
+                {
+                    "valueName": "define_usd_prim.applied_schema_names",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_prim.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_prim.variant_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_prim.material",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "expect_arrays_equal.tolerance",
+                    "valueType": "float",
+                    "value": "9.99999975e-05f"
+                },
+                {
+                    "valueName": "expect_arrays_equal.msg_if_failed",
+                    "valueType": "string",
+                    "value": "protoIndices arrays were not equal. "
+                },
+                {
+                    "valueName": "define_usd_mesh1.path",
+                    "valueType": "string",
+                    "value": "/mesh"
+                },
+                {
+                    "valueName": "define_usd_mesh1.mesh",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "define_usd_mesh1.normal_per_vertex",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "define_usd_mesh1.subdivision_scheme",
+                    "valueType": "BifrostUsd::SubdivisionScheme",
+                    "value": "catmullClark"
+                },
+                {
+                    "valueName": "define_usd_mesh1.applied_schema_names",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_mesh1.use_frame",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "define_usd_mesh1.frame",
+                    "valueType": "float",
+                    "value": "0f"
+                },
+                {
+                    "valueName": "define_usd_mesh1.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_mesh1.variant_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_mesh1.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_mesh1.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_mesh1.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_mesh1.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_mesh1.material",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "define_usd_mesh.path",
+                    "valueType": "string",
+                    "value": "/mesh"
+                },
+                {
+                    "valueName": "define_usd_mesh.mesh",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "define_usd_mesh.normal_per_vertex",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "define_usd_mesh.subdivision_scheme",
+                    "valueType": "BifrostUsd::SubdivisionScheme",
+                    "value": "catmullClark"
+                },
+                {
+                    "valueName": "define_usd_mesh.applied_schema_names",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_mesh.use_frame",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "define_usd_mesh.frame",
+                    "valueType": "float",
+                    "value": "0f"
+                },
+                {
+                    "valueName": "define_usd_mesh.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_mesh.variant_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_mesh.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_mesh.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_mesh.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_mesh.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_mesh.material",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "create_bifrost_instancer.torus_mesh",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "create_bifrost_instancer.cube_mesh",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "create_bifrost_instancer.sphere_mesh",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "define_usd_prim1.path",
+                    "valueType": "string",
+                    "value": "/cube"
+                },
+                {
+                    "valueName": "define_usd_prim1.variant_set_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim1.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim1.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim1.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim1.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim1.type",
+                    "valueType": "string",
+                    "value": "Xform"
+                },
+                {
+                    "valueName": "define_usd_prim1.specifier",
+                    "valueType": "BifrostUsd::SdfSpecifier",
+                    "value": "Def"
+                },
+                {
+                    "valueName": "define_usd_prim1.kind",
+                    "valueType": "BifrostUsd::ModelKind",
+                    "value": "None"
+                },
+                {
+                    "valueName": "define_usd_prim1.purpose",
+                    "valueType": "BifrostUsd::ImageablePurpose",
+                    "value": "Default"
+                },
+                {
+                    "valueName": "define_usd_prim1.active",
+                    "valueType": "BifrostUsd::ActivatePrim",
+                    "value": "None"
+                },
+                {
+                    "valueName": "define_usd_prim1.instanceable",
+                    "valueType": "BifrostUsd::InstanceablePrim",
+                    "value": "None"
+                },
+                {
+                    "valueName": "define_usd_prim1.applied_schema_names",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_prim1.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_prim1.variant_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_prim1.material",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "value.value",
+                    "valueType": "array<int>",
+                    "value": [
+                        "0L",
+                        "1L",
+                        "2L"
+                    ]
+                },
+                {
+                    "valueName": "create_mesh_cube1.length",
+                    "valueType": "float",
+                    "value": "1f"
+                },
+                {
+                    "valueName": "create_mesh_cube1.width",
+                    "valueType": "float",
+                    "value": "1f"
+                },
+                {
+                    "valueName": "create_mesh_cube1.height",
+                    "valueType": "float",
+                    "value": "1f"
+                },
+                {
+                    "valueName": "create_mesh_cube1.create_UVs",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "create_mesh_cube1.position",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "0f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_cube1.up_axis",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "1f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_cube1.base_to_pivot",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "create_mesh_cube1.create_tags",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "create_mesh_cube1.top_tag",
+                    "valueType": "string",
+                    "value": "face_top_tag"
+                },
+                {
+                    "valueName": "create_mesh_cube1.bottom_tag",
+                    "valueType": "string",
+                    "value": "face_bottom_tag"
+                },
+                {
+                    "valueName": "create_mesh_cube1.front_tag",
+                    "valueType": "string",
+                    "value": "face_front_tag"
+                },
+                {
+                    "valueName": "create_mesh_cube1.back_tag",
+                    "valueType": "string",
+                    "value": "face_back_tag"
+                },
+                {
+                    "valueName": "create_mesh_cube1.left_tag",
+                    "valueType": "string",
+                    "value": "face_left_tag"
+                },
+                {
+                    "valueName": "create_mesh_cube1.right_tag",
+                    "valueType": "string",
+                    "value": "face_right_tag"
+                },
+                {
+                    "valueName": "create_mesh_sphere.radius",
+                    "valueType": "float",
+                    "value": "1f"
+                },
+                {
+                    "valueName": "create_mesh_sphere.axis_segments",
+                    "valueType": "int",
+                    "value": "20L"
+                },
+                {
+                    "valueName": "create_mesh_sphere.height_segments",
+                    "valueType": "int",
+                    "value": "14L"
+                },
+                {
+                    "valueName": "create_mesh_sphere.create_UVs",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "create_mesh_sphere.position",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "0f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_sphere.up_axis",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "1f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_sphere.base_to_pivot",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "create_mesh_torus.major_radius",
+                    "valueType": "float",
+                    "value": "1f"
+                },
+                {
+                    "valueName": "create_mesh_torus.minor_radius",
+                    "valueType": "float",
+                    "value": "0.5f"
+                },
+                {
+                    "valueName": "create_mesh_torus.major_segments",
+                    "valueType": "uint",
+                    "value": "20U"
+                },
+                {
+                    "valueName": "create_mesh_torus.minor_segments",
+                    "valueType": "uint",
+                    "value": "20U"
+                },
+                {
+                    "valueName": "create_mesh_torus.normals",
+                    "valueType": "Modeling::Primitive::Normals",
+                    "value": "smooth"
+                },
+                {
+                    "valueName": "create_mesh_torus.create_UVs",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "create_mesh_torus.position",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "0f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_torus.scale",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "1f",
+                        "y": "1f",
+                        "z": "1f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_torus.up_axis",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "1f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "define_usd_mesh2.path",
+                    "valueType": "string",
+                    "value": "/mesh"
+                },
+                {
+                    "valueName": "define_usd_mesh2.mesh",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "define_usd_mesh2.normal_per_vertex",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "define_usd_mesh2.subdivision_scheme",
+                    "valueType": "BifrostUsd::SubdivisionScheme",
+                    "value": "catmullClark"
+                },
+                {
+                    "valueName": "define_usd_mesh2.applied_schema_names",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_mesh2.use_frame",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "define_usd_mesh2.frame",
+                    "valueType": "float",
+                    "value": "0f"
+                },
+                {
+                    "valueName": "define_usd_mesh2.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_mesh2.variant_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_mesh2.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_mesh2.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_mesh2.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_mesh2.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_mesh2.material",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "define_usd_prim2.path",
+                    "valueType": "string",
+                    "value": "/sphere"
+                },
+                {
+                    "valueName": "define_usd_prim2.variant_set_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim2.reference_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim2.attribute_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim2.children",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim2.relationship_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_prim2.type",
+                    "valueType": "string",
+                    "value": "Xform"
+                },
+                {
+                    "valueName": "define_usd_prim2.specifier",
+                    "valueType": "BifrostUsd::SdfSpecifier",
+                    "value": "Def"
+                },
+                {
+                    "valueName": "define_usd_prim2.kind",
+                    "valueType": "BifrostUsd::ModelKind",
+                    "value": "None"
+                },
+                {
+                    "valueName": "define_usd_prim2.purpose",
+                    "valueType": "BifrostUsd::ImageablePurpose",
+                    "value": "Default"
+                },
+                {
+                    "valueName": "define_usd_prim2.active",
+                    "valueType": "BifrostUsd::ActivatePrim",
+                    "value": "None"
+                },
+                {
+                    "valueName": "define_usd_prim2.instanceable",
+                    "valueType": "BifrostUsd::InstanceablePrim",
+                    "value": "None"
+                },
+                {
+                    "valueName": "define_usd_prim2.applied_schema_names",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_prim2.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_prim2.variant_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_prim2.material",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.instancer_path",
+                    "valueType": "string",
+                    "value": "/instancer_WITH_proto_definitions"
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.points",
+                    "valueType": "Object",
+                    "value": {}
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.prototype_definitions",
+                    "valueType": "array<Object>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.selection_mode",
+                    "valueType": "Modeling::Points::CreateInstancesSelectionMode",
+                    "value": "Sequential"
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.instance_id_override",
+                    "valueType": "array<long>",
+                    "value": []
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.probability_curve",
+                    "valueType": "Math::FCurve",
+                    "value": {
+                        "version": "2",
+                        "preExtrapolation": "0",
+                        "postExtrapolation": "0",
+                        "points": [
+                            {
+                                "point": {
+                                    "locked": "1",
+                                    "interpolation": "1",
+                                    "curveInterpolation": "0",
+                                    "pcn": {
+                                        "xp": "-0.63807499999999995",
+                                        "yp": "-0.180645",
+                                        "x": "0",
+                                        "y": "0",
+                                        "xn": "0.63807499999999995",
+                                        "yn": "0.180645"
+                                    }
+                                }
+                            },
+                            {
+                                "point": {
+                                    "locked": "1",
+                                    "interpolation": "1",
+                                    "curveInterpolation": "0",
+                                    "pcn": {
+                                        "xp": "0.67824300000000004",
+                                        "yp": "0.91612899999999997",
+                                        "x": "1",
+                                        "y": "1",
+                                        "xn": "1.3217570000000001",
+                                        "yn": "1.083871"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.seed",
+                    "valueType": "long",
+                    "value": "354"
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.create_default_material",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.diffuse_color",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0.50999999f",
+                        "y": "0.540000021f",
+                        "z": "0.600000024f"
+                    }
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.texture_file_path",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.frame",
+                    "valueType": "float",
+                    "value": "0f"
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.use_frame",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.variant_set_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "define_usd_point_instancer2.variant_name",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "get_usd_attribute_value1.stage",
+                    "valueType": "BifrostUsd::Stage",
+                    "value": {}
+                },
+                {
+                    "valueName": "get_usd_attribute_value1.prim_path",
+                    "valueType": "string",
+                    "value": "/instancer_WITHOUT_proto_definitions"
+                },
+                {
+                    "valueName": "get_usd_attribute_value1.attribute_name",
+                    "valueType": "string",
+                    "value": "protoIndices"
+                },
+                {
+                    "valueName": "get_usd_attribute_value1.type",
+                    "valueType": "array<int>",
+                    "value": []
+                },
+                {
+                    "valueName": "get_usd_attribute_value1.frame",
+                    "valueType": "float",
+                    "value": "0f"
+                },
+                {
+                    "valueName": "expect_arrays_equal1.tolerance",
+                    "valueType": "float",
+                    "value": "9.99999975e-05f"
+                },
+                {
+                    "valueName": "expect_arrays_equal1.msg_if_failed",
+                    "valueType": "string",
+                    "value": "protoIndices arrays were not equal. "
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "output"
+                }
+            ],
+            "libraryDependencies": {
+                "Amino": "2.16.0.11",
+                "bif": "2.16.0.11",
+                "scatter": "2.16.0.11",
+                "usd_pack": "1.4.1"
+            }
+        }
+    ]
+}

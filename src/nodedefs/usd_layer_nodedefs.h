@@ -1,5 +1,5 @@
 //-
-// Copyright 2024 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -65,7 +65,7 @@ void open_layer(const Amino::String& file      USDNODE_FILE_BROWSER_OPEN,
                 const Amino::String& save_file USDNODE_FILE_BROWSER_SAVE,
                 const bool read_only AMINO_ANNOTATE("Amino::Port value=false"),
                 Amino::MutablePtr<BifrostUsd::Layer>& layer)
-    USDNODE_DOC_ICON("open_layer", "USD_Layer_open_layer.md", "usd_layers.svg");
+    USDNODE_INTERNAL("open_layer", "USD_Layer_open_layer.md");
 
 USD_NODEDEF_DECL
 void set_layer_permission(const bool read_only

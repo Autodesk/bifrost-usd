@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2025 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,14 +29,6 @@
 using namespace BifrostUsd::TestUtils;
 
 namespace {
-Amino::String getThisTestOutputDir() {
-    return Bifrost::FileUtils::filePath(getTestOutputDir(),
-                                        "testBifrostUsdStage");
-}
-// Amino::String getThisTestOutputPath(const Amino::String& filename) {
-//     return Bifrost::FileUtils::filePath(getThisTestOutputDir(), filename);
-// }
-
 // Helper comparison function between two stages.
 // We compare only a subset of Stage's data, the data that should be equal to
 // a source Stage when it is copied.
@@ -124,10 +116,6 @@ void testCopyAndMoveOps(const BifrostUsd::Stage& stage) {
 }
 } // namespace
 
-TEST(BifrostUsdTests, initial_cleanup) {
-    ASSERT_TRUE(Bifrost::FileUtils::removeAll(getThisTestOutputDir()));
-}
-
 TEST(BifrostUsdTests, Stage_ctors) {
     const Amino::String               rootName = "helloworld.usd";
     const Amino::Array<Amino::String> subNames = {"Grass1.usd", "Grass2.usd",
@@ -162,7 +150,7 @@ TEST(BifrostUsdTests, Stage_ctors) {
     for (std::string filename : sourceFilenames) {
         for (bool editable : editableArgs) {
             Amino::String path     = getResourcePath(filename.c_str());
-            Amino::String savePath = getThisTestOutputPath("saved_filename.usda");
+            Amino::String savePath = g_OutputDir.getPath_abs("saved_filename.usda");
             BifrostUsd::Layer layer{path /*originalPath*/, "", savePath,
                                     editable};
             EXPECT_TRUE(layer); // VALID

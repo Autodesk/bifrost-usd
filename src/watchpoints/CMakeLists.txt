@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2025 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,6 +17,9 @@
 #+
 
 set(public_libs
+    Amino::Core
+    Amino::Executor
+    Amino::RTTI
     BifrostGraph::Executor
     usdHeadersInstall
     BifrostUSD

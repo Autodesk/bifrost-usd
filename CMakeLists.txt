@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2024 Autodesk, Inc.
+# Copyright 2025 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,14 +20,19 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 message(STATUS "CMake version: ${CMAKE_VERSION}")
 
-# A calling package (other CMake) can set the package name
-# Note: The USD Pack that is shipped with Bifrost is named `usd_pack` and it is
-#       loaded by default by Bifrost.
-#       Here we must use a different name for this custom/standalone build of
-#       the pack, so the USD Pack from Bifrost's installation directory can be
-#       disabled when needed and replaced by this one.
-if( NOT BIFUSD_PACKAGE_NAME )
-    set(BIFUSD_PACKAGE_NAME bifrost_usd_pack)
+# A calling package (other CMake) can set the package or translation table names
+# Note: The USD Pack and USD Translation Table for Maya that are shipped with
+#       Bifrost are named `usd_pack`, respectively `usdMayaTranslations`,
+#       and they are loaded by default by Bifrost.
+#       Here we must use different names for this custom/standalone build of
+#       the USD Pack and Translation Table, so the ones from the Bifrost's
+#       installation directory can be disabled when needed and replaced by
+#       these ones.
+if(NOT BIFUSD_PACKAGE_NAME)
+    set(BIFUSD_PACKAGE_NAME "bifrost_usd_pack")
+endif()
+if(NOT BIFUSD_MAYA_TRANSLATIONS_NAME)
+    set(BIFUSD_MAYA_TRANSLATIONS_NAME "bifrost_usdMayaTranslations")
 endif()
 
 set(IS_BIFUSD_STANDALONE ON CACHE BOOL "Indicate if this is a standalone build of Bifrost USD")

@@ -1,5 +1,5 @@
 //-
-// Copyright 2024 Autodesk, Inc.
+// Copyright 2025 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -99,17 +99,34 @@ OutputValueData::~OutputValueData() = default;
 bool OutputValueData::setOutput(const Amino::Any& value) {
     auto& output = m_jobTranslationData.getParameters().output();
     if (output.first == m_name) {
-        if (value.type() == Amino::getTypeId<Amino::Ptr<Amino::Array<Amino::Ptr<Bifrost::Object>>>>()) {
-            auto objectArray = Amino::any_cast<Amino::Ptr<Amino::Array<Amino::Ptr<Bifrost::Object>>>>(value);
-            assert(objectArray != nullptr);
-            if (objectArray != nullptr && !objectArray->empty()) {
-                for (auto& object : *objectArray) {
+        // Covers Terminals which are array<array<objects>>
+        bool is0DArray = value.type() == Amino::getTypeId<Amino::Ptr<Bifrost::Object>>();
+        bool is1DArray = value.type() == Amino::getTypeId<Amino::Ptr<Amino::ArrayD_t<1, Amino::Ptr<Bifrost::Object>>>>();
+        bool is2DArray = value.type() == Amino::getTypeId<Amino::Ptr<Amino::ArrayD_t<2, Amino::Ptr<Bifrost::Object>>>>();
+        if( is2DArray )
+        {
+            auto obj2DArray = Amino::any_cast<Amino::Ptr<Amino::ArrayD_t<2, Amino::Ptr<Bifrost::Object>>>>(value);
+            if (obj2DArray != nullptr && !obj2DArray->empty()) {
+                for (auto& obj1DArray : *obj2DArray) {
+                    for (auto& object : *obj1DArray) {
+                        output.second.push_back(object);
+                    }
+                }
+                return true;
+            }
+        }
+        else if( is1DArray )
+        {
+            auto obj1DArray = Amino::any_cast<Amino::Ptr<Amino::ArrayD_t<1, Amino::Ptr<Bifrost::Object>>>>(value);
+            if (obj1DArray != nullptr && !obj1DArray->empty()) {
+                for (auto& object : *obj1DArray) {
                     output.second.push_back(object);
                 }
                 return true;
             }
-         } else if (value.type() == Amino::getTypeId<Amino::Ptr<Bifrost::Object>>()) {
-            auto object = Amino::any_cast<Amino::Ptr<Bifrost::Object>>(value);
+        }
+        else if( is0DArray )
+        {   auto object = Amino::any_cast<Amino::Ptr<Bifrost::Object>>(value);
             if (object) {
                 output.second.push_back(object);
                 return true;

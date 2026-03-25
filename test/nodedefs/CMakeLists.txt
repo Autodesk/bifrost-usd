@@ -86,13 +86,12 @@ function(configure_bifusd_runtime_unittests)
         ${usd_test_dir}/usd_pack_test_config.json
         ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json
     )
-    set(env_vars)
-    if(IS_BIFUSD_STANDALONE)
-        # When running tests in standalone mode with BIFROST_LOCATION being defined,
-        # we need to disable the default usd_pack that is shipped with bifrost,
-        # and use the nodedefs from this current repo instead:
-        list(APPEND env_vars BIFROST_DISABLE_PACKS=usd_pack)
-    endif()
+
+    # When running tests in standalone mode with BIFROST_LOCATION being defined,
+    # we disable the default `usd_pack` and `usdMayaTranslations` libraries that
+    # are shipped with bifrost, and use the nodedefs and translation table built
+    # from this current repo instead:
+    set(disabled_packs usd_pack usdMayaTranslations)
 
     if( BIFUSD_ENABLE_ADDRESS_SANITIZER OR BIFUSD_ENABLE_UNDEFINED_SANITIZER)
         set(running_sanitizers
@@ -101,8 +100,9 @@ function(configure_bifusd_runtime_unittests)
     endif()
 
     foreach(test_file ${python_tests})
+        set(unittest_target usd_nodedefs_runtime_${test_file})
         bifusd_configure_python_unittest(
-            "usd_nodedefs_runtime_${test_file}"
+            ${unittest_target}
 
             COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/${test_file}
                 --bifcmd-location ${BIFUSD_BIFCMD_LOCATION}
@@ -115,9 +115,13 @@ function(configure_bifusd_runtime_unittests)
             SHARED_LIB_DIRS ${BIFUSD_EXTRA_BUILD_AND_TEST_PATHS}
             CATEGORIES      ${BIFUSD_SANITY_TEST_CATEGORY}
             DEPENDS         bifcmd
-            ENV_VARS        ${env_vars}
         )
-
+        if(IS_BIFUSD_STANDALONE)
+            # Note: bifusd_append_test_path_env_var handles the platform-specific path separator
+            #       (':' on Unix, ';' on Windows) and ensures semicolons in the list are properly
+            #       escaped so they are not consumed by CMake and can reach the Python script.
+            bifusd_append_test_path_env_var(${unittest_target} "BIFROST_DISABLE_PACKS" "${disabled_packs}")
+        endif()
     endforeach()
 endfunction()
 

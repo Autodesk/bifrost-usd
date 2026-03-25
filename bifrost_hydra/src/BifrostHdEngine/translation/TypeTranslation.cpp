@@ -1,5 +1,5 @@
 //-
-// Copyright 2024 Autodesk, Inc.
+// Copyright 2025 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -52,8 +52,8 @@ void TypeTranslation::getSupportedTypeNames(
 }
 
 bool TypeTranslation::convertValueFromHost(
-    const Amino::Type& type,
-    Amino::Any&        value,
+    const Amino::TypeId& typeId,
+    Amino::Any&          value,
     const BifrostGraph::Executor::TypeTranslation::ValueData*
         valueTranslationData) const noexcept {
     assert(
@@ -61,9 +61,8 @@ bool TypeTranslation::convertValueFromHost(
 
     auto inputValueData =
         static_cast<const BifrostHd::InputValueData*>(valueTranslationData);
-    Amino::String typeName = BifrostGraph::Executor::Utility::getTypeName(type);
 
-    if (typeName == "Simulation::Time") {
+    if (typeId == Amino::getTypeId<Bifrost::Simulation::Time>()) {
         auto time = inputValueData->jobTranslationData().getTime();
 
         value = Bifrost::Simulation::Time{

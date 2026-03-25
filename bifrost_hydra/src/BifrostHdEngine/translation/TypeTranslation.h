@@ -1,5 +1,5 @@
 //-
-// Copyright 2024 Autodesk, Inc.
+// Copyright 2025 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -35,8 +35,8 @@ public:
     void getSupportedTypeNames(StringArray& out_names) const noexcept override;
 
     bool convertValueFromHost(
-        const Amino::Type& type,
-        Amino::Any&        value,
+        const Amino::TypeId& typeId,
+        Amino::Any&          value,
         const BifrostGraph::Executor::TypeTranslation::ValueData*
             valueTranslationData) const noexcept override;
 

@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2024 Autodesk, Inc.
+# Copyright 2025 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,10 +28,16 @@ if(NOT IS_BIFUSD_STANDALONE)
     set(BIFUSD_TOOLS_DIR "${BIFUSD_CMAKE_DIR}/bifusd")
 
     # A calling package (other CMake) can set the package name
-    if( NOT BIFUSD_PACKAGE_NAME )
-        set(BIFUSD_PACKAGE_NAME usd_pack)
-        # Need to "export" parent scope becasue this maybe needed by the caller
-        set(BIFUSD_PACKAGE_NAME ${BIFUSD_PACKAGE_NAME} PARENT_SCOPE) 
+    if(NOT BIFUSD_PACKAGE_NAME)
+        set(BIFUSD_PACKAGE_NAME "usd_pack")
+        # Need to "export" parent scope because this may be needed by the caller
+        set(BIFUSD_PACKAGE_NAME ${BIFUSD_PACKAGE_NAME} PARENT_SCOPE)
+    endif()
+    # A calling package (other CMake) can set the translation table name
+    if(NOT BIFUSD_MAYA_TRANSLATIONS_NAME)
+        set(BIFUSD_MAYA_TRANSLATIONS_NAME "usdMayaTranslations")
+        # Need to "export" parent scope because this may be needed by the caller
+        set(BIFUSD_MAYA_TRANSLATIONS_NAME ${BIFUSD_MAYA_TRANSLATIONS_NAME} PARENT_SCOPE)
     endif()
 
     set(BIFUSD_CONFIG_TARGET ${BIFUSD_PACKAGE_NAME}BifusdConfig)

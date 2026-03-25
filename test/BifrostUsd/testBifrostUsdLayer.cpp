@@ -1,5 +1,5 @@
 //-
-// Copyright 2023 Autodesk, Inc.
+// Copyright 2025 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -33,13 +33,7 @@ using namespace BifrostUsd::TestUtils;
 #include <vector>
 
 namespace {
-Amino::String getThisTestOutputDir() {
-    return Bifrost::FileUtils::filePath(getTestOutputDir(),
-                                        "testBifrostUsdLayer");
-}
-Amino::String getThisTestOutputPath(const Amino::String& filename) {
-    return Bifrost::FileUtils::filePath(getThisTestOutputDir(), filename);
-}
+UniqueTestOutputSubdir g_OutputDir{"testBifrostUsdLayer", true /*autoDelete*/};
 
 void testCopyAndMoveOps(const BifrostUsd::Layer& layer, bool editable) {
     // copy ctor & equality op
@@ -80,11 +74,7 @@ void testCopyAndMoveOps(const BifrostUsd::Layer& layer, bool editable) {
         EXPECT_TRUE(layer == layerMoveAssignOp);
     }
 }
-}
-
-TEST(BifrostUsdTests, initial_cleanup) {
-    ASSERT_TRUE(Bifrost::FileUtils::removeAll(getThisTestOutputDir()));
-}
+} // namespace
 
 TEST(BifrostUsdTests, Layer_ctors) {
     std::vector<std::string> sourceFilenames;
@@ -139,7 +129,7 @@ TEST(BifrostUsdTests, Layer_ctors) {
         for (bool editable : editableArgs) {
             Amino::String path = getResourcePath(filename.c_str());
             Amino::String savePath =
-                getThisTestOutputPath("Layer_ctors_saveFilePath.usd");
+                g_OutputDir.getPath_abs("Layer_ctors_saveFilePath.usd");
             BifrostUsd::Layer layer1{path/*originalPath*/, "my_tag", savePath,
                 editable};
             EXPECT_TRUE(layer1); // VALID
@@ -158,9 +148,9 @@ TEST(BifrostUsdTests, Layer_ctors) {
     for (bool editable : editableArgs) {
         Amino::String path = getResourcePath("__inexistent_originalPath.usd");
         Amino::String savePath =
-            getThisTestOutputPath("Layer_ctors_saveFilePath.usd");
-        BifrostUsd::Layer layer1{path/*originalPath*/, "my_tag", savePath,
-            editable};
+            g_OutputDir.getPath_abs("Layer_ctors_saveFilePath.usd");
+        BifrostUsd::Layer layer1{path /*originalPath*/, "my_tag", savePath,
+                                 editable};
         EXPECT_FALSE(layer1); // INVALID (since no file at provided path)
         EXPECT_STREQ(layer1.getOriginalFilePath().c_str(), path.c_str());
         EXPECT_STREQ(layer1.getFilePath().c_str(), savePath.c_str());
@@ -200,7 +190,7 @@ TEST(BifrostUsdTests, createLayer) {
 
         ASSERT_EQ("", layer->getFilePath());
 
-        const auto expectedPath = getThisTestOutputPath("createLayer.usd");
+        const auto expectedPath = g_OutputDir.getPath_abs("createLayer.usd");
         layer->setFilePath(expectedPath);
         ASSERT_EQ(expectedPath, layer->getFilePath());
 
@@ -301,7 +291,7 @@ TEST(BifrostUsdTests, createLayer) {
     // copy constructed from an other BifrostUsd::Layer
     {
         auto expectedSourceLayerExportPath =
-            getThisTestOutputPath("sourceExportPath.usda");
+            g_OutputDir.getPath_abs("sourceExportPath.usda");
 
         BifrostUsd::Layer source_layer{getResourcePath("helloworld.usd"), "",
                                          expectedSourceLayerExportPath.c_str()};
@@ -320,7 +310,7 @@ TEST(BifrostUsdTests, createLayer) {
                      source_layer->GetIdentifier());
 
         auto expectedNewLayerExportPath =
-            getThisTestOutputPath("duplicateExportPath.usda");
+            g_OutputDir.getPath_abs("duplicateExportPath.usda");
         new_layer.setFilePath(expectedNewLayerExportPath);
 
         // modify source layer
@@ -350,7 +340,7 @@ TEST(BifrostUsdTests, createLayer) {
         }
 
         // At this point of the test, the layer files should not yet exist on
-        // disk (see the initial_cleanup test phase above):
+        // disk:
         ASSERT_FALSE(
             Bifrost::FileUtils::filePathExists(expectedSourceLayerExportPath))
             << "The output source_layer file "
@@ -374,7 +364,7 @@ TEST(BifrostUsdTests, createLayer) {
 
 TEST(BifrostUsdTests, createLayerWithSubLayer) {
     const Amino::String rootFilename{"createLayerWithSubLayer_root.usd"};
-    Amino::String       rootFilePath = getThisTestOutputPath(rootFilename);
+    Amino::String       rootFilePath = g_OutputDir.getPath_abs(rootFilename);
     BifrostUsd::Layer   rootLayer{rootFilename};
     rootLayer.setFilePath(rootFilePath);
 
@@ -383,12 +373,11 @@ TEST(BifrostUsdTests, createLayerWithSubLayer) {
     ASSERT_EQ("helloworld.usd", sublayer->GetDisplayName());
 
     const Amino::String subFilename{"createLayerWithSubLayer_sublayer.usd"};
-    Amino::String       subFilePath = getThisTestOutputPath(subFilename);
+    Amino::String       subFilePath = g_OutputDir.getPath_abs(subFilename);
     sublayer.setFilePath(subFilePath);
     ASSERT_TRUE(rootLayer.insertSubLayer(sublayer));
 
     // At this point of the test, the layer files should not yet exist on disk
-    // (see the initial_cleanup test phase above):
     ASSERT_FALSE(Bifrost::FileUtils::filePathExists(rootFilePath))
         << "The output root layer file " << rootFilePath.c_str()
         << " must not already exist when this test runs.\n";

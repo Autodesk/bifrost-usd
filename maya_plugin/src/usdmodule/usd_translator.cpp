@@ -1,5 +1,5 @@
 //-
-// Copyright 2023 Autodesk, Inc.
+// Copyright 2025 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -58,10 +58,10 @@ void UsdTranslation::getSupportedTypeNames(
 }
 
 bool UsdTranslation::convertValueFromHost(
-    Amino::Type const& type,
-    Amino::Any&        value,
-    ValueData const*   translationData) const noexcept {
-    (void)type;
+    Amino::TypeId const& typeId,
+    Amino::Any&          value,
+    ValueData const*     translationData) const noexcept {
+    (void)typeId;
     (void)value;
     (void)translationData;
     return true;
