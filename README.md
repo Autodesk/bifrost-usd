@@ -31,6 +31,7 @@ You must provide the following variables to the cmake command:
 * MAYA_USD_PLUGIN_DIR: (optional) Root directory of the Maya USD plugin where the mayaUSD.mod file is located. Only required to run examples tests.
 * LOOKDEVX_PLUGIN_DIR: (optional) Root directory of the LookdevX plugin where the lookdevx.mod file is located. Only required to run examples tests.
 * MULTI_USD_VERSION_SUFFIX: (optional) USD version suffix (e.g., "_0.25.5") to append to MayaUSD and USD subdirectories when Maya USD supports multiple USD versions. If not set, no suffix is appended. Only required when BIFUSD_EXAMPLES_TESTS=ON.
+
 __C++17 is the minimal required version going forward.__
 
 __Python 3 version is assumed.__
