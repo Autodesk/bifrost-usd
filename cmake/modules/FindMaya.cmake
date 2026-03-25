@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2023 Autodesk, Inc. All rights reserved.
+# Copyright 2025 Autodesk, Inc. All rights reserved.
 #
 # Use of this software is subject to the terms of the Autodesk license
 # agreement provided at the time of installation or download, or which
@@ -17,14 +17,14 @@
 #      Maya::Foundation
 #
 # Result Variable:
-#   Bifrost_FOUND
+#   Maya_FOUND
 
 if (NOT DEFINED MAYA_RUNTIME_LOCATION)
     message(FATAL_ERROR "Required variable MAYA_RUNTIME_LOCATION has not been defined.")
 endif()
 
 
-function(maya_skd_init)
+function(maya_sdk_init)
 
     # Library names
     set(maya_libraries
@@ -53,6 +53,9 @@ function(maya_skd_init)
     # Already all defined - OK
     if("${targets_defined}" STREQUAL "${all_targets}")
         set(Maya_FOUND true PARENT_SCOPE)
+        message(STATUS "-- Found Maya:")
+        message(STATUS "--    RUNTIME_LOCATION: ${MAYA_RUNTIME_LOCATION}")
+        message(STATUS "--    SHARED_LIB_DIRS:  ${Maya_SHARED_LIB_DIRS}")
         return()
     endif()
 
@@ -130,7 +133,7 @@ function(maya_skd_init)
             "Maya's Python executable path"
     )
 
-    if( Maya_FOUND)
+    if(Maya_FOUND)
         foreach(lib ${maya_libraries})
             set( target_name Maya::${lib})
             add_library(${target_name} UNKNOWN IMPORTED)
@@ -138,7 +141,11 @@ function(maya_skd_init)
             set_property(TARGET ${target_name} PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${maya_INCLUDE_DIR}")
         endforeach()
         set(Maya_OSX_FWK_DIR ${Maya_OSX_FWK_DIR} PARENT_SCOPE)
-        set( Maya_SHARED_LIB_DIRS ${Maya_SHARED_LIB_DIRS} PARENT_SCOPE)
+        set(Maya_SHARED_LIB_DIRS ${Maya_SHARED_LIB_DIRS} PARENT_SCOPE)
+
+        message(STATUS "-- Found Maya:")
+        message(STATUS "--    RUNTIME_LOCATION: ${MAYA_RUNTIME_LOCATION}")
+        message(STATUS "--    SHARED_LIB_DIRS:  ${Maya_SHARED_LIB_DIRS}")
     endif()
 
     set(Maya_FOUND ${Maya_FOUND} PARENT_SCOPE)
@@ -146,4 +153,4 @@ function(maya_skd_init)
 endfunction()
 
 # Using a function to scope variables and avoid polluting the global namespace!
-maya_skd_init()
+maya_sdk_init()

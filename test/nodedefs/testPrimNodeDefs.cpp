@@ -1,5 +1,5 @@
 //-
-// Copyright 2023 Autodesk, Inc.
+// Copyright 2025 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -48,16 +48,7 @@ BIFUSD_WARNING_POP
 using namespace BifrostUsd::TestUtils;
 
 namespace {
-Amino::String getThisTestOutputDir() {
-    return Bifrost::FileUtils::filePath(getTestOutputDir(), "testPrimNodeDefs");
-}
-Amino::String getThisTestOutputPath(const Amino::String& filename) {
-    return Bifrost::FileUtils::filePath(getThisTestOutputDir(), filename);
-}
-} // namespace
-
-TEST(PrimNodeDefs, initial_cleanup) {
-    ASSERT_TRUE(Bifrost::FileUtils::removeAll(getThisTestOutputDir()));
+UniqueTestOutputSubdir g_OutputDir{"testPrimNodeDefs", true /*autoDelete*/};
 }
 
 TEST(PrimNodeDefs, get_prim_at_path) {
@@ -841,7 +832,7 @@ TEST(PrimNodeDefs, create_prim_relationship_in_variant) {
 
     auto vset = prim.GetVariantSets().GetVariantSet("vset");
     vset.SetVariantSelection("no_rel");
-    stage->GetRootLayer()->Export(getThisTestOutputPath("rel.usda").c_str());
+    stage->GetRootLayer()->Export(g_OutputDir.getPath_abs("rel.usda").c_str());
 
     rel = prim.GetRelationship(PXR_NS::TfToken("rel"));
     ASSERT_FALSE(rel);

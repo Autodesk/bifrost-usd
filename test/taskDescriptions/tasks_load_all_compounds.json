@@ -7,9 +7,6 @@
         "correctly in Bifrost."
     ],
     "options": {
-        "definitionFiles": [
-            "load_all_compounds_test00.json"
-        ],
         "compound": "USD::Test::Integration::load_all_compounds_test00"
     },
     "task": {

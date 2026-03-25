@@ -1,5 +1,5 @@
 //-
-// Copyright 2024 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,12 +22,16 @@
 #include <BifrostHydra/Engine/Workspace.h>
 
 #include <BifrostGraph/Executor/Factory.h>
-#include <BifrostGraph/Executor/GraphContainer.h>
-#include <BifrostGraph/Executor/Job.h>
+#include <BifrostGraph/Executor/Library.h>
 #include <BifrostGraph/Executor/Owner.h>
 #include <BifrostGraph/Executor/Utility.h>
 
 #include <Amino/Core/String.h>
+#include <Amino/Core/TaskObserver.h>
+#include <Amino/Executor/Executable.h>
+#include <Amino/Executor/ExecutionInputs.h>
+#include <Amino/Executor/ExecutionOutputs.h>
+#include <Amino/Executor/Graph.h>
 
 using namespace BifrostGraph::Executor;
 
@@ -37,7 +41,6 @@ class Engine::Impl {
 public:
     Impl() = default;
     ~Impl() noexcept {
-        m_container = nullptr;
         // Let the Workspace delete its GraphContainer
     }
 
@@ -72,30 +75,30 @@ public:
         return m_workspace.get();
     }
 
-    bool initContainer() {
+    bool initExecutable() {
         assert(m_workspace);
-        if (!m_container) {
-            // Add a single GraphContainer within our Workspace:
-            BifrostGraph::Executor::GraphContainer& container =
-                m_workspace->addGraphContainer();
-            if (!container.isValid()) {
-                return false;
-            }
-            m_container = &container;
 
-            // Since for now we can't change the 'graph topology' at runtime
-            // (like connect/disconnect/add node) because there is no Bifrost
-            // Graph Editor "attached" to our engine, then loading of
-            // the graph and compiling it should happen just once.
+        if (!m_executable.isValid()) {
             Amino::String name{m_parameters.compoundName().c_str()};
-            if (!m_container->setGraph(name)) {
+            BifrostGraph::Executor::Library& library =
+                m_workspace->getLibrary();
+
+            // Note 1: Since for now we can't change the 'graph topology' at
+            // runtime (like connect/disconnect/add node) because there is no
+            // Bifrost Graph Editor "attached" to our engine, then we can get
+            // the executable just once.
+
+            // Note 2: Note that in order to later compile/run the graph, none
+            // of its inputs/outputs can have its type set to 'auto'. See
+            // BIFROST-3651.
+            m_executable =
+                library.createExecutableGraph(name);
+
+            if (!m_executable.isValid()) {
                 return false;
             }
-            auto status = m_container->compile(GraphCompilationMode::kInit);
-            if (status == GraphCompilationStatus::kFailure) {
-                // Note that in order to compile/run the graph, none of its
-                // inputs/outputs can have its type set to 'auto'.
-                // See BIFROST-3651.
+            auto theGraph = m_executable.getGraph();
+            if (!theGraph.isValid() || theGraph.hasErrors()) {
                 return false;
             }
         }
@@ -111,13 +114,10 @@ public:
     }
 
     bool execute(const double frame) {
-        if (!initWorkspace() || !initContainer()) {
+        if (!initWorkspace() || !initExecutable()) {
             return false;
         }
-        Job& job = m_container->getJob();
-        if (!job.isValid()) {
-            return false;
-        }
+
 
         // Prepare input values
         const double                  currentTime = frame / m_fps;
@@ -126,36 +126,100 @@ public:
             m_parameters,
             /*Time data*/ {currentTime, frame, frameLength}};
 
-        // Set inputs.
+        // Set all inputs: Graph inputs and global variables.
         // For each input, the Executor will call convertValueFromHost() on
         // our TypeTranslation class.
-        for (const auto& input : job.getInputs()) {
-            InputValueData inputData(jobData, input.name.c_str(), input.defaultValue);
-            job.setInputValue(input, &inputData);
+        auto theGraph = m_executable.getGraph();
+        assert(theGraph.isValid());
+
+        auto theGraphInputs = m_executable.createInputs();
+        assert(theGraphInputs.isValid());
+
+        // Inputs
+        for (auto const& input : theGraph.getInputs()) {
+            // Get default value for the translation data`
+            /// \todo BIFROST-TBD This is probably unecessary?
+            /// (Since default values are already set when doing createInputs().
+            auto           defaultVal = theGraphInputs.getInput(input);
+            InputValueData inputData(
+                jobData,
+                std::string{Amino::StringView(input.getFullyQualifiedName())},
+                defaultVal ? defaultVal.getAny() : Amino::Any{});
+
+            Amino::Closure closure;
+            auto const typeTrans =
+                m_workspace->getTypeTranslation(input.getTypeId());
+            BifrostGraph::Executor::Utility::convertToClosureFromHost(
+                typeTrans, input, &inputData, closure );
+
+            // Set the input port value
+            theGraphInputs.setInput(input, std::move(closure));
+        }
+
+        // Globals
+        for (auto const& globalVariable : theGraph.getGlobalVariables()) {
+            InputValueData inputData(
+                jobData,
+                std::string{
+                    Amino::StringView(globalVariable.getFullyQualifiedName())},
+                Amino::Any{});
+
+            Amino::Closure closure;
+            auto const typeTrans =
+                m_workspace->getTypeTranslation(globalVariable.getTypeId());
+            BifrostGraph::Executor::Utility::convertToClosureFromHost(
+                typeTrans, globalVariable, &inputData, closure );
+
+            // Set the global variable port value
+            m_executable.setGlobalVariable(globalVariable, std::move(closure));
         }
 
         // Execute the graph
-        auto status  = job.execute();
-        bool success = status == JobExecutionStatus::kSuccess;
+        if (!theGraphInputs.isReady()) {
+            return false;
+        }
+        auto theGraphOutputs = m_executable.execute(std::move(theGraphInputs),
+                                                    Amino::TaskNotifier());
 
-        if (success) {
-            // Get outputs.
-            // For each output, the Executor will call convertValueToHost() on
-            // our TypeTranslation class.
-            for (const auto& output : job.getOutputs()) {
-                OutputValueData outputData(jobData, output.name.c_str());
-                job.getOutputValue(output, &outputData);
-            }
+        if (!theGraphOutputs.isValid()) {
+            return false;
+        }
+        // Get all outputs: Graph outputs and terminals.
+        // For each output, the Executor will call convertValueToHost()
+        // on our TypeTranslation class. Outputs
+        for (const auto& output : theGraph.getOutputs()) {
+            OutputValueData outputData(
+                jobData,
+                std::string{Amino::StringView(output.getFullyQualifiedName())});
+
+            Amino::Closure outputClosure = theGraphOutputs.getOutput(output);
+            auto const typeTrans =
+                m_workspace->getTypeTranslation(output.getTypeId());
+            BifrostGraph::Executor::Utility::convertFromClosureToHost(
+                typeTrans, output, outputClosure, &outputData);
         }
 
-        return success;
+        // Terminals
+        for (const auto& terminal : theGraph.getTerminals()) {
+            OutputValueData outputData(jobData,
+                                       std::string{Amino::StringView(
+                                           terminal.getFullyQualifiedName())});
+            Amino::Closure  terminalClosure =
+                theGraphOutputs.getTerminalOutput(terminal).getFlattened();
+            auto const typeTrans =
+                m_workspace->getTypeTranslation(terminal.getFlattenedTypeId());
+            BifrostGraph::Executor::Utility::convertFromClosureToHost(
+                typeTrans, terminal, terminalClosure, &outputData);
+        }
+
+        return true;
     }
 
     const Output& getOutput() const { return m_parameters.output(); }
 
 private:
     BifrostGraph::Executor::Owner<BifrostHd::Workspace> m_workspace{};
-    BifrostGraph::Executor::GraphContainer*             m_container{nullptr};
+    Amino::Executable                                   m_executable{};
 
     double     m_fps{24.0};
     Parameters m_parameters;

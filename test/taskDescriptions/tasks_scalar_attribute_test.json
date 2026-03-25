@@ -10,9 +10,6 @@
         "and the 'Red Pill' mode (create_usd_prim->create_prim_attribute->set_prim_attribute)"
     ],
     "options": {
-        "definitionFiles": [
-            "scalar_attribute_test_00.json"
-        ],
         "compound": "USD::Test::Attribute::scalar_attribute_test_00"
     },
     "task": {

@@ -534,7 +534,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         },
                         {
                             "name": "reparent_prims",
@@ -868,7 +872,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -939,13 +947,13 @@
                                     "nodeName": "define_usd_prim",
                                     "nodeType": "USD::Prim::define_usd_prim",
                                     "fanInPortNames": {
-                                        "attribute_definitions": [],
-                                        "reference_definitions": [],
-                                        "relationship_definitions": [],
                                         "variant_set_definitions": [],
+                                        "reference_definitions": [],
+                                        "attribute_definitions": [],
                                         "children": [
                                             "prims"
-                                        ]
+                                        ],
+                                        "relationship_definitions": []
                                     },
                                     "metadata": [
                                         {
@@ -1037,6 +1045,31 @@
                                     "value": "/obj"
                                 },
                                 {
+                                    "valueName": "define_usd_prim.variant_set_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.reference_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.attribute_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.children",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.relationship_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
                                     "valueName": "define_usd_prim.type",
                                     "valueType": "string",
                                     "value": ""
@@ -1052,6 +1085,11 @@
                                     "value": "None"
                                 },
                                 {
+                                    "valueName": "define_usd_prim.purpose",
+                                    "valueType": "BifrostUsd::ImageablePurpose",
+                                    "value": "Default"
+                                },
+                                {
                                     "valueName": "define_usd_prim.active",
                                     "valueType": "BifrostUsd::ActivatePrim",
                                     "value": "None"
@@ -1062,39 +1100,9 @@
                                     "value": "None"
                                 },
                                 {
-                                    "valueName": "define_usd_prim.purpose",
-                                    "valueType": "BifrostUsd::ImageablePurpose",
-                                    "value": "Default"
-                                },
-                                {
-                                    "valueName": "define_usd_prim.attribute_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.reference_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.relationship_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.variant_set_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.children",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.material",
-                                    "valueType": "Object",
-                                    "value": {}
+                                    "valueName": "define_usd_prim.variant_set_name",
+                                    "valueType": "string",
+                                    "value": ""
                                 },
                                 {
                                     "valueName": "define_usd_prim.variant_name",
@@ -1102,9 +1110,9 @@
                                     "value": ""
                                 },
                                 {
-                                    "valueName": "define_usd_prim.variant_set_name",
-                                    "valueType": "string",
-                                    "value": ""
+                                    "valueName": "define_usd_prim.material",
+                                    "valueType": "Object",
+                                    "value": {}
                                 }
                             ],
                             "reservedNodeNames": [
@@ -1114,7 +1122,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -1228,21 +1241,16 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "add_relationships",
                     "metadata": [
-                        {
-                            "metaName": "icon",
-                            "metaType": "string",
-                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                        },
-                        {
-                            "metaName": "icon",
-                            "metaType": "string",
-                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                        },
                         {
                             "metaName": "icon",
                             "metaType": "string",
@@ -1485,16 +1493,6 @@
                                 {
                                     "name": "iterate_on_relationships",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -1946,6 +1944,11 @@
                                                 "outputPortName": "out_stage"
                                             }
                                         ]
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 }
                             ],
@@ -2192,7 +2195,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -2260,21 +2268,16 @@
                                 "outputPortName": "out_stage"
                             }
                         ]
+                    },
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
                     }
                 },
                 {
                     "name": "iterate_on_top_parents",
                     "metadata": [
-                        {
-                            "metaName": "icon",
-                            "metaType": "string",
-                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                        },
-                        {
-                            "metaName": "icon",
-                            "metaType": "string",
-                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                        },
                         {
                             "metaName": "icon",
                             "metaType": "string",
@@ -2689,21 +2692,15 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "iterate_on_variant_sets",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -2934,6 +2931,11 @@
                                                 "outputPortName": "out_stage"
                                             }
                                         ]
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 }
                             ],
@@ -3115,7 +3117,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "set_variant_sets_selection",
@@ -3386,21 +3393,15 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "iterate_on_variant_sets",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -3817,6 +3818,11 @@
                                                 "outputPortName": "out_stage"
                                             }
                                         ]
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 }
                             ],
@@ -3998,7 +4004,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "build_children_prims",
@@ -4153,16 +4164,6 @@
                                 {
                                     "name": "iterate_to_create_prims",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -4669,7 +4670,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -5001,21 +5006,16 @@
                                                 "outputPortName": "out_stage"
                                             }
                                         ]
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 },
                                 {
                                     "name": "set_prims_active",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -5526,7 +5526,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -5594,21 +5599,16 @@
                                                 "outputPortName": "out_stage"
                                             }
                                         ]
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 },
                                 {
                                     "name": "iterate_to_add_connections_and_relationships",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -6141,7 +6141,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "add_attribute_connections",
@@ -6272,16 +6277,6 @@
                                                 {
                                                     "name": "iterate_on_attributes",
                                                     "metadata": [
-                                                        {
-                                                            "metaName": "icon",
-                                                            "metaType": "string",
-                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                        },
-                                                        {
-                                                            "metaName": "icon",
-                                                            "metaType": "string",
-                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                        },
                                                         {
                                                             "metaName": "icon",
                                                             "metaType": "string",
@@ -6586,7 +6581,11 @@
                                                                 {
                                                                     "name": "output"
                                                                 }
-                                                            ]
+                                                            ],
+                                                            "libraryDependencies": {
+                                                                "Amino": "2.15.0.9",
+                                                                "bif": "2.15.0.9"
+                                                            }
                                                         },
                                                         {
                                                             "name": "add_or_remove_attribute_connection",
@@ -6876,7 +6875,11 @@
                                                                         {
                                                                             "name": "output"
                                                                         }
-                                                                    ]
+                                                                    ],
+                                                                    "libraryDependencies": {
+                                                                        "Amino": "2.15.0.9",
+                                                                        "bif": "2.15.0.9"
+                                                                    }
                                                                 }
                                                             ],
                                                             "compoundNodes": [
@@ -7118,7 +7121,12 @@
                                                                 {
                                                                     "name": "output"
                                                                 }
-                                                            ]
+                                                            ],
+                                                            "libraryDependencies": {
+                                                                "Amino": "2.15.0.9",
+                                                                "bif": "2.15.0.9",
+                                                                "usd_pack": "1.4.0"
+                                                            }
                                                         }
                                                     ],
                                                     "compoundNodes": [
@@ -7434,6 +7442,11 @@
                                                                 "outputPortName": "out_stage"
                                                             }
                                                         ]
+                                                    },
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "bif": "2.15.0.9",
+                                                        "usd_pack": "1.4.0"
                                                     }
                                                 }
                                             ],
@@ -7620,7 +7633,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "resolve_material_assign",
@@ -8114,7 +8132,11 @@
                                                                 {
                                                                     "name": "output"
                                                                 }
-                                                            ]
+                                                            ],
+                                                            "libraryDependencies": {
+                                                                "Amino": "2.15.0.9",
+                                                                "usd_pack": "1.4.0"
+                                                            }
                                                         }
                                                     ],
                                                     "compoundNodes": [
@@ -8164,7 +8186,11 @@
                                                         {
                                                             "name": "output"
                                                         }
-                                                    ]
+                                                    ],
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "usd_pack": "1.4.0"
+                                                    }
                                                 },
                                                 {
                                                     "name": "get_prims_with_material_tag_attribute",
@@ -8469,7 +8495,11 @@
                                                                 {
                                                                     "name": "output"
                                                                 }
-                                                            ]
+                                                            ],
+                                                            "libraryDependencies": {
+                                                                "Amino": "2.15.0.9",
+                                                                "usd_pack": "1.4.0"
+                                                            }
                                                         }
                                                     ],
                                                     "compoundNodes": [
@@ -8519,21 +8549,15 @@
                                                         {
                                                             "name": "output"
                                                         }
-                                                    ]
+                                                    ],
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "usd_pack": "1.4.0"
+                                                    }
                                                 },
                                                 {
                                                     "name": "iterate",
                                                     "metadata": [
-                                                        {
-                                                            "metaName": "icon",
-                                                            "metaType": "string",
-                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                        },
-                                                        {
-                                                            "metaName": "icon",
-                                                            "metaType": "string",
-                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                        },
                                                         {
                                                             "metaName": "icon",
                                                             "metaType": "string",
@@ -8661,16 +8685,6 @@
                                                         {
                                                             "name": "iterate",
                                                             "metadata": [
-                                                                {
-                                                                    "metaName": "icon",
-                                                                    "metaType": "string",
-                                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                                },
-                                                                {
-                                                                    "metaName": "icon",
-                                                                    "metaType": "string",
-                                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                                },
                                                                 {
                                                                     "metaName": "icon",
                                                                     "metaType": "string",
@@ -8938,7 +8952,10 @@
                                                                         {
                                                                             "name": "output"
                                                                         }
-                                                                    ]
+                                                                    ],
+                                                                    "libraryDependencies": {
+                                                                        "Amino": "2.15.0.9"
+                                                                    }
                                                                 },
                                                                 {
                                                                     "name": "material_prim_path",
@@ -9032,7 +9049,11 @@
                                                                         {
                                                                             "name": "output"
                                                                         }
-                                                                    ]
+                                                                    ],
+                                                                    "libraryDependencies": {
+                                                                        "Amino": "2.15.0.9",
+                                                                        "usd_pack": "1.4.0"
+                                                                    }
                                                                 }
                                                             ],
                                                             "compoundNodes": [
@@ -9425,6 +9446,10 @@
                                                                         "outputPortName": "output"
                                                                     }
                                                                 ]
+                                                            },
+                                                            "libraryDependencies": {
+                                                                "Amino": "2.15.0.9",
+                                                                "usd_pack": "1.4.0"
                                                             }
                                                         }
                                                     ],
@@ -9593,6 +9618,10 @@
                                                                 "outputPortName": "output"
                                                             }
                                                         ]
+                                                    },
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "usd_pack": "1.4.0"
                                                     }
                                                 }
                                             ],
@@ -9778,7 +9807,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "add_relationships",
@@ -9884,16 +9917,6 @@
                                                 {
                                                     "name": "iterate_on_relationships",
                                                     "metadata": [
-                                                        {
-                                                            "metaName": "icon",
-                                                            "metaType": "string",
-                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                        },
-                                                        {
-                                                            "metaName": "icon",
-                                                            "metaType": "string",
-                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                        },
                                                         {
                                                             "metaName": "icon",
                                                             "metaType": "string",
@@ -10345,6 +10368,11 @@
                                                                 "outputPortName": "out_stage"
                                                             }
                                                         ]
+                                                    },
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "bif": "2.15.0.9",
+                                                        "usd_pack": "1.4.0"
                                                     }
                                                 }
                                             ],
@@ -10591,7 +10619,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -10892,6 +10925,11 @@
                                                 "outputPortName": "out_stage"
                                             }
                                         ]
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 },
                                 {
@@ -11062,7 +11100,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -11254,7 +11296,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "set_parent_active",
@@ -11654,7 +11701,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "add_attribute_connections",
@@ -11785,16 +11837,6 @@
                                 {
                                     "name": "iterate_on_attributes",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -12089,7 +12131,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9"
+                                            }
                                         },
                                         {
                                             "name": "add_or_remove_attribute_connection",
@@ -12379,7 +12425,11 @@
                                                         {
                                                             "name": "output"
                                                         }
-                                                    ]
+                                                    ],
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "bif": "2.15.0.9"
+                                                    }
                                                 }
                                             ],
                                             "compoundNodes": [
@@ -12621,7 +12671,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -12892,6 +12947,11 @@
                                                 "outputPortName": "out_stage"
                                             }
                                         ]
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 }
                             ],
@@ -13078,7 +13138,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -13398,6 +13463,11 @@
                                 "outputPortName": "out_stage"
                             }
                         ]
+                    },
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
                     }
                 },
                 {
@@ -13535,16 +13605,6 @@
                                     "metaValue": "<NATIVE>../icons/LoopForEach.svg"
                                 },
                                 {
-                                    "metaName": "icon",
-                                    "metaType": "string",
-                                    "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                                },
-                                {
-                                    "metaName": "icon",
-                                    "metaType": "string",
-                                    "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                                },
-                                {
                                     "metaName": "_recentNode_",
                                     "metaType": "string",
                                     "metaValue": "BifrostGraph,Core::Object,set_property"
@@ -13661,16 +13721,6 @@
                                 {
                                     "name": "for_each_child",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -14121,7 +14171,10 @@
                                                                 {
                                                                     "name": "output"
                                                                 }
-                                                            ]
+                                                            ],
+                                                            "libraryDependencies": {
+                                                                "Amino": "2.15.0.9"
+                                                            }
                                                         }
                                                     ],
                                                     "compoundNodes": [
@@ -14428,7 +14481,11 @@
                                                         {
                                                             "name": "output"
                                                         }
-                                                    ]
+                                                    ],
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "bif": "2.15.0.9"
+                                                    }
                                                 },
                                                 {
                                                     "name": "update_reference_prim",
@@ -14524,16 +14581,6 @@
                                                         {
                                                             "name": "iterate",
                                                             "metadata": [
-                                                                {
-                                                                    "metaName": "icon",
-                                                                    "metaType": "string",
-                                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                                },
-                                                                {
-                                                                    "metaName": "icon",
-                                                                    "metaType": "string",
-                                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                                },
                                                                 {
                                                                     "metaName": "icon",
                                                                     "metaType": "string",
@@ -14983,6 +15030,11 @@
                                                             ],
                                                             "iterateCompound": {
                                                                 "ports": []
+                                                            },
+                                                            "libraryDependencies": {
+                                                                "Amino": "2.15.0.9",
+                                                                "bif": "2.15.0.9",
+                                                                "usd_pack": "1.4.0"
                                                             }
                                                         }
                                                     ],
@@ -15086,7 +15138,12 @@
                                                         {
                                                             "name": "output"
                                                         }
-                                                    ]
+                                                    ],
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "bif": "2.15.0.9",
+                                                        "usd_pack": "1.4.0"
+                                                    }
                                                 },
                                                 {
                                                     "name": "update_relationship_target",
@@ -15182,16 +15239,6 @@
                                                         {
                                                             "name": "iterate",
                                                             "metadata": [
-                                                                {
-                                                                    "metaName": "icon",
-                                                                    "metaType": "string",
-                                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                                },
-                                                                {
-                                                                    "metaName": "icon",
-                                                                    "metaType": "string",
-                                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                                },
                                                                 {
                                                                     "metaName": "icon",
                                                                     "metaType": "string",
@@ -15485,6 +15532,10 @@
                                                             ],
                                                             "iterateCompound": {
                                                                 "ports": []
+                                                            },
+                                                            "libraryDependencies": {
+                                                                "Amino": "2.15.0.9",
+                                                                "bif": "2.15.0.9"
                                                             }
                                                         }
                                                     ],
@@ -15588,7 +15639,11 @@
                                                         {
                                                             "name": "output"
                                                         }
-                                                    ]
+                                                    ],
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "bif": "2.15.0.9"
+                                                    }
                                                 },
                                                 {
                                                     "name": "update_target_prim",
@@ -15684,16 +15739,6 @@
                                                         {
                                                             "name": "iterate",
                                                             "metadata": [
-                                                                {
-                                                                    "metaName": "icon",
-                                                                    "metaType": "string",
-                                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                                },
-                                                                {
-                                                                    "metaName": "icon",
-                                                                    "metaType": "string",
-                                                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                                },
                                                                 {
                                                                     "metaName": "icon",
                                                                     "metaType": "string",
@@ -15987,6 +16032,10 @@
                                                             ],
                                                             "iterateCompound": {
                                                                 "ports": []
+                                                            },
+                                                            "libraryDependencies": {
+                                                                "Amino": "2.15.0.9",
+                                                                "bif": "2.15.0.9"
                                                             }
                                                         }
                                                     ],
@@ -16090,7 +16139,11 @@
                                                         {
                                                             "name": "output"
                                                         }
-                                                    ]
+                                                    ],
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "bif": "2.15.0.9"
+                                                    }
                                                 }
                                             ],
                                             "compoundNodes": [
@@ -16246,7 +16299,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -16303,6 +16361,11 @@
                                     ],
                                     "forEachCompound": {
                                         "ports": []
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 },
                                 {
@@ -16655,7 +16718,10 @@
                                                         {
                                                             "name": "output"
                                                         }
-                                                    ]
+                                                    ],
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9"
+                                                    }
                                                 }
                                             ],
                                             "compoundNodes": [
@@ -16962,7 +17028,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9"
+                                            }
                                         },
                                         {
                                             "name": "update_reference_prim",
@@ -17058,16 +17128,6 @@
                                                 {
                                                     "name": "iterate",
                                                     "metadata": [
-                                                        {
-                                                            "metaName": "icon",
-                                                            "metaType": "string",
-                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                        },
-                                                        {
-                                                            "metaName": "icon",
-                                                            "metaType": "string",
-                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                        },
                                                         {
                                                             "metaName": "icon",
                                                             "metaType": "string",
@@ -17517,6 +17577,11 @@
                                                     ],
                                                     "iterateCompound": {
                                                         "ports": []
+                                                    },
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "bif": "2.15.0.9",
+                                                        "usd_pack": "1.4.0"
                                                     }
                                                 }
                                             ],
@@ -17620,7 +17685,12 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "update_relationship_target",
@@ -17716,16 +17786,6 @@
                                                 {
                                                     "name": "iterate",
                                                     "metadata": [
-                                                        {
-                                                            "metaName": "icon",
-                                                            "metaType": "string",
-                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                        },
-                                                        {
-                                                            "metaName": "icon",
-                                                            "metaType": "string",
-                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                        },
                                                         {
                                                             "metaName": "icon",
                                                             "metaType": "string",
@@ -18019,6 +18079,10 @@
                                                     ],
                                                     "iterateCompound": {
                                                         "ports": []
+                                                    },
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "bif": "2.15.0.9"
                                                     }
                                                 }
                                             ],
@@ -18122,7 +18186,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9"
+                                            }
                                         },
                                         {
                                             "name": "update_target_prim",
@@ -18218,16 +18286,6 @@
                                                 {
                                                     "name": "iterate",
                                                     "metadata": [
-                                                        {
-                                                            "metaName": "icon",
-                                                            "metaType": "string",
-                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                        },
-                                                        {
-                                                            "metaName": "icon",
-                                                            "metaType": "string",
-                                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                                        },
                                                         {
                                                             "metaName": "icon",
                                                             "metaType": "string",
@@ -18521,6 +18579,10 @@
                                                     ],
                                                     "iterateCompound": {
                                                         "ports": []
+                                                    },
+                                                    "libraryDependencies": {
+                                                        "Amino": "2.15.0.9",
+                                                        "bif": "2.15.0.9"
                                                     }
                                                 }
                                             ],
@@ -18624,7 +18686,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -18780,7 +18846,12 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -18924,6 +18995,11 @@
                             ],
                             "forEachCompound": {
                                 "ports": []
+                            },
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
                             }
                         }
                     ],
@@ -19030,21 +19106,16 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "set_variant_selections",
                     "metadata": [
-                        {
-                            "metaName": "icon",
-                            "metaType": "string",
-                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                        },
-                        {
-                            "metaName": "icon",
-                            "metaType": "string",
-                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                        },
                         {
                             "metaName": "icon",
                             "metaType": "string",
@@ -19448,6 +19519,11 @@
                                 "outputPortName": "out_stage"
                             }
                         ]
+                    },
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
                     }
                 }
             ],
@@ -19744,7 +19820,12 @@
                 {
                     "name": "input1"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

@@ -13,9 +13,6 @@
         "The second stage copy should contain both the `/a` and the `/a/b` prims."
     ],
     "options": {
-        "definitionFiles": [
-            "fan_out_stages_test00.json"
-        ],
         "compound": "USD::Test::Stage::fan_out_stages_test00"
     },
     "task": {

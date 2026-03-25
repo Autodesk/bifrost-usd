@@ -1,5 +1,5 @@
 //-
-// Copyright 2023 Autodesk, Inc.
+// Copyright 2025 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -39,9 +39,9 @@ public:
     void getSupportedTypeNames(StringArray& out_names) const noexcept override;
 
     bool convertValueFromHost(
-        Amino::Type const& type,
-        Amino::Any&        value,
-        ValueData const*   translationData) const noexcept override;
+        Amino::TypeId const& typeId,
+        Amino::Any&          value,
+        ValueData const*     translationData) const noexcept override;
 
     bool convertValueToHost(Amino::Any const& value,
                             ValueData* translationData) const noexcept override;

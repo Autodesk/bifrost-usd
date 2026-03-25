@@ -263,15 +263,27 @@ class TestGraphs(unittest.TestCase):
         indent2 = indent + indent
 
         # Make sure we support the schema version of the JSON log file
-        self.assertTrue("schemaVersion" in json_content)
-        self.assertTrue("taskDescriptions" in json_content)
-        self.assertEqual(json_content["schemaVersion"], "1.0.0")
+        if not "schemaVersion" in json_content:
+            logging.error("JSON Log File has no `schemaVersion` entry.")
+            return False
+        if not "taskDescriptions" in json_content:
+            logging.error("JSON Log File has no `taskDescriptions` entry.")
+            return False
+        if not json_content["schemaVersion"] == "1.0.0":
+            logging.error(
+                "JSON Log File has unsupported `schemaVersion`=%s.",
+                json_content["schemaVersion"],
+            )
+            return False
 
         # Scan content of JSON Log File
         success = True
         for desc in json_content["taskDescriptions"]:
+            if not "jsonFile" in desc:
+                logging.error("taskDescriptions has no `jsonFile` entry.")
+                return False
+
             # Check if Task Description file was ok, and any error messages
-            self.assertTrue("jsonFile" in desc)
             task_desc_file = desc["jsonFile"]
             logging.info(
                 "Checking results for Task Description file `%s`...",
@@ -331,6 +343,18 @@ class TestGraphs(unittest.TestCase):
             json_content = json.load(f)
             f.close()
             success = self.checkTasksResults(json_content, check_std_outputs)
+            if not success:
+                logging.error("Errors found in JSON Log File")
+                logging.info("=" * 70)
+                logging.info("JSON Log File content - BEGIN")
+                logging.info("=" * 70)
+                # Convert JSON to formatted string and dump them
+                formatted_json = json.dumps(json_content, indent=3)
+                for line in formatted_json.split('\n'):
+                    logging.info(line)
+                logging.info("=" * 70)
+                logging.info("JSON Log File content - END")
+                logging.info("=" * 70)
         return success
 
     # ==========================================================================
@@ -365,6 +389,7 @@ class TestGraphs(unittest.TestCase):
             "tasks_define_usd_skeleton_animation.json",
             "tasks_duplicate_usd_prim_definition.json",
             # Point Instancer Tests
+            "tasks_create_point_instancer.json",
             "tasks_delete_usd_point_instances.json",
             # Stage Tests
             "tasks_add_to_stage.json",
@@ -431,6 +456,88 @@ class TestGraphs(unittest.TestCase):
 class BifCmdException(Exception):
     """Exception class for bifcmd executable related errors"""
 
+def validate_and_display_config_files(lib_config_files):
+    """Validate and display content of each config file"""
+    for config_file in lib_config_files:
+        config_file = config_file.strip()  # Remove any whitespace
+        if not config_file:
+            continue  # Skip empty entries
+
+        logging.info("=" * 70)
+        logging.info("Checking config file: `%s`", config_file)
+        if not os.path.exists(config_file):
+            logging.error("Config file does not exist: `%s`", config_file)
+        elif not os.path.isfile(config_file):
+            logging.error("Config path is not a file: `%s`", config_file)
+        else:
+            try:
+                with io.open(config_file, mode='r', encoding='utf-8') as f:
+                    logging.info("-" * 70)
+                    logging.info("Config file content - BEGIN")
+                    logging.info("-" * 70)
+                    line_num = 1
+                    for line in f:
+                        # Strip trailing newline but preserve other whitespace
+                        logging.info("%3d: %s", line_num, line.rstrip('\n\r'))
+                        line_num += 1
+                    logging.info("-" * 70)
+                    logging.info("Config file content - END")
+                    logging.info("-" * 70)
+            except Exception as e:
+                logging.error("Failed to read config file `%s`: %s", config_file, str(e))
+
+def print_tree_recursive(dir_path, indent, depth, max_depth, max_items):
+    """
+    Recursively print directory tree structure.
+    Args:
+        dir_path:   Directory path to traverse
+        indent:     Current indentation string
+        depth:      Current depth level
+        max_depth:  Maximum depth to traverse
+        max_items:  Maximum items to show at level 0. At deeper levels, show less items.
+    """
+    if depth >= max_depth:
+        return
+
+    # Adjust current max_items based on depth
+    max_items_current = max_items if depth == 0 else min(5, max_items)
+
+    # Get all items in directory, sorted
+    all_items = sorted(os.listdir(dir_path))
+    total = len(all_items)
+    items = all_items[:max_items_current]
+
+    for item in items:
+        logging.info("%s|___ %s", indent, item)
+        item_path = os.path.join(dir_path, item)
+
+        # Recursively process subdirectories
+        if os.path.isdir(item_path):
+            print_tree_recursive(item_path, f"{indent}   ", depth + 1, max_depth, max_items)
+
+    # Show truncation message if there are more items
+    if total > max_items_current:
+        remaining = total - max_items_current
+        logging.info("%s|___ (... %d more items)", indent, remaining)
+
+def print_tree(dir_path, max_depth, max_items):
+    """Print directory tree structure up to a certain depth and item limit."""
+    logging.info("=== Directory structure of %s: ===", dir_path)
+    if os.path.isdir(dir_path):
+        print_tree_recursive(dir_path, "", 0, max_depth, max_items)
+    else:
+        logging.error("`%s` is not a valid directory", dir_path)
+
+def dump_path_env_var():
+    """Dump content of PATH env var entries"""
+    logging.info("=" * 70)
+    logging.info("Dumping content of PATH env var entries")
+    logging.info("=" * 70)
+    path_entries = os.environ.get("PATH", "").split(os.pathsep)
+    for dir_entry in path_entries:
+        dir_entry = dir_entry.strip()
+        if dir_entry:
+            print_tree(dir_entry, 2, 5)
 
 def get_suite(
     bifcmd_executable, bifrost_lib_config_files, test_dir, resource_dir,
@@ -574,5 +681,12 @@ if __name__ == "__main__":
         args.testcase_names,
     )
     testResult = runner.run(suite)
+    success = testResult.wasSuccessful()
+    if not success:
+        # On Windows, print top level content of each entry in PATH env var:
+        if os.name == "nt":
+            dump_path_env_var()
+        # Validate and display content of each config file
+        validate_and_display_config_files(lib_config_files)
 
-    sys.exit(0 if testResult.wasSuccessful() else 1)
+    sys.exit(0 if success else 1)

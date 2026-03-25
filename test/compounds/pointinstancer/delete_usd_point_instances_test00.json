@@ -917,7 +917,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "check_usd_data1",
@@ -1639,7 +1644,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "check_usd_data2",
@@ -2361,7 +2371,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "create_point_instancer",
@@ -2525,11 +2540,6 @@
                         {
                             "name": "add_prototypes",
                             "metadata": [
-                                {
-                                    "metaName": "icon",
-                                    "metaType": "string",
-                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                },
                                 {
                                     "metaName": "icon",
                                     "metaType": "string",
@@ -3242,6 +3252,10 @@
                                         "outputPortName": "out_stage"
                                     }
                                 ]
+                            },
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
                             }
                         },
                         {
@@ -3402,7 +3416,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "get_prototypes_path",
@@ -3527,7 +3545,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "set_scales_attribute",
@@ -3982,7 +4004,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "set_proto_indices",
@@ -4353,16 +4379,16 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "set_prototypes_relationship",
                             "metadata": [
-                                {
-                                    "metaName": "icon",
-                                    "metaType": "string",
-                                    "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                },
                                 {
                                     "metaName": "icon",
                                     "metaType": "string",
@@ -4584,6 +4610,10 @@
                                         "outputPortName": "out_stage"
                                     }
                                 ]
+                            },
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
                             }
                         },
                         {
@@ -4956,7 +4986,10 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9"
+                            }
                         },
                         {
                             "name": "set_positions_attribute",
@@ -5248,7 +5281,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "set_orientations_attribute",
@@ -5750,7 +5787,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -6239,7 +6280,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -6909,6 +6955,11 @@
                     "value": "2f"
                 },
                 {
+                    "valueName": "delete_usd_point_instances.enable",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
                     "valueName": "delete_usd_point_instances.stage",
                     "valueType": "BifrostUsd::Stage",
                     "value": {}
@@ -6919,19 +6970,14 @@
                     "value": "/instancer"
                 },
                 {
-                    "valueName": "delete_usd_point_instances.geometries",
-                    "valueType": "array<Object>",
-                    "value": []
+                    "valueName": "delete_usd_point_instances.invert",
+                    "valueType": "bool",
+                    "value": "false"
                 },
                 {
                     "valueName": "delete_usd_point_instances.mode",
                     "valueType": "string",
                     "value": "Random"
-                },
-                {
-                    "valueName": "delete_usd_point_instances.invert",
-                    "valueType": "bool",
-                    "value": "false"
                 },
                 {
                     "valueName": "delete_usd_point_instances.probability_weight",
@@ -6944,14 +6990,19 @@
                     "value": "0"
                 },
                 {
-                    "valueName": "delete_usd_point_instances.enable",
-                    "valueType": "bool",
-                    "value": "true"
+                    "valueName": "delete_usd_point_instances.geometries",
+                    "valueType": "array<Object>",
+                    "value": []
                 },
                 {
                     "valueName": "delete_usd_point_instances.indices",
                     "valueType": "array<long>",
                     "value": []
+                },
+                {
+                    "valueName": "delete_usd_point_instances1.enable",
+                    "valueType": "bool",
+                    "value": "true"
                 },
                 {
                     "valueName": "delete_usd_point_instances1.stage",
@@ -6964,19 +7015,14 @@
                     "value": "/instancer"
                 },
                 {
-                    "valueName": "delete_usd_point_instances1.geometries",
-                    "valueType": "array<Object>",
-                    "value": []
+                    "valueName": "delete_usd_point_instances1.invert",
+                    "valueType": "bool",
+                    "value": "false"
                 },
                 {
                     "valueName": "delete_usd_point_instances1.mode",
                     "valueType": "string",
                     "value": "Inside Geometry"
-                },
-                {
-                    "valueName": "delete_usd_point_instances1.invert",
-                    "valueType": "bool",
-                    "value": "false"
                 },
                 {
                     "valueName": "delete_usd_point_instances1.probability_weight",
@@ -6989,14 +7035,19 @@
                     "value": "0"
                 },
                 {
-                    "valueName": "delete_usd_point_instances1.enable",
-                    "valueType": "bool",
-                    "value": "true"
+                    "valueName": "delete_usd_point_instances1.geometries",
+                    "valueType": "array<Object>",
+                    "value": []
                 },
                 {
                     "valueName": "delete_usd_point_instances1.indices",
                     "valueType": "array<long>",
                     "value": []
+                },
+                {
+                    "valueName": "delete_usd_point_instances2.enable",
+                    "valueType": "bool",
+                    "value": "true"
                 },
                 {
                     "valueName": "delete_usd_point_instances2.stage",
@@ -7009,19 +7060,14 @@
                     "value": "/instancer"
                 },
                 {
-                    "valueName": "delete_usd_point_instances2.geometries",
-                    "valueType": "array<Object>",
-                    "value": []
+                    "valueName": "delete_usd_point_instances2.invert",
+                    "valueType": "bool",
+                    "value": "false"
                 },
                 {
                     "valueName": "delete_usd_point_instances2.mode",
                     "valueType": "string",
                     "value": "By Indices"
-                },
-                {
-                    "valueName": "delete_usd_point_instances2.invert",
-                    "valueType": "bool",
-                    "value": "false"
                 },
                 {
                     "valueName": "delete_usd_point_instances2.probability_weight",
@@ -7034,9 +7080,9 @@
                     "value": "0"
                 },
                 {
-                    "valueName": "delete_usd_point_instances2.enable",
-                    "valueType": "bool",
-                    "value": "true"
+                    "valueName": "delete_usd_point_instances2.geometries",
+                    "valueType": "array<Object>",
+                    "value": []
                 },
                 {
                     "valueName": "delete_usd_point_instances2.indices",
@@ -7136,7 +7182,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

@@ -257,7 +257,7 @@
                     "portDirection": "input",
                     "portType": "Math::FCurve",
                     "portDefault": {
-                        "version": "1",
+                        "version": "2",
                         "preExtrapolation": "0",
                         "postExtrapolation": "0",
                         "points": [
@@ -265,6 +265,7 @@
                                 "point": {
                                     "locked": "1",
                                     "interpolation": "1",
+                                    "curveInterpolation": "0",
                                     "pcn": {
                                         "xp": "-0.63807499999999995",
                                         "yp": "-0.180645",
@@ -279,6 +280,7 @@
                                 "point": {
                                     "locked": "1",
                                     "interpolation": "1",
+                                    "curveInterpolation": "0",
                                     "pcn": {
                                         "xp": "0.67824300000000004",
                                         "yp": "0.91612899999999997",
@@ -776,7 +778,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "get_preview_geometry",
@@ -906,7 +912,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "get_name",
@@ -1036,7 +1046,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -1287,7 +1301,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "scatter": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -1557,7 +1576,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "scatter": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "bif_geoms_to_prototypes_definitions",
@@ -1807,11 +1831,11 @@
                                     "nodeName": "define_usd_prim",
                                     "nodeType": "USD::Prim::define_usd_prim",
                                     "fanInPortNames": {
-                                        "attribute_definitions": [],
-                                        "reference_definitions": [],
-                                        "relationship_definitions": [],
                                         "variant_set_definitions": [],
-                                        "children": []
+                                        "reference_definitions": [],
+                                        "attribute_definitions": [],
+                                        "children": [],
+                                        "relationship_definitions": []
                                     },
                                     "metadata": [
                                         {
@@ -1844,6 +1868,31 @@
                                     "value": "/obj1"
                                 },
                                 {
+                                    "valueName": "define_usd_prim.variant_set_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.reference_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.attribute_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.children",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.relationship_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
                                     "valueName": "define_usd_prim.type",
                                     "valueType": "string",
                                     "value": "Sphere"
@@ -1859,6 +1908,11 @@
                                     "value": "None"
                                 },
                                 {
+                                    "valueName": "define_usd_prim.purpose",
+                                    "valueType": "BifrostUsd::ImageablePurpose",
+                                    "value": "Default"
+                                },
+                                {
                                     "valueName": "define_usd_prim.active",
                                     "valueType": "BifrostUsd::ActivatePrim",
                                     "value": "None"
@@ -1869,39 +1923,9 @@
                                     "value": "None"
                                 },
                                 {
-                                    "valueName": "define_usd_prim.purpose",
-                                    "valueType": "BifrostUsd::ImageablePurpose",
-                                    "value": "Default"
-                                },
-                                {
-                                    "valueName": "define_usd_prim.attribute_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.reference_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.relationship_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.variant_set_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.children",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.material",
-                                    "valueType": "Object",
-                                    "value": {}
+                                    "valueName": "define_usd_prim.variant_set_name",
+                                    "valueType": "string",
+                                    "value": ""
                                 },
                                 {
                                     "valueName": "define_usd_prim.variant_name",
@@ -1909,9 +1933,9 @@
                                     "value": ""
                                 },
                                 {
-                                    "valueName": "define_usd_prim.variant_set_name",
-                                    "valueType": "string",
-                                    "value": ""
+                                    "valueName": "define_usd_prim.material",
+                                    "valueType": "Object",
+                                    "value": {}
                                 }
                             ],
                             "reservedNodeNames": [
@@ -1921,21 +1945,16 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "for_each_render_geo",
                             "metadata": [
-                                {
-                                    "metaName": "icon",
-                                    "metaType": "string",
-                                    "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                                },
-                                {
-                                    "metaName": "icon",
-                                    "metaType": "string",
-                                    "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                                },
                                 {
                                     "metaName": "icon",
                                     "metaType": "string",
@@ -2158,13 +2177,13 @@
                                     "nodeName": "define_usd_prim",
                                     "nodeType": "USD::Prim::define_usd_prim",
                                     "fanInPortNames": {
-                                        "attribute_definitions": [],
-                                        "reference_definitions": [],
-                                        "relationship_definitions": [],
                                         "variant_set_definitions": [],
+                                        "reference_definitions": [],
+                                        "attribute_definitions": [],
                                         "children": [
                                             "mesh_definition"
-                                        ]
+                                        ],
+                                        "relationship_definitions": []
                                     },
                                     "metadata": [
                                         {
@@ -2209,13 +2228,13 @@
                                     "nodeName": "define_usd_mesh",
                                     "nodeType": "USD::Prim::define_usd_mesh",
                                     "fanInPortNames": {
+                                        "reference_definitions": [],
                                         "attribute_definitions": [
                                             "output",
                                             "attribute_definition"
                                         ],
-                                        "reference_definitions": [],
-                                        "relationship_definitions": [],
-                                        "children": []
+                                        "children": [],
+                                        "relationship_definitions": []
                                     },
                                     "metadata": [
                                         {
@@ -2441,6 +2460,31 @@
                                     "value": "/obj"
                                 },
                                 {
+                                    "valueName": "define_usd_prim.variant_set_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.reference_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.attribute_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.children",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.relationship_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
                                     "valueName": "define_usd_prim.type",
                                     "valueType": "string",
                                     "value": "Scope"
@@ -2456,6 +2500,11 @@
                                     "value": "None"
                                 },
                                 {
+                                    "valueName": "define_usd_prim.purpose",
+                                    "valueType": "BifrostUsd::ImageablePurpose",
+                                    "value": "Default"
+                                },
+                                {
                                     "valueName": "define_usd_prim.active",
                                     "valueType": "BifrostUsd::ActivatePrim",
                                     "value": "None"
@@ -2466,39 +2515,9 @@
                                     "value": "None"
                                 },
                                 {
-                                    "valueName": "define_usd_prim.purpose",
-                                    "valueType": "BifrostUsd::ImageablePurpose",
-                                    "value": "Default"
-                                },
-                                {
-                                    "valueName": "define_usd_prim.attribute_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.reference_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.relationship_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.variant_set_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.children",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.material",
-                                    "valueType": "Object",
-                                    "value": {}
+                                    "valueName": "define_usd_prim.variant_set_name",
+                                    "valueType": "string",
+                                    "value": ""
                                 },
                                 {
                                     "valueName": "define_usd_prim.variant_name",
@@ -2506,14 +2525,19 @@
                                     "value": ""
                                 },
                                 {
-                                    "valueName": "define_usd_prim.variant_set_name",
-                                    "valueType": "string",
-                                    "value": ""
+                                    "valueName": "define_usd_prim.material",
+                                    "valueType": "Object",
+                                    "value": {}
                                 },
                                 {
                                     "valueName": "define_usd_attribute.name",
                                     "valueType": "string",
                                     "value": "purpose"
+                                },
+                                {
+                                    "valueName": "define_usd_attribute.custom",
+                                    "valueType": "bool",
+                                    "value": "false"
                                 },
                                 {
                                     "valueName": "define_usd_attribute.type",
@@ -2556,19 +2580,14 @@
                                     "value": "PrimVarUniform"
                                 },
                                 {
-                                    "valueName": "define_usd_attribute.custom",
-                                    "valueType": "bool",
-                                    "value": "false"
+                                    "valueName": "define_usd_attribute.frame",
+                                    "valueType": "float",
+                                    "value": "0f"
                                 },
                                 {
                                     "valueName": "define_usd_attribute.use_frame",
                                     "valueType": "bool",
                                     "value": "false"
-                                },
-                                {
-                                    "valueName": "define_usd_attribute.frame",
-                                    "valueType": "float",
-                                    "value": "0f"
                                 },
                                 {
                                     "valueName": "define_usd_mesh.path",
@@ -2581,39 +2600,24 @@
                                     "value": {}
                                 },
                                 {
+                                    "valueName": "define_usd_mesh.normal_per_vertex",
+                                    "valueType": "bool",
+                                    "value": "true"
+                                },
+                                {
                                     "valueName": "define_usd_mesh.subdivision_scheme",
                                     "valueType": "BifrostUsd::SubdivisionScheme",
                                     "value": "catmullClark"
                                 },
                                 {
-                                    "valueName": "define_usd_mesh.attribute_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_mesh.reference_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_mesh.relationship_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_mesh.children",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_mesh.material",
-                                    "valueType": "Object",
-                                    "value": {}
-                                },
-                                {
-                                    "valueName": "define_usd_mesh.normal_per_vertex",
+                                    "valueName": "define_usd_mesh.use_frame",
                                     "valueType": "bool",
-                                    "value": "true"
+                                    "value": "false"
+                                },
+                                {
+                                    "valueName": "define_usd_mesh.frame",
+                                    "valueType": "float",
+                                    "value": "0f"
                                 },
                                 {
                                     "valueName": "define_usd_mesh.variant_set_name",
@@ -2626,14 +2630,29 @@
                                     "value": ""
                                 },
                                 {
-                                    "valueName": "define_usd_mesh.use_frame",
-                                    "valueType": "bool",
-                                    "value": "false"
+                                    "valueName": "define_usd_mesh.reference_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
                                 },
                                 {
-                                    "valueName": "define_usd_mesh.frame",
-                                    "valueType": "float",
-                                    "value": "0f"
+                                    "valueName": "define_usd_mesh.attribute_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_mesh.children",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_mesh.relationship_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_mesh.material",
+                                    "valueType": "Object",
+                                    "value": {}
                                 },
                                 {
                                     "valueName": "value2.value",
@@ -2656,21 +2675,16 @@
                             ],
                             "forEachCompound": {
                                 "ports": []
+                            },
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
                             }
                         },
                         {
                             "name": "for_each_preview_geo",
                             "metadata": [
-                                {
-                                    "metaName": "icon",
-                                    "metaType": "string",
-                                    "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                                },
-                                {
-                                    "metaName": "icon",
-                                    "metaType": "string",
-                                    "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                                },
                                 {
                                     "metaName": "icon",
                                     "metaType": "string",
@@ -2885,13 +2899,13 @@
                                     "nodeName": "define_usd_prim",
                                     "nodeType": "USD::Prim::define_usd_prim",
                                     "fanInPortNames": {
-                                        "attribute_definitions": [],
-                                        "reference_definitions": [],
-                                        "relationship_definitions": [],
                                         "variant_set_definitions": [],
+                                        "reference_definitions": [],
+                                        "attribute_definitions": [],
                                         "children": [
                                             "mesh_definition"
-                                        ]
+                                        ],
+                                        "relationship_definitions": []
                                     },
                                     "metadata": [
                                         {
@@ -2910,12 +2924,12 @@
                                     "nodeName": "define_usd_mesh",
                                     "nodeType": "USD::Prim::define_usd_mesh",
                                     "fanInPortNames": {
+                                        "reference_definitions": [],
                                         "attribute_definitions": [
                                             "output"
                                         ],
-                                        "reference_definitions": [],
-                                        "relationship_definitions": [],
-                                        "children": []
+                                        "children": [],
+                                        "relationship_definitions": []
                                     },
                                     "metadata": [
                                         {
@@ -3020,6 +3034,31 @@
                                     "value": "/obj"
                                 },
                                 {
+                                    "valueName": "define_usd_prim.variant_set_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.reference_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.attribute_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.children",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_prim.relationship_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
                                     "valueName": "define_usd_prim.type",
                                     "valueType": "string",
                                     "value": "Scope"
@@ -3035,6 +3074,11 @@
                                     "value": "None"
                                 },
                                 {
+                                    "valueName": "define_usd_prim.purpose",
+                                    "valueType": "BifrostUsd::ImageablePurpose",
+                                    "value": "Default"
+                                },
+                                {
                                     "valueName": "define_usd_prim.active",
                                     "valueType": "BifrostUsd::ActivatePrim",
                                     "value": "None"
@@ -3045,39 +3089,9 @@
                                     "value": "None"
                                 },
                                 {
-                                    "valueName": "define_usd_prim.purpose",
-                                    "valueType": "BifrostUsd::ImageablePurpose",
-                                    "value": "Default"
-                                },
-                                {
-                                    "valueName": "define_usd_prim.attribute_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.reference_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.relationship_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.variant_set_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.children",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_prim.material",
-                                    "valueType": "Object",
-                                    "value": {}
+                                    "valueName": "define_usd_prim.variant_set_name",
+                                    "valueType": "string",
+                                    "value": ""
                                 },
                                 {
                                     "valueName": "define_usd_prim.variant_name",
@@ -3085,9 +3099,9 @@
                                     "value": ""
                                 },
                                 {
-                                    "valueName": "define_usd_prim.variant_set_name",
-                                    "valueType": "string",
-                                    "value": ""
+                                    "valueName": "define_usd_prim.material",
+                                    "valueType": "Object",
+                                    "value": {}
                                 },
                                 {
                                     "valueName": "define_usd_mesh.path",
@@ -3100,49 +3114,14 @@
                                     "value": {}
                                 },
                                 {
-                                    "valueName": "define_usd_mesh.subdivision_scheme",
-                                    "valueType": "BifrostUsd::SubdivisionScheme",
-                                    "value": "catmullClark"
-                                },
-                                {
-                                    "valueName": "define_usd_mesh.attribute_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_mesh.reference_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_mesh.relationship_definitions",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_mesh.children",
-                                    "valueType": "array<Object>",
-                                    "value": []
-                                },
-                                {
-                                    "valueName": "define_usd_mesh.material",
-                                    "valueType": "Object",
-                                    "value": {}
-                                },
-                                {
                                     "valueName": "define_usd_mesh.normal_per_vertex",
                                     "valueType": "bool",
                                     "value": "true"
                                 },
                                 {
-                                    "valueName": "define_usd_mesh.variant_set_name",
-                                    "valueType": "string",
-                                    "value": ""
-                                },
-                                {
-                                    "valueName": "define_usd_mesh.variant_name",
-                                    "valueType": "string",
-                                    "value": ""
+                                    "valueName": "define_usd_mesh.subdivision_scheme",
+                                    "valueType": "BifrostUsd::SubdivisionScheme",
+                                    "value": "catmullClark"
                                 },
                                 {
                                     "valueName": "define_usd_mesh.use_frame",
@@ -3155,9 +3134,49 @@
                                     "value": "0f"
                                 },
                                 {
+                                    "valueName": "define_usd_mesh.variant_set_name",
+                                    "valueType": "string",
+                                    "value": ""
+                                },
+                                {
+                                    "valueName": "define_usd_mesh.variant_name",
+                                    "valueType": "string",
+                                    "value": ""
+                                },
+                                {
+                                    "valueName": "define_usd_mesh.reference_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_mesh.attribute_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_mesh.children",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_mesh.relationship_definitions",
+                                    "valueType": "array<Object>",
+                                    "value": []
+                                },
+                                {
+                                    "valueName": "define_usd_mesh.material",
+                                    "valueType": "Object",
+                                    "value": {}
+                                },
+                                {
                                     "valueName": "define_usd_attribute.name",
                                     "valueType": "string",
                                     "value": "purpose"
+                                },
+                                {
+                                    "valueName": "define_usd_attribute.custom",
+                                    "valueType": "bool",
+                                    "value": "false"
                                 },
                                 {
                                     "valueName": "define_usd_attribute.type",
@@ -3200,19 +3219,14 @@
                                     "value": "PrimVarUniform"
                                 },
                                 {
-                                    "valueName": "define_usd_attribute.custom",
-                                    "valueType": "bool",
-                                    "value": "false"
+                                    "valueName": "define_usd_attribute.frame",
+                                    "valueType": "float",
+                                    "value": "0f"
                                 },
                                 {
                                     "valueName": "define_usd_attribute.use_frame",
                                     "valueType": "bool",
                                     "value": "false"
-                                },
-                                {
-                                    "valueName": "define_usd_attribute.frame",
-                                    "valueType": "float",
-                                    "value": "0f"
                                 }
                             ],
                             "reservedNodeNames": [
@@ -3225,6 +3239,11 @@
                             ],
                             "forEachCompound": {
                                 "ports": []
+                            },
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
                             }
                         },
                         {
@@ -3463,7 +3482,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         },
                         {
                             "name": "render_geos_is_empty",
@@ -3701,7 +3724,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -4030,7 +4057,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "create_protoindices",
@@ -4556,7 +4588,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -4733,7 +4769,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -5048,7 +5088,7 @@
                                     "valueName": "randomize_selection.distribution",
                                     "valueType": "Math::FCurve",
                                     "value": {
-                                        "version": "1",
+                                        "version": "2",
                                         "preExtrapolation": "0",
                                         "postExtrapolation": "0",
                                         "points": [
@@ -5056,6 +5096,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "1",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "-0.33333299999999999",
                                                         "yp": "-0.33333299999999999",
@@ -5070,6 +5111,7 @@
                                                 "point": {
                                                     "locked": "1",
                                                     "interpolation": "1",
+                                                    "curveInterpolation": "0",
                                                     "pcn": {
                                                         "xp": "0.72841500000000003",
                                                         "yp": "1",
@@ -5116,7 +5158,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "scatter": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -5260,7 +5307,7 @@
                             "valueName": "set_point_instance_id.distribution",
                             "valueType": "Math::FCurve",
                             "value": {
-                                "version": "1",
+                                "version": "2",
                                 "preExtrapolation": "0",
                                 "postExtrapolation": "0",
                                 "points": [
@@ -5268,6 +5315,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "-0.33333333333333331",
                                                 "yp": "-0.33333333333333331",
@@ -5282,6 +5330,7 @@
                                         "point": {
                                             "locked": "1",
                                             "interpolation": "2",
+                                            "curveInterpolation": "0",
                                             "pcn": {
                                                 "xp": "0.66666666666666663",
                                                 "yp": "0.66666666666666663",
@@ -5318,7 +5367,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "scatter": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "define_usd_point_instancer_core",
@@ -5699,16 +5753,6 @@
                                             "metaValue": "<NATIVE>../icons/LoopForEach.svg"
                                         },
                                         {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                                        },
-                                        {
                                             "metaName": "_recentNode_",
                                             "metaType": "string",
                                             "metaValue": "BifrostGraph,Core::String,string_join"
@@ -5874,6 +5918,9 @@
                                     ],
                                     "forEachCompound": {
                                         "ports": []
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
                                     }
                                 },
                                 {
@@ -6004,7 +6051,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -6103,7 +6154,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -6246,13 +6301,13 @@
                             "nodeName": "define_usd_prim",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
-                                "attribute_definitions": [],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
                                 "variant_set_definitions": [],
+                                "reference_definitions": [],
+                                "attribute_definitions": [],
                                 "children": [
                                     "prototypes"
-                                ]
+                                ],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -6276,20 +6331,20 @@
                             "nodeName": "define_usd_prim1",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
+                                "variant_set_definitions": [],
+                                "reference_definitions": [],
                                 "attribute_definitions": [
                                     "attribute_definition",
                                     "attribute_definition1",
                                     "attribute_definition2",
                                     "attribute_definition3"
                                 ],
-                                "reference_definitions": [],
-                                "relationship_definitions": [
-                                    "relationship_definition"
-                                ],
-                                "variant_set_definitions": [],
                                 "children": [
                                     "prim_definition",
                                     "output"
+                                ],
+                                "relationship_definitions": [
+                                    "relationship_definition"
                                 ]
                             },
                             "metadata": [
@@ -6426,13 +6481,13 @@
                             "nodeName": "define_usd_prim2",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
-                                "attribute_definitions": [],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
                                 "variant_set_definitions": [],
+                                "reference_definitions": [],
+                                "attribute_definitions": [],
                                 "children": [
                                     "out_object"
-                                ]
+                                ],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -6744,7 +6799,12 @@
                         {
                             "name": "input1"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -7248,7 +7308,7 @@
                     "valueName": "create_protoindices.distribution",
                     "valueType": "Math::FCurve",
                     "value": {
-                        "version": "1",
+                        "version": "2",
                         "preExtrapolation": "0",
                         "postExtrapolation": "0",
                         "points": [
@@ -7256,6 +7316,7 @@
                                 "point": {
                                     "locked": "1",
                                     "interpolation": "2",
+                                    "curveInterpolation": "0",
                                     "pcn": {
                                         "xp": "-0.33333333333333331",
                                         "yp": "-0.33333333333333331",
@@ -7270,6 +7331,7 @@
                                 "point": {
                                     "locked": "1",
                                     "interpolation": "2",
+                                    "curveInterpolation": "0",
                                     "pcn": {
                                         "xp": "0.66666666666666663",
                                         "yp": "0.66666666666666663",
@@ -7299,7 +7361,13 @@
                 {
                     "name": "input1"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "scatter": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

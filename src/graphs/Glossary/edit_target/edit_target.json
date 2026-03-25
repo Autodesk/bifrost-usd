@@ -361,11 +361,11 @@
                     "nodeName": "define_usd_prim",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
                         "variant_set_definitions": [],
-                        "children": []
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
+                        "children": [],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -425,13 +425,13 @@
                     "nodeName": "define_usd_prim1",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
+                        "variant_set_definitions": [],
+                        "reference_definitions": [],
                         "attribute_definitions": [
                             "attribute_definition"
                         ],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
-                        "variant_set_definitions": [],
-                        "children": []
+                        "children": [],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -714,7 +714,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

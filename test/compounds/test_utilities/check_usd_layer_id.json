@@ -423,7 +423,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bifrost_usd_pack_test": "",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

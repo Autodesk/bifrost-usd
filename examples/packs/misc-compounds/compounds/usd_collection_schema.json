@@ -20,7 +20,10 @@
                     "memberName": "collection_name",
                     "memberType": "string"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9"
+            }
         }
     ]
 }

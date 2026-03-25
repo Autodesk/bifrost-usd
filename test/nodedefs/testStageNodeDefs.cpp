@@ -1,5 +1,5 @@
 //-
-// Copyright 2023 Autodesk, Inc.
+// Copyright 2025 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -40,17 +40,7 @@ BIFUSD_WARNING_POP
 using namespace BifrostUsd::TestUtils;
 
 namespace {
-Amino::String getThisTestOutputDir() {
-    return Bifrost::FileUtils::filePath(getTestOutputDir(),
-                                        "testStageNodeDefs");
-}
-Amino::String getThisTestOutputPath(const Amino::String& filename) {
-    return Bifrost::FileUtils::filePath(getThisTestOutputDir(), filename);
-}
-} // namespace
-
-TEST(StageNodeDefs, initial_cleanup) {
-    ASSERT_TRUE(Bifrost::FileUtils::removeAll(getThisTestOutputDir()));
+UniqueTestOutputSubdir g_OutputDir{"testBifrostUsdStage", true /*autoDelete*/};
 }
 
 TEST(StageNodeDefs, set_edit_layer) {
@@ -399,7 +389,7 @@ def Xform "hello"
 )usda";
     BifrostUsd::Stage stage{getResourcePath("helloworld.usd")};
     ASSERT_TRUE(stage);
-    auto filepath = getThisTestOutputPath("testSaveStage.usda");
+    auto filepath = g_OutputDir.getPath_abs("testSaveStage.usda");
 
     bool success = USD::Stage::save_stage(stage, filepath);
     ASSERT_TRUE(success);
@@ -556,9 +546,9 @@ TEST(StageNodeDefs, open_stage_from_cache) {
     {
         // with edit target
         auto root_path =
-            getThisTestOutputPath("open_stage_from_cache_root.usda");
-        auto a_path = getThisTestOutputPath("open_stage_from_cache_a.usda");
-        auto b_path = getThisTestOutputPath("open_stage_from_cache_b.usda");
+            g_OutputDir.getPath_abs("open_stage_from_cache_root.usda");
+        auto a_path = g_OutputDir.getPath_abs("open_stage_from_cache_a.usda");
+        auto b_path = g_OutputDir.getPath_abs("open_stage_from_cache_b.usda");
 
         auto a_layer = BifrostUsd::Layer{a_path};
         ASSERT_TRUE(a_layer);
@@ -577,7 +567,7 @@ TEST(StageNodeDefs, open_stage_from_cache) {
         root_layer.insertSubLayer(a_layer);
 
         // At this point of the test, the root and sublayer files should not yet
-        // exist on disk (see the initial_cleanup test phase above):
+        // exist on disk:
         ASSERT_FALSE(Bifrost::FileUtils::filePathExists(root_path))
             << "The output root layer file " << root_path.c_str()
             << " must not already exist when this test runs.\n";
@@ -677,7 +667,7 @@ TEST(StageNodeDefs, export_stage_to_file) {
         getResourcePath("layer_with_sub_layers.usda").c_str()};
     ASSERT_TRUE(stage);
 
-    auto filepath = getThisTestOutputPath("testExportStage.usda");
+    auto filepath = g_OutputDir.getPath_abs("testExportStage.usda");
     bool success  = USD::Stage::export_stage_to_file(stage, filepath.c_str());
     ASSERT_TRUE(success);
 

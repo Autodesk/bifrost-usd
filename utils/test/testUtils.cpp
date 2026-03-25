@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2025 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,19 +15,129 @@
 //+
 
 #include "testUtils.h"
+
+#include <Bifrost/FileUtils/FileUtils.h>
+
 #include <pxr/usd/sdf/layer.h>
+
+#include <atomic>
+#include <chrono>
 #include <sstream>
 #include <string>
+
+#ifdef _WIN32
+#include <process.h>
+#else
+#include <unistd.h>
+#endif
 
 namespace BifrostUsd {
 
 namespace TestUtils {
 
-bool addSubLayers(
-    PXR_NS::SdfLayerRefPtr                 sdfRootLayer,
-    const Amino::Array<Amino::String>&  subNames,
-    Amino::String&                      errorMsg) {
+Amino::String createUniqueSubdir(Amino::StringView baseDirectory,
+                                 Amino::StringView prefix,
+                                 unsigned int      maxAttempts,
+                                 Amino::String*    errorMessage) {
+    if (prefix.empty() || baseDirectory.empty()) {
+        if (errorMessage) *errorMessage = "Invalid input parameters";
+        return Amino::String{};
+    }
+    // Ensure base directory exists
+    if (!Bifrost::FileUtils::createDirectories(baseDirectory, errorMessage)) {
+        return Amino::String{};
+    }
 
+    // Get process ID for uniqueness
+#ifdef _WIN32
+    int pid = _getpid();
+#else
+    pid_t pid = getpid();
+#endif
+    static std::atomic<unsigned int> counter{0};
+
+    for (unsigned int attempt = 0; attempt < maxAttempts; ++attempt) {
+        // Generate a candidate path for a unique subdir name:
+        //      baseDirectory/prefix_<timestamp>_<pid>_<counter>
+        auto timestamp = std::chrono::high_resolution_clock::now()
+                             .time_since_epoch()
+                             .count();
+        std::ostringstream nameStream;
+        nameStream << prefix.data() << '_' << std::hex << timestamp << '_'
+                   << pid << '_' << (counter.fetch_add(1) + 1);
+        Amino::String candidatePath = Bifrost::FileUtils::filePath(
+            baseDirectory, nameStream.str());
+
+        // Check if path already exists
+        if (Bifrost::FileUtils::exists(candidatePath)) {
+            continue; // Try next name
+        }
+
+        // Create the subdirectory
+        if (Bifrost::FileUtils::createDirectories(candidatePath,
+                                                  errorMessage)) {
+            return candidatePath;
+        }
+        // createDirectories failed, try next name...
+    }
+    if (errorMessage) {
+        *errorMessage =
+            "Failed to create unique subdirectory after maximum attempts";
+    }
+    return Amino::String{};
+}
+
+UniqueTestOutputSubdir::~UniqueTestOutputSubdir() {
+    if (m_autoDelete) {
+        reset();
+    }
+}
+
+bool UniqueTestOutputSubdir::ensureCreated() {
+    if (m_created) return true;
+    m_subdir_abs =
+        createUniqueSubdir(getTestOutputDir(), m_prefix, 32, nullptr);
+    if (m_subdir_abs.empty()) {
+        return false;
+    }
+    m_created = true;
+    return true;
+}
+
+void UniqueTestOutputSubdir::reset() {
+    if (m_created && !m_subdir_abs.empty()) {
+        // Best-effort cleanup
+        Bifrost::FileUtils::removeAll(m_subdir_abs);
+        m_subdir_abs.clear();
+        m_created = false;
+    }
+}
+
+Amino::String UniqueTestOutputSubdir::getDir_abs() {
+    if (!ensureCreated()) {
+        return Amino::String{};
+    }
+    return m_subdir_abs;
+}
+
+Amino::String UniqueTestOutputSubdir::getDir_rel() {
+    if (!ensureCreated()) {
+        return Amino::String{};
+    }
+    Amino::String leafDir = Bifrost::FileUtils::extractFilename(m_subdir_abs);
+    return Bifrost::FileUtils::makePreferred("./" + leafDir);
+}
+
+Amino::String UniqueTestOutputSubdir::getPath_abs(Amino::StringView filename) {
+    if (!ensureCreated()) {
+        return Amino::String{};
+    }
+    return Bifrost::FileUtils::filePath(m_subdir_abs, filename);
+}
+
+bool addSubLayers(PXR_NS::SdfLayerRefPtr             sdfRootLayer,
+                  const Amino::Array<Amino::String>& subNames,
+                  Amino::String&                     errorMsg) {
     errorMsg.clear();
     if(sdfRootLayer == nullptr) {
         errorMsg = "sdfRootLayer == nullptr";

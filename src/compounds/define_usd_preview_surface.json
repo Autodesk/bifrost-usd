@@ -598,17 +598,17 @@
                             "nodeName": "define_usd_prim",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
+                                "variant_set_definitions": [],
+                                "reference_definitions": [],
                                 "attribute_definitions": [
                                     "attribute_definition",
                                     "attribute_definition1",
                                     "attributes"
                                 ],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
-                                "variant_set_definitions": [],
                                 "children": [
                                     "children"
-                                ]
+                                ],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -745,7 +745,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "new_surface_shader",
@@ -1305,6 +1310,8 @@
                             "nodeName": "define_usd_prim",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
+                                "variant_set_definitions": [],
+                                "reference_definitions": [],
                                 "attribute_definitions": [
                                     "attribute_definition",
                                     "attribute_definition1",
@@ -1317,10 +1324,8 @@
                                     "attribute_definition8",
                                     "attribute_definition9"
                                 ],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
-                                "variant_set_definitions": [],
-                                "children": []
+                                "children": [],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -1611,7 +1616,12 @@
                         {
                             "name": "input_prim"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "new_uv_texture_shader",
@@ -1848,16 +1858,16 @@
                             "nodeName": "define_usd_prim",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
+                                "variant_set_definitions": [],
+                                "reference_definitions": [],
                                 "attribute_definitions": [
                                     "attribute_definition",
                                     "attribute_definition1",
                                     "attribute_definition2",
                                     "attribute_definition3"
                                 ],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
-                                "variant_set_definitions": [],
-                                "children": []
+                                "children": [],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -1985,7 +1995,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "new_stReader_shader",
@@ -2196,15 +2211,15 @@
                             "nodeName": "define_usd_prim",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
+                                "variant_set_definitions": [],
+                                "reference_definitions": [],
                                 "attribute_definitions": [
                                     "attribute_definition",
                                     "attribute_definition1",
                                     "attribute_definition2"
                                 ],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
-                                "variant_set_definitions": [],
-                                "children": []
+                                "children": [],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -2294,7 +2309,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -2820,7 +2840,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

@@ -231,16 +231,6 @@
                             "metaValue": "<NATIVE>../icons/LoopIterate.svg"
                         },
                         {
-                            "metaName": "icon",
-                            "metaType": "string",
-                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                        },
-                        {
-                            "metaName": "icon",
-                            "metaType": "string",
-                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                        },
-                        {
                             "metaName": "io_nodes",
                             "metadata": [
                                 {
@@ -642,6 +632,10 @@
                                 "outputPortName": "out_stage"
                             }
                         ]
+                    },
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
                     }
                 },
                 {
@@ -768,7 +762,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "get_material_children",
@@ -894,7 +892,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "define_geometries",
@@ -1143,16 +1145,6 @@
                                 {
                                     "name": "iterate_on_children",
                                     "metadata": [
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
-                                        {
-                                            "metaName": "icon",
-                                            "metaType": "string",
-                                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                                        },
                                         {
                                             "metaName": "icon",
                                             "metaType": "string",
@@ -1546,6 +1538,11 @@
                                     ],
                                     "iterateCompound": {
                                         "ports": []
+                                    },
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
                                     }
                                 },
                                 {
@@ -1809,7 +1806,10 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -1995,7 +1995,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -2024,11 +2029,11 @@
                             "nodeName": "define_usd_prim1",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
-                                "attribute_definitions": [],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
                                 "variant_set_definitions": [],
-                                "children": []
+                                "reference_definitions": [],
+                                "attribute_definitions": [],
+                                "children": [],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -2052,11 +2057,11 @@
                             "nodeName": "define_usd_prim2",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
-                                "attribute_definitions": [],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
                                 "variant_set_definitions": [],
-                                "children": []
+                                "reference_definitions": [],
+                                "attribute_definitions": [],
+                                "children": [],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -2080,11 +2085,11 @@
                             "nodeName": "define_usd_prim3",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
-                                "attribute_definitions": [],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
                                 "variant_set_definitions": [],
-                                "children": []
+                                "reference_definitions": [],
+                                "attribute_definitions": [],
+                                "children": [],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -2108,11 +2113,11 @@
                             "nodeName": "define_usd_prim4",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
-                                "attribute_definitions": [],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
                                 "variant_set_definitions": [],
-                                "children": []
+                                "reference_definitions": [],
+                                "attribute_definitions": [],
+                                "children": [],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -2136,11 +2141,11 @@
                             "nodeName": "define_usd_prim5",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
-                                "attribute_definitions": [],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
                                 "variant_set_definitions": [],
-                                "children": []
+                                "reference_definitions": [],
+                                "attribute_definitions": [],
+                                "children": [],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -2164,17 +2169,17 @@
                             "nodeName": "define_usd_prim6",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
-                                "attribute_definitions": [],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
                                 "variant_set_definitions": [],
+                                "reference_definitions": [],
+                                "attribute_definitions": [],
                                 "children": [
                                     "prim_definition",
                                     "prim_definition1",
                                     "prim_definition2",
                                     "prim_definition3",
                                     "prim_definition4"
-                                ]
+                                ],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -2271,6 +2276,31 @@
                             "value": "/Pill"
                         },
                         {
+                            "valueName": "define_usd_prim1.variant_set_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim1.reference_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim1.attribute_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim1.children",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim1.relationship_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
                             "valueName": "define_usd_prim1.type",
                             "valueType": "string",
                             "value": "Capsule"
@@ -2286,6 +2316,11 @@
                             "value": "None"
                         },
                         {
+                            "valueName": "define_usd_prim1.purpose",
+                            "valueType": "BifrostUsd::ImageablePurpose",
+                            "value": "Default"
+                        },
+                        {
                             "valueName": "define_usd_prim1.active",
                             "valueType": "BifrostUsd::ActivatePrim",
                             "value": "None"
@@ -2296,39 +2331,9 @@
                             "value": "None"
                         },
                         {
-                            "valueName": "define_usd_prim1.purpose",
-                            "valueType": "BifrostUsd::ImageablePurpose",
-                            "value": "Default"
-                        },
-                        {
-                            "valueName": "define_usd_prim1.attribute_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim1.reference_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim1.relationship_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim1.variant_set_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim1.children",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim1.material",
-                            "valueType": "Object",
-                            "value": {}
+                            "valueName": "define_usd_prim1.variant_set_name",
+                            "valueType": "string",
+                            "value": ""
                         },
                         {
                             "valueName": "define_usd_prim1.variant_name",
@@ -2336,14 +2341,39 @@
                             "value": ""
                         },
                         {
-                            "valueName": "define_usd_prim1.variant_set_name",
-                            "valueType": "string",
-                            "value": ""
+                            "valueName": "define_usd_prim1.material",
+                            "valueType": "Object",
+                            "value": {}
                         },
                         {
                             "valueName": "define_usd_prim2.path",
                             "valueType": "string",
                             "value": "/PartyHat"
+                        },
+                        {
+                            "valueName": "define_usd_prim2.variant_set_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim2.reference_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim2.attribute_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim2.children",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim2.relationship_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
                         },
                         {
                             "valueName": "define_usd_prim2.type",
@@ -2361,6 +2391,11 @@
                             "value": "None"
                         },
                         {
+                            "valueName": "define_usd_prim2.purpose",
+                            "valueType": "BifrostUsd::ImageablePurpose",
+                            "value": "Default"
+                        },
+                        {
                             "valueName": "define_usd_prim2.active",
                             "valueType": "BifrostUsd::ActivatePrim",
                             "value": "None"
@@ -2371,39 +2406,9 @@
                             "value": "None"
                         },
                         {
-                            "valueName": "define_usd_prim2.purpose",
-                            "valueType": "BifrostUsd::ImageablePurpose",
-                            "value": "Default"
-                        },
-                        {
-                            "valueName": "define_usd_prim2.attribute_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim2.reference_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim2.relationship_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim2.variant_set_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim2.children",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim2.material",
-                            "valueType": "Object",
-                            "value": {}
+                            "valueName": "define_usd_prim2.variant_set_name",
+                            "valueType": "string",
+                            "value": ""
                         },
                         {
                             "valueName": "define_usd_prim2.variant_name",
@@ -2411,14 +2416,39 @@
                             "value": ""
                         },
                         {
-                            "valueName": "define_usd_prim2.variant_set_name",
-                            "valueType": "string",
-                            "value": ""
+                            "valueName": "define_usd_prim2.material",
+                            "valueType": "Object",
+                            "value": {}
                         },
                         {
                             "valueName": "define_usd_prim3.path",
                             "valueType": "string",
                             "value": "/Box"
+                        },
+                        {
+                            "valueName": "define_usd_prim3.variant_set_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim3.reference_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim3.attribute_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim3.children",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim3.relationship_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
                         },
                         {
                             "valueName": "define_usd_prim3.type",
@@ -2436,6 +2466,11 @@
                             "value": "None"
                         },
                         {
+                            "valueName": "define_usd_prim3.purpose",
+                            "valueType": "BifrostUsd::ImageablePurpose",
+                            "value": "Default"
+                        },
+                        {
                             "valueName": "define_usd_prim3.active",
                             "valueType": "BifrostUsd::ActivatePrim",
                             "value": "None"
@@ -2446,39 +2481,9 @@
                             "value": "None"
                         },
                         {
-                            "valueName": "define_usd_prim3.purpose",
-                            "valueType": "BifrostUsd::ImageablePurpose",
-                            "value": "Default"
-                        },
-                        {
-                            "valueName": "define_usd_prim3.attribute_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim3.reference_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim3.relationship_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim3.variant_set_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim3.children",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim3.material",
-                            "valueType": "Object",
-                            "value": {}
+                            "valueName": "define_usd_prim3.variant_set_name",
+                            "valueType": "string",
+                            "value": ""
                         },
                         {
                             "valueName": "define_usd_prim3.variant_name",
@@ -2486,14 +2491,39 @@
                             "value": ""
                         },
                         {
-                            "valueName": "define_usd_prim3.variant_set_name",
-                            "valueType": "string",
-                            "value": ""
+                            "valueName": "define_usd_prim3.material",
+                            "valueType": "Object",
+                            "value": {}
                         },
                         {
                             "valueName": "define_usd_prim4.path",
                             "valueType": "string",
                             "value": "/Tube"
+                        },
+                        {
+                            "valueName": "define_usd_prim4.variant_set_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim4.reference_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim4.attribute_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim4.children",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim4.relationship_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
                         },
                         {
                             "valueName": "define_usd_prim4.type",
@@ -2511,6 +2541,11 @@
                             "value": "None"
                         },
                         {
+                            "valueName": "define_usd_prim4.purpose",
+                            "valueType": "BifrostUsd::ImageablePurpose",
+                            "value": "Default"
+                        },
+                        {
                             "valueName": "define_usd_prim4.active",
                             "valueType": "BifrostUsd::ActivatePrim",
                             "value": "None"
@@ -2521,39 +2556,9 @@
                             "value": "None"
                         },
                         {
-                            "valueName": "define_usd_prim4.purpose",
-                            "valueType": "BifrostUsd::ImageablePurpose",
-                            "value": "Default"
-                        },
-                        {
-                            "valueName": "define_usd_prim4.attribute_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim4.reference_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim4.relationship_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim4.variant_set_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim4.children",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim4.material",
-                            "valueType": "Object",
-                            "value": {}
+                            "valueName": "define_usd_prim4.variant_set_name",
+                            "valueType": "string",
+                            "value": ""
                         },
                         {
                             "valueName": "define_usd_prim4.variant_name",
@@ -2561,14 +2566,39 @@
                             "value": ""
                         },
                         {
-                            "valueName": "define_usd_prim4.variant_set_name",
-                            "valueType": "string",
-                            "value": ""
+                            "valueName": "define_usd_prim4.material",
+                            "valueType": "Object",
+                            "value": {}
                         },
                         {
                             "valueName": "define_usd_prim5.path",
                             "valueType": "string",
                             "value": "/Ball"
+                        },
+                        {
+                            "valueName": "define_usd_prim5.variant_set_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim5.reference_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim5.attribute_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim5.children",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim5.relationship_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
                         },
                         {
                             "valueName": "define_usd_prim5.type",
@@ -2586,6 +2616,11 @@
                             "value": "None"
                         },
                         {
+                            "valueName": "define_usd_prim5.purpose",
+                            "valueType": "BifrostUsd::ImageablePurpose",
+                            "value": "Default"
+                        },
+                        {
                             "valueName": "define_usd_prim5.active",
                             "valueType": "BifrostUsd::ActivatePrim",
                             "value": "None"
@@ -2596,39 +2631,9 @@
                             "value": "None"
                         },
                         {
-                            "valueName": "define_usd_prim5.purpose",
-                            "valueType": "BifrostUsd::ImageablePurpose",
-                            "value": "Default"
-                        },
-                        {
-                            "valueName": "define_usd_prim5.attribute_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim5.reference_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim5.relationship_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim5.variant_set_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim5.children",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim5.material",
-                            "valueType": "Object",
-                            "value": {}
+                            "valueName": "define_usd_prim5.variant_set_name",
+                            "valueType": "string",
+                            "value": ""
                         },
                         {
                             "valueName": "define_usd_prim5.variant_name",
@@ -2636,14 +2641,39 @@
                             "value": ""
                         },
                         {
-                            "valueName": "define_usd_prim5.variant_set_name",
-                            "valueType": "string",
-                            "value": ""
+                            "valueName": "define_usd_prim5.material",
+                            "valueType": "Object",
+                            "value": {}
                         },
                         {
                             "valueName": "define_usd_prim6.path",
                             "valueType": "string",
                             "value": "/geo"
+                        },
+                        {
+                            "valueName": "define_usd_prim6.variant_set_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim6.reference_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim6.attribute_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim6.children",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim6.relationship_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
                         },
                         {
                             "valueName": "define_usd_prim6.type",
@@ -2661,6 +2691,11 @@
                             "value": "Group"
                         },
                         {
+                            "valueName": "define_usd_prim6.purpose",
+                            "valueType": "BifrostUsd::ImageablePurpose",
+                            "value": "Default"
+                        },
+                        {
                             "valueName": "define_usd_prim6.active",
                             "valueType": "BifrostUsd::ActivatePrim",
                             "value": "None"
@@ -2671,39 +2706,9 @@
                             "value": "None"
                         },
                         {
-                            "valueName": "define_usd_prim6.purpose",
-                            "valueType": "BifrostUsd::ImageablePurpose",
-                            "value": "Default"
-                        },
-                        {
-                            "valueName": "define_usd_prim6.attribute_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim6.reference_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim6.relationship_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim6.variant_set_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim6.children",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim6.material",
-                            "valueType": "Object",
-                            "value": {}
+                            "valueName": "define_usd_prim6.variant_set_name",
+                            "valueType": "string",
+                            "value": ""
                         },
                         {
                             "valueName": "define_usd_prim6.variant_name",
@@ -2711,9 +2716,9 @@
                             "value": ""
                         },
                         {
-                            "valueName": "define_usd_prim6.variant_set_name",
-                            "valueType": "string",
-                            "value": ""
+                            "valueName": "define_usd_prim6.material",
+                            "valueType": "Object",
+                            "value": {}
                         },
                         {
                             "valueName": "create_child_prim_path.parent_path",
@@ -2728,7 +2733,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "define_materials",
@@ -2900,14 +2910,14 @@
                             "nodeName": "define_usd_prim7",
                             "nodeType": "USD::Prim::define_usd_prim",
                             "fanInPortNames": {
-                                "attribute_definitions": [],
-                                "reference_definitions": [],
-                                "relationship_definitions": [],
                                 "variant_set_definitions": [],
+                                "reference_definitions": [],
+                                "attribute_definitions": [],
                                 "children": [
                                     "material_definition",
                                     "material_definition1"
-                                ]
+                                ],
+                                "relationship_definitions": []
                             },
                             "metadata": [
                                 {
@@ -2997,6 +3007,11 @@
                             }
                         },
                         {
+                            "valueName": "define_usd_preview_surface.texture_file_path",
+                            "valueType": "string",
+                            "value": ""
+                        },
+                        {
                             "valueName": "define_usd_preview_surface.emissive_color",
                             "valueType": "Math::float3",
                             "value": {
@@ -3006,14 +3021,9 @@
                             }
                         },
                         {
-                            "valueName": "define_usd_preview_surface.metallic",
+                            "valueName": "define_usd_preview_surface.clearcoat",
                             "valueType": "float",
-                            "value": "0.446700007f"
-                        },
-                        {
-                            "valueName": "define_usd_preview_surface.roughness",
-                            "valueType": "float",
-                            "value": "0f"
+                            "value": "1f"
                         },
                         {
                             "valueName": "define_usd_preview_surface.index_of_refraction",
@@ -3021,9 +3031,9 @@
                             "value": "1.51999998f"
                         },
                         {
-                            "valueName": "define_usd_preview_surface.clearcoat",
+                            "valueName": "define_usd_preview_surface.metallic",
                             "valueType": "float",
-                            "value": "1f"
+                            "value": "0.446700007f"
                         },
                         {
                             "valueName": "define_usd_preview_surface.opacity",
@@ -3031,9 +3041,9 @@
                             "value": "1f"
                         },
                         {
-                            "valueName": "define_usd_preview_surface.texture_file_path",
-                            "valueType": "string",
-                            "value": ""
+                            "valueName": "define_usd_preview_surface.roughness",
+                            "valueType": "float",
+                            "value": "0f"
                         },
                         {
                             "valueName": "define_usd_preview_surface.attribute_definitions",
@@ -3055,6 +3065,11 @@
                             }
                         },
                         {
+                            "valueName": "define_usd_preview_surface1.texture_file_path",
+                            "valueType": "string",
+                            "value": ""
+                        },
+                        {
                             "valueName": "define_usd_preview_surface1.emissive_color",
                             "valueType": "Math::float3",
                             "value": {
@@ -3064,14 +3079,9 @@
                             }
                         },
                         {
-                            "valueName": "define_usd_preview_surface1.metallic",
+                            "valueName": "define_usd_preview_surface1.clearcoat",
                             "valueType": "float",
                             "value": "0f"
-                        },
-                        {
-                            "valueName": "define_usd_preview_surface1.roughness",
-                            "valueType": "float",
-                            "value": "0.716700017f"
                         },
                         {
                             "valueName": "define_usd_preview_surface1.index_of_refraction",
@@ -3079,7 +3089,7 @@
                             "value": "1.51999998f"
                         },
                         {
-                            "valueName": "define_usd_preview_surface1.clearcoat",
+                            "valueName": "define_usd_preview_surface1.metallic",
                             "valueType": "float",
                             "value": "0f"
                         },
@@ -3089,9 +3099,9 @@
                             "value": "1f"
                         },
                         {
-                            "valueName": "define_usd_preview_surface1.texture_file_path",
-                            "valueType": "string",
-                            "value": ""
+                            "valueName": "define_usd_preview_surface1.roughness",
+                            "valueType": "float",
+                            "value": "0.716700017f"
                         },
                         {
                             "valueName": "define_usd_preview_surface1.attribute_definitions",
@@ -3102,6 +3112,31 @@
                             "valueName": "define_usd_prim7.path",
                             "valueType": "string",
                             "value": "/mtl"
+                        },
+                        {
+                            "valueName": "define_usd_prim7.variant_set_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim7.reference_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim7.attribute_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim7.children",
+                            "valueType": "array<Object>",
+                            "value": []
+                        },
+                        {
+                            "valueName": "define_usd_prim7.relationship_definitions",
+                            "valueType": "array<Object>",
+                            "value": []
                         },
                         {
                             "valueName": "define_usd_prim7.type",
@@ -3119,6 +3154,11 @@
                             "value": "Group"
                         },
                         {
+                            "valueName": "define_usd_prim7.purpose",
+                            "valueType": "BifrostUsd::ImageablePurpose",
+                            "value": "Default"
+                        },
+                        {
                             "valueName": "define_usd_prim7.active",
                             "valueType": "BifrostUsd::ActivatePrim",
                             "value": "None"
@@ -3129,39 +3169,9 @@
                             "value": "None"
                         },
                         {
-                            "valueName": "define_usd_prim7.purpose",
-                            "valueType": "BifrostUsd::ImageablePurpose",
-                            "value": "Default"
-                        },
-                        {
-                            "valueName": "define_usd_prim7.attribute_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim7.reference_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim7.relationship_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim7.variant_set_definitions",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim7.children",
-                            "valueType": "array<Object>",
-                            "value": []
-                        },
-                        {
-                            "valueName": "define_usd_prim7.material",
-                            "valueType": "Object",
-                            "value": {}
+                            "valueName": "define_usd_prim7.variant_set_name",
+                            "valueType": "string",
+                            "value": ""
                         },
                         {
                             "valueName": "define_usd_prim7.variant_name",
@@ -3169,9 +3179,9 @@
                             "value": ""
                         },
                         {
-                            "valueName": "define_usd_prim7.variant_set_name",
-                            "valueType": "string",
-                            "value": ""
+                            "valueName": "define_usd_prim7.material",
+                            "valueType": "Object",
+                            "value": {}
                         }
                     ],
                     "reservedNodeNames": [
@@ -3181,7 +3191,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -3215,14 +3230,14 @@
                     "nodeName": "define_usd_prim",
                     "nodeType": "USD::Prim::define_usd_prim",
                     "fanInPortNames": {
-                        "attribute_definitions": [],
-                        "reference_definitions": [],
-                        "relationship_definitions": [],
                         "variant_set_definitions": [],
+                        "reference_definitions": [],
+                        "attribute_definitions": [],
                         "children": [
                             "prim_definition",
                             "prim_definition1"
-                        ]
+                        ],
+                        "relationship_definitions": []
                     },
                     "metadata": [
                         {
@@ -3510,7 +3525,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

@@ -599,10 +599,7 @@ def add_new_material(openLookdevXEditor: bool = False) -> str:
 
     create_material_library()
 
-    shapeSegment = ufe.PathString.path(kMatLibShapeFullName).segments[0]
-    mtlScopeSegment = ufe.PathString.path(f"/{material_scope_name()}").segments[0]
-
-    mtlPath = ufe.Path([shapeSegment, mtlScopeSegment])
+    mtlPath = ufe.PathString.path(f"{kMatLibShapeFullName},/{material_scope_name()}")
     mtlSceneItem = ufe.Hierarchy.createItem(mtlPath)
 
     # Create a material.

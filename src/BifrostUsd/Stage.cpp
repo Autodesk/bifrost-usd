@@ -167,7 +167,13 @@ Amino::Ptr<BifrostUsd::Stage> createDefaultStage() {
     // a deadlock on windows when unloading the library (which destroys the
     // default constructed object held in static variables).
     /// \todo BIFROST-6874 remove PXR_NS::Work_EnsureDetachedTaskProgress();
+    //
+
+#if ((PXR_MINOR_VERSION == 25) && (PXR_PATCH_VERSION >= 8)) || (PXR_MINOR_VERSION > 25)
+    PXR_NS::WorkTBB_EnsureDetachedTaskProgress();
+#else
     PXR_NS::Work_EnsureDetachedTaskProgress();
+#endif
     return Amino::newClassPtr<BifrostUsd::Stage>();
 }
 } // namespace

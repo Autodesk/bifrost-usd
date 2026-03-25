@@ -56,10 +56,10 @@ TEST_F(TestSceneIndexPrim, workspace) {
     };
 
     check_config_is_loaded(
-        "[Library] Bifrost: Loading library: bifrostHdTypeTranslation, "
+        "[Library] Info: Loading library: bifrostHdTypeTranslation, "
         "from: Autodesk.");
     check_config_is_loaded(
-        "[Library] Bifrost: Loading library: test_bifrost_hd_graph, "
+        "[Library] Info: Loading library: test_bifrost_hd_graph, "
         "from: Autodesk.");
 }
 

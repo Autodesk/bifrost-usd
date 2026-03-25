@@ -15,21 +15,22 @@ For Maya users, the project also includes a Maya plugin allowing to visualize US
 
 You must provide the following variables to the cmake command:
 
-* BIFUSD_PACKAGE_NAME : By default Bifrost will load the USD Pack, named `usd_pack`, from its installation directory. You must use a different name for your custom build of the pack.
-* CMAKE_BUILD_TYPE : Debug, Release, RelWithDebInfo
-* CMAKE_INSTALL_PREFIX : Where you want to install the bifrost-usd-pack library
-* BIFROST_LOCATION : The full path to the root directory of your Bifrost installation that contains, among others, the `sdk` subdirectory. The USD Pack will be built against this `sdk` subdirectory of your Bifrost installation.
-* USD_LOCATION : The full path to the root directory of your USD library installation that contains, among others, the `cmake`, `include`, `lib`, `plugin` and `share` subdirectories.
-* MAYA_RUNTIME_LOCATION : (for the Maya extension only) The full path to the root directory of your Maya development installation that contains, among others, the `bin`, `include` and `lib` subdirectories.
-* BIFUSD_OSX_ACTIVE_SDK : (optional) Can be set to choose a specific macOS SDK. If not set, the currently available SDK will be used.
-* BIFUSD_OSX_MIN_OS : (optional) Can be set to choose the minimum macOS deployement target. If not set, macOS 11.0 will be used.
-* BIFUSD_OSX_BINARY_ARCH : (optional) Can be set to choose the target architecture to build on macOS. Acceptable values are `x64` (Intel CPU), `arm64` (Apple M1 CPU), `ub2` (Universal Binary 2 - both x64 and arm64) and empty (default) (host system's processor).
-* BIFUSD_EXAMPLES : (optional) Install the examples. ON by default. Set it to OFF if you don't want to install the extra compounds packs and Maya plugin.
+* BIFUSD_PACKAGE_NAME: By default Bifrost will load the USD Pack, named `usd_pack`, from its installation directory. You must use a different name for your custom build of the pack.
+* BIFUSD_MAYA_TRANSLATIONS_NAME: By default Bifrost will load the Maya USD translation plugin, named `usdMayaTranslations`, from its installation directory. You must use a different name for your custom build of the Maya USD translation plugin.
+* CMAKE_BUILD_TYPE: Debug, Release, RelWithDebInfo
+* CMAKE_INSTALL_PREFIX: Where you want to install the bifrost-usd-pack library
+* BIFROST_LOCATION: The full path to the root directory of your Bifrost installation that contains, among others, the `sdk` subdirectory. The USD Pack will be built against this `sdk` subdirectory of your Bifrost installation.
+* USD_LOCATION: The full path to the root directory of your USD library installation that contains, among others, the `cmake`, `include`, `lib`, `plugin` and `share` subdirectories.
+* MAYA_RUNTIME_LOCATION: (for the Maya extension only) The full path to the root directory of your Maya development installation that contains, among others, the `bin`, `include` and `lib` subdirectories.
+* BIFUSD_OSX_ACTIVE_SDK: (optional) Can be set to choose a specific macOS SDK. If not set, the currently available SDK will be used.
+* BIFUSD_OSX_MIN_OS: (optional) Can be set to choose the minimum macOS deployement target. If not set, macOS 11.0 will be used.
+* BIFUSD_OSX_BINARY_ARCH: (optional) Can be set to choose the target architecture to build on macOS. Acceptable values are `x64` (Intel CPU), `arm64` (Apple M1 CPU), `ub2` (Universal Binary 2 - both x64 and arm64) and empty (default) (host system's processor).
+* BIFUSD_EXAMPLES: (optional) Install the examples. ON by default. Set it to OFF if you don't want to install the extra compounds packs and Maya plugin.
 * BIFUSD_EXAMPLES_TESTS: (optional) Creates the examples tests. OFF by default (requires MAYA_USD_PLUGIN_DIR and LOOKDEVX_PLUGIN_DIR).
-* BIFUSD_BUILD_HYDRA : Enable the build of Bifrost Hydra Experimental plugin.
+* BIFUSD_BUILD_HYDRA: Enable the build of Bifrost Hydra Experimental plugin.
 * MAYA_USD_PLUGIN_DIR: (optional) Root directory of the Maya USD plugin where the mayaUSD.mod file is located. Only required to run examples tests.
 * LOOKDEVX_PLUGIN_DIR: (optional) Root directory of the LookdevX plugin where the lookdevx.mod file is located. Only required to run examples tests.
-
+* MULTI_USD_VERSION_SUFFIX: (optional) USD version suffix (e.g., "_0.25.5") to append to MayaUSD and USD subdirectories when Maya USD supports multiple USD versions. If not set, no suffix is appended. Only required when BIFUSD_EXAMPLES_TESTS=ON.
 __C++17 is the minimal required version going forward.__
 
 __Python 3 version is assumed.__
@@ -43,13 +44,14 @@ Note: we use the Ninja generator which is a single configuration generator.
 
 ```
  cmake -G Ninja -S <this project path> -B <build directory path> \
-            -DCMAKE_MAKE_PROGRAM=<ninja executable pathname>
-            -DBIFUSD_PACKAGE_NAME="studioname_usd_pack" \
-            -DCMAKE_BUILD_TYPE="RelWithDebInfo" \
-            -DCMAKE_INSTALL_PREFIX=<install directory path> \
-            -DBIFROST_LOCATION=<bifrost path> \
-            -DUSD_LOCATION="<library root path>/usd/20.11" \
-            -DMAYA_RUNTIME_LOCATION=<Maya install path>
+            -D CMAKE_MAKE_PROGRAM=<ninja executable pathname>
+            -D BIFUSD_PACKAGE_NAME="studioname_usd_pack" \
+            -D BIFUSD_MAYA_TRANSLATIONS_NAME=="studioname_usdMayaTranslations" \
+            -D CMAKE_BUILD_TYPE="RelWithDebInfo" \
+            -D CMAKE_INSTALL_PREFIX=<install directory path> \
+            -D BIFROST_LOCATION=<bifrost path> \
+            -D USD_LOCATION="<library root path>/usd/20.11" \
+            -D MAYA_RUNTIME_LOCATION=<Maya install path>
 ```
 
 cmake build and install example:
@@ -79,7 +81,7 @@ ctest . -V
 The USD Pack version is set in the cmake/version.info file. Such version number is prepended to your USD Pack name.
 
 ## Loading the USD Pack in Bifrost Extension for Maya
-You will need to disable the USD Pack shipped with Bifrost by setting the BIFROST_DISABLE_PACKS environment variable to "usd_pack" (`export BIFROST_DISABLE_PACKS=usd_pack`).
+You will need to disable the Bifrost USD packs shipped with Bifrost (both usd_pack and usdMayaTranslations), by setting the BIFROST_DISABLE_PACKS environment variable (for example on Unix platforms, `export BIFROST_DISABLE_PACKS=usd_pack:usdMayaTranslations`).
 Then you will need to set `BIFROST_LIB_CONFIG_FILES` to `<your install path>/<BIFUSD_PACKAGE_NAME>-1.0.0/plugin_config.json`.
 
 `plugin_config.json` includes:

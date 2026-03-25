@@ -1,5 +1,5 @@
 //-
-// Copyright 2023 Autodesk, Inc.
+// Copyright 2025 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 #include <Amino/Core/Array.h>
 #include <Amino/Core/Ptr.h>
 #include <Amino/Core/String.h>
+#include <Amino/Core/StringView.h>
 
 #include <Bifrost/FileUtils/FileUtils.h>
 #include <BifrostGraph/Executor/Utility.h>
@@ -39,6 +40,79 @@ inline Amino::String getTestOutputDir() {
 inline Amino::String getTestOutputPath(const Amino::String& filename) {
     return Bifrost::FileUtils::filePath(getTestOutputDir(), filename);
 }
+
+/// \brief Creates a unique subdirectory within the specified base directory.
+///
+/// \param [in] baseDirectory The parent directory where the subdirectory will be created
+/// \param [in] prefix The prefix for the subdirectory name (default: "tmp")
+/// \param [in] maxAttempts Maximum number of attempts to find a unique name (default: 32)
+/// \param [out] errorMessage On failure, will be set to a human-readable error message
+/// \return The full path of the created subdirectory, or empty string on failure
+USD_TESTUTILS_DECL
+Amino::String createUniqueSubdir(Amino::StringView baseDirectory,
+                                 Amino::StringView prefix       = "tmp",
+                                 unsigned int      maxAttempts  = 32,
+                                 Amino::String*    errorMessage = nullptr);
+
+/// \class UniqueTestOutputSubdir
+/// \brief Lazy RAII helper for a per-test unique output subdirectory.
+///
+/// Creates (on first use) a uniquely named child directory under the root
+/// test output directory defined by getTestOutputDir(). The unique subdirectory
+/// name is prefixed with the user-provided prefix.
+///
+/// Construction does not create the directory. The first call to getDir_abs(),
+/// getDir_rel(), or getPath_abs() triggers creation (via createUniqueSubdir()).
+/// If autoDelete is true, the destructor attempts best-effort recursive removal
+/// of the created subdirectory.
+///
+/// Usage example:
+///     UniqueTestOutputSubdir tmp{"myTestFile"};
+///     auto filePath = tmp.getPath_abs("layer.usda"); // Create subdir and
+///                                                    // return file path
+///
+class USD_TESTUTILS_DECL UniqueTestOutputSubdir {
+public:
+    explicit UniqueTestOutputSubdir(Amino::StringView prefix,
+                                    bool              autoDelete = true)
+        : m_prefix(prefix),
+          m_subdir_abs(),
+          m_created(false),
+          m_autoDelete(autoDelete) {}
+    ~UniqueTestOutputSubdir();
+
+    /// @brief Gets the absolute path to the test subdirectory.
+    /// This function returns the absolute path of the test output subdirectory.
+    /// If the test subdirectory does not exist, it will be created.
+    /// @return An Amino::String containing the absolute path to the directory.
+    Amino::String getDir_abs();
+
+    /// @brief Gets the relative path to the test subdirectory.
+    /// This function returns the relative path of the test output subdirectory.
+    /// If the test subdirectory does not exist, it will be created.
+    /// For example, if the absolute path is "/tmp/baseDir/myTestFile_12345_1",
+    /// the relative path would be "./myTestFile_12345_1".
+    /// @return An Amino::String containing the relative path to the directory.
+    Amino::String getDir_rel();
+
+    /// @brief Converts a file name to an absolute file path.
+    /// This function takes a filename and returns its absolute path within the
+    /// test output subdirectory.
+    /// If the test subdirectory does not exist, it will be created.
+    /// @param filename The filename to convert to an absolute file path.
+    /// @return An Amino::String containing the absolute path to the specified
+    /// file.
+    Amino::String getPath_abs(Amino::StringView filename);
+
+private:
+    bool ensureCreated();
+    void reset();
+
+    Amino::String m_prefix;
+    Amino::String m_subdir_abs;
+    bool          m_created    = false;
+    bool          m_autoDelete = true;
+};
 
 inline Amino::String getResourcePath(const Amino::String& filename) {
     Amino::String dirPath =

@@ -1,8 +1,8 @@
 {
     "schemaVersion": "1.0.0",
-    "comment": "Test define_usd_skeleton_animation compound",
+    "comment": "Test create_point_instancer compound",
     "options": {
-        "compound": "USD::Test::Prim::define_usd_skeleton_animation_test00"
+        "compound": "USD::Test::PointInstancer::create_point_instancer_test00"
     },
     "task": {
         "type": "single",

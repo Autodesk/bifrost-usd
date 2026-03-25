@@ -471,7 +471,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -614,16 +618,16 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_component_creator": "1.0.0",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "iterate",
                     "metadata": [
-                        {
-                            "metaName": "icon",
-                            "metaType": "string",
-                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                        },
                         {
                             "metaName": "icon",
                             "metaType": "string",
@@ -1401,7 +1405,12 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_component_creator": "1.0.0",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "create_explicit_binding",
@@ -1560,7 +1569,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -1743,7 +1756,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_component_creator": "1.0.0",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -1829,6 +1847,11 @@
                                 "outputPortName": "out_stage"
                             }
                         ]
+                    },
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_component_creator": "1.0.0",
+                        "usd_pack": "1.4.0"
                     }
                 }
             ],
@@ -1972,7 +1995,12 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "usd_component_creator": "1.0.0",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

@@ -18,9 +18,6 @@
         "         `--material#...                               "
     ],
     "options": {
-        "definitionFiles": [
-            "add_to_stage_component_hierarchy00.json"
-        ],
         "compound": "USD::Test::Stage::add_to_stage_component_hierarchy00"
     },
     "task": {

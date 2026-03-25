@@ -36,7 +36,7 @@ USD_NODEDEF_DECL
 bool get_material_path(
     const BifrostUsd::Prim& prim,
     const BifrostUsd::MaterialPurpose material_purpose
-        AMINO_ANNOTATE("Amino::Port value=BifrostUsd::MaterialPurpose::All"),
+        AMINO_ANNOTATE("Amino::Port value=All"),
     const bool compute_bound_material AMINO_ANNOTATE("Amino::Port value=false"),
     Amino::String& path) USDNODE_DOC_ICON_X("get_material_path",
                                             "USD_Shading_get_material_path.md",

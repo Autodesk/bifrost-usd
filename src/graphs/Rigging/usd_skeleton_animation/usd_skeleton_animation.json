@@ -7,6 +7,8 @@
             }
         ]
     },
+    "namespaces": [],
+    "types": [],
     "compounds": [
         {
             "name": "Graphs::Rigging::usd_skeleton_animation",
@@ -165,7 +167,8 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {}
         }
     ]
 }

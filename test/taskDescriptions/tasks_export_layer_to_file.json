@@ -2,9 +2,6 @@
     "schemaVersion": "1.0.0",
     "comment": "Test export_layer_to_file nodedef",
     "options": {
-        "definitionFiles": [
-            "export_layer_to_file_test00.json"
-        ],
         "compound": "USD::Test::Layer::export_layer_to_file_test00"
     },
     "task": {

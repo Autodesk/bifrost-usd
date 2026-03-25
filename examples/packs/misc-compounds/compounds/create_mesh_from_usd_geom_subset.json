@@ -791,14 +791,14 @@
                                     "value": "false"
                                 },
                                 {
-                                    "valueName": "interpret_auto_port_as_component_tag.geometry_component",
-                                    "valueType": "string",
-                                    "value": "face_component"
-                                },
-                                {
                                     "valueName": "interpret_auto_port_as_component_tag.invert",
                                     "valueType": "bool",
                                     "value": "false"
+                                },
+                                {
+                                    "valueName": "interpret_auto_port_as_component_tag.geometry_component",
+                                    "valueType": "string",
+                                    "value": "face_component"
                                 }
                             ],
                             "reservedNodeNames": [
@@ -808,7 +808,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         },
                         {
                             "name": "get_geom_face_set",
@@ -1214,7 +1218,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "read_usd_mesh",
@@ -1710,7 +1718,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "get_VertexIndices",
@@ -1909,7 +1921,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "get_faceVertexCounts",
@@ -2230,7 +2246,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -2372,7 +2392,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "get_normals",
@@ -2585,7 +2609,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "set_face_vertex_normals",
@@ -2970,7 +2998,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9"
+                                            }
                                         },
                                         {
                                             "name": "set_face_vertex_normal_index",
@@ -3282,7 +3314,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -3458,7 +3494,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 },
                                 {
                                     "name": "get_uvs",
@@ -3934,7 +3974,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "display_color",
@@ -4411,7 +4455,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "usd_pack": "1.4.0"
+                                            }
                                         },
                                         {
                                             "name": "set_point_color",
@@ -4737,7 +4785,11 @@
                                                 {
                                                     "name": "output"
                                                 }
-                                            ]
+                                            ],
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9"
+                                            }
                                         }
                                     ],
                                     "compoundNodes": [
@@ -4900,7 +4952,12 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 },
                                 {
                                     "name": "set_mesh_UVs",
@@ -5137,7 +5194,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -5940,7 +6001,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "diagnostic_terminal",
@@ -6266,7 +6332,12 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "scatter": "2.15.0.9"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -6546,7 +6617,13 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "scatter": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "get_geom_subsets_paths",
@@ -6840,7 +6917,11 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "get_parents_scale",
@@ -6993,11 +7074,6 @@
                         {
                             "name": "do_while",
                             "metadata": [
-                                {
-                                    "metaName": "icon",
-                                    "metaType": "string",
-                                    "metaValue": "<NATIVE>../icons/LoopDo_While.svg"
-                                },
                                 {
                                     "metaName": "icon",
                                     "metaType": "string",
@@ -7501,6 +7577,11 @@
                                         "outputPortName": "out_scale"
                                     }
                                 ]
+                            },
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9",
+                                "usd_pack": "1.4.0"
                             }
                         }
                     ],
@@ -7604,7 +7685,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 },
                 {
                     "name": "validate_scale",
@@ -7934,16 +8020,14 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9"
+                    }
                 },
                 {
                     "name": "set_prims_active",
                     "metadata": [
-                        {
-                            "metaName": "icon",
-                            "metaType": "string",
-                            "metaValue": "<NATIVE>../icons/LoopIterate.svg"
-                        },
                         {
                             "metaName": "icon",
                             "metaType": "string",
@@ -8144,6 +8228,10 @@
                                 "outputPortName": "out_stage"
                             }
                         ]
+                    },
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "usd_pack": "1.4.0"
                     }
                 },
                 {
@@ -8598,7 +8686,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "add_face_vertex_indices",
@@ -8785,7 +8877,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "add_normals",
@@ -8982,7 +9078,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "add_points",
@@ -9205,7 +9305,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         },
                         {
                             "name": "get_mesh_geo",
@@ -9433,11 +9537,6 @@
                                         {
                                             "name": "for_each",
                                             "metadata": [
-                                                {
-                                                    "metaName": "icon",
-                                                    "metaType": "string",
-                                                    "metaValue": "<NATIVE>../icons/LoopForEach.svg"
-                                                },
                                                 {
                                                     "metaName": "icon",
                                                     "metaType": "string",
@@ -9690,6 +9789,10 @@
                                             ],
                                             "forEachCompound": {
                                                 "ports": []
+                                            },
+                                            "libraryDependencies": {
+                                                "Amino": "2.15.0.9",
+                                                "bif": "2.15.0.9"
                                             }
                                         }
                                     ],
@@ -9799,7 +9902,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "bif": "2.15.0.9"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -9926,7 +10033,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         },
                         {
                             "name": "get_mesh_normals",
@@ -10153,7 +10264,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "bif": "2.15.0.9"
+                            }
                         },
                         {
                             "name": "add_uv",
@@ -10619,7 +10734,11 @@
                                         {
                                             "name": "output"
                                         }
-                                    ]
+                                    ],
+                                    "libraryDependencies": {
+                                        "Amino": "2.15.0.9",
+                                        "usd_pack": "1.4.0"
+                                    }
                                 }
                             ],
                             "compoundNodes": [
@@ -10931,7 +11050,11 @@
                                 {
                                     "name": "output"
                                 }
-                            ]
+                            ],
+                            "libraryDependencies": {
+                                "Amino": "2.15.0.9",
+                                "usd_pack": "1.4.0"
+                            }
                         }
                     ],
                     "compoundNodes": [
@@ -11313,7 +11436,12 @@
                         {
                             "name": "output"
                         }
-                    ]
+                    ],
+                    "libraryDependencies": {
+                        "Amino": "2.15.0.9",
+                        "bif": "2.15.0.9",
+                        "usd_pack": "1.4.0"
+                    }
                 }
             ],
             "compoundNodes": [
@@ -11841,7 +11969,13 @@
                 {
                     "name": "output"
                 }
-            ]
+            ],
+            "libraryDependencies": {
+                "Amino": "2.15.0.9",
+                "bif": "2.15.0.9",
+                "scatter": "2.15.0.9",
+                "usd_pack": "1.4.0"
+            }
         }
     ]
 }

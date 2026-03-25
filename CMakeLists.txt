@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2024 Autodesk, Inc.
+# Copyright 2025 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,14 +20,19 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 message(STATUS "CMake version: ${CMAKE_VERSION}")
 
-# A calling package (other CMake) can set the package name
-# Note: The USD Pack that is shipped with Bifrost is named `usd_pack` and it is
-#       loaded by default by Bifrost.
-#       Here we must use a different name for this custom/standalone build of
-#       the pack, so the USD Pack from Bifrost's installation directory can be
-#       disabled when needed and replaced by this one.
-if( NOT BIFUSD_PACKAGE_NAME )
-    set(BIFUSD_PACKAGE_NAME bifrost_usd_pack)
+# A calling package (other CMake) can set the package or translation table names
+# Note: The USD Pack and USD Translation Table for Maya that are shipped with
+#       Bifrost are named `usd_pack`, respectively `usdMayaTranslations`,
+#       and they are loaded by default by Bifrost.
+#       Here we must use different names for this custom/standalone build of
+#       the USD Pack and Translation Table, so the ones from the Bifrost's
+#       installation directory can be disabled when needed and replaced by
+#       these ones.
+if(NOT BIFUSD_PACKAGE_NAME)
+    set(BIFUSD_PACKAGE_NAME "bifrost_usd_pack")
+endif()
+if(NOT BIFUSD_MAYA_TRANSLATIONS_NAME)
+    set(BIFUSD_MAYA_TRANSLATIONS_NAME "bifrost_usdMayaTranslations")
 endif()
 
 set(IS_BIFUSD_STANDALONE ON CACHE BOOL "Indicate if this is a standalone build of Bifrost USD")
@@ -43,8 +48,6 @@ include(cmake/version.info)
 project(${BIFUSD_PACKAGE_NAME}
         VERSION ${BIFROST_USD_PACK_MAJOR_VERSION}.${BIFROST_USD_PACK_MINOR_VERSION}.${BIFROST_USD_PACK_PATCH_LEVEL}
         LANGUAGES NONE)
-
-include(CMakePrintHelpers)
 
 # Generates a 'compile_commands.json' file containing the exact compilation
 # command for all translation units of the project in a machine-readable form.
@@ -93,6 +96,14 @@ endif()
 include(${BIFUSD_TOOLS_DIR}/utils.cmake)
 include(${BIFUSD_TOOLS_DIR}/setup.cmake)
 include(${BIFUSD_TOOLS_DIR}/version.cmake)
+
+# A calling package can also set the source directory for where the
+# "compound-dev" config will look for the USD Pack's compound and graph
+# directories. The "compound-dev" config files can be used to load and publish
+# compounds directly to and from the source directories.
+if ( NOT BIFUSD_COMPOUND_DEV_SOURCE_DIR )
+    set(BIFUSD_COMPOUND_DEV_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+endif()
 
 #==============================================================================
 # PACKAGES USED WHILE BUILDING
@@ -202,9 +213,6 @@ endif()
 
 #==============================================================================
 # Bifrost Hydra
-# NOT PART OF PUBLIC BIFROST SDK YET
-# NOT PART OF PUBLIC BIFROST SDK YET
-# NOT PART OF PUBLIC BIFROST SDK YET
 #==============================================================================
 #
 if( BIFUSD_BUILD_HYDRA )
