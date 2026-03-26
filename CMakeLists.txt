@@ -117,10 +117,6 @@ include(${BIFUSD_TOOLS_DIR}/python.cmake)
 include(cmake/setup.cmake)
 include(cmake/utils.cmake)
 
-if (NOT DEFINED BIFUSD_MAYA_TRANSLATIONS_NAME)
-    set(BIFUSD_MAYA_TRANSLATIONS_NAME "usdMayaTranslations")
-endif()
-
 # Standalone build setup the compiler
 # Else use the parent environment's compiler
 if(IS_BIFUSD_STANDALONE)
