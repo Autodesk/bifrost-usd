@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2025 Autodesk, Inc.
+# Copyright 2026 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,6 +25,8 @@ function(configure_bifusd_nodedefs_unittests)
     # Library dependencies
     set(libs
         bifusd_gtest
+        BifusdTBB
+        BifusdTBBHelpers
         BifrostGraph::Executor
         BifrostUSD
         BifrostUSDNodedefs
@@ -37,6 +39,7 @@ function(configure_bifusd_nodedefs_unittests)
     set(test_files
         testAttributeNodeDefs.cpp
         testCollectionNodeDefs.cpp
+        testDictSerialization.cpp
         testGeomNodeDefs.cpp
         testLayerNodeDefs.cpp
         testMaterialBindingNodeDefs.cpp
@@ -44,17 +47,6 @@ function(configure_bifusd_nodedefs_unittests)
         testStageNodeDefs.cpp
         testVariantSetNodeDefs.cpp
     )
-
-    if (USD_PXR_VERSION LESS 2408)
-        # BIFROST-11249 Adding testDictSerialization only when building older version of USD
-        # as since USD 24.08, it can be built using oneTBB and it is causing a crash.
-        # The code to serialize uses "function tables" in USD.
-        # If the code was built against USD with no python, for example then
-        # it may not run correctly against a USD with python because the
-        # "function tables" changed.
-        # This issue is being investigated under BIFROST-11249.
-        list(APPEND test_files testDictSerialization.cpp)
-    endif()
 
     foreach(test_file ${test_files})
         configure_bifusd_unittest(

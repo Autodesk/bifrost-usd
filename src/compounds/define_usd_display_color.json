@@ -103,7 +103,8 @@
             "ports": [
                 {
                     "portName": "attribute_definition",
-                    "portDirection": "output"
+                    "portDirection": "output",
+                    "portType": "Object"
                 },
                 {
                     "portName": "color",

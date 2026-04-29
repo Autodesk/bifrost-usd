@@ -1,0 +1,50 @@
+#-
+#*****************************************************************************
+# Copyright 2026 Autodesk, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#*****************************************************************************
+#+
+
+set(library_headers
+    GraphExecutor.h
+    GraphExecutorExport.h
+    GraphExecutorFactory.h
+    StreamObserver.h
+    Types.h
+)
+
+bifusd_install_headers(
+    BifrostUsdGraphExecutorHeadersInstall
+    SOURCE ${CMAKE_CURRENT_SOURCE_DIR}
+    FILES ${library_headers}
+    DESTINATION "BifrostUsd/GraphExecutor"
+)
+
+# Internal-only headers: copied to the build output include directory so that
+# internal consumers (UsdTranslator, DynamicFileFormat, tests) can include
+# them, but NOT installed as part of the public package API.
+set(internal_headers
+    GraphExecutorConstants.h
+    GraphExecutorFactoryInternal.h
+)
+foreach(internal_header ${internal_headers})
+    set(dst_dir  "${BIFUSD_OUTPUT_INCLUDE_DIR}/BifrostUsd/GraphExecutor")
+    set(dst_file "${dst_dir}/${internal_header}")
+    bifusd_configure_file(
+        ${internal_header}
+        "${dst_file}"
+        DEPENDENT_TARGET BifrostUsdGraphExecutorHeadersInstall
+        PREPROCESSOR_LINE
+    )
+endforeach()

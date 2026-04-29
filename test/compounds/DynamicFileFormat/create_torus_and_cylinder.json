@@ -1,0 +1,497 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "Test::DynamicFileFormat::create_torus_and_cylinder",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "set_prim_paths"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "81.000000"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "118.879 366.099"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "63.000000"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "1230 261"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "torus_and_cylinder"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-70.7137 -342.162 1608.19 1601.06"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "zValue",
+                    "metaType": "string",
+                    "metaValue": "64.000000"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "-179.298 115.819"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "torus_and_cylinder",
+                    "portDirection": "output",
+                    "portType": "array<Object>"
+                },
+                {
+                    "portName": "set_prim_paths",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "false"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "build_array",
+                    "nodeType": "Core::Array::build_array",
+                    "multiInPortNames": [
+                        "out_object",
+                        "out_object1"
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "80.000000"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "925 352.929"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_mesh_cylinder",
+                    "nodeType": "Modeling::Primitive::create_mesh_cylinder",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "76.000000"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "43.8755 792.502"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_mesh_torus",
+                    "nodeType": "Modeling::Primitive::create_mesh_torus",
+                    "terminalStates": [
+                        {
+                            "name": "Core::Graph::terminal::diagnostic",
+                            "enabled": "false"
+                        }
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "79.000000"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "-2.48046 65.1105"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "78.000000"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "329.264 -7.82918"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "set_property1",
+                    "nodeType": "Core::Object::set_property",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "75.000000"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "279.341 634.2"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "77.000000"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "673.488 118.947"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "if1",
+                    "nodeType": "Core::Logic::if",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "74.000000"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "652.092 645.431"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "create_mesh_cylinder.out_mesh",
+                    "target": "set_property1.object"
+                },
+                {
+                    "source": "create_mesh_torus.torus_mesh",
+                    "target": "set_property.object"
+                },
+                {
+                    "source": "build_array.array",
+                    "target": ".torus_and_cylinder"
+                },
+                {
+                    "source": "create_mesh_torus.torus_mesh",
+                    "target": "if.false_case"
+                },
+                {
+                    "source": "set_property.out_object",
+                    "target": "if.true_case"
+                },
+                {
+                    "source": "if.output",
+                    "target": "build_array.first.out_object"
+                },
+                {
+                    "source": ".set_prim_paths",
+                    "target": "if.condition"
+                },
+                {
+                    "source": ".set_prim_paths",
+                    "target": "if1.condition"
+                },
+                {
+                    "source": "set_property1.out_object",
+                    "target": "if1.true_case"
+                },
+                {
+                    "source": "create_mesh_cylinder.out_mesh",
+                    "target": "if1.false_case"
+                },
+                {
+                    "source": "if1.output",
+                    "target": "build_array.first.out_object1"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "create_mesh_cylinder.radius",
+                    "valueType": "float",
+                    "value": "0.400000006f"
+                },
+                {
+                    "valueName": "create_mesh_cylinder.height",
+                    "valueType": "float",
+                    "value": "1f"
+                },
+                {
+                    "valueName": "create_mesh_cylinder.axis_segments",
+                    "valueType": "int",
+                    "value": "20L"
+                },
+                {
+                    "valueName": "create_mesh_cylinder.height_segments",
+                    "valueType": "int",
+                    "value": "4L"
+                },
+                {
+                    "valueName": "create_mesh_cylinder.top_cap",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "create_mesh_cylinder.bottom_cap",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "create_mesh_cylinder.create_UVs",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "create_mesh_cylinder.position",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "0f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_cylinder.up_axis",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "1f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_cylinder.base_to_pivot",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "create_mesh_cylinder.create_tags",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "create_mesh_cylinder.bottom_tag",
+                    "valueType": "string",
+                    "value": "face_bottom_tag"
+                },
+                {
+                    "valueName": "create_mesh_cylinder.sides_tag",
+                    "valueType": "string",
+                    "value": "face_sides_tag"
+                },
+                {
+                    "valueName": "create_mesh_cylinder.top_tag",
+                    "valueType": "string",
+                    "value": "face_top_tag"
+                },
+                {
+                    "valueName": "create_mesh_torus.major_radius",
+                    "valueType": "float",
+                    "value": "1f"
+                },
+                {
+                    "valueName": "create_mesh_torus.minor_radius",
+                    "valueType": "float",
+                    "value": "0.5f"
+                },
+                {
+                    "valueName": "create_mesh_torus.major_segments",
+                    "valueType": "uint",
+                    "value": "20U"
+                },
+                {
+                    "valueName": "create_mesh_torus.minor_segments",
+                    "valueType": "uint",
+                    "value": "20U"
+                },
+                {
+                    "valueName": "create_mesh_torus.normals",
+                    "valueType": "Modeling::Primitive::Normals",
+                    "value": "smooth"
+                },
+                {
+                    "valueName": "create_mesh_torus.create_UVs",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "create_mesh_torus.position",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "0f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_torus.scale",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "1f",
+                        "y": "1f",
+                        "z": "1f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_torus.up_axis",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "1f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "set_property.key",
+                    "valueType": "string",
+                    "value": "prim_path"
+                },
+                {
+                    "valueName": "set_property.value",
+                    "valueType": "string",
+                    "value": "/torus"
+                },
+                {
+                    "valueName": "set_property1.key",
+                    "valueType": "string",
+                    "value": "prim_path"
+                },
+                {
+                    "valueName": "set_property1.value",
+                    "valueType": "string",
+                    "value": "/cylinder"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ],
+            "libraryDependencies": {
+                "Amino": "2.16.0.10",
+                "bif": "2.16.0.10"
+            }
+        }
+    ]
+}

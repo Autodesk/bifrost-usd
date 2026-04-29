@@ -1,0 +1,50 @@
+#usda 1.0
+(
+    defaultPrim = "Root"
+
+    #
+    # USD stage playback range — used by USD viewers (usdview, etc.) to set
+    # the timeline slider. Not read by Bifrost nor by BifrostDynamicFileFormat:
+    #
+    startTimeCode = 2
+    endTimeCode = 10
+)
+
+def "Root" (
+    references = </DynamicFileFormatField>
+    payload = @anon:autodesk:bifrost.bifrostDynamicFile@
+)
+{
+    string BifrostGraph_Options:verbosity_level = "ErrorsOnly"
+    bool BifrostGraph_ReloadLibrary = 0
+
+    #
+    # Effective BifrostGraph_Globals timeline values.
+    # Bifrost graph gets these Root's authored opinions.
+    # Therefore, Bifrost generates only samples for this time range:
+    #
+    double BifrostGraph_Globals:timeline_info_start_frame = 1
+    double BifrostGraph_Globals:timeline_info_end_frame = 5
+}
+
+def "DynamicFileFormatField" (
+    BifrostGraph_CompoundName = "Test::DynamicFileFormat::animated_mesh_deformed"
+    BifrostGraph_OutputName = "out_stage"
+    BifrostGraph_ReloadLibrary = 0
+    BifrostGraph_Options = {
+        string verbosity_level = "AllMessages"
+    }
+
+    #
+    # Default BifrostGraph_Globals timeline values.
+    # These are overwritten by the BifrostGraph_Globals attributes on Root above.
+    #
+    BifrostGraph_Globals = {
+        double timeline_info_start_frame = 1000
+        double timeline_info_end_frame = 1010
+    }
+    BifrostGraph_Params = {
+    }
+)
+{
+}

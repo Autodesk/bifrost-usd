@@ -23,6 +23,7 @@
 #include <pxr/usd/usdGeom/primvarsAPI.h>
 
 #include <cstdint>
+#include <vector>
 
 #include "return_guard.h"
 #include "usd_type_converter.h"
@@ -966,6 +967,45 @@ bool USD::Attribute::clear_attribute_connections(
         log_exception("clear_attribute_connections", e);
     }
     return false;
+}
+
+bool USD::Attribute::get_time_samples(
+    const BifrostUsd::Attribute&              attribute,
+    Amino::MutablePtr<Amino::Array<double>>& time_samples) {
+    time_samples = Amino::newMutablePtr<Amino::Array<double>>();
+    bool success = false;
+    try {
+        if (attribute) {
+            std::vector<double> samples;
+            success = attribute->GetTimeSamples(&samples);
+            if (!success) {
+                // USD Error, return empty array
+                //
+                // We should never go here since GetTimeSamples implementation
+                // returns true even if there are no samples in USD (checked in versions <= 25.11).
+                // Keeping it just in case if in the future false is returned.
+                return false;
+            }
+
+            const size_t n = samples.size();
+            if(n == 0) {
+                // No time samples, return empty array
+                //
+                // We don't match the GetTimeSamples interface here since on the user side it more handy
+                // to directly know that an array is empty instead of checking its array_size downstream the graph.
+                return false;
+            }
+
+            time_samples->resize(n);
+            for (size_t i = 0; i < n; ++i) {
+                (*time_samples)[i] = samples[i];
+            }
+        }
+    } catch (std::exception& e) {
+        log_exception("get_valid_time_samples", e);
+    }
+    assert(time_samples);
+    return success;
 }
 
 bool USD::Attribute::get_prim_attribute_connections(const BifrostUsd::Attribute&  attribute,

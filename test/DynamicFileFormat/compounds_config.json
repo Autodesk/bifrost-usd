@@ -1,0 +1,18 @@
+{
+    "AminoConfigurations": [
+        {
+            "vendorName": "Autodesk",
+            "libraryVersion": "",
+            "libraryDependencies": [
+                "bif",
+                "Amino"
+            ],
+            "libraryName": "bifrost_usd_dynamic_file_format_test_compounds",
+            "jsonLibs": [
+                {
+                    "path": "../compounds/DynamicFileFormat"
+                }
+            ]
+        }
+    ]
+}

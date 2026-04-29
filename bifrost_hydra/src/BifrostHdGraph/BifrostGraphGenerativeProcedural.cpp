@@ -21,7 +21,7 @@
 #include <BifrostHydra/Translators/Mesh.h>
 #include <BifrostHydra/Translators/Strands.h>
 
-#include <iostream>
+#include <cmath>
 
 PXR_NAMESPACE_USING_DIRECTIVE
 
@@ -43,13 +43,23 @@ BifrostGraphGenerativeProcedural::UpdateDependencies(
 HdGpGenerativeProcedural::ChildPrimTypeMap
 BifrostGraphGenerativeProcedural::Update(
     const HdSceneIndexBaseRefPtr& inputScene,
-    const ChildPrimTypeMap& /*previousResult*/,
+    const ChildPrimTypeMap& previousResult,
     const DependencyMap& /*dirtiedDependencies*/,
     HdSceneIndexObserver::DirtiedPrimEntries* outputDirtiedPrims) {
     ChildPrimTypeMap result;
     auto             graphPath = _GetProceduralPrimPath();
     m_engine.setInputScene(inputScene);
     m_engine.setInputs(inputScene->GetPrim(graphPath));
+    // TODO : Get actual frame instead of hard-coding it 
+    double frame = 0.0;
+
+    bool sameInputs = m_engine.getInputs() == m_cachedInputs;
+    bool sameFrames = std::fabs(frame - m_cachedFrame) <= std::numeric_limits<double>::epsilon();
+
+    // If both the frame and inputs have not changed, there is no need to re-execute the graph 
+    if (sameFrames && sameInputs) {
+        return previousResult;
+    }
 
     if (m_engine.execute(/*frame*/ 0.0)) {
         const auto& output      = m_engine.getOutput();
@@ -99,6 +109,10 @@ BifrostGraphGenerativeProcedural::Update(
                 }
             }
         }
+
+        m_cachedFrame = frame;
+        m_cachedInputs = m_engine.getInputs();
+
     }
 
     return result;

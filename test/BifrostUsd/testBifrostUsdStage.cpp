@@ -1,5 +1,5 @@
 //-
-// Copyright 2025 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -172,7 +172,7 @@ TEST(BifrostUsdTests, Stage_ctors) {
     }
 #endif
 
-    // ctor with BifrostUSD::Layer + InitialLoadSet
+    // ctor with BifrostUsd::Layer + InitialLoadSet
     for (bool editable : editableArgs) {
         for (BifrostUsd::InitialLoadSet loadSet : loadSetArgs) {
             PXR_NS::SdfLayerRefPtr sdfRootLayer =
@@ -199,7 +199,7 @@ TEST(BifrostUsdTests, Stage_ctors) {
         }
     }
 
-    // ctor with BifrostUSD::Layer + PopulationMask + InitialLoadSet
+    // ctor with BifrostUsd::Layer + PopulationMask + InitialLoadSet
     for (bool editable : editableArgs) {
         for (BifrostUsd::InitialLoadSet loadSet : loadSetArgs) {
             PXR_NS::SdfLayerRefPtr sdfRootLayer =

@@ -1139,3 +1139,50 @@ TEST(AttributeNodeDefs, get_prim_attribute_connections) {
         notConnectedAttribInterface, emptyConnections));
     ASSERT_TRUE(emptyConnections->empty());
 }
+
+TEST(AttributeNodeDefs, get_time_samples) {
+    auto stage_mut = Amino::newMutablePtr<BifrostUsd::Stage>();
+    auto primPath  = PXR_NS::SdfPath("/x");
+    auto prim      = stage_mut->get().DefinePrim(primPath);
+
+    auto attr = prim.CreateAttribute(PXR_NS::TfToken("animated"),
+                                     PXR_NS::SdfValueTypeNames->Float);
+    attr.Set(10.0f, PXR_NS::UsdTimeCode(0.0));
+    attr.Set(20.0f, PXR_NS::UsdTimeCode(24.0));
+    attr.Set(30.0f, PXR_NS::UsdTimeCode(48.0));
+
+    auto primInterface =
+        Amino::newClassPtr<BifrostUsd::Prim>(prim, std::move(stage_mut));
+    Amino::MutablePtr<BifrostUsd::Attribute> attribute;
+    ASSERT_TRUE(USD::Attribute::get_prim_attribute(primInterface, "animated",
+                                                   attribute));
+    ASSERT_TRUE(attribute);
+
+    Amino::MutablePtr<Amino::Array<double>> times;
+    ASSERT_TRUE(USD::Attribute::get_time_samples(*attribute, times));
+    ASSERT_EQ(times->size(), 3u);
+    EXPECT_FLOAT_EQ(times->at(0), 0.0);
+    EXPECT_FLOAT_EQ(times->at(1), 24.0);
+    EXPECT_FLOAT_EQ(times->at(2), 48.0);
+}
+
+TEST(AttributeNodeDefs, get_time_samples_empty) {
+    auto stage_mut = Amino::newMutablePtr<BifrostUsd::Stage>();
+    auto primPath  = PXR_NS::SdfPath("/x");
+    auto prim      = stage_mut->get().DefinePrim(primPath);
+
+    auto attr = prim.CreateAttribute(PXR_NS::TfToken("constant"),
+                                     PXR_NS::SdfValueTypeNames->Float);
+    attr.Set(1.0f);
+
+    auto primInterface =
+        Amino::newClassPtr<BifrostUsd::Prim>(prim, std::move(stage_mut));
+    Amino::MutablePtr<BifrostUsd::Attribute> attribute;
+    ASSERT_TRUE(USD::Attribute::get_prim_attribute(primInterface, "constant",
+                                                   attribute));
+    ASSERT_TRUE(attribute);
+
+    Amino::MutablePtr<Amino::Array<double>> times;
+    ASSERT_FALSE(USD::Attribute::get_time_samples(*attribute, times));
+    ASSERT_TRUE(times->empty());
+}

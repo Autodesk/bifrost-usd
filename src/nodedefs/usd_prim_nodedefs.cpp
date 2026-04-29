@@ -188,6 +188,31 @@ void USD::Prim::get_prim_path(const BifrostUsd::Prim& prim,
     }
 }
 
+void USD::Prim::get_prim_parent(const BifrostUsd::Prim&                  prim,
+                                Amino::MutablePtr<BifrostUsd::Prim>& parent,
+                                Amino::String&                         parent_path) {
+    parent       = Amino::newMutablePtr<BifrostUsd::Prim>();
+    parent_path  = Amino::String{};
+    try {
+        if (!prim) {
+            return;
+        }
+        auto stage = prim.getStage();
+        if (!stage) {
+            return;
+        }
+        auto pxr_parent = prim.getPxrPrim().GetParent();
+        if (!pxr_parent.IsValid()) {
+            return;
+        }
+
+        *parent       = BifrostUsd::Prim{pxr_parent, stage};
+        parent_path = pxr_parent.GetPrimPath().GetText();
+    } catch (std::exception& e) {
+        log_exception("get_prim_parent", e);
+    }
+}
+
 bool USD::Prim::get_last_modified_prim(
     Amino::Ptr<BifrostUsd::Stage>        stage,
     Amino::MutablePtr<BifrostUsd::Prim>& prim) {

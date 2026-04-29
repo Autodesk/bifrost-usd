@@ -31,6 +31,7 @@
 namespace BifrostHd {
 class Workspace;
 
+using Inputs = std::unordered_map<std::string, PXR_NS::VtValue>;
 using Output =
     std::pair<std::string, Amino::Array<Amino::Ptr<Bifrost::Object>>>;
 
@@ -51,6 +52,7 @@ public:
 
     bool          execute(const double frame = 0);
     const Output& getOutput() const;
+    const Inputs& getInputs() const;
 
 public:
     /// Disabled

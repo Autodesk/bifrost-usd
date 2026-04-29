@@ -2101,7 +2101,8 @@ PREDEFINED             = AMINO_ANNOTATE(a)= \
                          USDNODE_DOC_ICON(a,b,c)= \
                          USDNODE_DOC_ICON_X(a,b,c,d)= \
                          USDNODE_DOC_INTERNAL(a,b)= \
-                         USDNODE_DOC_INTERNAL_X(a,b,c)=
+                         USDNODE_DOC_INTERNAL_X(a,b,c)= \
+                         BIFROSTUSD_GRAPH_EXECUTOR_DECL=
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The

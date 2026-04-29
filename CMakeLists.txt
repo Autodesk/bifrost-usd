@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2025 Autodesk, Inc.
+# Copyright 2026 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -163,17 +163,25 @@ include(${BIFUSD_TOOLS_DIR}/package.cmake)
 #==============================================================================
 
 #==============================================================================
-# TESTING
-#==============================================================================
-include(${BIFUSD_TOOLS_DIR}/gtest.cmake)
-
-#==============================================================================
 # Import/Find installed packages
 #==============================================================================
 
 find_package(Bifrost REQUIRED SDK)
 find_package(OpenGL REQUIRED)
 find_package(USD REQUIRED)
+
+#==============================================================================
+# TESTING
+#==============================================================================
+# Tests require our own TBBInitGuard that needs to be built with the TBB that
+# is shipped with USD, so we first need to detect what/where is the USD's TBB:
+include(${BIFUSD_TOOLS_DIR}/bifusd_detect_usd_tbb.cmake)
+bifusd_detect_usd_tbb(usd FALSE) # verbose=FALSE
+
+# Add our TBBInitGuard to properly initialize and terminate TBB's scheduler:
+add_subdirectory(${BIFUSD_TOOLS_DIR}/src/tbb tbb)
+
+include(${BIFUSD_TOOLS_DIR}/gtest.cmake)
 
 #==============================================================================
 # BIFUSD SUBDIRECTORIES

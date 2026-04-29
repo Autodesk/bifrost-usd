@@ -30,6 +30,7 @@ set(doc_files
     USD_Attribute_get_attribute_metadata.md
     USD_Attribute_get_prim_attribute.md
     USD_Attribute_get_prim_attribute_connections.md
+    USD_Attribute_get_time_samples.md
     USD_Attribute_get_prim_attribute_data.md
     USD_Attribute_get_prim_attribute_type.md
     USD_Attribute_get_usd_attribute_value.md
@@ -99,6 +100,7 @@ set(doc_files
     USD_Prim_get_prim_kind.md
     USD_Prim_get_prim_metadata.md
     USD_Prim_get_prim_path.md
+    USD_Prim_get_prim_parent.md
     USD_Prim_get_prim_type.md
     USD_Prim_get_prototype_prims.md
     USD_Prim_get_relationship_targets.md
@@ -156,6 +158,7 @@ set(doc_files
     USD_VariantSet_add_variant_set.md
     USD_VariantSet_clear_variant_selection.md
     USD_VariantSet_define_usd_variant_set.md
+    USD_VariantSet_get_variant_selection.md
     USD_VariantSet_get_variant_sets.md
     USD_VariantSet_get_variants.md
     USD_VariantSet_set_variant_selection.md

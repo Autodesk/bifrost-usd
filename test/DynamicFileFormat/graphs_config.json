@@ -1,0 +1,18 @@
+{
+    "AminoConfigurations": [
+        {
+            "vendorName": "Autodesk",
+            "libraryVersion": "",
+            "libraryDependencies": [
+                "bif",
+                "Amino"
+            ],
+            "libraryName": "bifrost_usd_dynamic_file_format_graphs",
+            "jsonLibs": [
+                {
+                    "path": "../../../../src/graphs"
+                }
+            ]
+        }
+    ]
+}

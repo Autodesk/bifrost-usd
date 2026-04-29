@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2024 Autodesk, Inc.
+# Copyright 2026 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,3 +29,6 @@ endif()
 
 add_subdirectory(BifrostUsd)
 add_subdirectory(nodedefs)
+
+#add_subdirectory(GraphExecutor)
+#add_subdirectory(DynamicFileFormat)

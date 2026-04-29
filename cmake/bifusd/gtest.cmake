@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2024 Autodesk, Inc.
+# Copyright 2026 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -69,13 +69,11 @@ function(bifusd_init_gtest)
     add_library(bifusd_gtest_main STATIC ${BIFUSD_TOOLS_DIR}/src/gtest/bifusd_gtest_main.cpp)
     target_link_libraries(bifusd_gtest_main PUBLIC bifusd_gtest_includes PRIVATE bifusd_gtest)
 
-    if(BIFUSD_TBB_LOCATION)
+    if(TARGET BifusdTBB)
         # The client project is using TBB. Ensure that gtest is correctly
         # initializing and terminating the TBB task scheduler.
-        target_compile_definitions(
-            bifusd_gtest_main PRIVATE BIFUSD_USING_TBB)
-        target_link_libraries(
-            bifusd_gtest_main PRIVATE ${BIFUSD_TBB_HELPERS_TARGET} BifusdTBB)
+        target_compile_definitions(bifusd_gtest_main PRIVATE BIFUSD_USING_TBB)
+        target_link_libraries(bifusd_gtest_main PRIVATE ${BIFUSD_TBB_HELPERS_TARGET} BifusdTBB)
         target_include_directories(bifusd_gtest_main PRIVATE ${BIFUSD_OUTPUT_INCLUDE_DIR})
         add_dependencies(bifusd_gtest_main ${BIFUSD_TBB_HELPERS_TARGET})
     endif()

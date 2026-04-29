@@ -220,3 +220,29 @@ void USD::VariantSet::get_variants(
         log_exception("get_variants", e);
     }
 }
+
+void USD::VariantSet::get_variant_selection(
+    const BifrostUsd::Stage& stage,
+    const Amino::String&     prim_path,
+    const Amino::String&     variant_set_name,
+    Amino::String&           selection) {
+    selection = Amino::String();
+    try {
+        if (stage) {
+            auto pxr_prim = USDUtils::get_prim_or_throw(prim_path, stage);
+            Amino::String resolved_variant_set_name = variant_set_name;
+            if (resolved_variant_set_name.empty()) {
+                resolved_variant_set_name = stage.lastModifiedVariantSet();
+            }
+            if (!resolved_variant_set_name.empty()) {
+                auto pxr_variant_set =
+                    pxr_prim.GetVariantSet(resolved_variant_set_name.c_str());
+                if (pxr_variant_set) {
+                    selection = pxr_variant_set.GetVariantSelection().c_str();
+                }
+            }
+        }
+    } catch (std::exception& e) {
+        log_exception("get_variant_selection", e);
+    }
+}

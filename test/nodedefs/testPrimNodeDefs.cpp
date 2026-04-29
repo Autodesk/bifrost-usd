@@ -148,6 +148,37 @@ TEST(PrimNodeDefs, get_prim_path) {
     ASSERT_EQ(result, primPath.GetText());
 }
 
+TEST(PrimNodeDefs, get_prim_parent) {
+    auto stage_mut = Amino::newMutablePtr<BifrostUsd::Stage>();
+    auto pxr_a     = stage_mut->get().DefinePrim(PXR_NS::SdfPath("/a"));
+    auto pxr_ab    = stage_mut->get().DefinePrim(PXR_NS::SdfPath("/a/b"));
+    Amino::Ptr<BifrostUsd::Stage> stage = std::move(stage_mut);
+
+    BifrostUsd::Prim prim_ab{pxr_ab, stage};
+    Amino::MutablePtr<BifrostUsd::Prim> parent;
+    Amino::String                       parent_path;
+    USD::Prim::get_prim_parent(prim_ab, parent, parent_path);
+    ASSERT_TRUE(*parent);
+    ASSERT_EQ(parent_path, "/a");
+
+    ASSERT_STREQ((*parent)->GetPrimPath().GetText(), "/a");
+
+    BifrostUsd::Prim prim_a{pxr_a, stage};
+    parent.reset();
+    parent_path = Amino::String{};
+    USD::Prim::get_prim_parent(prim_a, parent, parent_path);
+    ASSERT_TRUE(*parent);
+    ASSERT_EQ(parent_path, "/");
+    ASSERT_TRUE((*parent)->IsPseudoRoot());
+
+    BifrostUsd::Prim prim_invalid;
+    parent.reset();
+    parent_path = Amino::String{};
+    USD::Prim::get_prim_parent(prim_invalid, parent, parent_path);
+    ASSERT_FALSE(*parent);
+    ASSERT_EQ(parent_path, "");
+}
+
 TEST(PrimNodeDefs, get_prim_type) {
     auto stage_mut = Amino::newMutablePtr<BifrostUsd::Stage>();
     auto pxr_prim =

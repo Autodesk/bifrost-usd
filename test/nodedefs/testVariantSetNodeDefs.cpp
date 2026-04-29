@@ -157,6 +157,49 @@ TEST(VariantSetNodeDefs, get_variants) {
     ASSERT_EQ((*names)[0], variant_name);
 }
 
+TEST(VariantSetNodeDefs, get_variant_selection) {
+    BifrostUsd::Stage stage;
+    auto                prim_path        = Amino::String("/a");
+    auto                variant_set_name = Amino::String("look");
+    auto prim = addVariantSet(stage, prim_path, variant_set_name);
+
+    auto red_variant          = Amino::String("red");
+    USD::VariantSet::add_variant(stage, prim_path, variant_set_name,
+                                 red_variant, /*setVariantSelection*/ false);
+
+    Amino::String selection;
+    USD::VariantSet::get_variant_selection(stage, prim_path, variant_set_name,
+                                           selection);
+    ASSERT_TRUE(selection.empty());
+
+    USD::VariantSet::set_variant_selection(stage, prim_path, variant_set_name,
+                                           red_variant, /*clear*/ true);
+
+    USD::VariantSet::get_variant_selection(stage, prim_path, variant_set_name,
+                                           selection);
+    ASSERT_EQ(selection, red_variant);
+
+    // Clear the variant selection before adding an other one,
+    // otherwise it would create the new variant nested in current one.
+    USD::VariantSet::clear_variant_selection(stage, prim_path, variant_set_name);
+
+    auto green_variant = Amino::String("green");
+    USD::VariantSet::add_variant(stage, prim_path, variant_set_name,
+                                 green_variant, /*setVariantSelection*/ false);
+
+    USD::VariantSet::set_variant_selection(stage, prim_path, variant_set_name,
+                                           green_variant, /*clear*/ true);
+
+    USD::VariantSet::get_variant_selection(stage, prim_path, variant_set_name,
+                                           selection);
+    ASSERT_EQ(selection, green_variant);
+
+    USD::VariantSet::clear_variant_selection(stage, prim_path, variant_set_name);
+    USD::VariantSet::get_variant_selection(stage, prim_path, variant_set_name,
+                                           selection);
+    ASSERT_TRUE(selection.empty());
+}
+
 TEST(VariantSetNodeDefs, create_variant_in_variant) {
     /*********************************************/
     /*     Create New Stage with a Prim          */

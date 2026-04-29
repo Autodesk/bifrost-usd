@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2024 Autodesk, Inc.
+# Copyright 2026 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -1853,7 +1853,7 @@ endfunction(bifusd_create_static_lib)
 #                             [CUSTOM_OUTPUT_LIB_DIR]
 #                             [CUSTOM_INSTALL_BIN_DIR]
 #                             [CUSTOM_INSTALL_LIB_DIR]
-#                             [NO_VERSION_SUFFIX])
+#                             [NO_VERSION_SUFFIX]
 #                             [LIB_VERSION_SUFFIX   string]
 #                             )
 #
@@ -2156,6 +2156,272 @@ function(bifusd_create_shared_lib  shared_lib_target export_definition)
     endif()
 
 endfunction(bifusd_create_shared_lib)
+
+# Configure and create a MODULE library.
+#
+# MODULE libraries are designed for plugins that are dynamically loaded at runtime,
+# not linked against during compilation. Unlike SHARED libraries, MODULE libraries:
+# - Do not generate import libraries (.lib) on Windows
+# - Are not added to CMake exports (not meant to be linked against)
+# - Use LIBRARY output/install destinations on all platforms
+#
+#   bifusd_create_module_lib(<module_lib_target>
+#                             <export_definition>
+#                             [SRC_FILES            file1 file2 ...]
+#                             [LIB_PREFIX           string       ]
+#                             [LIB_SUFFIX           string       ]
+#                             [HEADER_ONLY_FILES    hdr1 hdr2 ...]
+#                             [PUBLIC_DEFINITIONS   def1 def2 ...]
+#                             [PRIVATE_DEFINITIONS  def1 def2 ...]
+#                             [PUBLIC_OPTIONS       opt1 opt2 ...]
+#                             [PRIVATE_OPTIONS      opt1 opt2 ...]
+#                             [PUBLIC_INCLUDE_DIRS  dir1 dir2 ...]
+#                             [PRIVATE_INCLUDE_DIRS dir1 dir2 ...]
+#                             [PUBLIC_LINK_LIBS     lib1 lib2 ...]
+#                             [PRIVATE_LINK_LIBS    lib1 lib2 ...]
+#                             [PUBLIC_OBJECT_LIBS   lib1 lib2 ...]
+#                             [PRIVATE_OBJECT_LIBS  lib1 lib2 ...]
+#                             [EXTRA_RPATH          dir1 dir2 ...]
+#                             [INSTALL]
+#                             [INSTALL_TO_BIN]
+#                             [CUSTOM_OUTPUT_LIB_DIR]
+#                             [CUSTOM_INSTALL_LIB_DIR]
+#                             [NO_VERSION_SUFFIX]
+#                             [LIB_VERSION_SUFFIX   string]
+#                             )
+#
+#   module_lib_target      - name of the module library target.
+#   export_definition      - Define used to indicate the exported symbols in the
+#                            module library.
+#   SRC_FILES              - list of source files to be added to the module library.
+#   LIB_PREFIX             - Prefix of the library name (default "lib" on *nix).
+#   LIB_SUFFIX             - Extension of the module library name.
+#                            The CMake default value is ".so" for both Linux and
+#                            OSX platforms, and ".dll" for Windows.
+#   HEADER_ONLY_FILES      - list of headers to compile.
+#   PUBLIC_DEFINITIONS     - Additional definitions to be set when compiling.
+#   PRIVATE_DEFINITIONS    - Additional definitions to be set when compiling.
+#   PUBLIC_OPTIONS         - Additional compiler options.
+#   PRIVATE_OPTIONS        - Additional compiler options.
+#   PUBLIC_INCLUDE_DIRS    - list of public include directories.
+#   PRIVATE_INCLUDE_DIRS   - list of private include directories.
+#   PUBLIC_LINK_LIBS       - list of public libraries to be linked.
+#   PRIVATE_LINK_LIBS      - list of private libraries to be linked.
+#   PUBLIC_OBJECT_LIBS     - list of object libraries to be included publicly.
+#   PRIVATE_OBJECT_LIBS    - list of object libraries to be included privately.
+#   EXTRA_RPATH            - Additional directories to add to the rpath search.
+#   INSTALL                - Install the library in the product distribution.
+#   INSTALL_TO_BIN         - On Windows and only if INSTALL is also set, install
+#                            the library to bin directory instead of lib. Useful
+#                            for plugins that USD expects in the bin directory.
+#   CUSTOM_OUTPUT_LIB_DIR  - Custom output lib directory.
+#   CUSTOM_INSTALL_LIB_DIR - Custom install lib directory.
+#   NO_VERSION_SUFFIX      - Do not add version information to the library name.
+#   LIB_VERSION_SUFFIX     - Override the internal shared library version suffix
+#                            with the input one. The default value is:
+#                            "_${BIFUSD_MAJOR_VERSION}_${BIFUSD_MINOR_VERSION}"
+#
+function(bifusd_create_module_lib module_lib_target export_definition)
+    set(modes
+        "SRC_FILES"
+        "LIB_PREFIX"
+        "LIB_SUFFIX"
+        "HEADER_ONLY_FILES"
+        "PUBLIC_DEFINITIONS"
+        "PRIVATE_DEFINITIONS"
+        "PUBLIC_OPTIONS"
+        "PRIVATE_OPTIONS"
+        "PUBLIC_INCLUDE_DIRS"
+        "PRIVATE_INCLUDE_DIRS"
+        "PUBLIC_LINK_LIBS"
+        "PRIVATE_LINK_LIBS"
+        "PUBLIC_OBJECT_LIBS"
+        "PRIVATE_OBJECT_LIBS"
+        "EXTRA_RPATH"
+        "INSTALL"
+        "INSTALL_TO_BIN"
+        "CUSTOM_OUTPUT_LIB_DIR"
+        "CUSTOM_INSTALL_LIB_DIR"
+        "NO_VERSION_SUFFIX"
+        "LIB_VERSION_SUFFIX"
+    )
+
+    bifusd_extract_options("${modes}" ${ARGN})
+
+    # Header only files are using the same options as the library
+    bifusd_compile_header_only_files(
+        SRC_FILES    ${HEADER_ONLY_FILES}
+        DEFINITIONS  ${PUBLIC_DEFINITIONS}  ${PRIVATE_DEFINITIONS}
+        OPTIONS      ${PUBLIC_OPTIONS}      ${PRIVATE_OPTIONS}
+        INCLUDE_DIRS ${PUBLIC_INCLUDE_DIRS} ${PRIVATE_INCLUDE_DIRS}
+        LINK_LIBS    ${PUBLIC_LINK_LIBS}    ${PRIVATE_LINK_LIBS})
+
+    # Module libraries are versioned.
+    bifusd_version_object_lib(${module_lib_target} ${module_lib_target}VersionInfo
+                             IS_SHARED_LIB "TRUE")
+
+    # Add the objects of object libraries to the list of our sources.
+    set(src_files ${SRC_FILES} $<TARGET_OBJECTS:${module_lib_target}VersionInfo>)
+    foreach(olib ${PRIVATE_OBJECT_LIBS} ${PUBLIC_OBJECT_LIBS})
+        list(APPEND src_files $<TARGET_OBJECTS:${olib}>)
+    endforeach()
+    add_library(${module_lib_target} MODULE ${src_files})
+
+    # The code path in USD's pxr/base/vt/hashmap.h (and hashset.h) is not the
+    # same on Linux when Clang is used instead of GCC.
+    set(public_defs ${PUBLIC_DEFINITIONS})
+    if(UNIX AND NOT APPLE AND (CMAKE_CXX_COMPILER_ID STREQUAL "Clang"))
+        list(APPEND public_defs ARCH_HAS_GNU_STL_EXTENSIONS _GLIBCXX_PERMIT_BACKWARD_HASH)
+    endif()
+
+    target_compile_definitions(${module_lib_target} PRIVATE ${export_definition})
+    target_compile_definitions(${module_lib_target} PUBLIC  ${public_defs})
+    target_compile_definitions(${module_lib_target} PRIVATE ${PRIVATE_DEFINITIONS})
+    target_compile_options(    ${module_lib_target} PUBLIC  ${PUBLIC_OPTIONS})
+    target_compile_options(    ${module_lib_target} PRIVATE ${PRIVATE_OPTIONS})
+
+    bifusd_propagate_target_requirements(
+        ${module_lib_target}
+        PUBLIC_INCLUDE_DIRS  ${PUBLIC_INCLUDE_DIRS}
+        PRIVATE_INCLUDE_DIRS ${PRIVATE_INCLUDE_DIRS}
+        PUBLIC_LINK_LIBS     ${PUBLIC_LINK_LIBS}
+        PRIVATE_LINK_LIBS    ${PRIVATE_LINK_LIBS}
+        PUBLIC_OBJECT_LIBS   ${PUBLIC_OBJECT_LIBS}
+        PRIVATE_OBJECT_LIBS  ${PRIVATE_OBJECT_LIBS} ${module_lib_target}VersionInfo)
+
+    if(${LIB_PREFIX-FOUND})
+        set_target_properties(${module_lib_target} PROPERTIES PREFIX "${LIB_PREFIX}")
+    endif()
+
+    if(${LIB_SUFFIX-FOUND})
+        set_target_properties(${module_lib_target} PROPERTIES SUFFIX "${LIB_SUFFIX}")
+    endif()
+
+    if(${INSTALL-FOUND} OR
+            ${CUSTOM_OUTPUT_LIB_DIR-FOUND} OR
+            ${CUSTOM_INSTALL_LIB_DIR-FOUND})
+
+        if(${INSTALL-FOUND})
+            # Determine output and install directories
+            # On Windows with INSTALL_TO_BIN, use bin directory
+            if(BIFUSD_IS_WINDOWS AND ${INSTALL_TO_BIN-FOUND})
+                set(output_lib_dir ${BIFUSD_OUTPUT_BIN_DIR})
+                set(install_lib_dir ${BIFUSD_INSTALL_BIN_DIR})
+            else()
+                set(output_lib_dir ${BIFUSD_OUTPUT_LIB_DIR})
+                set(install_lib_dir ${BIFUSD_INSTALL_LIB_DIR})
+            endif()
+        endif()
+
+        # Override with custom paths if provided
+        if(${CUSTOM_OUTPUT_LIB_DIR-FOUND})
+            set(output_lib_dir ${CUSTOM_OUTPUT_LIB_DIR})
+        endif()
+
+        if(${CUSTOM_INSTALL_LIB_DIR-FOUND})
+            set(install_lib_dir ${CUSTOM_INSTALL_LIB_DIR})
+        endif()
+
+        bifusd_configure_rpath(${module_lib_target} ${EXTRA_RPATH})
+
+        # Configure version suffix
+        if(${NO_VERSION_SUFFIX-FOUND})
+            set(module_lib_version_suffix "")
+        elseif(${LIB_VERSION_SUFFIX-FOUND})
+            set(module_lib_version_suffix ${LIB_VERSION_SUFFIX})
+        else()
+            set(module_lib_version_suffix "_${BIFUSD_MAJOR_VERSION}_${BIFUSD_MINOR_VERSION}")
+        endif()
+
+        set(module_lib_output_name "${module_lib_target}${module_lib_version_suffix}")
+        set_target_properties(${module_lib_target}
+            PROPERTIES OUTPUT_NAME ${module_lib_output_name})
+
+        # MODULE libraries always use LIBRARY_OUTPUT_DIRECTORY on all platforms
+        # for all library file types (.so, .dylib, .dll):
+        set_target_properties(${module_lib_target} PROPERTIES
+            LIBRARY_OUTPUT_DIRECTORY ${output_lib_dir})
+
+        # .pdb files on Windows
+        if(BIFUSD_IS_WINDOWS)
+            set_target_properties(${module_lib_target} PROPERTIES
+                PDB_OUTPUT_DIRECTORY ${output_lib_dir})
+        endif()
+
+        # Install the module library
+        # Note: without EXPORT since modules are not meant to be linked against.
+        install(
+            TARGETS  ${module_lib_target}
+            LIBRARY DESTINATION ${install_lib_dir})
+
+        if(BIFUSD_HAS_DEBUG_FILES)
+            # Set variables to take custom LIB_PREFIX/LIB_SUFFIX into account
+            set(module_lib_prefix ${CMAKE_SHARED_MODULE_PREFIX})
+            if(${LIB_PREFIX-FOUND})
+                set(module_lib_prefix ${LIB_PREFIX})
+            endif()
+
+            set(module_lib_suffix ${CMAKE_SHARED_MODULE_SUFFIX})
+            if(${LIB_SUFFIX-FOUND})
+                set(module_lib_suffix ${LIB_SUFFIX})
+            endif()
+
+            if(BIFUSD_IS_WINDOWS)
+                install(FILES ${output_lib_dir}/${module_lib_prefix}${module_lib_output_name}.pdb
+                    DESTINATION ${install_lib_dir})
+                if(${BIFUSD_USE_DEBUG_FASTLINK})
+                    set(pdb_file "${CMAKE_INSTALL_PREFIX}/${install_lib_dir}/${module_lib_prefix}${module_lib_output_name}.pdb")
+                    install(CODE "execute_process(COMMAND cmd /c \"${BIFUSD_WINDOWS_MSPDBCMF}\" /nologo ${pdb_file})")
+                endif()
+            endif()
+
+            if(BIFUSD_IS_OSX)
+                # Debugging symbols
+                set(module_lib_file "${module_lib_prefix}${module_lib_output_name}${module_lib_suffix}")
+                set(dsymfile        "${module_lib_file}.dSYM")
+
+                set(dsymtarget      "${output_lib_dir}/${dsymfile}")
+
+                # List the full content so that everything can be cleaned
+                # properly. The listing is in reverse directory order so that
+                # the directory is empty when erased (else an error is
+                # emitted).
+                set(dsymfiles-list
+                    "Contents/Resources/DWARF/${module_lib_file}"
+                    "Contents/Info.plist"
+                    )
+                set(dsymdirs-list
+                    "Contents/Resources/DWARF"
+                    "Contents/Resources"
+                    "Contents"
+                    )
+                foreach(f ${dsymfiles-list} ${dsymdirs-list})
+                    list(APPEND dsymcontent "${dsymtarget}/${f}")
+                endforeach()
+
+                add_custom_command(
+                    OUTPUT ${dsymcontent} ${dsymtarget}
+                    DEPENDS ${module_lib_target}
+                    COMMAND ${BIFUSD_OSX_DSYMUTIL} $<TARGET_FILE:${module_lib_target}> -o ${dsymtarget}
+                    COMMENT "Generating debugging symbols ${dsymfile} for ${module_lib_target}"
+                    VERBATIM)
+                add_custom_target(${module_lib_target}_dsym DEPENDS ${dsymtarget})
+                bifusd_add_to_internal_targets_folder(${module_lib_target}_dsym)
+
+                add_dependencies(bifusd-dsym ${module_lib_target}_dsym)
+
+                # Installation of the debugging symbols
+                foreach(f ${dsymfiles-list})
+                    set(src "${dsymtarget}/${f}")
+                    set(dst "${install_lib_dir}/${dsymfile}/${f}")
+                    get_filename_component(dstdir ${dst} DIRECTORY)
+                    install(FILES ${src} DESTINATION ${dstdir})
+                endforeach()
+            endif()
+        endif()
+    endif()
+
+endfunction(bifusd_create_module_lib)
 
 # Configure and create an executable.
 #
@@ -3240,10 +3506,6 @@ function(print_settings)
     endif()
 
     message(STATUS "gtest      location:          ${BIFUSD_GTEST_LOCATION}")
-
-    if(BIFUSD_TBB_LOCATION)
-        bifusd_print_tbb_locations()
-    endif()
 
     if(BIFUSD_PYTHON_INCLUDED)
         bifusd_print_python_settings()

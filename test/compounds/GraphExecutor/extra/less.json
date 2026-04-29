@@ -1,0 +1,52 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "compounds": [
+        {
+            "name": "Test::Reload::Library::less",
+            "compoundNodes": [
+                {
+                    "nodeName": "less",
+                    "nodeType": "Core::Logic::less"
+                }
+            ],
+            "ports": [
+                {
+                    "portDirection": "input",
+                    "portName": "first",
+                    "portType": "int"
+                },
+                {
+                    "portDirection": "input",
+                    "portName": "second",
+                    "portType": "int"
+                },
+                {
+                    "portDirection": "output",
+                    "portName": "output",
+                    "portType": "bool"
+                }
+            ],
+            "connections": [
+                {
+                    "source": ".first",
+                    "target": "less.first"
+                },
+                {
+                    "source": ".second",
+                    "target": "less.second"
+                },
+                {
+                    "source": "less.output",
+                    "target": ".output"
+                }
+            ]
+        }
+    ]
+}
