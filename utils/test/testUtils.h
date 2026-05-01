@@ -1,5 +1,5 @@
 //-
-// Copyright 2025 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,8 +26,11 @@
 #include <pxr/usd/sdf/declareHandles.h>
 
 #include <cstdlib>
+#include <string>
 
 #include "testUtils_export.h"
+
+using StringArray = Amino::Array<Amino::String>;
 
 namespace BifrostUsd {
 
@@ -40,6 +43,15 @@ inline Amino::String getTestOutputDir() {
 inline Amino::String getTestOutputPath(const Amino::String& filename) {
     return Bifrost::FileUtils::filePath(getTestOutputDir(), filename);
 }
+
+/// \brief Join all messages from a StringArray into a single string for easier
+/// printing.
+USD_TESTUTILS_DECL
+Amino::String printMessages(const StringArray& messages);
+
+/// \brief Utility function to set an environment variable.
+USD_TESTUTILS_DECL
+void setEnv(const char* evName, const char* evValue);
 
 /// \brief Creates a unique subdirectory within the specified base directory.
 ///

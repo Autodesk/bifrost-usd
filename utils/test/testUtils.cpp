@@ -1,5 +1,5 @@
 //-
-// Copyright 2025 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,11 +22,13 @@
 
 #include <atomic>
 #include <chrono>
+#include <cstdlib>
 #include <sstream>
 #include <string>
 
 #ifdef _WIN32
 #include <process.h>
+#include <processenv.h>
 #else
 #include <unistd.h>
 #endif
@@ -34,6 +36,27 @@
 namespace BifrostUsd {
 
 namespace TestUtils {
+
+Amino::String printMessages(const StringArray& messages) {
+    if (messages.empty()) {
+        return "No messages.";
+    } else {
+        std::ostringstream oss;
+        oss << "Messages:\n";
+        for (const auto& message : messages) {
+            oss << message.c_str() << "\n";
+        }
+        return oss.str().c_str();
+    }
+}
+
+void setEnv(const char* evName, const char* evValue) {
+#if defined(_WIN32)
+    _putenv_s(evName, evValue);
+#else
+    setenv(evName, evValue, 1);
+#endif
+}
 
 Amino::String createUniqueSubdir(Amino::StringView baseDirectory,
                                  Amino::StringView prefix,

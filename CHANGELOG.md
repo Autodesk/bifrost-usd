@@ -1,3 +1,23 @@
+## [1.4.3] - 2026-04-24 (Bifrost 3.1.0.8)
+
+### Build
+
+### Feature
+  - BIFROST-13540 - Compounds that are used in quick-create on array input ports now have explicit output types set instead of auto-outputs so that auto fan-in can work.
+    The affected compounds are: _define_usd_attribute_, _define_usd_display_color_
+  - BIFROST-13820 - Add new _get_variant_selection_ node.
+  - BIFROST-13858 - Add new _get_prim_parent_ node.
+  - BIFROST-13862 - Add new _get_time_sample_ node.
+  - BIFROST-13581 - Add new Bifrost Dynamic Payload (experimental).
+    - BIFROST-13582 - Polish initial implementation.
+    - BIFROST-13804 - Add unit tests.
+
+### Bugfix
+  - BIFROST-13592 - In Bifrost Hydra, prevent the Bifrost graph from being re-executed every time a procedural object is selected in Maya Hydra by skipping the re-execution of the graph if no inputs have been changed since the last execution.
+  - BIFROST-13506 - Fix intermittent Bifrost USD test failures caused by TBB shutdown.
+    - Add a `TBBInitGuard` for proper initialization and termination of TBB when running gtests.
+    - Unit tests now link with the TBB shared libraries bundled with Pixar USD instead of the TBB libraries bundled with Bifrost. This prevents intermittent gtest failures during TBB shutdown that were observed in some unit tests on Linux with USD 24.11 and OneTBB 2021.12.
+
 ## [1.4.2] - 2026-03-25 (Bifrost 3.0)
 
 ### Build
@@ -9,7 +29,7 @@
       - Replace some assertions with error logging to avoid early termination without sufficient diagnostic output.
       - Add additional logging to assist with debugging failures (`validate_and_display_config_files()`, `dump_path_env_var()`, `print_tree_recursive()`).
   - BIFROST-13183 – Use unique temporary subdirectories for some unit tests, allowing them to be run multiple times in parallel.
-  - BIFROST-13367 – Update to OpenUSD 0.25.11
+  - BIFROST-13367 – Update to OpenUSD 25.11
 
 ### Feature
   - BIFROST-13178 – Update USD Watchpoint to support all Data Browser features, including layout, sorting, and filtering.
@@ -21,13 +41,14 @@
     - Preserve the Point Instance ID.
     - Copy Point Color data to USD.
   - BIFROST-13511 – Use the new UFE `PathString` to fix an error when creating a USD material through the `bifrost_usd.component_creator` Python module.
+  - BIFROST-13517 - Fix OSX conversion issue with `size_t` type.
 
 ## [1.4.1] - 2025-10-15 (Bifrost 2.15)
 
 ### Build
  - BIFROST-12652 - Relocate Bifrost USD pack's graphs from `/resources/jsonLibs/graphs` to `/resources/graphs` in the installation folder.
  - BIFROST-12791 - Add `BIFUSD_MAYA_TRANSLATIONS_NAME` variable to override usdMayaTranslations extension loaded from Bifrost install.
- - BIFROST-11881 - Update to OpenUSD 0.25.5
+ - BIFROST-11881 - Update to OpenUSD 25.5
 
 ### Bugfix
  - BIFROST-12866 - Fix cpp2json error when setting MaterialPurpose default value.
@@ -60,7 +81,7 @@
 ## [1.3.3] - 2025-03-26 (Bifrost 2.13)
 
 ### Build
- - BIFROST-11259 - update to OpenUSD 0.24.11
+ - BIFROST-11259 - update to OpenUSD 24.11
 
 ### Feature
   - BIFROST-11322 - Add Lookdev workflow
@@ -204,7 +225,7 @@
 ### Build
 
  - BIFROST-9332 - Update to Bifrost 2.9 SDK
- - BIFROST-8981 - Update to USD 0.23.11
+ - BIFROST-8981 - Update to USD 23.11
  - BIFROST-9147 - Make C++17 default
 
 ### Feature

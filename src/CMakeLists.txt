@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2024 Autodesk, Inc.
+# Copyright 2026 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,10 +17,19 @@
 #+
 
 add_subdirectory(BifrostUsd)
-add_subdirectory(graphs)
-add_subdirectory(config)
-add_subdirectory(nodedefs)
 add_subdirectory(compounds)
+add_subdirectory(config)
 add_subdirectory(docs)
+
+add_subdirectory(graphs)
 add_subdirectory(icons)
+add_subdirectory(nodedefs)
 add_subdirectory(watchpoints)
+
+add_subdirectory(GraphExecutor)
+add_subdirectory(UsdTranslator)
+add_subdirectory(DynamicFileFormat)
+
+# Temporarily exclude GraphExecutor from the sdk doxygen pass:
+set_property(GLOBAL APPEND PROPERTY BIFUSD_DOXYGEN_EXCLUDE
+    "${BIFUSD_OUTPUT_INCLUDE_DIR}/BifrostUsd/GraphExecutor")

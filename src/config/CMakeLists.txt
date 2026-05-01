@@ -45,9 +45,10 @@ configure_file(usd_pack_config_compound_dev.json.in ${usd_config_comp_dev_json_t
 set(BIFROST_USD_CONFIG_GRAPHS "")
 
 # Define the CMake variables to replace the ${xyz} variables in the compound_dev config:
-set(USD_SRC_COMPOUND_DEV_CONFIG    ${BIFUSD_COMPOUND_DEV_SOURCE_DIR}/compound-dev.json)
-set(USD_SRC_COMPOUND_DEV_COMPOUNDS ${BIFUSD_COMPOUND_DEV_SOURCE_DIR}/src/compounds)
-set(USD_SRC_COMPOUND_DEV_GRAPHS    ${BIFUSD_COMPOUND_DEV_SOURCE_DIR}/src/graphs)
+set(USD_SRC_COMPOUND_DEV_CONFIG     ${BIFUSD_COMPOUND_DEV_SOURCE_DIR}/compound-dev.json)
+set(USD_SRC_COMPOUND_DEV_COMPOUNDS  ${BIFUSD_COMPOUND_DEV_SOURCE_DIR}/src/compounds)
+set(USD_SRC_COMPOUND_DEV_GRAPHS     ${BIFUSD_COMPOUND_DEV_SOURCE_DIR}/src/graphs)
+set(USD_SRC_COMPOUND_DEV_TEST_ROOT  ${BIFUSD_COMPOUND_DEV_SOURCE_DIR}/test)
 
 # Now substitute the ${xyz} variables (e.g. the json and library locations).
 configure_file(${usd_config_main_json_tpl}      ${usd_config_main_json} )

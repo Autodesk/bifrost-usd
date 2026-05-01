@@ -22,6 +22,9 @@
                 },
                 {
                     "path": "${USD_SRC_COMPOUND_DEV_GRAPHS}"
+                },
+                {
+                    "path": "${USD_SRC_COMPOUND_DEV_TEST_ROOT}/compounds"
                 }
             ],
             "watchPointsTranslationLibs": [

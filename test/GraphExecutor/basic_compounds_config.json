@@ -1,0 +1,14 @@
+{
+    "AminoConfigurations": [
+        {
+            "vendorName": "Autodesk",
+            "libraryName": "bifrost_usd_graph_executor_basic_test_compounds",
+            "libraryVersion": "",
+            "jsonLibs": [
+                {
+                    "path": "../compounds/GraphExecutor/basic"
+                }
+            ]
+        }
+    ]
+}

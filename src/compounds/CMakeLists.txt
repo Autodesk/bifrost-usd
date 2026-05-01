@@ -86,6 +86,10 @@ set(node_def_compound_json
     define_usd_variant_set.json
     duplicate_usd_prim_definition.json
     get_usd_attribute_value.json
+    # ---- compounds for object translation ----
+    array_of_objects_to_stage.json
+    create_prim_definitions_from_object.json
+    object_to_stage.json
 )
 
 foreach(json_file ${node_def_compound_json})

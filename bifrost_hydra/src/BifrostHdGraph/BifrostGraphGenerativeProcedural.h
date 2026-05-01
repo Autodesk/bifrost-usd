@@ -22,6 +22,8 @@
 #include <BifrostHydra/Engine/Engine.h>
 #include <BifrostHydra/Translators/Geometry.h>
 
+#include <limits>
+
 PXR_NAMESPACE_OPEN_SCOPE
 
 
@@ -35,7 +37,7 @@ public:
     HdGpGenerativeProcedural::ChildPrimTypeMap Update(
         const HdSceneIndexBaseRefPtr&                     inputScene,
         const HdGpGenerativeProcedural::ChildPrimTypeMap& previousResult,
-        const HdGpGenerativeProcedural::DependencyMap&    dirtiedDependencies,
+        const HdGpGenerativeProcedural::DependencyMap& /*dirtiedDependencies*/,
         HdSceneIndexObserver::DirtiedPrimEntries* outputDirtiedPrims) override;
 
     HdSceneIndexPrim GetChildPrim(const HdSceneIndexBaseRefPtr& inputScene,
@@ -43,9 +45,13 @@ public:
 
 private:
     using BifrostTranslatorsMap = std::unordered_map<SdfPath, std::shared_ptr<BifrostHd::Geometry>, TfHash>;
+    using Inputs = std::unordered_map<std::string, PXR_NS::VtValue>;
 
     BifrostHd::Engine                    m_engine;
     BifrostTranslatorsMap                m_geomTranslators; 
+    double                               m_cachedFrame{std::numeric_limits<double>::max()};
+
+    Inputs                               m_cachedInputs;
 };
 
 PXR_NAMESPACE_CLOSE_SCOPE

@@ -1,0 +1,48 @@
+#usda 1.0
+(
+    doc = "Base layer example - can be composed with other layers that also use the same BifrostGraph_CompoundName"
+    startTimeCode = 1001
+    endTimeCode = 1100
+    framesPerSecond = 24
+)
+
+def "Instance1" (
+    payload = @anon:autodesk:bifrost.bifrostDynamicFile@
+    references = </DynamicFileFormatField>
+)
+{
+    double BifrostGraph_Globals:timeline_info_end_frame = 1100
+    double BifrostGraph_Globals:timeline_info_start_frame = 1001
+    string BifrostGraph_Options:verbosity_level = "ErrorsOnly"
+    bool BifrostGraph_ReloadLibrary = 0
+    float length = 80
+    int segments = 150
+    float spectral_wave_height = 2
+    float spectral_wave_ocean_depth = 10
+    int spectral_wave_resolution = 256
+    float spectral_wave_space_scale = 0.95
+    float spectral_wave_speed_scale = 1
+    float width = 80
+}
+
+def "DynamicFileFormatField" (
+    BifrostGraph_CompoundName = "Test::DynamicFileFormat::spectral_wave_simulation"
+    BifrostGraph_Globals = {
+        double time_fps = 24
+        double timeline_info_end_frame = 100
+        double timeline_info_start_frame = 1
+    }
+    BifrostGraph_OutputName = "geometry_with_material"
+    BifrostGraph_Params = {
+        float length = 80
+        int segments = 150
+        float spectral_wave_height = 2
+        float spectral_wave_ocean_depth = 10
+        int spectral_wave_resolution = 256
+        float spectral_wave_space_scale = 0.95
+        float spectral_wave_speed_scale = 1
+        float width = 80
+    }
+)
+{
+}

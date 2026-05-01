@@ -1,0 +1,33 @@
+#usda 1.0
+(
+    defaultPrim = "Root"
+    startTimeCode = 0
+    endTimeCode = 0
+)
+
+def "Root" (
+    references = </DynamicFileFormatField>
+    payload = @anon:autodesk:bifrost.bifrostDynamicFile@
+)
+{
+    string BifrostGraph_Options:verbosity_level = "ErrorsOnly"
+    bool BifrostGraph_ReloadLibrary = 0
+}
+
+def "DynamicFileFormatField" (
+    BifrostGraph_CompoundName = "Test::DynamicFileFormat::create_mesh_capsule_with_terminal"
+    BifrostGraph_OutputName = ""
+    BifrostGraph_ReloadLibrary = 0
+    BifrostGraph_Options = {
+        string verbosity_level = "AllMessages"
+    }
+    BifrostGraph_Globals = {
+    }
+    BifrostGraph_Params = {
+        int axis_segments = 40
+        int height_segments = 8
+        int cap_segments = 12
+    }
+)
+{
+}

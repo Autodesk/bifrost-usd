@@ -60,6 +60,12 @@ void get_prim_path(const BifrostUsd::Prim& prim, Amino::String& path)
     USDNODE_DOC_ICON("get_prim_path", "USD_Prim_get_prim_path.md", "usd_pill.svg");
 
 USD_NODEDEF_DECL
+void get_prim_parent(const BifrostUsd::Prim& prim,
+                     Amino::MutablePtr<BifrostUsd::Prim>& parent,
+                     Amino::String& parent_path)
+    USDNODE_DOC_ICON("get_prim_parent", "USD_Prim_get_prim_parent.md", "usd_pill.svg");
+
+USD_NODEDEF_DECL
 bool get_last_modified_prim(Amino::Ptr<BifrostUsd::Stage>       stage,
                             Amino::MutablePtr<BifrostUsd::Prim>& prim)
     USDNODE_DOC_ICON_X("get_last_modified_prim",

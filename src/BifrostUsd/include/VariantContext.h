@@ -1,5 +1,5 @@
 //-
-// Copyright 2024 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -93,7 +93,7 @@ decltype(auto) SetVariantSelection(PXR_NS::UsdPrim const& prim,
 }
 
 /// Set the current stage variants selection and call a lambda func
-/// that can modify the BifrostUSD::Stage.
+/// that can modify the BifrostUsd::Stage.
 template <typename Func>
 decltype(auto) WithVariantContext(BifrostUsd::Stage& stage, Func&& func) {
     const auto& variantSelection = stage.variantSelection();

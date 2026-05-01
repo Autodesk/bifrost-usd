@@ -217,6 +217,8 @@ public:
 
     const Output& getOutput() const { return m_parameters.output(); }
 
+    const Inputs& getInputs() const { return m_parameters.inputs(); }
+
 private:
     BifrostGraph::Executor::Owner<BifrostHd::Workspace> m_workspace{};
     Amino::Executable                                   m_executable{};
@@ -242,5 +244,8 @@ void Engine::setInputs(const PXR_NS::HdSceneIndexPrim& prim) {
 bool Engine::execute(const double frame) { return m_impl->execute(frame); }
 
 const Output& Engine::getOutput() const { return m_impl->getOutput(); }
+
+const Inputs& Engine::getInputs() const { return m_impl->getInputs(); }
+
 
 } // namespace BifrostHd

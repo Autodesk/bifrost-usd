@@ -1,5 +1,5 @@
 //-
-// Copyright 2024 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -91,14 +91,14 @@ void set_volume_field_relationship(VOLUME_FIELD_ASSET_TYPE& fieldPrim,
     volume.CreateFieldRelationship(relationship_name, fieldPrim.GetPath());
 }
 
-PXR_NS::UsdPrim get_prim_at_path(const Amino::String&     path,
-                                 const BifrostUsd::Stage& stage);
+USD_NODEDEF_DECL PXR_NS::UsdPrim get_prim_at_path(const Amino::String&     path,
+                                                  const BifrostUsd::Stage& stage);
 
-PXR_NS::UsdPrim get_prim_or_throw(Amino::String const&     prim_path,
-                               BifrostUsd::Stage const& stage);
+USD_NODEDEF_DECL PXR_NS::UsdPrim get_prim_or_throw(Amino::String const&     prim_path,
+                                                   BifrostUsd::Stage const& stage);
 
-Amino::String resolve_prim_path(const Amino::String&     path,
-                                const BifrostUsd::Stage& stage);
+USD_NODEDEF_DECL Amino::String resolve_prim_path(const Amino::String&     path,
+                                                 const BifrostUsd::Stage& stage);
 
 PXR_NS::SdfVariability GetSdfVariability(
     const BifrostUsd::SdfVariability variablity);

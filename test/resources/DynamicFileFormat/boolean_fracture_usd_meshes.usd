@@ -1,0 +1,38 @@
+#usda 1.0
+(
+    defaultPrim = "Root"
+    startTimeCode = 0
+    endTimeCode = 0
+)
+
+def "Root" (
+    references = </DynamicFileFormatField>
+    payload = @anon:autodesk:bifrost.bifrostDynamicFile@
+)
+{
+    string BifrostGraph_Options:verbosity_level = "ErrorsOnly"
+    bool BifrostGraph_ReloadLibrary = 0
+}
+
+def "DynamicFileFormatField" (
+    BifrostGraph_CompoundName = "Test::DynamicFileFormat::boolean_fracture_usd_meshes"
+    BifrostGraph_OutputName = "shards"
+    BifrostGraph_ReloadLibrary = 0
+    BifrostGraph_Options = {
+        string verbosity_level = "AllMessages"
+    }
+    BifrostGraph_Globals = {
+    }
+    BifrostGraph_Params = {
+        string file = ""
+        bool generate_slicer_planes = true
+        Vec3i slicer_plane_count = (0, 2, 0)
+        int random_seed = 0
+        float orientation_spread = 0.5
+        bool apply_displacement = false
+        float expand_amount = 1.5
+        bool display_planes = false
+    }
+)
+{
+}

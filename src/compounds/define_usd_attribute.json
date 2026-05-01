@@ -266,7 +266,8 @@
                 },
                 {
                     "portName": "attribute_definition",
-                    "portDirection": "output"
+                    "portDirection": "output",
+                    "portType": "Object"
                 }
             ],
             "compounds": [

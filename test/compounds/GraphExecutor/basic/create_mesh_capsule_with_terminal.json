@@ -1,0 +1,493 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "Test::GraphExecutor::create_mesh_capsule_with_terminal",
+            "metadata": [
+                {
+                    "metaName": "io_nodes",
+                    "metadata": [
+                        {
+                            "metaName": "io_inodes",
+                            "metadata": [
+                                {
+                                    "metaName": "input",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "axis_segments"
+                                                },
+                                                {
+                                                    "metaName": "height_segments"
+                                                },
+                                                {
+                                                    "metaName": "cap_segments"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "42.000000"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "-264.953 -28.791"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "io_onodes",
+                            "metadata": [
+                                {
+                                    "metaName": "output",
+                                    "metadata": [
+                                        {
+                                            "metaName": "DisplayMode",
+                                            "metaType": "string",
+                                            "metaValue": "2"
+                                        },
+                                        {
+                                            "metaName": "LayoutPos",
+                                            "metaType": "string",
+                                            "metaValue": "813.467 61.5348"
+                                        },
+                                        {
+                                            "metaName": "io_ports",
+                                            "metadata": [
+                                                {
+                                                    "metaName": "capsule_mesh"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "metaName": "zValue",
+                                            "metaType": "string",
+                                            "metaValue": "35.000000"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "metaName": "ViewportRect",
+                    "metaType": "string",
+                    "metaValue": "-456.444 -144 1113.52 1067"
+                },
+                {
+                    "metaName": "DisplayMode",
+                    "metaType": "string",
+                    "metaValue": "2"
+                },
+                {
+                    "metaName": "zValue",
+                    "metaType": "string",
+                    "metaValue": "81.000000"
+                },
+                {
+                    "metaName": "LayoutPos",
+                    "metaType": "string",
+                    "metaValue": "307.344 248.84"
+                }
+            ],
+            "terminalStates": [
+                {
+                    "name": "Core::Graph::terminal::final",
+                    "enabled": "true"
+                },
+                {
+                    "name": "Core::Graph::terminal::proxy",
+                    "enabled": "false"
+                },
+                {
+                    "name": "Core::Graph::terminal::diagnostic",
+                    "enabled": "false"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "capsule_mesh",
+                    "portDirection": "output",
+                    "portType": "Object"
+                },
+                {
+                    "portName": "axis_segments",
+                    "portDirection": "input",
+                    "portType": "int",
+                    "portDefault": "40L"
+                },
+                {
+                    "portName": "height_segments",
+                    "portDirection": "input",
+                    "portType": "int",
+                    "portDefault": "8L"
+                },
+                {
+                    "portName": "cap_segments",
+                    "portDirection": "input",
+                    "portType": "int",
+                    "portDefault": "12L"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "create_mesh_capsule_proxy",
+                    "nodeType": "Modeling::Primitive::create_mesh_capsule",
+                    "terminalStates": [
+                        {
+                            "name": "Core::Graph::terminal::diagnostic",
+                            "enabled": "false"
+                        }
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "Transform",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "58.2952 408.606"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "41.000000"
+                        },
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "terminal",
+                    "nodeType": "Core::Graph::terminal",
+                    "fanInPortNames": {
+                        "final": [
+                            "capsule_mesh"
+                        ],
+                        "proxy": [
+                            "capsule_mesh"
+                        ],
+                        "diagnostic": [
+                            "cube_mesh"
+                        ]
+                    },
+                    "terminalStates": [
+                        {
+                            "name": "Core::Graph::terminal::diagnostic",
+                            "enabled": "true"
+                        },
+                        {
+                            "name": "Core::Graph::terminal::final",
+                            "enabled": "true"
+                        },
+                        {
+                            "name": "Core::Graph::terminal::proxy",
+                            "enabled": "true"
+                        }
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "2"
+                        },
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "diagnostic",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "proxy",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "487.248 380.74"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "36.000000"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_mesh_cube_diagnostic",
+                    "nodeType": "Modeling::Primitive::create_mesh_cube",
+                    "metadata": [
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "40.000000"
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "78.7111 888.107"
+                        }
+                    ]
+                },
+                {
+                    "nodeName": "create_mesh_capsule_final",
+                    "nodeType": "Modeling::Primitive::create_mesh_capsule",
+                    "terminalStates": [
+                        {
+                            "name": "Core::Graph::terminal::diagnostic",
+                            "enabled": "false"
+                        }
+                    ],
+                    "metadata": [
+                        {
+                            "metaName": "PortExpandedState",
+                            "metadata": [
+                                {
+                                    "metaName": "Transform",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                },
+                                {
+                                    "metaName": "Dimensions",
+                                    "metaType": "string",
+                                    "metaValue": "0"
+                                },
+                                {
+                                    "metaName": "Geometry",
+                                    "metaType": "string",
+                                    "metaValue": "1"
+                                }
+                            ]
+                        },
+                        {
+                            "metaName": "LayoutPos",
+                            "metaType": "string",
+                            "metaValue": "47.7746 -45.6204"
+                        },
+                        {
+                            "metaName": "zValue",
+                            "metaType": "string",
+                            "metaValue": "43.000000"
+                        },
+                        {
+                            "metaName": "DisplayMode",
+                            "metaType": "string",
+                            "metaValue": "1"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                {
+                    "source": "create_mesh_cube_diagnostic.cube_mesh",
+                    "target": "terminal.diagnostic.cube_mesh"
+                },
+                {
+                    "source": "create_mesh_capsule_proxy.capsule_mesh",
+                    "target": "terminal.proxy.capsule_mesh"
+                },
+                {
+                    "source": "create_mesh_capsule_final.capsule_mesh",
+                    "target": "terminal.final.capsule_mesh"
+                },
+                {
+                    "source": "create_mesh_capsule_final.capsule_mesh",
+                    "target": ".capsule_mesh"
+                },
+                {
+                    "source": ".axis_segments",
+                    "target": "create_mesh_capsule_final.axis_segments"
+                },
+                {
+                    "source": ".height_segments",
+                    "target": "create_mesh_capsule_final.height_segments"
+                },
+                {
+                    "source": ".cap_segments",
+                    "target": "create_mesh_capsule_final.cap_segments"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "create_mesh_capsule_proxy.radius",
+                    "valueType": "float",
+                    "value": "1f"
+                },
+                {
+                    "valueName": "create_mesh_capsule_proxy.height",
+                    "valueType": "float",
+                    "value": "1f"
+                },
+                {
+                    "valueName": "create_mesh_capsule_proxy.axis_segments",
+                    "valueType": "int",
+                    "value": "8L"
+                },
+                {
+                    "valueName": "create_mesh_capsule_proxy.height_segments",
+                    "valueType": "int",
+                    "value": "1L"
+                },
+                {
+                    "valueName": "create_mesh_capsule_proxy.cap_segments",
+                    "valueType": "int",
+                    "value": "3L"
+                },
+                {
+                    "valueName": "create_mesh_capsule_proxy.create_UVs",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "create_mesh_capsule_proxy.position",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "0f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_capsule_proxy.up_axis",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "1f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_capsule_proxy.base_to_pivot",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "create_mesh_cube_diagnostic.length",
+                    "valueType": "float",
+                    "value": "2f"
+                },
+                {
+                    "valueName": "create_mesh_cube_diagnostic.width",
+                    "valueType": "float",
+                    "value": "2f"
+                },
+                {
+                    "valueName": "create_mesh_cube_diagnostic.height",
+                    "valueType": "float",
+                    "value": "3f"
+                },
+                {
+                    "valueName": "create_mesh_cube_diagnostic.base_to_pivot",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "create_mesh_capsule_final.radius",
+                    "valueType": "float",
+                    "value": "1f"
+                },
+                {
+                    "valueName": "create_mesh_capsule_final.height",
+                    "valueType": "float",
+                    "value": "1f"
+                },
+                {
+                    "valueName": "create_mesh_capsule_final.axis_segments",
+                    "valueType": "int",
+                    "value": "40L"
+                },
+                {
+                    "valueName": "create_mesh_capsule_final.height_segments",
+                    "valueType": "int",
+                    "value": "8L"
+                },
+                {
+                    "valueName": "create_mesh_capsule_final.cap_segments",
+                    "valueType": "int",
+                    "value": "12L"
+                },
+                {
+                    "valueName": "create_mesh_capsule_final.create_UVs",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "create_mesh_capsule_final.position",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "0f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_capsule_final.up_axis",
+                    "valueType": "Math::float3",
+                    "value": {
+                        "x": "0f",
+                        "y": "1f",
+                        "z": "0f"
+                    }
+                },
+                {
+                    "valueName": "create_mesh_capsule_final.base_to_pivot",
+                    "valueType": "bool",
+                    "value": "true"
+                }
+            ],
+            "reservedNodeNames": [
+                {
+                    "name": "input"
+                },
+                {
+                    "name": "output"
+                }
+            ],
+            "libraryDependencies": {
+                "Amino": "2.16.0.10",
+                "bif": "2.16.0.10"
+            }
+        }
+    ]
+}

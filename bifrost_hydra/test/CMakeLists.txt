@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2024 Autodesk, Inc.
+# Copyright 2026 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ set(test_files
 set(lib_config_files
     ${BIFUSD_EXTRA_CONFIG_FILES}
     ${BIFUSD_OUTPUT_ROOT_DIR}/bifrost_hydra_translation.json
-    ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json # TODO: remove when BIFROST-9995 is done.
+    ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json
     ${PROJECT_SOURCE_DIR}/bifrost_hydra/test/test_bif_geo_compounds_config.json
 )
 

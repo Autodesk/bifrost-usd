@@ -1,0 +1,66 @@
+{
+    "Plugins": [
+        {
+            "LibraryPath": "@BIFROST_DFF_REL_SHARED_LIB_DIR@/@CMAKE_SHARED_MODULE_PREFIX@BifrostUsdDynamicFileFormat_@BIFUSD_MAJOR_VERSION@_@BIFUSD_MINOR_VERSION@@CMAKE_SHARED_MODULE_SUFFIX@",
+            "Name": "bifrostDynamicFileFormat",
+            "ResourcePath": ".",
+            "Root": "..",
+            "Type": "library",
+            "Info": {
+                "Types": {
+                    "BifrostDynamicFileFormat": {
+                        "bases": [
+                            "SdfFileFormat"
+                        ],
+                        "displayName": "Bifrost Dynamic File Format",
+                        "extensions": [
+                            "bifrostDynamicFile"
+                        ],
+                        "formatId": "bifrostDynamicFile",
+                        "primary": true,
+                        "target": "usd"
+                    }
+                },
+                "SdfMetadata": {
+                    "BifrostGraph_CompoundName": {
+                        "type": "string",
+                        "displayGroup": "Core",
+                        "appliesTo": ["prims"],
+                        "documentation:": "The Bifrost compound fully qualified name."
+                    },
+                    "BifrostGraph_OutputName": {
+                        "type": "string",
+                        "displayGroup": "Core",
+                        "appliesTo": ["prims"],
+                        "documentation:": "The Bifrost Compound output port name."
+                    },
+                    "BifrostGraph_Options": {
+                        "type": "dictionary",
+                        "displayGroup": "Core",
+                        "appliesTo": ["prims"],
+                        "documentation:": "Bifrost Graph options."
+                    },
+                    "BifrostGraph_Globals": {
+                        "type": "dictionary",
+                        "displayGroup": "Core",
+                        "appliesTo": ["prims"],
+                        "documentation:": "The Bifrost Graph Global Variables."
+                    },
+                    "BifrostGraph_ReloadLibrary": {
+                        "type": "bool",
+                        "default": 0,
+                        "displayGroup": "Core",
+                        "appliesTo": ["prims"],
+                        "documentation:": "To reload the Bifrost library."
+                    },
+                    "BifrostGraph_Params": {
+                        "type": "dictionary",
+                        "displayGroup": "Core",
+                        "appliesTo": ["prims"],
+                        "documentation:": "To set the Bifrost compound inputs."
+                    }
+                }
+            }
+        }
+    ]
+}

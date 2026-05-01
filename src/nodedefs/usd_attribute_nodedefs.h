@@ -252,6 +252,15 @@ bool get_prim_attribute_connections(const BifrostUsd::Attribute&  attribute,
                        "prim_att.svg",
                        "outName=success");
 
+USD_NODEDEF_DECL
+bool get_time_samples(
+    const BifrostUsd::Attribute&              attribute,
+    Amino::MutablePtr<Amino::Array<double>>& time_samples)
+    USDNODE_DOC_ICON_X("get_time_samples",
+                       "USD_Attribute_get_time_samples.md",
+                       "usd_get.svg",
+                       "outName=success");
+
 #define SET_ATTRIBUTE_METADATA(VALUE_TYPE)                                   \
     USD_NODEDEF_DECL                                                         \
     bool set_attribute_metadata(                                             \

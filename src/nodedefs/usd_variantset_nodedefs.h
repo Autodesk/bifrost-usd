@@ -87,6 +87,16 @@ void get_variants(
                      "USD_VariantSet_get_variants.md",
                      "usd_variant.svg");
 
+USD_NODEDEF_DECL
+void get_variant_selection(
+    const BifrostUsd::Stage& stage,
+    const Amino::String&     prim_path,
+    const Amino::String&     variant_set_name,
+    Amino::String&           selection)
+    USDNODE_DOC_ICON("get_variant_selection",
+                     "USD_VariantSet_get_variant_selection.md",
+                     "usd_variant.svg");
+
 } // namespace VariantSet
 } // namespace USD
 
