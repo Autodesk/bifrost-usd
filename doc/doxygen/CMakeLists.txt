@@ -117,6 +117,7 @@ function(bifrost_usd_build_doc doxy_doc_type)
 
     add_custom_command(
         TARGET ${BIFUSD_PACKAGE_NAME}_apidoc-clean
+        POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E remove_directory
         ${doxy_output_root}/html)
 

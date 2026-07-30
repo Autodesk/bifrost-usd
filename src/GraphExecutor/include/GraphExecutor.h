@@ -21,7 +21,8 @@
 
 #include "GraphExecutorExport.h"
 
-#include <BifrostUsd/GraphExecutor/Types.h>
+#include "GraphExecutorConstants.h"
+#include "GraphExecutorTypes.h"
 
 // Amino
 #include <Amino/Core/Any.h>
@@ -37,50 +38,22 @@
 
 // C++ Standard Library
 #include <cstdint>
-#include <map>
 #include <memory>
+#include <string>
+#include <unordered_map>
 
 /// \brief Alias for an array of Amino::String.
 using StringArray = Amino::Array<Amino::String>;
 
 namespace BifrostUsd::GraphExecutor {
 
-/// \brief Alias for graph input arguments.
-using GraphArgs = std::map<Amino::String, Amino::Any>;
-
-/// \brief Types of terminal ports in the graph.
-enum class TerminalType : uint8_t {
-    /// Final terminal output.
-    eFinal = 0,
-    /// Proxy terminal output.
-    eProxy = 1,
-    /// Diagnostic terminal output.
-    eDiagnostic = 2
-};
-
 /// \brief Convert a TerminalType enum value to its string representation.
 ///
 /// \param [in] type The terminal type to convert.
 /// \return The fully-qualified terminal port name string corresponding to
 ///     \p type.
-constexpr Amino::StringView terminalTypeToString(TerminalType type);
-
-/// \brief Settings for timeline configuration in graph execution.
-struct TimelineSettings {
-    /// Start frame of the timeline.
-    double startFrame = 1.0;
-    /// End frame of the timeline.
-    double endFrame = 1.0;
-    /// Minimum frame value.
-    double minFrame = 1.0;
-    /// Maximum frame value.
-    double maxFrame = 1.0;
-    /// Step between frames.
-    double frameStep = 1.0;
-};
-
-/// \brief Default frame rate (frames per second) to use if not set explicitly.
-constexpr double defaultFps = 24.0;
+BIFROSTUSD_GRAPH_EXECUTOR_DECL
+Amino::StringView terminalTypeToString(TerminalType type);
 
 //------------------------------------------------------------------------------
 // Class GraphExecutor
@@ -91,35 +64,53 @@ public:
     /// \brief Destructor.
     BIFROSTUSD_GRAPH_EXECUTOR_DECL ~GraphExecutor() = default;
 
-    /// \brief Create and set the graph inputs for the next execution.
+    /// \brief Retrieve the names of all input ports declared by the graph.
     ///
-    /// Creates a new ExecutionInputs object and sets the input values based on
-    /// the provided \p args. Each entry in \p args is mapped to a matching
-    /// graph input port by name and type. Inputs with names not found in
-    /// \p args are left unset. If a name matches but the type does not, the
-    /// input is skipped.
+    /// Returns the names of all input ports of the underlying Bifrost
+    /// compound, in graph declaration order. This method can be called at
+    /// any time, independently of setInput() or execute().
     ///
-    /// \note This method must be called before every call to execute(), as the
-    ///     ExecutionInputs are consumed by execute() and must be reset for each
-    ///     subsequent execution.
-    ///
-    /// \param [in] args A map of input port names to their values.
-    /// \return true if resulting ExecutionInputs are valid; false otherwise.
-    BIFROSTUSD_GRAPH_EXECUTOR_DECL bool setGraphInputs(GraphArgs const& args);
+    /// \return An array of input port name strings.
+    BIFROSTUSD_GRAPH_EXECUTOR_DECL StringArray getInputPortNames() const;
 
-    /// \brief Create and set the graph inputs for the next execution,
+    /// \brief Retrieve the names of all output ports declared by the graph.
+    ///
+    /// Returns the names of all output ports of the underlying Bifrost
+    /// compound, in graph declaration order. This method can be called at
+    /// any time, independently of execute().
+    ///
+    /// \return An array of output port name strings.
+    BIFROSTUSD_GRAPH_EXECUTOR_DECL StringArray getOutputPortNames() const;
+
+    /// \brief Set a single graph input port value for the next execution.
+    ///
+    /// Calls ensureInputsCreated() to lazily initialize the ExecutionInputs
+    /// if needed, then sets the value for the named input port. An error is
+    /// reported if the port name is not found in the graph or if the value
+    /// type does not match the port's declared type.
+    ///
+    /// \param [in] name  The name of the input port to set.
+    /// \param [in] value The value to assign. Must match the port's declared
+    ///     type.
+    /// \return true if the input was set successfully; false on any error.
+    BIFROSTUSD_GRAPH_EXECUTOR_DECL bool setInput(Amino::StringView name,
+                                                 const Amino::Any& value);
+
+    /// \brief Set a single graph input port value for the next execution,
     /// collecting error messages.
     ///
-    /// Equivalent to setGraphInputs(GraphArgs const&), but any diagnostic
-    /// messages generated during the call are collected in \p messages.
+    /// Equivalent to setInput(Amino::StringView, const Amino::Any&), but any
+    /// error messages generated during the call are appended to \p messages.
     ///
-    /// \param [in] args A map of input port names to their values.
-    /// \param [out] messages Array that collects diagnostic messages generated
-    ///     during the call. This array is cleared at the start of the function
-    ///     call.
-    /// \return true if resulting ExecutionInputs are valid; false otherwise.
-    BIFROSTUSD_GRAPH_EXECUTOR_DECL bool setGraphInputs(GraphArgs const& args,
-                                                       StringArray& messages);
+    /// \param [in]  name     The name of the input port to set.
+    /// \param [in]  value    The value to assign. Must match the port's
+    ///     declared type.
+    /// \param [out] messages Array that collects error messages. Cleared at
+    ///     the start of the call.
+    /// \return true if the input was set successfully; false on any error.
+    BIFROSTUSD_GRAPH_EXECUTOR_DECL bool setInput(Amino::StringView name,
+                                                 const Amino::Any& value,
+                                                 StringArray&      messages);
 
     /// \brief Set the \c Simulation::timeline_info global variable.
     ///
@@ -159,11 +150,11 @@ public:
 
     /// \brief Execute the graph.
     ///
-    /// Runs the graph using inputs previously set via setGraphInputs(), which
+    /// Runs the graph using inputs previously set via setInput(), which
     /// must be called before every execution. Optionally,
     /// setTimelineSettings(), setFps(), and setFrame() may also be called
     /// beforehand to configure additional inputs. The ExecutionInputs are
-    /// consumed by this call, so setGraphInputs() must be called again before
+    /// consumed by this call, so setInput() must be called again before
     /// the next execution.
     ///
     /// \param [in] verbosityLevel Controls the verbosity of diagnostic output
@@ -252,9 +243,23 @@ private:
     GraphExecutor& operator=(GraphExecutor&&)      = delete;
     /// \}
 
+    /// \brief Lazily initialize m_executionInputs if not already valid.
+    ///
+    /// Creates a fresh ExecutionInputs from the current Executable if
+    /// m_executionInputs is not currently valid (e.g., after construction or
+    /// after execute() has consumed the previous inputs).
+    void ensureInputsCreated();
+
 private:
     /// \brief The Amino Executable graph to run.
     Amino::Executable m_executable;
+    /// \brief Lookup map from input port name to InputRef, built once in the
+    /// constructor. Provides O(1) name lookup in setInput() instead of an O(m)
+    /// linear scan through graph inputs on every call.
+    /// The graph structure (input port names, indices, type IDs) is immutable
+    /// for the lifetime of the Executable, so this is safe to build this map
+    /// once and reuse it for the lifetime of the GraphExecutor.
+    std::unordered_map<std::string, Amino::Graph::InputRef> m_inputRefByName;
     /// \brief The graph input arguments for the next execution.
     Amino::ExecutionInputs m_executionInputs;
     /// \brief The graph output results from the last execution.

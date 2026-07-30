@@ -86,7 +86,7 @@ if(NOT IS_BIFUSD_STANDALONE)
     # Tests require our own TBBInitGuard that needs to be built with the TBB that
     # is shipped with USD, so we first need to detect what/where is the USD's TBB:
     include(${BIFUSD_TOOLS_DIR}/bifusd_detect_usd_tbb.cmake)
-    bifusd_detect_usd_tbb(usd FALSE) # verbose=FALSE
+    bifusd_detect_usd_tbb(FALSE) # verbose=FALSE
 
     # Add our TBBInitGuard to properly initialize and terminate TBB's scheduler:
     add_subdirectory(${BIFUSD_TOOLS_DIR}/src/tbb tbb)

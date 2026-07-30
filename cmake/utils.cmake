@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2024 Autodesk, Inc.
+# Copyright 2026 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ function(configure_bifusd_unittest unittest_src_file test_module_name)
         "EXTRA_SRC_FILES"
         "SERIAL"
         "KLUDGE_LINK_OPTIONS"
+        "TIMEOUT"
     )
 
     bifusd_extract_options("${modes}" ${ARGN})
@@ -49,7 +50,7 @@ function(configure_bifusd_unittest unittest_src_file test_module_name)
 
     set(link_libs
         bifusd_gtest_main
-        BifrostUSDTestUtils
+        BifrostUsdTestUtils
         ${LINK_LIBS}
     )
 
@@ -100,7 +101,12 @@ function(configure_bifusd_unittest unittest_src_file test_module_name)
         target_link_options( ${unittest_target} BEFORE PRIVATE ${KLUDGE_LINK_OPTIONS})
     endif()
 
-    if (BIFUSD_IS_DEBUG)
+    # An explicit TIMEOUT (in seconds) overrides both the Debug default and
+    # the ctest global --timeout. This is the right knob for tests that take
+    # much longer than the global default (e.g. under Valgrind or sanitizers).
+    if(TIMEOUT-FOUND)
+        set_tests_properties( ${unittest_target} PROPERTIES TIMEOUT ${TIMEOUT} )
+    elseif (BIFUSD_IS_DEBUG)
         set_tests_properties( ${unittest_target} PROPERTIES TIMEOUT 600 )
     endif()
 

@@ -14,18 +14,15 @@ def "World"
         references = </DynamicFileFormatField1>
     )
     {
-        string name = "geo"
-        asset layer_path = @/tmp/helix/helix.usda@
-        int count = 4
-        token prim_type = "Cylinder"
-        float length = 2.0
-        #float rotations = 6.0
-        #float width = 3.0
-        #bool horizontal = 1
-        Vec3f translation = (1.0, 2.0, 3.0)
+        string bifrost:in:name = "geo"
+        asset bifrost:in:layer_path = @/tmp/helix/helix.usda@
+        int bifrost:in:count = 4
+        token bifrost:in:prim_type = "Cylinder"
+        float bifrost:in:length = 2.0
+        Vec3f bifrost:in:translation = (1.0, 2.0, 3.0)
 
-        string BifrostGraph_Options:verbosity_level = "ErrorsOnly"
-        bool BifrostGraph_ReloadLibrary = 0
+        string bifrost:setting:verbosityLevel = "ErrorsOnly"
+        bool bifrost:setting:reloadLibrary = false
     }
 
     def "Instance2" (
@@ -33,59 +30,54 @@ def "World"
         references = </DynamicFileFormatField2>
     )
     {
-        asset surface_file = @@
-        asset prototype_file = @@
-        float scatter_radius = 0.57
-        float min_instance_scale = 1
-        float max_instance_scale = 1
-        bool orient_from_surface = 1
-        Vec3f rotation_axis_angle = (1, 0, 0)
-        bool rotation_enable_randomize = 0
-        float rotation_random_factor = 0.25
-        int surface_mesh_index = 0
-        string surface_mesh_prim_path = ""
-        float displacement_factor = 0
+        asset bifrost:in:surface_file = @@
+        asset bifrost:in:prototype_file = @@
+        float bifrost:in:scatter_radius = 0.57
+        float bifrost:in:min_instance_scale = 1
+        float bifrost:in:max_instance_scale = 1
+        bool bifrost:in:orient_from_surface = 1
+        Vec3f bifrost:in:rotation_axis_angle = (1, 0, 0)
+        bool bifrost:in:rotation_enable_randomize = 0
+        float bifrost:in:rotation_random_factor = 0.25
+        int bifrost:in:surface_mesh_index = 0
+        string bifrost:in:surface_mesh_prim_path = ""
+        float bifrost:in:displacement_factor = 0
 
-        string BifrostGraph_Options:verbosity_level = "ErrorsOnly"
-        bool BifrostGraph_ReloadLibrary = 0
+        string bifrost:setting:verbosityLevel = "ErrorsOnly"
+        bool bifrost:setting:reloadLibrary = false
     }
 }
 
 def "DynamicFileFormatField1" (
-    BifrostGraph_CompoundName = "Test::DynamicFileFormat::create_helix_of_prims"
-    BifrostGraph_OutputName = "stage"
-    BifrostGraph_ReloadLibrary = 0
-    BifrostGraph_Options = {
-        string verbosity_level = "AllMessages";
+    bifrostCompound = {
+        string name = "Test::DynamicFileFormat::create_helix_of_prims"
     }
-    BifrostGraph_Params = {
+    bifrostInputs = {
         string name = "shape"
-        string layer_path = ""
+        asset layer_path = ""
         string model_file_path = ""
         bool save = 1
         int count = 2
         token prim_type = "Capsule"
         float length = 1.0
         Vec3f translation = (0.0, 0.0, 0.0)
-
-        #float rotations = 4.0
-        #float width = 2.0
-        #bool horizontal = 0
+    }
+    bifrostOutputs = ["stage"]
+    bifrostSettings = {
+        string verbosityLevel = "AllMessages";
+        bool reloadLibrary = false
     }
 )
 {
 }
 
 def "DynamicFileFormatField2" (
-    BifrostGraph_CompoundName = "Test::DynamicFileFormat::scatter_on_surface"
-    BifrostGraph_OutputName = "stage"
-    BifrostGraph_ReloadLibrary = 0
-    BifrostGraph_Options = {
-        string verbosity_level = "AllMessages";
+    bifrostCompound = {
+        string name = "Test::DynamicFileFormat::scatter_on_surface"
     }
-    BifrostGraph_Params = {
-        string surface_file = ""
-        string prototype_file = ""
+    bifrostInputs = {
+        asset surface_file = ""
+        asset prototype_file = ""
         float scatter_radius = 0.57
         float min_instance_scale = 1
         float max_instance_scale = 1
@@ -96,6 +88,11 @@ def "DynamicFileFormatField2" (
         int surface_mesh_index = 0
         string surface_mesh_prim_path = ""
         float displacement_factor = 0
+    }
+    bifrostOutputs = ["stage"]
+    bifrostSettings = {
+        string verbosityLevel = "AllMessages";
+        bool reloadLibrary = false
     }
 )
 {

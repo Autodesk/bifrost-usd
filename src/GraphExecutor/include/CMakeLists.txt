@@ -18,10 +18,11 @@
 
 set(library_headers
     GraphExecutor.h
+    GraphExecutorConstants.h
     GraphExecutorExport.h
     GraphExecutorFactory.h
+    GraphExecutorTypes.h
     StreamObserver.h
-    Types.h
 )
 
 bifusd_install_headers(
@@ -35,7 +36,6 @@ bifusd_install_headers(
 # internal consumers (UsdTranslator, DynamicFileFormat, tests) can include
 # them, but NOT installed as part of the public package API.
 set(internal_headers
-    GraphExecutorConstants.h
     GraphExecutorFactoryInternal.h
 )
 foreach(internal_header ${internal_headers})

@@ -24,11 +24,11 @@ set(libs
     bifusd_gtest
     BifusdTBB
     BifusdTBBHelpers
-    BifrostUSD
-    BifrostUSDNodedefs
+    BifrostUsd
+    BifrostUsdNodedefs
     Amino::Core
     BifrostGraph::Executor
-    BifrostUSDTestUtils
+    BifrostUsdTestUtils
 )
 
 #------------------------------------------------------------------------------

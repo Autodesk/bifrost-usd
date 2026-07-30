@@ -29,7 +29,7 @@ set(libs
     BifrostGraph::Executor
     BifrostHdTranslators
     BifrostHdEngine
-    BifrostUSDTestUtils
+    BifrostUsdTestUtils
     BifrostHdTestUtils
 )
 

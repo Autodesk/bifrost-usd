@@ -39,20 +39,20 @@ using namespace Amino::StringViewLiterals;
 
 namespace BifrostUsd::DynamicPayload {
 
-template <typename BifrostGeoType>
-Amino::Ptr<BifrostUsd::Stage> get_stage_from_compound(
-    Amino::StringView            compound_fully_qualified_name,
-    Amino::StringView            bifrost_geo_input_name,
-    const BifrostGeoType&        bifrost_geo_input_value,
+namespace {
+constexpr auto kDefaultPrimPath = Amino::StringView{"/root"};
+
+Amino::Ptr<BifrostUsd::Stage> get_stage_from_objects(
+    const ObjectArrayPtr&        objects,
     Amino::ExecutionState&       translatorState,
-    const Amino::String&         layer_name,
+    const Amino::String&         identifier,
     BifrostUsd::ImageablePurpose purpose,
     bool                         use_frame,
     float                        frame,
     bool                         varying_topology) {
     StringArray       errors;
     Amino::Executable executable =
-        GraphExecutor::makeExecutable(compound_fully_qualified_name, errors);
+        GraphExecutor::makeExecutable("USD::IO::objects_to_stage"_asv, errors);
     if (!executable) {
         // This is unexpected, since the compounds used in this file should have
         // been loaded through regular config files.
@@ -62,8 +62,9 @@ Amino::Ptr<BifrostUsd::Stage> get_stage_from_compound(
 
     auto callable = Amino::ExecutableT{
         std::move(executable), // untyped executable
-        Ports{Port<BifrostGeoType>{bifrost_geo_input_name},
-              Port<Amino::String>{"layer_name"},
+        Ports{Port<const ObjectArrayPtr>{"objects"_asv},
+              Port<Amino::String>{"identifier"},
+              Port<Amino::String>{"default_prim_path"},
               Port<BifrostUsd::ImageablePurpose>{"purpose"},
               Port<bool>{"use_frame"}, Port<float>{"frame"},
               Port<bool>{"varying_topology"}}, // input names, types
@@ -81,51 +82,38 @@ Amino::Ptr<BifrostUsd::Stage> get_stage_from_compound(
     Amino::Ptr<BifrostUsd::Stage> stage;
 
     std::tie(stage, translatorState) =
-        callable(bifrost_geo_input_value, layer_name, purpose, use_frame, frame,
-                 varying_topology, std::move(translatorState),
-                 observer.getNotifier());
+        callable(objects, identifier, kDefaultPrimPath.data(),
+                 purpose, use_frame, frame, varying_topology,
+                 std::move(translatorState), observer.getNotifier());
 
     return stage;
 }
 
-Amino::Ptr<BifrostUsd::Stage> object_to_stage(
-    const Amino::Ptr<Bifrost::Object>& object,
-    const Amino::String&               layer_name,
+} // namespace
+
+Amino::Ptr<BifrostUsd::Stage> objects_to_stage(
+    const ObjectArrayPtr&              objects,
+    const Amino::String&               identifier,
     const BifrostUsd::ImageablePurpose purpose) {
-    Amino::ExecutionState dummyState;
+    Amino::ExecutionState unusedState;
     bool                  use_frame        = false;
     float                 frame            = 0.f;
     bool                  varying_topology = false;
-    return get_stage_from_compound("USD::IO::object_to_stage"_asv, "object"_asv,
-                                   object, dummyState, layer_name, purpose,
+
+    return get_stage_from_objects(objects, unusedState, identifier, purpose,
                                    use_frame, frame, varying_topology);
 }
 
-Amino::Ptr<BifrostUsd::Stage> object_to_stage(
-    const Amino::Ptr<Bifrost::Object>& object,
-    Amino::ExecutionState&             translatorState,
-    const Amino::String&               layer_name,
-    BifrostUsd::ImageablePurpose       purpose,
-    float                              frame,
-    bool                               varying_topology) {
+Amino::Ptr<BifrostUsd::Stage> objects_to_stage(
+    const ObjectArrayPtr&        objects,
+    Amino::ExecutionState&       translatorState,
+    const Amino::String&         identifier,
+    BifrostUsd::ImageablePurpose purpose,
+    float                        frame,
+    bool                         varying_topology) {
     bool use_frame = true;
-    return get_stage_from_compound("USD::IO::object_to_stage"_asv, "object"_asv,
-                                   object, translatorState, layer_name, purpose,
-                                   use_frame, frame, varying_topology);
-}
-
-Amino::Ptr<BifrostUsd::Stage> array_of_objects_to_stage(
-    const Amino::Ptr<Amino::Array<Amino::Ptr<Bifrost::Object>>>& objects,
-    const Amino::String&                                         layer_name,
-    const BifrostUsd::ImageablePurpose                           purpose) {
-    Amino::ExecutionState dummyState;
-    bool                  use_frame        = false;
-    float                 frame            = 0.f;
-    bool                  varying_topology = false;
-
-    return get_stage_from_compound(
-        "USD::IO::array_of_objects_to_stage"_asv, "objects"_asv, objects,
-        dummyState, layer_name, purpose, use_frame, frame, varying_topology);
+    return get_stage_from_objects(objects, translatorState, identifier,
+                                   purpose, use_frame, frame, varying_topology);
 }
 
 } // namespace BifrostUsd::DynamicPayload

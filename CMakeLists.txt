@@ -57,14 +57,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 
-# Boost headers are indirectly included by USD and Boost is still using
-# std::unary_function which was deprecated in C++11 and removed in C++17.
-# Defining BOOST_NO_CXX98_FUNCTION_BASE prevents Boost from using deprecated
-# templates. This seems to be fixed in Boost >= 1.81, so we may be able to
-# remove that when the version of boost shipped with USD is updated.
-# _HAS_AUTO_PTR_ETC is also needed for older boost versions.
-add_definitions(-DBOOST_NO_CXX98_FUNCTION_BASE=1)
-add_definitions(-D_HAS_AUTO_PTR_ETC=0)
+# Boost headers are indirectly included by USD and Boost older than 1.81 was
+# using std::unary_function (deprecated in C++11, removed in C++17) and
+# std::random_shuffle (deprecated in C++14, removed in C++17).
+# But now that USD is using Boost 1.81 and above, we should not define
+# BOOST_NO_CXX98_FUNCTION_BASE nor _HAS_AUTO_PTR_ETC anymore.
+# add_definitions(-DBOOST_NO_CXX98_FUNCTION_BASE)
+# add_definitions(-D_HAS_AUTO_PTR_ETC=0)
 
 #==============================================================================
 # Define common build variables
@@ -176,7 +175,7 @@ find_package(USD REQUIRED)
 # Tests require our own TBBInitGuard that needs to be built with the TBB that
 # is shipped with USD, so we first need to detect what/where is the USD's TBB:
 include(${BIFUSD_TOOLS_DIR}/bifusd_detect_usd_tbb.cmake)
-bifusd_detect_usd_tbb(usd FALSE) # verbose=FALSE
+bifusd_detect_usd_tbb(FALSE) # verbose=FALSE
 
 # Add our TBBInitGuard to properly initialize and terminate TBB's scheduler:
 add_subdirectory(${BIFUSD_TOOLS_DIR}/src/tbb tbb)

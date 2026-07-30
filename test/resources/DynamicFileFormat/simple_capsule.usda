@@ -1,0 +1,21 @@
+#usda 1.0
+(
+    defaultPrim = "capsule"
+)
+
+# Triangular prism used as a simplified capsule shape.
+# 5 faces: 2 triangular end caps + 3 rectangular side faces.
+def Mesh "capsule"
+{
+    int[] faceVertexCounts = [3, 3, 4, 4, 4]
+    int[] faceVertexIndices = [0, 2, 1,  3, 4, 5,  0, 1, 4, 3,  1, 2, 5, 4,  2, 0, 3, 5]
+    point3f[] points = [
+        ( 0,     -0.5,  0.866),
+        ( 0.75,  -0.5, -0.433),
+        (-0.75,  -0.5, -0.433),
+        ( 0,      0.5,  0.866),
+        ( 0.75,   0.5, -0.433),
+        (-0.75,   0.5, -0.433)
+    ]
+    uniform token subdivisionScheme = "none"
+}

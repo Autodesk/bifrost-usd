@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2024 Autodesk, Inc.
+# Copyright 2026 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -72,7 +72,7 @@ set(node_def_public_libs
     Amino::Core
     Amino::Cpp
     Bifrost::Object
-    BifrostUSD
+    BifrostUsd
     usd_packNodedefsHeadersInstall
     usdVol
     usdGeom
@@ -83,7 +83,7 @@ set(node_def_public_libs
 bifusd_set_extra_rpaths(extra_rpaths)
 
 bifusd_create_shared_lib(
-    BifrostUSDNodedefs "USD_BUILD_NODEDEF_DLL"
+    BifrostUsdNodedefs "USD_BUILD_NODEDEF_DLL"
     PUBLIC_INSTALL
     PRIVATE_DEFINITIONS     $<${BIFUSD_IS_DEBUG}: TBB_USE_DEBUG BOOST_DEBUG_PYTHON BOOST_LINKING_PYTHON>
     PUBLIC_OPTIONS          $<${BIFUSD_IS_GCC}: -Wno-deprecated>

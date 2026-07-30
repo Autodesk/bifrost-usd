@@ -86,6 +86,10 @@ if(IS_BIFUSD_STANDALONE)
             # Note: USD/lib also includes TBB, so this TBB will be found first,
             #       and it is usually more recent than TBB in Bifrost/Amino.
             ${USD_LOCATION}/lib
+            # Note: min-usdpy3 co-locates TBB lib and DLL files in USD/lib,
+            #       but vanilla OpenUSD installs the bundled TBB DLLs in a
+            #       separate USD/bin folder, so add it to the path for this case.
+            ${USD_LOCATION}/bin
             ${BIFROST_LOCATION}/bin
             ${BIFROST_LOCATION}/thirdparty/bin
             ${python_dir})
@@ -106,6 +110,11 @@ else()
     set_target_properties(${BIFUSD_PACKAGE_NAME}_config_info PROPERTIES
         BIFUSD_EXTRA_TEST_LIBS "${USD_LOCATION}/lib"
     )
+endif()
+
+# mayaUsdPlugInfo.json is installed only when building with Maya.
+if(NOT IS_BIFUSD_STANDALONE OR MAYA_RUNTIME_LOCATION)
+    set(NEED_MAYA_USD_PLUG_INFO ON)
 endif()
 
 # Add properties to be able to merge of json files and run tests externally

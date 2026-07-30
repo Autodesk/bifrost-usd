@@ -14,8 +14,8 @@
 // limitations under the License.
 //+
 
-#ifndef BIFROSTUSD_DYNAMICFILEFORMAT_CONSTANTS_H
-#define BIFROSTUSD_DYNAMICFILEFORMAT_CONSTANTS_H
+#ifndef BIFROSTUSD_DYNAMIC_FILE_FORMAT_CONSTANTS_H
+#define BIFROSTUSD_DYNAMIC_FILE_FORMAT_CONSTANTS_H
 
 #include <string_view>
 
@@ -26,14 +26,15 @@ namespace BifrostUsd::DynamicPayload {
 // DynamicFileFormat Log Prefix Strings
 #define BIFROSTUSD_DFF_CTX_ "[BifrostUsd::DynamicFileFormat"
 inline constexpr std::string_view kCtxDFF                           = BIFROSTUSD_DFF_CTX_ "] ";
-inline constexpr std::string_view kCtxDFFGetGraphArgs               = BIFROSTUSD_DFF_CTX_ "::getGraphArgs] ";
+inline constexpr std::string_view kCtxDFFSetGraphInputs             = BIFROSTUSD_DFF_CTX_ "::setGraphInputs] ";
 inline constexpr std::string_view kCtxDFFExecuteGraph               = BIFROSTUSD_DFF_CTX_ "::executeGraph] ";
 inline constexpr std::string_view kCtxDFFCreateStageFromGraphOutput = BIFROSTUSD_DFF_CTX_ "::createStageFromGraphOutput] ";
 inline constexpr std::string_view kCtxDFFRead                       = BIFROSTUSD_DFF_CTX_ "::Read] ";
+inline constexpr std::string_view kCtxDFFComposingValues            = BIFROSTUSD_DFF_CTX_ "::composingValues] ";
 #undef BIFROSTUSD_DFF_CTX_
 
 // clang-format on
 
 } // namespace BifrostUsd::DynamicPayload
 
-#endif // BIFROSTUSD_DYNAMICFILEFORMAT_CONSTANTS_H
+#endif // BIFROSTUSD_DYNAMIC_FILE_FORMAT_CONSTANTS_H

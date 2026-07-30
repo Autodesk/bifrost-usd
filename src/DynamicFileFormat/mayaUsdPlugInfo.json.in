@@ -1,0 +1,10 @@
+{
+    "MayaUsdIncludes": [
+        {
+            "PlugPath": "@BIFROST_USD_PACK_INSTALL_RES_DFF_DIR@",
+            "VersionCheck": {
+                "USD": "@USD_MAJOR_VERSION@.@USD_MINOR_VERSION@.@USD_PATCH_VERSION@"
+            }
+        }
+    ]
+}

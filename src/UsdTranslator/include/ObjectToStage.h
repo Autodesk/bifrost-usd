@@ -22,9 +22,9 @@
 #include "UsdTranslatorExport.h"
 
 // Amino
+#include <Amino/Core/ArrayFwd.h>
 #include <Amino/Core/Ptr.h>
 #include <Amino/Core/String.h>
-#include <Amino/Core/ArrayFwd.h>
 #include <Amino/Executor/ExecutionState.h>
 
 // BifrostUSD
@@ -39,29 +39,24 @@ class Object;
 
 namespace BifrostUsd::DynamicPayload {
 
+using ObjectArrayPtr = Amino::Ptr<Amino::Array<Amino::Ptr<Bifrost::Object>>>;
+
 BIFROSTUSD_TRANSLATOR_API
-Amino::Ptr<BifrostUsd::Stage> object_to_stage(
-    const Amino::Ptr<Bifrost::Object>& object,
-    const Amino::String&               layer_name = Amino::String{"object.usd"},
-    BifrostUsd::ImageablePurpose       purpose =
+Amino::Ptr<BifrostUsd::Stage> objects_to_stage(
+    const ObjectArrayPtr&        objects,
+    const Amino::String&         identifier = Amino::String{"objects.usd"},
+    BifrostUsd::ImageablePurpose purpose =
         BifrostUsd::ImageablePurpose::Default);
 
 BIFROSTUSD_TRANSLATOR_API
-Amino::Ptr<BifrostUsd::Stage> object_to_stage(
-    const Amino::Ptr<Bifrost::Object>& object,
-    Amino::ExecutionState&             translatorState,
-    const Amino::String&               layer_name = Amino::String{"object.usd"},
-    BifrostUsd::ImageablePurpose       purpose =
+Amino::Ptr<BifrostUsd::Stage> objects_to_stage(
+    const ObjectArrayPtr&        objects,
+    Amino::ExecutionState&       translatorState,
+    const Amino::String&         identifier = Amino::String{"objects.usd"},
+    BifrostUsd::ImageablePurpose purpose =
         BifrostUsd::ImageablePurpose::Default,
     float frame            = 0.0f,
     bool  varying_topology = false);
-
-BIFROSTUSD_TRANSLATOR_API
-Amino::Ptr<BifrostUsd::Stage> array_of_objects_to_stage(
-    const Amino::Ptr<Amino::Array<Amino::Ptr<Bifrost::Object>>>& objects,
-    const Amino::String&         layer_name = Amino::String{"objects.usd"},
-    BifrostUsd::ImageablePurpose purpose =
-        BifrostUsd::ImageablePurpose::Default);
 
 } // namespace BifrostUsd::DynamicPayload
 

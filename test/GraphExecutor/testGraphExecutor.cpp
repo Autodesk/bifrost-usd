@@ -23,6 +23,7 @@
 #include <Amino/Core/Ptr.h>
 #include <Amino/Core/Span.h>
 #include <Amino/Core/String.h>
+#include <Amino/Core/StringStl.h>
 #include <Amino/Core/StringView.h>
 #include <Amino/Executor/ExecutableT.h>
 #include <Amino/Executor/ExecutionInputs.h>
@@ -56,13 +57,27 @@
 #include <cctype>
 #include <regex>
 #include <string>
+#include <map>
 
 using StringArray = Amino::Array<Amino::String>;
+
+/// \brief Alias for graph input arguments.
+///
+/// An "ordered" map from graph input port names as \c Amino::String to their
+/// corresponding values.
+/// Using an ordered map allows us to have deterministic order of setInput()
+/// calls when looping over the map, which is helpful for testing and debugging.
+///
+/// Since values are stored as \c Amino::Any, a single map can hold inputs of
+/// mixed types (int, float, string, etc.) without requiring separate containers
+/// per type.
+using GraphInputArgs = std::map<Amino::String, Amino::Any>;
+
 using namespace Amino::StringViewLiterals;
 using namespace BifrostUsd::TestUtils;
 
 namespace {
-auto printCollectedMessages = [](const StringArray& msgs) {
+std::string printCollectedMessages(const StringArray& msgs) {
     std::string result = "[BEGIN MESSAGES]\n";
     for (const auto& msg : msgs) {
         result += msg.c_str();
@@ -70,7 +85,7 @@ auto printCollectedMessages = [](const StringArray& msgs) {
     }
     result += "[END MESSAGES]\n";
     return result;
-};
+}
 
 bool findMessage(const StringArray& msgs, const std::string& substring) {
     auto toLower = [](const std::string& s) {
@@ -98,6 +113,32 @@ bool findMessageRegex(const StringArray& msgs,
     }
     return false;
 }
+
+/// Loop over \p args and call executor->setInput() for each entry.
+/// Returns true if and only if all setInput() calls succeed.
+/// Any error messages from failed calls are appended to \p messages.
+bool setInputs(const BifrostUsd::GraphExecutor::GraphExecutorPtr& executor,
+               const GraphInputArgs&                              args,
+               StringArray&                                       messages) {
+    messages.clear();
+    bool success = true;
+    for (const auto& [name, value] : args) {
+        StringArray portMessages;
+        if (!executor->setInput(name, value, portMessages)) {
+            for (const auto& msg : portMessages) {
+                messages.push_back(msg);
+            }
+            success = false;
+        }
+    }
+    return success;
+}
+
+bool setInputs(const BifrostUsd::GraphExecutor::GraphExecutorPtr& executor,
+               const GraphInputArgs&                              args) {
+    StringArray messages;
+    return setInputs(executor, args, messages);
+}
 } // namespace
 
 PXR_NAMESPACE_OPEN_SCOPE
@@ -122,14 +163,14 @@ TEST(GraphExecutorTests, verbosity_levels_on_success_case) {
         << printCollectedMessages(errors).c_str();
     ASSERT_TRUE(executor);
 
-    GraphArgs args;
+    GraphInputArgs args;
     args["a"] = 1.f;
     args["b"] = 2.f;
 
     // This graph does not contain errors and it should execute successfully.
     // Case 1: execute it with verbosity==eSilent
     StringArray messages;
-    EXPECT_TRUE(executor->setGraphInputs(args));
+    EXPECT_TRUE(setInputs(executor, args));
     EXPECT_TRUE(executor->execute(messages, VerbosityLevel::eSilent));
     EXPECT_TRUE(messages.empty())
         << "execute() with verbosity==eSilent should not collect any "
@@ -137,7 +178,7 @@ TEST(GraphExecutorTests, verbosity_levels_on_success_case) {
         << printCollectedMessages(messages).c_str();
 
     // Case 2: execute it with verbosity==eErrorsOnly:
-    EXPECT_TRUE(executor->setGraphInputs(args));
+    EXPECT_TRUE(setInputs(executor, args));
     EXPECT_TRUE(executor->execute(messages, VerbosityLevel::eErrorsOnly));
     EXPECT_TRUE(messages.empty())
         << "execute() with verbosity==eErrorsOnly should not collect any "
@@ -150,7 +191,7 @@ TEST(GraphExecutorTests, verbosity_levels_on_success_case) {
     constexpr const char* kProgressPattern =
         R"(-[^\n]+[\d]/[\d])"; // e.g. "- Title 1/3"
     constexpr const char* kCompleted = "completed successfully";
-    EXPECT_TRUE(executor->setGraphInputs(args));
+    EXPECT_TRUE(setInputs(executor, args));
     EXPECT_TRUE(executor->execute(messages, VerbosityLevel::eAllMessages));
     EXPECT_TRUE(findMessage(messages, kStarted))
         << "execute() with verbosity==eAllMessages should collect message `"
@@ -169,19 +210,13 @@ TEST(GraphExecutorTests, verbosity_levels_on_success_case) {
 
 TEST(GraphExecutorTests, verbosity_levels_on_failure_case) {
     using namespace BifrostUsd::GraphExecutor;
-    StringArray      errors;
     GraphExecutorPtr executor =
-        makeGraphExecutor("Test::Error::no_promotion_exists", errors);
-    EXPECT_TRUE(errors.empty())
-        << "Unexpected errors while creating GraphExecutor: \n"
-        << printCollectedMessages(errors).c_str();
+        makeGraphExecutor("Test::Error::no_promotion_exists");
     ASSERT_TRUE(executor);
 
     // This graph contains an error that should cause execution to fail.
     // Case 1: execute it with verbosity==eSilent
-    GraphArgs   emptyArgs;
-    StringArray messages;
-    EXPECT_TRUE(executor->setGraphInputs(emptyArgs));
+    StringArray    messages;
     EXPECT_FALSE(executor->execute(messages, VerbosityLevel::eSilent));
     EXPECT_TRUE(messages.empty())
         << "execute() with verbosity==eSilent should not report any messages.\n"
@@ -191,7 +226,6 @@ TEST(GraphExecutorTests, verbosity_levels_on_failure_case) {
     // "completed with errors" are present.
     constexpr const char* kCannotExecute = "can't execute";
     constexpr const char* kCompleted = "completed with errors";
-    EXPECT_TRUE(executor->setGraphInputs(emptyArgs));
     EXPECT_FALSE(executor->execute(messages, VerbosityLevel::eErrorsOnly));
     EXPECT_TRUE(findMessage(messages, kCannotExecute))
         << "execute() with verbosity==eErrorsOnly should collect message `"
@@ -204,7 +238,6 @@ TEST(GraphExecutorTests, verbosity_levels_on_failure_case) {
 
     // Case 3: execute it with verbosity==eAllMessages: both "can't execute" and
     // "completed with errors" are present.
-    EXPECT_TRUE(executor->setGraphInputs(emptyArgs));
     EXPECT_FALSE(executor->execute(messages, VerbosityLevel::eAllMessages));
     EXPECT_TRUE(findMessage(messages, kCannotExecute))
         << "execute() with verbosity==eAllMessages should collect message `"
@@ -216,7 +249,7 @@ TEST(GraphExecutorTests, verbosity_levels_on_failure_case) {
         << printCollectedMessages(messages).c_str();
 }
 
-TEST(GraphExecutorTests, setGraphInputs) {
+TEST(GraphExecutorTests, setInput) {
     using namespace BifrostUsd::GraphExecutor;
     StringArray      errors;
     GraphExecutorPtr executor = makeGraphExecutor("Test::my_add", errors);
@@ -225,77 +258,66 @@ TEST(GraphExecutorTests, setGraphInputs) {
         << printCollectedMessages(errors).c_str();
     ASSERT_TRUE(executor);
 
-    // Executing the graph without setting the inputs should fail:
-    EXPECT_FALSE(executor->execute(VerbosityLevel::eSilent));
-
-    // Create the ExecutionInputs by calling setGraphInputs(), but with an
-    // empty input map. This should succeed, and the default input values
-    // defined in the graph "a"==0 and "b"==0 will be used:
+    // Executing without any prior setInput() call uses the graph's default
+    // values; "Test::my_add" defaults are "a"==0 and "b"==0:
     {
-        GraphArgs emptyArgs;
-        EXPECT_TRUE(executor->setGraphInputs(emptyArgs, errors));
-        EXPECT_TRUE(errors.empty()) << "Unexpected errors while calling "
-                                       "setGraphInputs() with emptyArgs: \n"
-                                    << printCollectedMessages(errors).c_str();
-        EXPECT_TRUE(executor->execute(VerbosityLevel::eErrorsOnly));
-
+        EXPECT_TRUE(executor->execute(errors, VerbosityLevel::eErrorsOnly));
+        EXPECT_TRUE(errors.empty());
         auto closure = executor->extractOutputClosure("result"_asv);
         ASSERT_TRUE(closure);
-        auto const& outAny = closure.getAny();
-        EXPECT_TRUE(outAny.has_value());
-        float const result = closure.get<float>();
-        EXPECT_EQ(result, 0.f);
+        EXPECT_EQ(closure.get<float>(), 0.f);
+    }
+
+    // A type mismatch is reported; an unknown port name is also an error.
+    {
+        GraphInputArgs args;
+        args["a"]       = 1.5f;  // 1st: start with a valid input
+        args["b"]       = false; // 2nd: attempt wrong type, "b" keeps default 0
+        args["unknown"] = 20.f;  // 3rd: unknown port, reported as error
+        EXPECT_FALSE(setInputs(executor, args, errors));
+        EXPECT_FALSE(errors.empty())
+            << "setInputs() should have reported errors but none were found.";
+        EXPECT_TRUE(findMessage(errors, "type does not match"))
+            << "Expected a type mismatch error for \"b\".\n"
+            << printCollectedMessages(errors).c_str();
+        EXPECT_TRUE(findMessage(errors, "does not exist"))
+            << "Expected an unknown port error for \"unknown\".\n"
+            << printCollectedMessages(errors).c_str();
+
+        // setInputs() helper keeps on processing all inputs even upon errors.
+        // "a" was set to 1.5; "b" failed and keeps its default value 0:
+        EXPECT_TRUE(executor->execute(errors, VerbosityLevel::eErrorsOnly));
+        EXPECT_TRUE(errors.empty());
+        auto closure = executor->extractOutputClosure("result"_asv);
+        ASSERT_TRUE(closure);
+        EXPECT_EQ(closure.get<float>(), 1.5f);
     }
 
     // Re-execute the graph without setting the inputs again.
     // Since the ExecutionInputs are consumed by the previous execution and
-    // not set again, the execution should fail:
-    EXPECT_FALSE(executor->execute(VerbosityLevel::eErrorsOnly));
-
-    // Attempt to set a mix of correct inputs, and incorrect inputs that
-    // have wrong name and wrong type. Correct inputs should be accepted
-    // and incorrect inputs should be ignored.
+    // not set again, the execution should succeed with default values again,
+    // i.e. "a"==0 and "b"==0:
     {
-        GraphArgs args;
-        args["a"] = 1.5f;
-        args["b"] = false; // wrong type: reported but default "b"==0 is used
-        args["unknown"] = 20.f;  // wrong name: ignored
-        EXPECT_TRUE(executor->setGraphInputs(args, errors));
-        const char* search = "type mismatch";
-        EXPECT_FALSE(errors.empty())
-            << "setGraphInputs() should have reported a `"
-            << search << "` error but no errors were reported.";
-        EXPECT_TRUE(findMessage(errors, search))
-            << "setGraphInputs() did not report a message containing `"
-            << search << "` as expected. \n"
-            << printCollectedMessages(errors).c_str();
-        EXPECT_TRUE(executor->execute(VerbosityLevel::eErrorsOnly));
-
+        EXPECT_TRUE(executor->execute(errors, VerbosityLevel::eErrorsOnly));
+        EXPECT_TRUE(errors.empty());
         auto closure = executor->extractOutputClosure("result"_asv);
         ASSERT_TRUE(closure);
-        auto const& outAny = closure.getAny();
-        EXPECT_TRUE(outAny.has_value());
-        float const result = closure.get<float>();
-        EXPECT_EQ(result, 1.5f);
+        EXPECT_EQ(closure.get<float>(), 0.f);
     }
 
-    // Now set the "a" and "b" inputs and execute again:
+    // Setting valid values for all ports produces the expected result:
     {
-        GraphArgs args;
+        GraphInputArgs args;
         args["a"] = 1.f;
         args["b"] = 2.f;
-        EXPECT_TRUE(executor->setGraphInputs(args, errors));
-        EXPECT_TRUE(errors.empty()) << "Unexpected errors while calling "
-                                       "setGraphInputs() with valid args: \n"
-                                    << printCollectedMessages(errors).c_str();
+        EXPECT_TRUE(setInputs(executor, args, errors));
+        EXPECT_TRUE(errors.empty())
+            << "Unexpected errors while calling setInputs() with valid args:\n"
+            << printCollectedMessages(errors).c_str();
         EXPECT_TRUE(executor->execute(VerbosityLevel::eErrorsOnly));
-
         auto closure = executor->extractOutputClosure("result"_asv);
         ASSERT_TRUE(closure);
-        auto const& outAny = closure.getAny();
-        EXPECT_TRUE(outAny.has_value());
-        float const result = closure.get<float>();
-        EXPECT_EQ(result, 3.f);
+        EXPECT_EQ(closure.get<float>(), 3.f);
     }
 }
 
@@ -308,10 +330,10 @@ TEST(GraphExecutorTests, extractOutputClosure) {
         << printCollectedMessages(errors).c_str();
     ASSERT_TRUE(executor);
 
-    GraphArgs args;
+    GraphInputArgs args;
     args["a"] = 1.f;
     args["b"] = 2.f;
-    EXPECT_TRUE(executor->setGraphInputs(args));
+    EXPECT_TRUE(setInputs(executor, args));
     EXPECT_TRUE(executor->execute(VerbosityLevel::eErrorsOnly));
     {
         // 1st call to extractOutputClosure() return a valid closure:
@@ -329,7 +351,7 @@ TEST(GraphExecutorTests, extractOutputClosure) {
     }
 
     // Re-execute the graph:
-    EXPECT_TRUE(executor->setGraphInputs(args));
+    EXPECT_TRUE(setInputs(executor, args));
     EXPECT_TRUE(executor->execute(VerbosityLevel::eErrorsOnly));
     {
         // 1st call to extractOutputClosure() return a valid closure:
@@ -356,15 +378,15 @@ TEST(GraphExecutorTests, test_stage_output) {
         << printCollectedMessages(errors).c_str();
     ASSERT_TRUE(executor);
 
-    Amino::long_t expectedCount = 4;
-    GraphArgs     args;
+    Amino::long_t  expectedCount = 4;
+    GraphInputArgs args;
     args["layer"]   = Amino::String{"/path/to/saved/layer.usda"};
     args["type"]    = Amino::String{"Sphere"};
     args["count"]   = expectedCount;
     args["save"]    = false;
     args["up_axis"] = BifrostUsd::UpAxis::Y;
 
-    EXPECT_TRUE(executor->setGraphInputs(args, errors));
+    EXPECT_TRUE(setInputs(executor, args, errors));
     EXPECT_TRUE(errors.empty())
         << "Unexpected errors while setting graph inputs: \n"
         << printCollectedMessages(errors).c_str();
@@ -429,12 +451,12 @@ TEST(GraphExecutorTests, test_object_output) {
     ASSERT_TRUE(executor);
     EXPECT_FALSE(executor->hasTerminal());
 
-    GraphArgs args;
+    GraphInputArgs args;
     unsigned int majorSegments = 20;
     unsigned int minorSegments = 20;
     args["major_segments"] = majorSegments;
     args["minor_segments"] = minorSegments;
-    EXPECT_TRUE(executor->setGraphInputs(args, errors));
+    EXPECT_TRUE(setInputs(executor, args, errors));
     EXPECT_TRUE(errors.empty())
         << "Unexpected errors while setting graph inputs: \n"
         << printCollectedMessages(errors).c_str();
@@ -452,9 +474,14 @@ TEST(GraphExecutorTests, test_object_output) {
         Amino::any_cast<Amino::Ptr<Bifrost::Object>>(&outAny);
     ASSERT_TRUE(outObjectPtr);
 
-    // Convert the output Bifrost Object to a USD Stage:
+    // Wrap the single output Object into a length-1 array and convert it
+    // to a USD Stage:
+    auto objectsArrayMutablePtr =
+        Amino::newMutablePtr<Amino::Array<Amino::Ptr<Bifrost::Object>>>(1);
+    (*objectsArrayMutablePtr)[0] = *outObjectPtr;
     Amino::Ptr<BifrostUsd::Stage> outStagePtr =
-        BifrostUsd::DynamicPayload::object_to_stage(*outObjectPtr);
+        BifrostUsd::DynamicPayload::objects_to_stage(
+            objectsArrayMutablePtr.toImmutable());
     ASSERT_TRUE(outStagePtr);
     ASSERT_TRUE(*outStagePtr);
 
@@ -462,13 +489,13 @@ TEST(GraphExecutorTests, test_object_output) {
     EXPECT_TRUE(rootPrim);
     EXPECT_TRUE(UsdGeomXform{rootPrim});
 
-    // object_to_stage creates a /root/geo Scope under the root Xform:
+    // objects_to_stage creates a /root/geo Scope under the root Xform:
     auto geoPrim = (*outStagePtr)->GetPrimAtPath(SdfPath{"/root/geo"});
     EXPECT_TRUE(geoPrim);
     auto geoScope = UsdGeomScope{geoPrim};
     EXPECT_TRUE(geoScope);
 
-    // object_to_stage creates a /root/geo/mesh Mesh prim under the geo scope.
+    // objects_to_stage creates a /root/geo/mesh Mesh prim under the geo scope.
     // Result mesh is expected to have <majorSegments>*<minorSegments> faces:
     auto meshPrim = (*outStagePtr)->GetPrimAtPath(SdfPath{"/root/geo/mesh"});
     EXPECT_TRUE(meshPrim);
@@ -495,11 +522,11 @@ TEST(GraphExecutorTests, test_array_of_objects_output) {
     const int height_segments = 5;
     const int cap_segments    = 4;
 
-    GraphArgs args;
+    GraphInputArgs args;
     args["axis_segments"]   = axis_segments;
     args["height_segments"] = height_segments;
     args["cap_segments"]    = cap_segments;
-    EXPECT_TRUE(executor->setGraphInputs(args, errors));
+    EXPECT_TRUE(setInputs(executor, args, errors));
     EXPECT_TRUE(errors.empty())
         << "Unexpected errors while setting graph inputs: \n"
         << printCollectedMessages(errors).c_str();
@@ -554,12 +581,12 @@ TEST(GraphExecutorTests, test_array_of_objects_output) {
     }
 
     // Convert the array of Bifrost Objects to a USD Stage:
-    // array_of_objects_to_stage() with default purpose creates:
-    //   /root           - Xform
-    //   /root/geo       - Scope
-    //   /root/geo/mesh1 - Mesh (1-indexed, one per input object)
+    // objects_to_stage() with default purpose creates:
+    //   /root          - Xform
+    //   /root/geo      - Scope
+    //   /root/geo/mesh - Mesh (one per input object)
     Amino::Ptr<BifrostUsd::Stage> outStagePtr =
-        BifrostUsd::DynamicPayload::array_of_objects_to_stage(
+        BifrostUsd::DynamicPayload::objects_to_stage(
             objectsPtr.toImmutable());
     ASSERT_TRUE(outStagePtr);
     ASSERT_TRUE(*outStagePtr);
@@ -568,13 +595,13 @@ TEST(GraphExecutorTests, test_array_of_objects_output) {
     EXPECT_TRUE(rootPrim);
     EXPECT_TRUE(UsdGeomXform{rootPrim});
 
-    // array_of_objects_to_stage creates a /root/geo Scope:
+    // objects_to_stage creates a /root/geo Scope:
     auto geoPrim = (*outStagePtr)->GetPrimAtPath(SdfPath{"/root/geo"});
     EXPECT_TRUE(geoPrim);
     EXPECT_TRUE(UsdGeomScope{geoPrim});
 
-    // One capsule mesh expected at /root/geo/mesh1:
-    auto meshPrim = (*outStagePtr)->GetPrimAtPath(SdfPath{"/root/geo/mesh1"});
+    // One capsule mesh expected at /root/geo/mesh:
+    auto meshPrim = (*outStagePtr)->GetPrimAtPath(SdfPath{"/root/geo/mesh"});
     EXPECT_TRUE(meshPrim);
     auto meshGeom = UsdGeomMesh{meshPrim};
     EXPECT_TRUE(meshGeom);

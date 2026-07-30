@@ -1,0 +1,9 @@
+#usda 1.0
+
+def "Cube" (
+    payload = @anon:autodesk:bifrost.bifrostDynamicFile@
+)
+{
+    string bifrost:compound:name = "Modeling::Primitive::create_mesh_cube"
+    token bifrost:out:cube_mesh = ""
+}

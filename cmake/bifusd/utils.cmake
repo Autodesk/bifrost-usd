@@ -23,6 +23,7 @@ set(bifusd_utils_included true)
 option(BIFUSD_USE_DEBUGGER "Launch unit tests using the platform-specific debugger." OFF)
 option(BIFUSD_ENABLE_ADDRESS_SANITIZER "Enable AddressSanitizer compiler instrumentations." OFF)
 option(BIFUSD_ENABLE_UNDEFINED_SANITIZER "Enable UndefinedBehaviorSanitizer compiler instrumentations." OFF)
+option(BIFUSD_ENABLE_VALGRIND "Enable Valgrind memcheck runs." OFF)
 
 # Export the given list of variables from the local scope to the parent scope.
 #

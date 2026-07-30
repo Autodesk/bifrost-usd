@@ -19,6 +19,9 @@ Children are the immediate children one level down in the hierarchy, descendants
 - UsdPrimDescendants: Return this prim's active, loaded, defined, non-abstract descendants.
 - UsdPrimAllDescendants: Return all this prim's descendants.
 
+### `traverse_instances`
+When `true`, instance proxy traversal is enabled: if the prim (or any prim encountered during descent) is an instance, its children are returned as instance proxies rather than being skipped. When `false` (the default), instances are treated as opaque leaves and their children are not returned.
+
 ## Outputs
 
 ### `children`

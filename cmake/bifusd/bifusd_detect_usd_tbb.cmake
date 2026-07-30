@@ -25,15 +25,14 @@
 # bifusd_detect_usd_tbb.cmake
 #
 # Usage:
-#   Once you have a 'usd' CMake target to link against:
-#       bifusd_detect_usd_tbb(usd [verbose])
+#    bifusd_detect_usd_tbb([verbose])
 #
 # This module defines:
 #   USD_TBB_VERSION_MAJOR
 #   USD_TBB_VERSION_MINOR
 #   USD_TBB_SHAREDLIB_DIR
 #   USD_TBB_INCLUDE_DIR
-#   USD_TBB_LIB_DIR         (for Windows platform)
+#   USD_TBB_LIB_DIR         (implibs directory for Windows platform)
 #
 # It creates:
 #   add_library(BifusdTBB INTERFACE)  (only once)
@@ -192,15 +191,9 @@ endfunction()
 #   in_target   - USD target to inspect.
 #   verbose     - If TRUE, prints detailed status messages during detection.
 function(_bifusd_guess_usd_libdir out_var in_target verbose)
-    # USD only has Debug and RelWithDebInfo configs:
-    if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-        set(_build_type "DEBUG")
-    else()
-        set(_build_type "RELWITHDEBINFO")
-    endif()
-
     # Query the target's imported location for current build type
     set(_libdir "")
+    string(TOUPPER "${CMAKE_BUILD_TYPE}" _build_type)
     get_target_property(_loc "${in_target}" IMPORTED_LOCATION_${_build_type})
     if(NOT _loc)
         # Fallback - try without config suffix
@@ -215,7 +208,7 @@ function(_bifusd_guess_usd_libdir out_var in_target verbose)
     endif()
     if(NOT _libdir)
         message(FATAL_ERROR "   Could not determine USD sharedlib directory.\n"
-                            "   Target has no IMPORTED_LOCATION property with a valid path.")
+                            "   Target '${in_target}' has no IMPORTED_LOCATION property with a valid path.")
     endif()
     if(verbose)
         message(STATUS "   USD sharedlib dir: '${_libdir}'")
@@ -290,12 +283,56 @@ function(_bifusd_append_first_matching_file out_list src_dir)
         list(APPEND ${out_list} "${_first}")
         set(${out_list} "${${out_list}}" PARENT_SCOPE)
     else()
-        message(STATUS "   Error: The TBB sharedlib dir has no file matching these pattern(s):")
+        message(STATUS "   Error: The TBB sharedlib dir '${src_dir}' has no file matching these pattern(s):")
         foreach(_pattern IN LISTS ARGN)
             message(STATUS "      ${_pattern}")
         endforeach()
         message(FATAL_ERROR "   Cannot find required TBB file(s) with given pattern(s).")
     endif()
+endfunction()
+
+# Find the directory containing TBB import library files (.lib) on Windows.
+# For oneTBB (2021+) targets configured via TBBConfig.cmake, the .dll and .lib
+# files may live in separate bin/ and lib/ directories respectively, so
+# sharedlib directory cannot always be used directly to locate the import libs.
+#
+# Search order:
+#   1. IMPORTED_IMPLIB_<CONFIG> / IMPORTED_IMPLIB property of the TBB target.
+#   2. tbb_sharedlib_dir itself  (works when .dll and .lib are co-located).
+#
+# Args:
+#   out_implib_dir    - Variable name to set with the found TBB implib directory.
+#   tbb_target        - CMake TBB target to inspect for IMPORTED_IMPLIB.
+#   tbb_sharedlib_dir - Directory known to contain TBB shared libs (.dll).
+#   verbose           - If TRUE, prints detailed status messages during detection.
+function(_bifusd_find_tbb_implib_dir_win32 out_implib_dir tbb_target tbb_sharedlib_dir verbose)
+    # 1. Try the IMPORTED_IMPLIB* properties (if set on given TBB target).
+    string(TOUPPER "${CMAKE_BUILD_TYPE}" _build_type)
+    get_target_property(_implib "${tbb_target}" IMPORTED_IMPLIB_${_build_type})
+    if(NOT _implib OR NOT EXISTS "${_implib}")
+        get_target_property(_implib "${tbb_target}" IMPORTED_IMPLIB)
+    endif()
+    if(_implib AND EXISTS "${_implib}")
+        get_filename_component(_implib_dir "${_implib}" DIRECTORY)
+        if(verbose)
+            message(STATUS "   Using IMPORTED_IMPLIB* dir for TBB .lib search: '${_implib_dir}'")
+        endif()
+        set(${out_implib_dir} "${_implib_dir}" PARENT_SCOPE)
+        return()
+    endif()
+
+    # 2. Fallback: otherwise, try the sharedlib dir itself.
+    #    This works when the .dll and .lib files are co-located in the same dir.
+    file(GLOB _lib_candidates "${tbb_sharedlib_dir}/tbb*.lib")
+    if(_lib_candidates)
+        set(${out_implib_dir} "${tbb_sharedlib_dir}" PARENT_SCOPE)
+        if(verbose)
+            message(STATUS "   Fallback successful: TBB .dll and .lib files are co-located. Using sharedlib dir for TBB .lib search: '${tbb_sharedlib_dir}'")
+        endif()
+        return()
+    endif()
+
+    message(FATAL_ERROR "   Cannot find TBB import lib (.lib) directory on Windows.")
 endfunction()
 
 # Detect and configure TBB as used by a given USD target.
@@ -307,8 +344,6 @@ endfunction()
 # ABI mismatches.
 #
 # Args:
-#   usd_target: The CMake target representing the USD library to inspect for
-#               TBB dependencies.
 #   verbose:    If TRUE, prints detailed status messages during detection.
 #
 # This function exports the following variables to the parent scope:
@@ -317,12 +352,30 @@ endfunction()
 #   USD_TBB_INCLUDE_DIR     - Path to TBB include directory.
 #   USD_TBB_SHAREDLIB_DIR   - Path to TBB shared libs directory.
 #   USD_TBB_LIB_DIR         - Path to TBB import libs directory (if Windows).
-function(bifusd_detect_usd_tbb usd_target verbose)
-    message(STATUS "Find TBB library bundled with USD target '${usd_target}'...")
+function(bifusd_detect_usd_tbb verbose)
+    # Select the imported target that provides the TBB shipped with USD.
+    #
+    # By default we prefer USD's own TBB::tbb target (created by USD's
+    # pxrConfig.cmake and pointing at the TBB bundled with USD, under
+    # USD_LOCATION), falling back to the 'usd' target for USD versions that do
+    # not define TBB::tbb.
+    #
+    # The optional CMake variable BIFUSD_TBB_TARGET can be set (e.g. to "usd")
+    # to override these defaults and force detection to use a specific target.
+    if(BIFUSD_TBB_TARGET)
+        set(tbb_target "${BIFUSD_TBB_TARGET}")
+    elseif(TARGET "TBB::tbb")
+        set(tbb_target "TBB::tbb")
+    else()
+        # Older USD version may use 'usd' as the target name to find TBB instead
+        # of 'TBB::tbb'.
+        set(tbb_target "usd")
+    endif()
 
-    # Check prerequisites before doing any work:
-    if(NOT TARGET "${usd_target}")
-        message(FATAL_ERROR "   Target '${usd_target}' does not exist.")
+    if(TARGET "${tbb_target}")
+        message(STATUS "   Found TBB library bundled with USD target '${tbb_target}'.")
+    else()
+        message(FATAL_ERROR "   Target '${tbb_target}' does not exist.")
     endif()
     if(NOT BIFUSD_PACKAGE_NAME)
         message(FATAL_ERROR "   The variable BIFUSD_PACKAGE_NAME must be set.")
@@ -332,14 +385,14 @@ function(bifusd_detect_usd_tbb usd_target verbose)
     endif()
 
     # 1) Gather include dirs from the USD target to find the TBB include root dir:
-    _bifusd_collect_target_include_dirs(_usd_incs "${usd_target}" "${verbose}")
+    _bifusd_collect_target_include_dirs(_usd_incs "${tbb_target}" "${verbose}")
     _bifusd_find_tbb_header_from_include_dirs(_tbb_inc_dir _tbb_header "${_usd_incs}" "${verbose}")
 
     # 2) Parse TBB version
     _bifusd_parse_tbb_version(_version_major _version_minor "${_tbb_header}" "${verbose}")
 
     # 3) Determine USD shared lib dir, then locate TBB shared libs shipped with USD:
-    _bifusd_guess_usd_libdir(_usd_libdir "${usd_target}" "${verbose}")
+    _bifusd_guess_usd_libdir(_usd_libdir "${tbb_target}" "${verbose}")
     _bifusd_find_tbb_sharedlib_dir(_tbb_sharedlib_dir "${_usd_libdir}" "${verbose}")
 
     # 4) Select tbb and tbbmalloc shared libs to link against:
@@ -351,10 +404,13 @@ function(bifusd_detect_usd_tbb usd_target verbose)
     if(WIN32)
         set(_tbb_implib_dir "")
         # On Windows, link against import libs (.lib), not DLLs.
-        _bifusd_append_first_matching_file(_tbb_link_libs "${_tbb_sharedlib_dir}" "tbb*${_suffix}.lib")
-        _bifusd_append_first_matching_file(_tbb_link_libs "${_tbb_sharedlib_dir}" "tbbmalloc*${_suffix}.lib")
+        # For oneTBB (2021+) targets, .lib files may be in a different directory
+        # than .dll files (e.g. lib/ vs bin/). Resolve the correct dir first.
+        _bifusd_find_tbb_implib_dir_win32(_tbb_lib_dir "${tbb_target}" "${_tbb_sharedlib_dir}" "${verbose}")
+        _bifusd_append_first_matching_file(_tbb_link_libs "${_tbb_lib_dir}" "tbb*${_suffix}.lib")
+        _bifusd_append_first_matching_file(_tbb_link_libs "${_tbb_lib_dir}" "tbbmalloc*${_suffix}.lib")
         if(_tbb_link_libs)
-            set(_tbb_implib_dir "${_tbb_sharedlib_dir}")
+            set(_tbb_implib_dir "${_tbb_lib_dir}")
         endif()
     elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
         _bifusd_append_first_matching_file(_tbb_link_libs "${_tbb_sharedlib_dir}" "libtbb${_suffix}.so*")

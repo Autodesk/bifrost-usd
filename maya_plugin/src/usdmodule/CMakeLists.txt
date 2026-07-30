@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2026 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ bifusd_install_headers(
 
 set(public_libs
     BifrostGraph::Executor
-    BifrostUSD
+    BifrostUsd
 )
 
 set(private_libs
@@ -49,7 +49,7 @@ set(public_include_dirs
 
 bifusd_set_extra_rpaths(extra_rpaths)
 
-bifusd_create_shared_lib(BifrostUSDMayaTranslation      "USD_MODULE_API_IMPL"
+bifusd_create_shared_lib(BifrostUsdMayaTranslation      "USD_MODULE_API_IMPL"
         PUBLIC_INSTALL
         PRIVATE_DEFINITIONS           $<${BIFUSD_IS_OSX}: OSMac_> $<${BIFUSD_IS_DEBUG}: TBB_USE_DEBUG BOOST_DEBUG_PYTHON BOOST_LINKING_PYTHON>
         SRC_FILES                     ${src_files}

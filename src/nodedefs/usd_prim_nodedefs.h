@@ -19,6 +19,7 @@
 #define USD_PRIM_NODEDEFS_H
 
 #include <Amino/Core/Array.h>
+#include <Amino/Core/BuiltInTypes.h>
 #include <Amino/Core/Ptr.h>
 #include <Bifrost/Math/Types.h>
 #include <Bifrost/Object/Object.h>
@@ -52,6 +53,7 @@ void get_prim_children(
     Amino::Ptr<BifrostUsd::Stage>       stage,
     const Amino::String&                   prim_path,
     const BifrostUsd::PrimDescendantMode descendant_mode,
+    const bool traverse_instances        AMINO_ANNOTATE("Amino::Port value=false"),
     Amino::MutablePtr<Amino::Array<Amino::Ptr<BifrostUsd::Prim>>>& children)
     USDNODE_DOC_ICON("get_prim_children", "USD_Prim_get_prim_children.md", "usd_pill.svg");
 
@@ -144,6 +146,21 @@ bool add_reference_prim(
     USDNODE_DOC_ICON_X("add_reference_prim",
                        "USD_Prim_add_reference_prim.md",
                        "define_reference.svg",
+                       "outName=success,Amino::DefaultOverload");
+
+USD_NODEDEF_DECL
+bool add_reference_prim(
+    BifrostUsd::Stage& stage            USDPORT_INOUT("out_stage"),
+    const Amino::String&                  prim_path,
+    const Amino::String& reference_layer  USDNODE_FILE_BROWSER_OPEN,
+    const Amino::String&                  reference_prim_path,
+    const double layer_offset             AMINO_ANNOTATE("Amino::Port value=0.0"),
+    const double layer_scale              AMINO_ANNOTATE("Amino::Port value=1.0"),
+    const BifrostUsd::UsdListPosition reference_position,
+    const Amino::String& anchor_path=Amino::String{})
+    USDNODE_DOC_ICON_X("add_reference_prim",
+                       "USD_Prim_add_reference_prim.md",
+                       "define_reference.svg",
                        "outName=success");
 
 USD_NODEDEF_DECL
@@ -175,6 +192,21 @@ bool add_payload_prim(
     BifrostUsd::Stage& stage          USDPORT_INOUT("out_stage"),
     const Amino::String&                prim_path,
     const BifrostUsd::Layer&          payload_layer,
+    const Amino::String&                payload_prim_path,
+    const double layer_offset           AMINO_ANNOTATE("Amino::Port value=0.0"),
+    const double layer_scale            AMINO_ANNOTATE("Amino::Port value=1.0"),
+    const BifrostUsd::UsdListPosition payload_position,
+    const Amino::String& anchor_path=Amino::String{})
+    USDNODE_DOC_ICON_X("add_payload_prim",
+                       "USD_Prim_add_payload_prim.md",
+                       "define_reference.svg",
+                       "outName=success,Amino::DefaultOverload");
+
+USD_NODEDEF_DECL
+bool add_payload_prim(
+    BifrostUsd::Stage& stage          USDPORT_INOUT("out_stage"),
+    const Amino::String&                prim_path,
+    const Amino::String& payload_layer  USDNODE_FILE_BROWSER_OPEN,
     const Amino::String&                payload_prim_path,
     const double layer_offset           AMINO_ANNOTATE("Amino::Port value=0.0"),
     const double layer_scale            AMINO_ANNOTATE("Amino::Port value=1.0"),
@@ -419,13 +451,14 @@ bool set_prim_active(BifrostUsd::Stage& stage USDPORT_INOUT("out_stage"),
                        "prim_active.svg",
                        "outName=success");
 
-#define SET_PRIM_METADATA(VALUE_TYPE)                                \
-    USD_NODEDEF_DECL                                                 \
-    bool set_prim_metadata(                                          \
-        BifrostUsd::Stage& stage USDPORT_INOUT("out_stage"),       \
-        const Amino::String& path, const Amino::String& key,         \
-        const VALUE_TYPE& value)                                     \
-        USDNODE_INTERNAL_X("set_prim_metadata", "USD_Prim_set_prim_metadata.md", \
+#define SET_PRIM_METADATA(VALUE_TYPE)                                       \
+    USD_NODEDEF_DECL                                                        \
+    bool set_prim_metadata(                                                 \
+        BifrostUsd::Stage& stage USDPORT_INOUT("out_stage"),                \
+        const Amino::String& path, const Amino::String& key,                \
+        const VALUE_TYPE& value)                                            \
+        USDNODE_DOC_ICON_X("set_prim_metadata",                             \
+                           "USD_Prim_set_prim_metadata.md", "prim_att.svg", \
                            "outName=success");
 
 SET_PRIM_METADATA(Amino::String)
@@ -435,14 +468,35 @@ SET_PRIM_METADATA(Amino::double_t)
 SET_PRIM_METADATA(Amino::int_t)
 SET_PRIM_METADATA(Amino::long_t)
 SET_PRIM_METADATA(Bifrost::Object)
+SET_PRIM_METADATA(Amino::Array<Amino::String>)
 
-#define GET_PRIM_METADATA(VALUE_TYPE)                                 \
-    USD_NODEDEF_DECL                                                  \
-    bool get_prim_metadata(                                           \
-        const BifrostUsd::Stage& stage, const Amino::String& path,  \
-        const Amino::String& key, const VALUE_TYPE& default_and_type, \
-        VALUE_TYPE& value)                                            \
-        USDNODE_INTERNAL_X("get_prim_metadata", "USD_Prim_get_prim_metadata.md",  \
+#define SET_PRIM_METADATA_BY_DICT_KEY(VALUE_TYPE)                       \
+    USD_NODEDEF_DECL                                                    \
+    bool set_prim_metadata_by_dict_key(                                 \
+        BifrostUsd::Stage& stage USDPORT_INOUT("out_stage"),            \
+        const Amino::String& path, const Amino::String& key,            \
+        const Amino::String& key_path, const VALUE_TYPE& value)         \
+        USDNODE_DOC_ICON_X("set_prim_metadata_by_dict_key",             \
+                           "USD_Prim_set_prim_metadata_by_dict_key.md", \
+                           "prim_att.svg", "outName=success");
+
+SET_PRIM_METADATA_BY_DICT_KEY(Amino::String)
+SET_PRIM_METADATA_BY_DICT_KEY(Amino::bool_t)
+SET_PRIM_METADATA_BY_DICT_KEY(Amino::float_t)
+SET_PRIM_METADATA_BY_DICT_KEY(Amino::double_t)
+SET_PRIM_METADATA_BY_DICT_KEY(Amino::int_t)
+SET_PRIM_METADATA_BY_DICT_KEY(Amino::long_t)
+SET_PRIM_METADATA_BY_DICT_KEY(Bifrost::Object)
+SET_PRIM_METADATA_BY_DICT_KEY(Amino::Array<Amino::String>)
+
+#define GET_PRIM_METADATA(VALUE_TYPE)                                       \
+    USD_NODEDEF_DECL                                                        \
+    bool get_prim_metadata(                                                 \
+        const BifrostUsd::Stage& stage, const Amino::String& path,          \
+        const Amino::String& key, const VALUE_TYPE& default_and_type,       \
+        VALUE_TYPE& value)                                                  \
+        USDNODE_DOC_ICON_X("get_prim_metadata",                             \
+                           "USD_Prim_get_prim_metadata.md", "prim_att.svg", \
                            "outName=success");
 
 GET_PRIM_METADATA(Amino::String)
@@ -452,6 +506,7 @@ GET_PRIM_METADATA(Amino::double_t)
 GET_PRIM_METADATA(Amino::int_t)
 GET_PRIM_METADATA(Amino::long_t)
 GET_PRIM_METADATA(Amino::Ptr<Bifrost::Object>)
+GET_PRIM_METADATA(Amino::Ptr<Amino::Array<Amino::String>>)
 
 } // namespace Prim
 } // namespace USD

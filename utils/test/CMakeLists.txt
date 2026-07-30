@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2022 Autodesk, Inc.
+# Copyright 2026 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ set(public_libs
     Amino::Core
     BifrostGraph::Executor
     Bifrost::FileUtils
-    BifrostUSD
+    BifrostUsd
     usd
 )
 
@@ -45,7 +45,7 @@ bifusd_install_headers(
 )
 
 bifusd_create_shared_lib(
-    BifrostUSDTestUtils "USD_BUILD_TESTUTILS_DLL"
+    BifrostUsdTestUtils "USD_BUILD_TESTUTILS_DLL"
     PUBLIC_INSTALL
     SRC_FILES               ${src_files}
     PUBLIC_LINK_LIBS        ${public_libs}

@@ -41,6 +41,7 @@ set(doc_files
     USD_Collection_get_excludes_paths.md
     USD_Collection_get_includes_paths.md
     USD_Collection_get_or_create_collection.md
+    USD_IO_objects_to_stage.md
     USD_Layer_add_sublayer.md
     USD_Layer_create_layer.md
     USD_Layer_create_usd_layer.md
@@ -73,6 +74,7 @@ set(doc_files
     USD_Prim_compute_usdgeom_extent.md
     USD_Prim_create_class_prim.md
     USD_Prim_create_prim.md
+    USD_Prim_create_prim_definitions_from_object.md
     USD_Prim_create_prim_relationship.md
     USD_Prim_create_usd_prim.md
     USD_Prim_define_usd_curves.md
@@ -126,6 +128,7 @@ set(doc_files
     USD_Prim_set_prim_instanceable.md
     USD_Prim_set_prim_kind.md
     USD_Prim_set_prim_metadata.md
+    USD_Prim_set_prim_metadata_by_dict_key.md
     USD_Prim_set_prim_pivot.md
     USD_Prim_set_prim_purpose.md
     USD_Prim_set_relationship_targets.md

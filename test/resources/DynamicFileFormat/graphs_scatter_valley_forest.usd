@@ -10,20 +10,18 @@ def "Root" (
     payload = @anon:autodesk:bifrost.bifrostDynamicFile@
 )
 {
-    string BifrostGraph_Options:verbosity_level = "ErrorsOnly"
-    bool BifrostGraph_ReloadLibrary = 0
+    string bifrost:setting:verbosityLevel = "ErrorsOnly"
+    bool bifrost:setting:reloadLibrary = false
 }
 
 def "DynamicFileFormatField" (
-    BifrostGraph_CompoundName = "Graphs::Scatter::valley_forest"
-    BifrostGraph_OutputName = "out_points"
-    BifrostGraph_ReloadLibrary = 0
-    BifrostGraph_Options = {
-        string verbosity_level = "AllMessages"
+    bifrostCompound = {
+        string name = "Graphs::Scatter::valley_forest"
     }
-    BifrostGraph_Globals = {
-    }
-    BifrostGraph_Params = {
+    bifrostOutputs = ["out_points"]
+    bifrostSettings = {
+        string verbosityLevel = "AllMessages"
+        bool reloadLibrary = false
     }
 )
 {
