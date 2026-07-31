@@ -25,33 +25,82 @@ set(libs
     Amino::Executor
     BifusdTBB
     BifusdTBBHelpers
-    BifrostUSD
+    BifrostUsd
     BifrostUsdGraphExecutor
-    BifrostUSDNodedefs
-    BifrostUSDTestUtils
+    BifrostUsdNodedefs
+    BifrostUsdTestUtils
     BifrostUsdTranslator
     usd
     usdGeom
 )
 
 #------------------------------------------------------------------------------
-# Config files for regular tests
+# Bifrost Lib Config files
 #------------------------------------------------------------------------------
 
-set(config_files
+# Config files for regular tests
+set(lib_config_files
     ${BIFUSD_EXTRA_CONFIG_FILES}
     ${BIFUSD_OUTPUT_ROOT_DIR}/usd_pack_config.json
     ${CMAKE_CURRENT_SOURCE_DIR}/basic_compounds_config.json
 )
 
 if(IS_BIFUSD_STANDALONE)
-    list(PREPEND config_files ${BIFROST_LOCATION}/resources/standalone_config.json)
+    list(PREPEND lib_config_files ${BIFROST_LOCATION}/resources/standalone_config.json)
+endif()
+
+# Minimum set of config files reusable by any test that just needs the Amino
+# library to initialize (no usd_pack, no basic compounds, no test-specific extras).
+# Each consumer appends its own test-specific config files at the use site.
+if(IS_BIFUSD_STANDALONE)
+    set(minimum_lib_config_files
+        ${BIFROST_LOCATION}/resources/standalone_config.json
+        ${BIFUSD_EXTRA_CONFIG_FILES}
+    )
+else()
+    if(NOT EXISTS "${AMINO_LOCATION}/amino_config.json")
+        message(FATAL_ERROR
+            "Expected amino_config.json at '${AMINO_LOCATION}/amino_config.json' "
+            "but file not found. AMINO_LOCATION is '${AMINO_LOCATION}'.")
+    endif()
+    set(minimum_lib_config_files "${AMINO_LOCATION}/amino_config.json")
+endif()
+
+# GraphExecutor tests are quite slow to execute at this time, especially with
+# sanitizers or valgrind. Setting a longer timeout to avoid spurious test failures.
+# TODO Change the compounds being used by these tests to reduce significantly
+#      the execution time and remove the need for a long timeout.
+set(test_timeout 3600)
+
+#------------------------------------------------------------------------------
+# Regular tests
+#------------------------------------------------------------------------------
+set(regular_test_files
+    testGraphExecutor.cpp
+)
+
+# This test is too slow under Debug + Valgrind to complete within a
+# reasonable per-test timeout. It is already covered by the RelWithDebInfo
+# Valgrind run, so skip it in Debug to prevent spurious failures.
+if(NOT (BIFUSD_VALGRIND_ENABLED AND BIFUSD_IS_DEBUG))
+    foreach(test_file ${regular_test_files})
+        configure_bifusd_unittest(
+            ${test_file} "GraphExecutor"
+            LINK_LIBS ${libs}
+            SHARED_LIB_DIRS ${BIFUSD_EXTRA_BUILD_AND_TEST_PATHS}
+            DEFINITIONS USD_TEST_RESOURCES_DIR="${resources_dir}"
+            TIMEOUT ${test_timeout}
+        )
+        get_unittest_target(unittest_target "GraphExecutor" ${test_file})
+        bifusd_append_test_path_env_var(${unittest_target} "BIFROST_LIB_CONFIG_FILES" "${lib_config_files}")
+    endforeach()
 endif()
 
 #------------------------------------------------------------------------------
-# Config files for library tests
+# testLibrary
 #------------------------------------------------------------------------------
 
+# Config files for library tests
 set(empty_config_file ${CMAKE_CURRENT_SOURCE_DIR}/empty_config.json)
 set(extra_config_file_tpl ${CMAKE_CURRENT_SOURCE_DIR}/extra_compounds_config.json.in)
 set(placeholder_config_file "${BIFUSD_OUTPUT_ROOT_DIR}/test_library_placeholder_config.json")
@@ -75,41 +124,23 @@ configure_file(
     COPYONLY
 )
 
-set(library_test_config_files
-    ${config_files}
-    ${placeholder_config_file}
-)
-
-#------------------------------------------------------------------------------
-# Regular tests
-#------------------------------------------------------------------------------
-set(regular_test_files
-    testGraphExecutor.cpp
-)
-
-foreach(test_file ${regular_test_files})
+# This test is too slow under Debug + Valgrind to complete within a
+# reasonable per-test timeout. It is already covered by the RelWithDebInfo
+# Valgrind run, so skip it in Debug to prevent spurious failures.
+if(NOT (BIFUSD_VALGRIND_ENABLED AND BIFUSD_IS_DEBUG))
     configure_bifusd_unittest(
-        ${test_file} "GraphExecutor"
+        testLibrary.cpp "GraphExecutor"
         LINK_LIBS ${libs}
         SHARED_LIB_DIRS ${BIFUSD_EXTRA_BUILD_AND_TEST_PATHS}
         DEFINITIONS USD_TEST_RESOURCES_DIR="${resources_dir}"
+                    PLACEHOLDER_CONFIG_FILE="${placeholder_config_file}"
+                    EMPTY_CONFIG_FILE="${empty_config_file}"
+                    EXTRA_CONFIG_FILE="${extra_config_file}"
+        TIMEOUT ${test_timeout}
     )
-    get_unittest_target(unittest_target "GraphExecutor" ${test_file})
-    bifusd_append_test_path_env_var(${unittest_target} "BIFROST_LIB_CONFIG_FILES" "${config_files}")
-endforeach()
-
-#------------------------------------------------------------------------------
-# testLibrary
-#------------------------------------------------------------------------------
-
-configure_bifusd_unittest(
-    testLibrary.cpp "GraphExecutor"
-    LINK_LIBS ${libs}
-    SHARED_LIB_DIRS ${BIFUSD_EXTRA_BUILD_AND_TEST_PATHS}
-    DEFINITIONS USD_TEST_RESOURCES_DIR="${resources_dir}"
-                PLACEHOLDER_CONFIG_FILE="${placeholder_config_file}"
-                EMPTY_CONFIG_FILE="${empty_config_file}"
-                EXTRA_CONFIG_FILE="${extra_config_file}"
-)
-get_unittest_target(unittest_target "GraphExecutor" testLibrary.cpp)
-bifusd_append_test_path_env_var(${unittest_target} "BIFROST_LIB_CONFIG_FILES" "${library_test_config_files}")
+    get_unittest_target(unittest_target "GraphExecutor" testLibrary.cpp)
+    bifusd_append_test_path_env_var(
+        ${unittest_target} "BIFROST_LIB_CONFIG_FILES"
+        "${minimum_lib_config_files};${placeholder_config_file}"
+    )
+endif()

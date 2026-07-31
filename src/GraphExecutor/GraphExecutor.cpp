@@ -32,7 +32,7 @@
 
 namespace BifrostUsd::GraphExecutor {
 
-constexpr Amino::StringView terminalTypeToString(TerminalType type) {
+Amino::StringView terminalTypeToString(TerminalType type) {
     switch (type) {
         case TerminalType::eFinal: return kTerminalFinal;
         case TerminalType::eProxy: return kTerminalProxy;
@@ -45,48 +45,66 @@ constexpr Amino::StringView terminalTypeToString(TerminalType type) {
 GraphExecutor::GraphExecutor(Amino::Executable executable) noexcept {
     assert(executable.isValid());
     m_executable = std::move(executable);
-}
 
-static bool setGraphInputs_impl(Amino::ExecutionInputs& executionInputs,
-                                Amino::Executable&      executable,
-                                GraphArgs const&        args,
-                                StringArray*            messages) {
-    executionInputs = executable.createInputs();
-    if(args.empty()) {
-        return executionInputs.isValid();
-    }
-    const auto& graph = executable.getGraph();
+    // Build the <name> -> <InputRef> map once so setInput() can do O(1) lookups
+    // instead of scanning graph.getInputs() on every call.
+    const auto& graph = m_executable.getGraph();
     assert(graph.isValid());
-    for (auto const& input : graph.getInputs()) {
-        auto        nameRef = input.getName();
-        const auto& it      = args.find(Amino::String{nameRef});
-        if (it != args.end()) {
-            // the arg name matches the input name, now check if
-            // the arg type matches the input type.
-            const auto& argAny = it->second;
-            if (argAny.type() != input.getTypeId()) {
-                if (messages) {
-                    Amino::String msg = "Type mismatch for input param " +
-                                        Amino::String{nameRef};
-                    messages->push_back(std::move(msg));
-                }
-                continue;
-            }
-            executionInputs.setInput(input, argAny);
-        }
+    const auto inputs = graph.getInputs();
+    m_inputRefByName.reserve(inputs.size());
+    for (const auto& input : inputs) {
+        const Amino::StringView sv = input.getName();
+        m_inputRefByName.emplace(std::string(sv.data(), sv.size()), input);
     }
-    return executionInputs.isValid();
 }
 
-bool GraphExecutor::setGraphInputs(GraphArgs const& args) {
-    return setGraphInputs_impl(m_executionInputs, m_executable, args, nullptr);
+void GraphExecutor::ensureInputsCreated() {
+    if (!m_executionInputs) {
+        m_executionInputs = m_executable.createInputs();
+    }
 }
 
-bool GraphExecutor::setGraphInputs(GraphArgs const& args,
-                                   StringArray&     messages) {
+static bool setInput_impl(
+    Amino::ExecutionInputs& executionInputs,
+    const std::unordered_map<std::string, Amino::Graph::InputRef>&
+                      inputRefByName,
+    Amino::StringView name,
+    const Amino::Any& value,
+    StringArray*      messages) {
+    const Amino::StringView sv = name;
+    const auto it = inputRefByName.find(std::string(sv.data(), sv.size()));
+    if (it == inputRefByName.end()) {
+        if (messages) {
+            messages->push_back("The \"" + Amino::String{name} +
+                                "\" input port does not exist in the graph.");
+        }
+        return false;
+    }
+    if (value.type() != it->second.getTypeId()) {
+        if (messages) {
+            messages->push_back("The \"" + Amino::String{name} +
+                                "\" input port type does not match the type of "
+                                "the provided value.");
+        }
+        return false;
+    }
+    executionInputs.setInput(it->second, value);
+    return true;
+}
+
+bool GraphExecutor::setInput(Amino::StringView name, const Amino::Any& value) {
+    ensureInputsCreated();
+    return setInput_impl(m_executionInputs, m_inputRefByName, name, value,
+                         nullptr);
+}
+
+bool GraphExecutor::setInput(Amino::StringView  name,
+                             const Amino::Any&  value,
+                             StringArray&       messages) {
     messages.clear();
-    return setGraphInputs_impl(m_executionInputs, m_executable, args,
-                               &messages);
+    ensureInputsCreated();
+    return setInput_impl(m_executionInputs, m_inputRefByName, name, value,
+                         &messages);
 }
 
 void GraphExecutor::setTimelineSettings(const TimelineSettings& settings) {
@@ -94,7 +112,7 @@ void GraphExecutor::setTimelineSettings(const TimelineSettings& settings) {
     assert(graph.isValid());
 
     Amino::Graph::GlobalVariableRef globalVar =
-        graph.findGlobalVariable("Simulation::timeline_info");
+        graph.findGlobalVariable(kSimulationTimelineInfo);
     if (!globalVar) {
         return;
     }
@@ -117,7 +135,7 @@ void GraphExecutor::setFrame(double frame) {
     assert(graph.isValid());
 
     Amino::Graph::GlobalVariableRef globalVar =
-        graph.findGlobalVariable("Simulation::time");
+        graph.findGlobalVariable(kSimulationTime);
     if (!globalVar) {
         return;
     }
@@ -162,6 +180,11 @@ bool GraphExecutor::execute(VerbosityLevel verbosityLevel) {
     observer->setVerbosityLevel(verbosityLevel);
     observer->setPrintPrefix(kCtxGExecExecute);
 
+    // Make sure m_executionInputs is valid and initialized before executing.
+    // It does nothing if inputs were already created/set via setInput(),
+    // but also allows execute() to be called without prior setInput() calls.
+    ensureInputsCreated();
+
     return execute_impl(m_executionInputs, m_executable, m_executionOutputs,
                         m_executionState, observer.getNotifier());
 }
@@ -176,6 +199,11 @@ bool GraphExecutor::execute(StringArray&   messages,
     observer->setVerbosityLevel(verbosityLevel);
     observer->setPrintPrefix(kCtxGExecExecute);
 
+    // Make sure m_executionInputs is valid and initialized before executing.
+    // It does nothing if inputs were already created/set via setInput(),
+    // but also allows execute() to be called without prior setInput() calls.
+    ensureInputsCreated();
+
     return execute_impl(m_executionInputs, m_executable, m_executionOutputs,
                         m_executionState, observer.getNotifier());
 }
@@ -188,6 +216,34 @@ Amino::Closure GraphExecutor::extractOutputClosure(Amino::StringView name) {
         return m_executionOutputs.extractOutput(outputRef);
     }
     return Amino::Closure{};
+}
+
+StringArray GraphExecutor::getInputPortNames() const {
+    const auto& graph = m_executable.getGraph();
+    assert(graph.isValid());
+    const auto inputs = graph.getInputs();
+
+    StringArray names;
+    names.reserve(inputs.size());
+    for (const auto& input : inputs) {
+        names.push_back(Amino::String{input.getName()});
+    }
+
+    return names;
+}
+
+StringArray GraphExecutor::getOutputPortNames() const {
+    const auto& graph = m_executable.getGraph();
+    assert(graph.isValid());
+    const auto outputs = graph.getOutputs();
+
+    StringArray names;
+    names.reserve(outputs.size());
+    for (const auto& output : outputs) {
+        names.push_back(Amino::String{output.getName()});
+    }
+
+    return names;
 }
 
 bool GraphExecutor::hasTerminal() const {

@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2025 Autodesk, Inc.
+# Copyright 2026 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,12 +22,12 @@ set(public_libs
     Amino::RTTI
     BifrostGraph::Executor
     usdHeadersInstall
-    BifrostUSD
+    BifrostUsd
 )
 
 bifusd_set_extra_rpaths(extra_rpaths)
 
-bifusd_create_shared_lib(BifrostUSDWatchpoint             "USD_WATCHPOINT_BUILD_DLL"
+bifusd_create_shared_lib(BifrostUsdWatchpoint             "USD_WATCHPOINT_BUILD_DLL"
         PUBLIC_INSTALL
         PRIVATE_DEFINITIONS           $<${BIFUSD_IS_OSX}: OSMac_> $<${BIFUSD_IS_DEBUG}: TBB_USE_DEBUG BOOST_DEBUG_PYTHON BOOST_LINKING_PYTHON>
 

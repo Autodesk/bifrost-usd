@@ -25,9 +25,9 @@ set(libs
     BifusdTBB
     BifusdTBBHelpers
     usd_packMayaTranslationHeadersInstall
-    BifrostUSDMayaTranslation
-    BifrostUSD
-    BifrostUSDTestUtils
+    BifrostUsdMayaTranslation
+    BifrostUsd
+    BifrostUsdTestUtils
     usdUtils
 )
 

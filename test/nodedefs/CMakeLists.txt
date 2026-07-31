@@ -28,11 +28,11 @@ function(configure_bifusd_nodedefs_unittests)
         BifusdTBB
         BifusdTBBHelpers
         BifrostGraph::Executor
-        BifrostUSD
-        BifrostUSDNodedefs
+        BifrostUsd
+        BifrostUsdNodedefs
+        BifrostUsdTestUtils
         usd
         usdGeom
-        BifrostUSDTestUtils
     )
 
     # test files

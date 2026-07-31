@@ -9,7 +9,7 @@
                 {
                     "path": "${BIFROST_USD_CONFIG_SHARED_LIB}",
                     "files": [
-                        "BifrostUSDMayaTranslation_@BIFUSD_MAJOR_VERSION@_@BIFUSD_MINOR_VERSION@"
+                        "BifrostUsdMayaTranslation_@BIFUSD_MAJOR_VERSION@_@BIFUSD_MINOR_VERSION@"
                     ]
                 }
             ]

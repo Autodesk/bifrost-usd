@@ -11,29 +11,25 @@ def "Root" (
     references = </DynamicFileFormatField>
 )
 {
-    double BifrostGraph_Globals:timeline_info_start_frame = 1001
-    double BifrostGraph_Globals:timeline_info_end_frame = 1100
-    string BifrostGraph_Options:verbosity_level = "ErrorsOnly"
-    bool BifrostGraph_ReloadLibrary = 0
-    float length = 100
-    int segments = 500
-    float spectral_wave_height = 2
-    float spectral_wave_ocean_depth = 10
-    int spectral_wave_resolution = 256
-    float spectral_wave_space_scale = 0.95
-    float spectral_wave_speed_scale = 1
-    float width = 100
+    double bifrost:global:timeline_info_start_frame = 1001
+    double bifrost:global:timeline_info_end_frame = 1100
+    string bifrost:setting:verbosityLevel = "ErrorsOnly"
+    bool bifrost:setting:reloadLibrary = false
+    float bifrost:in:length = 100
+    int bifrost:in:segments = 500
+    float bifrost:in:spectral_wave_height = 2
+    float bifrost:in:spectral_wave_ocean_depth = 10
+    int bifrost:in:spectral_wave_resolution = 256
+    float bifrost:in:spectral_wave_space_scale = 0.95
+    float bifrost:in:spectral_wave_speed_scale = 1
+    float bifrost:in:width = 100
 }
 
 def "DynamicFileFormatField" (
-    BifrostGraph_CompoundName = "Test::DynamicFileFormat::spectral_wave_simulation"
-    BifrostGraph_Globals = {
-        double time_fps = 24
-        double timeline_info_start_frame = 1
-        double timeline_info_end_frame = 100
+    bifrostCompound = {
+        string name = "Test::DynamicFileFormat::spectral_wave_simulation"
     }
-    BifrostGraph_OutputName = "geometry_with_material"
-    BifrostGraph_Params = {
+    bifrostInputs = {
         float length = 100
         int segments = 100
         float spectral_wave_height = 2
@@ -43,6 +39,12 @@ def "DynamicFileFormatField" (
         float spectral_wave_speed_scale = 1
         float width = 100
     }
+    bifrostGlobals = {
+        double time_fps = 24
+        double timeline_info_start_frame = 1
+        double timeline_info_end_frame = 100
+    }
+    bifrostOutputs = ["geometry_with_material"]
 )
 {
 }

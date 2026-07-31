@@ -20,7 +20,7 @@
 #ifndef BIFROSTUSD_GRAPH_EXECUTOR_STREAM_OBSERVER_H
 #define BIFROSTUSD_GRAPH_EXECUTOR_STREAM_OBSERVER_H
 
-#include <BifrostUsd/GraphExecutor/Types.h>
+#include <BifrostUsd/GraphExecutor/GraphExecutorTypes.h>
 
 // Amino
 #include <Amino/Core/Array.h>
@@ -66,13 +66,19 @@ public:
         return m_verbosityLevel == VerbosityLevel::eSilent;
     }
 
+    /// \brief Returns true if at least warning messages should be printed to
+    /// streams or collected.
+    inline bool isReportingWarnings() const {
+        return m_verbosityLevel >= VerbosityLevel::eErrorsAndWarnings;
+    }
+
     /// \brief Returns true if at least error messages should be printed to
     /// streams or collected.
     inline bool isReportingErrors() const {
         return m_verbosityLevel >= VerbosityLevel::eErrorsOnly;
     }
 
-    /// \brief Returns true if all messages (informational and errors) should be
+    /// \brief Returns true if all messages (informational and others) should be
     /// printed to streams or collected.
     inline bool isReportingAll() const {
         return m_verbosityLevel >= VerbosityLevel::eAllMessages;
@@ -134,11 +140,19 @@ private:
 
     /// \brief Reports that the task has sent a message.
     void reportMessage(Amino::Message const& message) const {
-        bool const isError = message.getKind() == Amino::MessageKind::eError;
-        if(isError) {
+        const auto kind = message.getKind();
+        if(kind == Amino::MessageKind::eError) {
             if(isReportingErrors()) {
                 m_errStream << m_prefix;
                 message.toStream(m_errStream, true /*newline*/);
+                if(m_messages) {
+                    m_messages->push_back(message.getText());
+                }
+            }
+        } else if (kind == Amino::MessageKind::eWarning) {
+            if(isReportingWarnings()) {
+                m_outStream << m_prefix;
+                message.toStream(m_outStream, true /*newline*/);
                 if(m_messages) {
                     m_messages->push_back(message.getText());
                 }

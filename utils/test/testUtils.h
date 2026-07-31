@@ -14,6 +14,9 @@
 // limitations under the License.
 //+
 
+#ifndef BIFROSTUSD_UTILS_TEST_TESTUTILS_H
+#define BIFROSTUSD_UTILS_TEST_TESTUTILS_H
+
 #include <Amino/Core/Array.h>
 #include <Amino/Core/Ptr.h>
 #include <Amino/Core/String.h>
@@ -205,3 +208,5 @@ Amino::Array<T>& operator+=(Amino::Array<T>&       left,
 } // namespace TestUtils
 
 } // namespace BifrostUsd
+
+#endif // BIFROSTUSD_UTILS_TEST_TESTUTILS_H

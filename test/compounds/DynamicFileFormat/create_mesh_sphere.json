@@ -1,0 +1,36 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "Test::DynamicFileFormat::create_mesh_sphere",
+            "ports": [
+                {
+                    "portName": "mesh",
+                    "portDirection": "output",
+                    "portType": "Object"
+                }
+            ],
+            "compoundNodes": [
+                {
+                    "nodeName": "create_mesh_sphere",
+                    "nodeType": "Modeling::Primitive::create_mesh_sphere"
+                }
+            ],
+            "connections": [
+                {
+                    "source": "create_mesh_sphere.sphere_mesh",
+                    "target": ".mesh"
+                }
+            ]
+        }
+    ]
+}

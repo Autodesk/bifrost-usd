@@ -93,7 +93,7 @@ void ensureLibrary() {
         assert(configEnv->isValid());
         auto observer = Amino::TaskObserver::make<StreamObserver<std::ostream>>(
             std::cout, std::cerr);
-        observer->setVerbosityLevel(VerbosityLevel::eErrorsOnly);
+        observer->setVerbosityLevel(VerbosityLevel::eErrorsAndWarnings);
         observer->setPrintPrefix(
             BifrostUsd::GraphExecutor::kCtxGExecFactLoadConfigFile);
         for (const auto& pathname :
@@ -117,7 +117,7 @@ Amino::Executable makeExecutable_impl(Amino::StringView compound_name,
                      std::cout, std::cerr, *errors)
                : Amino::TaskObserver::make<StreamObserver<std::ostream>>(
                      std::cout, std::cerr);
-    observer->setVerbosityLevel(VerbosityLevel::eErrorsOnly);
+    observer->setVerbosityLevel(VerbosityLevel::eErrorsAndWarnings);
     observer->setPrintPrefix(
         BifrostUsd::GraphExecutor::kCtxGExecFactMakeGraphExecutor);
 

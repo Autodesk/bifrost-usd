@@ -10,20 +10,15 @@ def "Root" (
     payload = @anon:autodesk:bifrost.bifrostDynamicFile@
 )
 {
-    string BifrostGraph_Options:verbosity_level = "ErrorsOnly"
-    bool BifrostGraph_ReloadLibrary = 0
+    string bifrost:setting:verbosityLevel = "ErrorsOnly"
+    bool bifrost:setting:reloadLibrary = false
 }
 
 def "DynamicFileFormatField" (
-    BifrostGraph_CompoundName = "Test::DynamicFileFormat::boolean_fracture_usd_meshes"
-    BifrostGraph_OutputName = "shards"
-    BifrostGraph_ReloadLibrary = 0
-    BifrostGraph_Options = {
-        string verbosity_level = "AllMessages"
+    bifrostCompound = {
+        string name = "Test::DynamicFileFormat::boolean_fracture_usd_meshes"
     }
-    BifrostGraph_Globals = {
-    }
-    BifrostGraph_Params = {
+    bifrostInputs = {
         string file = ""
         bool generate_slicer_planes = true
         Vec3i slicer_plane_count = (0, 2, 0)
@@ -32,6 +27,13 @@ def "DynamicFileFormatField" (
         bool apply_displacement = false
         float expand_amount = 1.5
         bool display_planes = false
+    }
+    bifrostGlobals = {
+    }
+    bifrostOutputs = ["shards"]
+    bifrostSettings = {
+        string verbosityLevel = "AllMessages"
+        bool reloadLibrary = false
     }
 )
 {

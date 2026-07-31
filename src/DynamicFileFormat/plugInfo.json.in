@@ -22,42 +22,35 @@
                     }
                 },
                 "SdfMetadata": {
-                    "BifrostGraph_CompoundName": {
-                        "type": "string",
-                        "displayGroup": "Core",
-                        "appliesTo": ["prims"],
-                        "documentation:": "The Bifrost compound fully qualified name."
-                    },
-                    "BifrostGraph_OutputName": {
-                        "type": "string",
-                        "displayGroup": "Core",
-                        "appliesTo": ["prims"],
-                        "documentation:": "The Bifrost Compound output port name."
-                    },
-                    "BifrostGraph_Options": {
+                    "bifrostCompound": {
                         "type": "dictionary",
                         "displayGroup": "Core",
                         "appliesTo": ["prims"],
-                        "documentation:": "Bifrost Graph options."
+                        "documentation:": "The Bifrost compound to execute."
                     },
-                    "BifrostGraph_Globals": {
+                    "bifrostGlobals": {
                         "type": "dictionary",
                         "displayGroup": "Core",
                         "appliesTo": ["prims"],
-                        "documentation:": "The Bifrost Graph Global Variables."
+                        "documentation:": "The global variables consumed by the Bifrost graph at execution time."
                     },
-                    "BifrostGraph_ReloadLibrary": {
-                        "type": "bool",
-                        "default": 0,
-                        "displayGroup": "Core",
-                        "appliesTo": ["prims"],
-                        "documentation:": "To reload the Bifrost library."
-                    },
-                    "BifrostGraph_Params": {
+                    "bifrostInputs": {
                         "type": "dictionary",
                         "displayGroup": "Core",
                         "appliesTo": ["prims"],
-                        "documentation:": "To set the Bifrost compound inputs."
+                        "documentation:": "The input port values for the Bifrost compound to execute."
+                    },
+                    "bifrostOutputs": {
+                        "type": "token[]",
+                        "displayGroup": "Core",
+                        "appliesTo": ["prims"],
+                        "documentation:": "The names of the Bifrost compound output ports to evaluate when generating the USD layer content.\nNote: only the first declared output port is currently evaluated."
+                    },
+                    "bifrostSettings": {
+                        "type": "dictionary",
+                        "displayGroup": "Core",
+                        "appliesTo": ["prims"],
+                        "documentation:": "Execution settings that control the Bifrost graph evaluation behavior."
                     }
                 }
             }

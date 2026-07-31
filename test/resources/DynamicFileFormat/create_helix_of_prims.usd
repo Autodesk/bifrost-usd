@@ -1,54 +1,59 @@
 #usda 1.0
 
-# In usdview you can change the parameters of the Bifrost graph like this:
+# In usdview you can change the graph input parameters of the Bifrost graph in two ways:
 #
-# usdviewApi.prim.SetMetadataByDictKey("BifrostGraph_Params", "count", 12)
-# usdviewApi.prim.SetMetadataByDictKey("BifrostGraph_Params", "prim_type", "Sphere")
-# usdviewApi.prim.SetMetadataByDictKey("BifrostGraph_Params", "prim_type", "Sphere")
-# usdviewApi.prim.SetMetadataByDictKey("BifrostGraph_Params", "length", 2)
-# usdviewApi.prim.SetMetadataByDictKey("BifrostGraph_Params", "rotations", 6)
-# usdviewApi.prim.SetMetadataByDictKey("BifrostGraph_Params", "width", 3)
-# usdviewApi.prim.SetMetadataByDictKey("BifrostGraph_Params", "horizontal", 1)
+# 1. Via the "bifrostInputs" dictionary field (sets the baseline value for the field):
+#    usdviewApi.prim.SetMetadataByDictKey("bifrostInputs", "count", 12)
+#    usdviewApi.prim.SetMetadataByDictKey("bifrostInputs", "prim_type", "Sphere")
+#    usdviewApi.prim.SetMetadataByDictKey("bifrostInputs", "length", 2)
+#    usdviewApi.prim.SetMetadataByDictKey("bifrostInputs", "rotations", 6)
+#    usdviewApi.prim.SetMetadataByDictKey("bifrostInputs", "width", 3)
+#    usdviewApi.prim.SetMetadataByDictKey("bifrostInputs", "horizontal", 1)
+#
+# 2. Via a "bifrost:in:" attribute override on the prim (overrides the field value):
+#    usdviewApi.prim.GetAttribute("bifrost:in:count").Set(12)
+#    usdviewApi.prim.GetAttribute("bifrost:in:prim_type").Set("Sphere")
+#    usdviewApi.prim.GetAttribute("bifrost:in:length").Set(2)
+#    usdviewApi.prim.GetAttribute("bifrost:in:rotations").Set(6)
+#    usdviewApi.prim.GetAttribute("bifrost:in:width").Set(3)
+#    usdviewApi.prim.GetAttribute("bifrost:in:horizontal").Set(1)
+#
+# When both are present, the attribute override (method 2) takes priority.
 
 def "Root" (
     references = </DynamicFileFormatField>
     payload = @anon:autodesk:bifrost.bifrostDynamicFile@
 )
 {
-    string name = "geo"
-    asset layer_path = @/tmp/helix/helix.usda@
-    int count = 4
-    token prim_type = "Cylinder"
-    float length = 2.0
-    #float rotations = 6.0
-    #float width = 3.0
-    #bool horizontal = 1
-    Vec3f translation = (1.0, 2.0, 3.0)
+    string bifrost:in:name = "geo"
+    asset bifrost:in:layer_path = @/tmp/helix/helix.usda@
+    int bifrost:in:count = 4
+    token bifrost:in:prim_type = "Cylinder"
+    float bifrost:in:length = 2.0
+    Vec3f bifrost:in:translation = (1.0, 2.0, 3.0)
 
-    string BifrostGraph_Options:verbosity_level = "ErrorsOnly"
-    bool BifrostGraph_ReloadLibrary = 0
+    string bifrost:setting:verbosityLevel = "ErrorsOnly"
+    bool bifrost:setting:reloadLibrary = false
 }
 
 def "DynamicFileFormatField" (
-    BifrostGraph_CompoundName = "Test::DynamicFileFormat::create_helix_of_prims"
-    BifrostGraph_OutputName = "stage"
-    BifrostGraph_ReloadLibrary = 0
-    BifrostGraph_Options = {
-        string verbosity_level = "AllMessages";
+    bifrostCompound = {
+        string name = "Test::DynamicFileFormat::create_helix_of_prims"
     }
-    BifrostGraph_Params = {
+    bifrostInputs = {
         string name = "shape"
-        string layer_path = ""
+        asset layer_path = ""
         string model_file_path = ""
         bool save = 1
         int count = 2
         token prim_type = "Capsule"
         float length = 1.0
         Vec3f translation = (0.0, 0.0, 0.0)
-
-        #float rotations = 4.0
-        #float width = 2.0
-        #bool horizontal = 0
+    }
+    bifrostOutputs = ["stage"]
+    bifrostSettings = {
+        string verbosityLevel = "AllMessages";
+        bool reloadLibrary = false
     }
 )
 {

@@ -15,46 +15,37 @@
 //+
 
 #include "fileFormat.h"
-#include "DynamicFileFormatConstants.h"
+
+#include "dffArguments.h"
+#include "dffConstants.h"
+#include "dffDiagnostics.h"
 
 // Amino
 #include <Amino/Core/Any.h>
-#include <Amino/Core/BuiltInTypes.h>
 
 // Bifrost
 #include <Amino/Core/Ptr.h>
 #include <Amino/Core/StringView.h>
-#include <Bifrost/Geometry/GeoProperty.h>
-#include <Bifrost/Geometry/GeometryTypes.h>
-#include <Bifrost/Geometry/Primitives.h>
-#include <Bifrost/Math/Types.h>
 #include <Bifrost/Object/Object.h>
 
 // Bifrost USD
 #include <BifrostUsd/GraphExecutor/GraphExecutor.h>
+#include <BifrostUsd/GraphExecutor/GraphExecutorConstants.h>
 #include <BifrostUsd/GraphExecutor/GraphExecutorFactory.h>
-#include <BifrostUsd/GraphExecutor/Types.h>
+#include <BifrostUsd/GraphExecutor/GraphExecutorTypes.h>
 #include <BifrostUsd/Stage.h>
 #include <BifrostUsd/UsdTranslator/ObjectToStage.h>
 #include <bifusd/config/CfgWarningMacros.h>
 
 // Open USD base headers
-#include <pxr/base/gf/vec3i.h>
-#include <pxr/base/tf/stringUtils.h>
 #include <pxr/base/tf/token.h>
-#include <pxr/base/vt/dictionary.h>
 #include <pxr/base/vt/value.h>
 #include <pxr/pxr.h>
-// Open USD sdf headers
-#include <pxr/usd/sdf/declareHandles.h>
+#include <pxr/usd/pcp/dynamicFileFormatContext.h>
 #include <pxr/usd/sdf/fileFormat.h>
 #include <pxr/usd/sdf/layer.h>
-#include <pxr/usd/sdf/primSpec.h>
-#include <pxr/usd/sdf/reference.h>
-// Open USD usd headers
 #include <pxr/usd/usd/common.h>
 #include <pxr/usd/usd/prim.h>
-#include <pxr/usd/usd/references.h>
 #include <pxr/usd/usd/stage.h>
 
 #if ((PXR_MINOR_VERSION == 25) && (PXR_PATCH_VERSION >= 8)) || \
@@ -64,23 +55,13 @@
 #include <pxr/usd/sdf/textFileFormat.h>
 #endif
 
-#include <pxr/usd/pcp/dynamicFileFormatContext.h>
-
 // C++ Standard Library
 #include <algorithm>
-#include <array>
-#include <cstdio>
 #include <iostream>
 #include <limits>
-#include <map>
 #include <optional>
 #include <stdexcept>
 #include <string>
-#include <string_view>
-#include <tuple>
-#include <type_traits>
-#include <utility>
-
 
 using namespace BifrostUsd::DynamicPayload;
 using namespace BifrostUsd::GraphExecutor;
@@ -88,345 +69,28 @@ using namespace BifrostUsd::GraphExecutor;
 PXR_NAMESPACE_OPEN_SCOPE
 
 // clang-format off
-TF_DEFINE_PUBLIC_TOKENS(
-    BifrostDynamicFileFormatTokens,
-    BIFROST_DYNAMIC_FILE_FORMAT_TOKENS);
+TF_DEFINE_PUBLIC_TOKENS(BifrostDffPluginTokens, BIFROST_DFF_PLUGIN_TOKENS);
+TF_DEFINE_PUBLIC_TOKENS(BifrostDffGroupingTokens, BIFROST_DFF_GROUPING_TOKENS);
+TF_DEFINE_PUBLIC_TOKENS(BifrostDffCompoundFieldTokens, BIFROST_DFF_COMPOUND_FIELD_TOKENS);
+TF_DEFINE_PUBLIC_TOKENS(BifrostDffCompoundAttrTokens, BIFROST_DFF_COMPOUND_ATTR_TOKENS);
+TF_DEFINE_PUBLIC_TOKENS(BifrostDffGlobalsFieldTokens, BIFROST_DFF_GLOBALS_FIELD_TOKENS);
+TF_DEFINE_PUBLIC_TOKENS(BifrostDffGlobalsAttrTokens, BIFROST_DFF_GLOBALS_ATTR_TOKENS);
+TF_DEFINE_PUBLIC_TOKENS(BifrostDffSettingsFieldTokens, BIFROST_DFF_SETTINGS_FIELD_TOKENS);
+TF_DEFINE_PUBLIC_TOKENS(BifrostDffSettingsAttrTokens, BIFROST_DFF_SETTINGS_ATTR_TOKENS);
+/* clang-format on */
 
+// clang-format off
 BIFUSD_WARNING_PUSH
 // Silence USD warning that we cast from 'void (*)(TfType *)' to 'void (*)()'
 BIFUSD_WARNING_DISABLE_CLANG_160(-Wcast-function-type-strict)
 TF_REGISTRY_FUNCTION(TfType)
 {
-BIFUSD_WARNING_POP
+    BIFUSD_WARNING_POP
     SDF_DEFINE_FILE_FORMAT(BifrostDynamicFileFormat, SdfFileFormat);
 }
 // clang-format on
 
 namespace {
-
-// Constants for BifrostDynamicFileFormat arguments as std::string constructed
-// from TfToken::GetText() instead of TfToken::GetString() to avoid ABI
-// interface issue.
-const std::string kCompoundName{
-    BifrostDynamicFileFormatTokens->CompoundName.GetText()};
-const std::string kOptions{BifrostDynamicFileFormatTokens->Options.GetText()};
-const std::string kGlobals{BifrostDynamicFileFormatTokens->Globals.GetText()};
-const std::string kReloadLibrary{
-    BifrostDynamicFileFormatTokens->ReloadLibrary.GetText()};
-const std::string kOutputName{
-    BifrostDynamicFileFormatTokens->OutputName.GetText()};
-
-// Other constants
-const std::string kStart_frame{"timeline_info_start_frame"};
-const std::string kEnd_frame{"timeline_info_end_frame"};
-const std::string kFps{"time_fps"};
-
-const std::string kSpace{" "};
-const std::string kDot{"."};
-const std::string kColon{":"};
-const std::string kVerbosity_level{"verbosity_level"};
-
-constexpr std::string_view kUnknownType_sv{"UnknownType UnknownValue"};
-
-// clang-format off
-using SupportedTypes =
-    std::tuple<
-        Amino::int_t,
-        Amino::uint_t,
-        Amino::long_t,
-        Amino::bool_t,
-        Amino::float_t,
-        Amino::double_t,
-        GfVec3i,
-        GfVec3f,
-        TfToken,
-        SdfAssetPath,
-        std::string
-    >;
-// clang-format on
-
-std::map<std::string, VerbosityLevel> VerbosityLevelMap{
-    {"Silent", VerbosityLevel::eSilent},
-    {"ErrorsOnly", VerbosityLevel::eErrorsOnly},
-    {"AllMessages", VerbosityLevel::eAllMessages}};
-
-using ParamNameToTypeMap = std::map<std::string, std::string>;
-using NameAndValueStr    = std::pair<std::string, std::string>;
-using BifrostFloat3      = Bifrost::Math::float3;
-using BifrostInt3        = Bifrost::Math::int3;
-
-// Function to apply an operation to each type in a tuple
-template <typename Tuple, typename Func, std::size_t... I>
-constexpr void for_each_type_impl(Func&& f, std::index_sequence<I...>) {
-    // Fold expression to call f for each type
-    (f(std::tuple_element_t<I, Tuple>{}), ...);
-}
-
-template <typename Tuple, typename Func>
-constexpr void for_each_type(Func&& f) {
-    constexpr std::size_t N = std::tuple_size<Tuple>::value;
-    for_each_type_impl<Tuple>(std::forward<Func>(f),
-                              std::make_index_sequence<N>{});
-}
-
-// If the value matches T then add its name and typeName to the input/output map
-// and set the output string with <typeName>{space}<value>.
-template <typename T>
-void getArgImpl(const VtValue&      value,
-                const std::string&  name,
-                ParamNameToTypeMap& nameToTypesMap,
-                std::string&        arg) {
-    if (arg != kUnknownType_sv) {
-        return;
-    }
-
-    if (value.IsHolding<T>()) {
-        std::string typeName = value.GetTypeName();
-        nameToTypesMap[name] = typeName;
-        auto strVal          = TfStringify(value.UncheckedGet<T>());
-        if (typeName == "unsigned int") {
-            typeName = "uint";
-        } else if (typeName == "long long") {
-            typeName = "long";
-        }
-
-        arg = typeName + kSpace + strVal;
-    }
-}
-
-std::string getArg(const VtValue&      value,
-                   const std::string&  name,
-                   ParamNameToTypeMap& nameToTypeMap) {
-    std::string arg{kUnknownType_sv};
-
-    // Iterate over types at compile time
-    for_each_type<SupportedTypes>(
-        [&value, &name, &nameToTypeMap, &arg](auto valueType) {
-            using T = std::decay_t<decltype(valueType)>;
-            getArgImpl<T>(value, name, nameToTypeMap, arg);
-        }
-
-    );
-
-    return arg;
-}
-
-TfToken resolveArgName(const std::string& name) {
-    auto attrName = name;
-
-    if (attrName == kOptions + kDot + kVerbosity_level) {
-        attrName = kOptions + kColon + kVerbosity_level;
-    } else if (attrName == kGlobals + kDot + kStart_frame) {
-        attrName = kGlobals + kColon + kStart_frame;
-    } else if (attrName == kGlobals + kDot + kEnd_frame) {
-        attrName = kGlobals + kColon + kEnd_frame;
-    } else if (attrName == kGlobals + kDot + kFps) {
-        attrName = kGlobals + kColon + kFps;
-    }
-
-    return TfToken(attrName.c_str());
-}
-
-template <typename T>
-bool getArgOverrideImpl(const PcpDynamicFileFormatContext&  context,
-                        const std::string&                  name,
-                        SdfFileFormat::FileFormatArguments* args) {
-    auto attrName = resolveArgName(name);
-
-    VtValue value;
-    if (context.ComposeAttributeDefaultValue(attrName, &value) &&
-        value.IsHolding<T>()) {
-        std::string typeName = value.GetTypeName();
-
-        if constexpr (std::is_same_v<T, SdfAssetPath>) {
-            const auto& assetPath = value.UncheckedGet<SdfAssetPath>();
-            (*args)[name] = typeName + kSpace + assetPath.GetAssetPath();
-        } else {
-            if (typeName == "unsigned int") {
-                typeName = "uint";
-            } else if (typeName == "long long") {
-                typeName = "long";
-            }
-
-            auto strVal   = TfStringify(value.UncheckedGet<T>());
-            (*args)[name] = typeName + kSpace + strVal;
-        }
-        return true;
-    }
-    return false;
-}
-
-void getArgOverride(const PcpDynamicFileFormatContext&  context,
-                    const std::string&                  name,
-                    SdfFileFormat::FileFormatArguments* args) {
-    // Iterate over types at compile time
-    for_each_type<SupportedTypes>([&context, &name, &args](auto valueType) {
-        using T = std::decay_t<decltype(valueType)>;
-        getArgOverrideImpl<T>(context, name, args);
-    }
-
-    );
-}
-
-[[maybe_unused]] void printArgs(const SdfFileFormat::FileFormatArguments* args,
-                                const std::string& msg = "") {
-    std::cout << "****** FileFormatArguments from " << msg << " ******" << '\n';
-    for (const auto& pair : *args) {
-        std::cout << pair.first << ": " << pair.second << '\n';
-    }
-    std::cout
-        << "***************************************************************"
-        << std::endl;
-}
-
-NameAndValueStr getTypeAndValue(const std::string& input) {
-    std::string part1, part2;
-
-    size_t pos = input.find(kSpace);
-    if (pos != std::string::npos) {
-        part1 = input.substr(0, pos);
-        part2 = input.substr(pos + 1);
-    }
-
-    return {part1, part2};
-}
-
-using StringVec3 = std::optional<std::array<std::string, 3>>;
-StringVec3 getStringVec3(const std::string& str) {
-    std::array<std::string, 3> vec;
-
-    size_t leftParenthesis  = str.find('(');
-    size_t rightParenthesis = str.find(')');
-    if (leftParenthesis != std::string::npos &&
-        rightParenthesis != std::string::npos) {
-        std::string strValues = str.substr(
-            leftParenthesis + 1, rightParenthesis - leftParenthesis - 1);
-        size_t firstComma  = strValues.find(',');
-        size_t secondComma = strValues.find(',', firstComma + 1);
-
-        if (firstComma != std::string::npos &&
-            secondComma != std::string::npos) {
-            vec[0] = strValues.substr(0, firstComma);
-            vec[1] =
-                strValues.substr(firstComma + 1, secondComma - firstComma - 1);
-            vec[2] = strValues.substr(secondComma + 1);
-
-            return vec;
-        }
-    }
-
-    return std::nullopt;
-}
-
-BifrostFloat3 getFloat3FromString(const std::string& str) {
-    BifrostFloat3 vec;
-
-    auto strVec = getStringVec3(str);
-
-    if (strVec.has_value()) {
-        vec.x = std::stof((*strVec)[0]);
-        vec.y = std::stof((*strVec)[1]);
-        vec.z = std::stof((*strVec)[2]);
-    }
-
-    return vec;
-}
-
-BifrostInt3 getInt3FromString(const std::string& str) {
-    BifrostInt3 vec;
-
-    auto strVec = getStringVec3(str);
-
-    if (strVec.has_value()) {
-        vec.x = std::stoi((*strVec)[0]);
-        vec.y = std::stoi((*strVec)[1]);
-        vec.z = std::stoi((*strVec)[2]);
-    }
-
-    return vec;
-}
-
-GraphArgs getGraphArgs(const SdfFileFormat::FileFormatArguments& args) {
-    auto startsWithPrefix = [](const std::string& str,
-                               const std::string& prefix) -> bool {
-        if (prefix.size() > str.size()) {
-            return false;
-        }
-        return std::equal(prefix.begin(), prefix.end(), str.begin());
-    };
-
-    SdfFileFormat::FileFormatArguments filteredArgs;
-    for (const auto& [name, value] : args) {
-        if (name == SdfFileFormatTokens->TargetArg.GetText()) {
-            // When SdfFileFormat creates the new layer, it adds a "usd" target
-            // to the args. We don't need it.
-            continue;
-        }
-
-        if (name == kCompoundName) {
-            continue;
-        }
-        if (startsWithPrefix(name, kOptions + kDot)) {
-            continue;
-        }
-
-        if (startsWithPrefix(name, kGlobals + kDot)) {
-            continue;
-        }
-
-        if (name == kReloadLibrary) {
-            continue;
-        }
-
-        if (name == kOutputName) {
-            continue;
-        }
-
-        if (value != kUnknownType_sv) {
-            filteredArgs[name] = value;
-        } else {
-            std::cerr << kCtxDFFGetGraphArgs
-                      << "Warning: "
-                         "Skipping unsupported type for argument '"
-                      << name << "'." << std::endl;
-        }
-    }
-
-    GraphArgs graphArgs;
-    for (const auto& pair : filteredArgs) {
-        Amino::String name = pair.first.c_str();
-
-        auto [typeName, valueStr] = getTypeAndValue(pair.second);
-
-        if (typeName == "int") {
-            graphArgs[name] = std::stoi(valueStr);
-        } else if (typeName == "uint") {
-            graphArgs[name] = Amino::uint_t(std::stoi(valueStr));
-        } else if (typeName == "bool") {
-            graphArgs[name] = (valueStr == "1" || valueStr == "true");
-        } else if (typeName == "long") {
-            graphArgs[name] = Amino::long_t(std::stoi(valueStr));
-        } else if (typeName == "float") {
-            graphArgs[name] = std::stof(valueStr);
-        } else if (typeName == "double") {
-            graphArgs[name] = std::stod(valueStr);
-        } else if (typeName == "GfVec3i") {
-            graphArgs[name] = getInt3FromString(valueStr);
-        } else if (typeName == "GfVec3f") {
-            graphArgs[name] = getFloat3FromString(valueStr);
-        } else if (typeName == "TfToken" || typeName == "string" ||
-                   typeName == "SdfAssetPath") {
-            graphArgs[name] = Amino::String{valueStr.c_str()};
-        } else {
-            std::cerr
-                << kCtxDFFGetGraphArgs << "Error: Unsupported type '"
-                << typeName << "' for parameter '" << name.c_str() << "'."
-                << std::endl;
-        }
-    }
-
-    return graphArgs;
-}
 
 // Function to process terminal output and transfer content to a layer
 Amino::Ptr<BifrostUsd::Stage> createStageFromTerminalOutput(
@@ -474,57 +138,55 @@ Amino::Ptr<BifrostUsd::Stage> createStageFromTerminalOutput(
         // *******************************************************************
         // ************************ Execute the graph ************************
         // *******************************************************************
-        return array_of_objects_to_stage(objectsPtr.toImmutable(),
+        return objects_to_stage(objectsPtr.toImmutable(),
                                          "terminal_layer.usda", purpose);
     }
 
     return Amino::Ptr<BifrostUsd::Stage>{};
 }
 
-void executeGraph(GraphExecutorPtr&    executor,
+bool executeGraph(GraphExecutorPtr&    executor,
                   const std::string&   compoundName,
-                  const GraphArgs&     graphArgs,
-                  const VerbosityLevel verbLevel,
+                  const VerbosityLevel verbosity,
                   double frame = std::numeric_limits<double>::max()) {
-    if (!executor->setGraphInputs(graphArgs)) {
-        std::cerr << kCtxDFFExecuteGraph
-                  << "Error: Failed to set "
-                     "inputs for graph '"
-                  << compoundName << "'." << std::endl;
-        throw std::runtime_error("Graph inputs error");
-    }
-
     if (frame < std::numeric_limits<double>::max()) {
-        std::cout << kCtxDFFExecuteGraph << "Set frame " << frame
-                  << " in graph '" << compoundName << "'." << std::endl;
+        dffReportStatus(kCtxDFFExecuteGraph,
+                        "Set frame " + std::to_string(frame) + " in graph \"" +
+                            compoundName + "\".",
+                        verbosity);
         executor->setFrame(frame);
     }
 
-    if (!executor->execute(verbLevel)) {
-        std::cerr << kCtxDFFExecuteGraph
-                  << "Error: Failed to "
-                     "execute graph '"
-                  << compoundName << "'." << std::endl;
-        throw std::runtime_error("Graph execution error");
+    StringArray messages;
+    if (!executor->execute(messages, verbosity)) {
+        dffReportError(kCtxDFFExecuteGraph,
+                       "Failed to execute graph \"" + compoundName + "\".",
+                       verbosity);
+        for (const auto& msg : messages) {
+            dffReportError(kCtxDFFExecuteGraph, std::string{msg.c_str()},
+                           verbosity);
+        }
+        return false;
     }
+    return true;
 }
 
 const Amino::Ptr<BifrostUsd::Stage> createStageFromGraphOutput(
-    GraphExecutorPtr&         executor,
-    const std::string&        compoundName,
-    const std::string&        outputName,
-    Amino::ExecutionState&    translatorState,
-    const VerbosityLevel      verbosityLevel   = VerbosityLevel::eErrorsOnly,
-    bool                      use_frame        = false,
-    float                     frame            = 0.0f,
+    GraphExecutorPtr&      executor,
+    const std::string&     compoundName,
+    const std::string&     outputName,
+    Amino::ExecutionState& translatorState,
+    const VerbosityLevel   verbosity,
+    bool                   use_frame        = false,
+    float                  frame            = 0.0f,
     bool                   varying_topology = false) {
     auto closure = executor->extractOutputClosure(outputName);
 
     if (!closure) {
-        std::cerr << kCtxDFFCreateStageFromGraphOutput
-                  << "Error: The graph '"
-                  << compoundName << "' does not have an '" << outputName
-                  << "' output." << std::endl;
+        dffReportError(kCtxDFFCreateStageFromGraphOutput,
+                       "The graph \"" + compoundName +
+                           "\" does not have an \"" + outputName + "\" output.",
+                       verbosity);
 
         return nullptr;
     }
@@ -542,110 +204,95 @@ const Amino::Ptr<BifrostUsd::Stage> createStageFromGraphOutput(
             &outAny);
 
     if (!outStagePtr && !outObjectPtr && !outObjectArrayPtr) {
-        std::cerr << kCtxDFFCreateStageFromGraphOutput
-                  << "Error: The graph '"
-                  << compoundName << "' did not produce a valid '" << outputName
-                  << "' output. Expecting a Stage, an Object or an array "
-                     "of Objects."
-                  << std::endl;
+        dffReportError(kCtxDFFCreateStageFromGraphOutput,
+                       "The graph \"" + compoundName +
+                           "\" did not produce a valid \"" + outputName +
+                           "\" output. Expecting a Stage, an Object or an array"
+                           " of Objects.",
+                       verbosity);
         return nullptr;
     }
 
     if (outStagePtr) {
+        // A Stage output must have a default prim; without it the DFF plugin
+        // cannot locate the root of the generated scene.
+        if (!(*outStagePtr) || !(*outStagePtr)->isValid() ||
+            !(*outStagePtr)->get().HasDefaultPrim()) {
+            dffReportError(
+                kCtxDFFCreateStageFromGraphOutput,
+                "The graph \"" + compoundName +
+                    "\" produced a Stage with no default prim on output port "
+                    "\"" +
+                    outputName +
+                    "\". Set a default prim on the output Stage (e.g. using "
+                    "\"USD::Layer::set_layer_default_prim\"), or use an Object "
+                    "or Object[] output port instead (the default prim is then "
+                    "set automatically).",
+                verbosity);
+            return nullptr;
+        }
         return *outStagePtr;
     }
 
     if (outObjectPtr) {
-        if (verbosityLevel == VerbosityLevel::eAllMessages) {
-            std::cout << kCtxDFFCreateStageFromGraphOutput << "The graph '"
-                    << compoundName
-                    << "' has produced an Object. Converting to USD..."
-                    << std::endl;
-        }
+        dffReportStatus(kCtxDFFCreateStageFromGraphOutput,
+                        "The graph \"" + compoundName +
+                            "\" has produced an Object. Converting to USD...",
+                        verbosity);
+
+        auto objectsArrayMutablePtr =
+            Amino::newMutablePtr<Amino::Array<Amino::Ptr<Bifrost::Object>>>(1);
+        (*objectsArrayMutablePtr)[0] = *outObjectPtr;
 
         Amino::Ptr<BifrostUsd::Stage> outStageFromObjectPtr;
 
         if (use_frame) {
-            outStageFromObjectPtr = object_to_stage(
-                *outObjectPtr, translatorState, Amino::String{"objects.usd"},
+            outStageFromObjectPtr = objects_to_stage(
+                objectsArrayMutablePtr.toImmutable(), translatorState,
+                Amino::String{"objects.usd"},
                 BifrostUsd::ImageablePurpose::Default, frame, varying_topology);
 
         } else {
             outStageFromObjectPtr =
-                object_to_stage(*outObjectPtr, Amino::String{"objects.usd"},
-                                BifrostUsd::ImageablePurpose::Default);
+                objects_to_stage(objectsArrayMutablePtr.toImmutable(),
+                                 Amino::String{"objects.usd"},
+                                 BifrostUsd::ImageablePurpose::Default);
         }
 
         if (outStageFromObjectPtr) {
             return outStageFromObjectPtr;
         } else {
-            std::cout << kCtxDFFCreateStageFromGraphOutput
-                      << "Error: Failed to create a Stage from an Object with "
-                         "graph '"
-                      << compoundName << "'." << std::endl;
+            dffReportError(
+                kCtxDFFCreateStageFromGraphOutput,
+                "Failed to create a Stage from an Object with graph \"" +
+                    compoundName + "\".",
+                verbosity);
             return nullptr;
         }
     }
 
     if (outObjectArrayPtr) {
-        if (verbosityLevel == VerbosityLevel::eAllMessages) {
-            std::cout
-                << kCtxDFFCreateStageFromGraphOutput << "The graph '"
-                << compoundName
-                << "' has produced an array of Objects. Converting to USD..."
-                << std::endl;
-        }
+        dffReportStatus(kCtxDFFCreateStageFromGraphOutput,
+                        "The graph \"" + compoundName +
+                            "\" has produced an array of Objects. Converting to"
+                            " USD...",
+                        verbosity);
 
         auto const& outStageFromObjectArrayPtr =
-            array_of_objects_to_stage(*outObjectArrayPtr);
+            objects_to_stage(*outObjectArrayPtr);
         if (outStageFromObjectArrayPtr) {
             return outStageFromObjectArrayPtr;
         } else {
-            std::cout << kCtxDFFCreateStageFromGraphOutput
-                      << "Error: Failed to create a Stage from an array of "
-                         "Objects with graph '"
-                      << compoundName << "'." << std::endl;
+            dffReportError(kCtxDFFCreateStageFromGraphOutput,
+                           "Failed to create a Stage from an array of Objects"
+                           " with graph \"" +
+                               compoundName + "\".",
+                           verbosity);
             return nullptr;
         }
     }
 
     return nullptr;
-}
-
-std::optional<TimelineSettings> getTimelineSettings(
-    const SdfFileFormat::FileFormatArguments& args) {
-    NameAndValueStr startFrameStr;
-    auto findTimelineInfoStartFrame = args.find(kGlobals + kDot + kStart_frame);
-    if (findTimelineInfoStartFrame != args.end()) {
-        startFrameStr = getTypeAndValue(findTimelineInfoStartFrame->second);
-    }
-
-    NameAndValueStr endFrameStr;
-    auto findTimelineInfoEndFrame = args.find(kGlobals + kDot + kEnd_frame);
-    if (findTimelineInfoEndFrame != args.end()) {
-        endFrameStr = getTypeAndValue(findTimelineInfoEndFrame->second);
-    }
-
-    if (!startFrameStr.first.empty() && !endFrameStr.first.empty()) {
-        TimelineSettings timelineSettings;
-        timelineSettings.startFrame = std::stod(startFrameStr.second);
-        timelineSettings.endFrame   = std::stod(endFrameStr.second);
-        return timelineSettings;
-    }
-    return std::nullopt;
-}
-
-double getFps(const SdfFileFormat::FileFormatArguments& args) {
-    NameAndValueStr fpsStr;
-    auto findTimeFps = args.find(kGlobals + kDot + kFps);
-    if (findTimeFps != args.end()) {
-        fpsStr = getTypeAndValue(findTimeFps->second);
-        if(!fpsStr.first.empty()) {
-            double fps = std::stod(fpsStr.second);
-            if (fps > 0.0) return fps;
-        }
-    }
-    return BifrostUsd::GraphExecutor::defaultFps;
 }
 
 TfToken getDefaultPrimName(const SdfLayerRefPtr& layer) {
@@ -672,10 +319,10 @@ void addSubLayerToLayer(SdfLayerHandle&    subLayer,
 } // namespace
 
 BifrostDynamicFileFormat::BifrostDynamicFileFormat()
-    : SdfFileFormat(BifrostDynamicFileFormatTokens->Id,
-                    BifrostDynamicFileFormatTokens->Version,
-                    BifrostDynamicFileFormatTokens->Target,
-                    BifrostDynamicFileFormatTokens->Extension) {}
+    : SdfFileFormat(BifrostDffPluginTokens->Id,
+                    BifrostDffPluginTokens->Version,
+                    BifrostDffPluginTokens->Target,
+                    BifrostDffPluginTokens->Extension) {}
 
 BifrostDynamicFileFormat::~BifrostDynamicFileFormat() {}
 
@@ -691,48 +338,49 @@ bool BifrostDynamicFileFormat::Read(
         return false;
     }
 
-    const auto& args = layer->GetFileFormatArguments();
+    const FileFormatArguments& args = layer->GetFileFormatArguments();
+    DffDiagnosticScope         diagnosticScope(
+                DffDiagnosticPhase::Read,
+                getDiagnosticsBucketArg(args).value_or(layer->GetIdentifier()));
 
-    auto findCompoundName = args.find(kCompoundName);
-    if (findCompoundName == args.end()) {
-        std::cerr << kCtxDFFRead << "Error: The required '"
-                  << BifrostDynamicFileFormatTokens->CompoundName.GetText()
-                  << "' argument is missing." << std::endl;
+    // Extract the verbosity level first so that subsequent calls can use it.
+    std::optional<VerbosityLevel> verbosityOpt;
+    if (!getVerbosityLevelArg(args, verbosityOpt)) {
+        return false;
+    }
+    auto verbosity = verbosityOpt.value();
+
+    std::optional<std::string> compoundNameOpt;
+    if (!getCompoundNameArg(args, verbosity, compoundNameOpt)) {
+        return false;
+    }
+    const std::string compoundName = compoundNameOpt.value();
+
+    std::optional<std::string> outputNameOpt;
+    if (!getOutputNameArg(args, verbosity, outputNameOpt)) {
+        return false;
+    }
+    std::string outputName =
+        outputNameOpt.has_value() ? outputNameOpt.value() : "";
+
+    std::optional<TimelineSettings> timelineSettingsOpt;
+    std::optional<double>           fpsOpt;
+    if (!getTimelineSettingsArgs(args, verbosity, timelineSettingsOpt)) {
+        return false;
+    }
+    bool useTimeline = timelineSettingsOpt.has_value();
+    if (useTimeline && !getFpsArg(args, verbosity, fpsOpt)) {
         return false;
     }
 
-    auto findOutputName = args.find(kOutputName);
-    if (findOutputName == args.end()) {
-        std::cerr << kCtxDFFRead << "Error: The required '"
-                  << BifrostDynamicFileFormatTokens->OutputName.GetText()
-                  << "' argument is missing." << std::endl;
-        return false;
-    }
-
-    auto findReloadLibrary = args.find(kReloadLibrary);
-    if (findReloadLibrary != args.end()) {
-        auto reloadLibStr = getTypeAndValue(findReloadLibrary->second).second;
-        if (reloadLibStr == "true") {
-            reloadLibrary();
-        }
-    }
-
-    auto compoundName = getTypeAndValue(findCompoundName->second).second;
-    GraphExecutorPtr executor = makeGraphExecutor(Amino::String{compoundName.c_str()});
+    GraphExecutorPtr executor =
+        makeGraphExecutor(Amino::String{compoundName.c_str()});
     if (!executor) {
-        std::cerr << kCtxDFFRead
-                  << "Error: Failed to create a GraphExecutor for graph '"
-                  << compoundName << "'." << std::endl;
+        dffReportError(kCtxDFFRead,
+                       "Failed to create a GraphExecutor for graph \"" +
+                           compoundName + "\".",
+                       verbosity);
         return false;
-    }
-    auto graphArgs = getGraphArgs(args);
-
-    auto verbLevel          = VerbosityLevel::eSilent;
-    auto findVerbosityLevel = args.find(kOptions + kDot + kVerbosity_level);
-    if (findVerbosityLevel != args.end()) {
-        auto verbosityLevelStr =
-            getTypeAndValue(findVerbosityLevel->second).second;
-        verbLevel = VerbosityLevelMap[verbosityLevelStr];
     }
 
     // ******************************************************************
@@ -783,34 +431,26 @@ bool BifrostDynamicFileFormat::Read(
                 auto subLayer = (*bifrostStage)->GetRootLayer();
                 addSubLayerToLayer(subLayer,
                                    "Layer generated by Bifrost Graph from a " +
-                                       terminalTypeStr + " terminal output port",
+                                       terminalTypeStr +
+                                       " terminal output port",
                                    mainLayer, defaultPrimName);
             }
         };
 
-    auto getGraphOutputName = [&findOutputName]() {
-        using namespace Amino::StringViewLiterals;
-        return getTypeAndValue(findOutputName->second).second;
-    };
-
     // Use the root layer from a BifrostUsd stage created from a graph output
     // and add it as a sublayer of the main stage.
-    auto addSubLayerFromOutput = [&mainLayer, &defaultPrimName](
-                                     Amino::Ptr<BifrostUsd::Stage>&
-                                                        bifrostStage,
-                                     const std::string& outputName) {
-        if (bifrostStage) {
-            auto subLayer = (*bifrostStage)->GetRootLayer();
-            addSubLayerToLayer(subLayer,
-                               "Layer generated by Bifrost Graph from the "
-                               "regular output port '" +
-                                   outputName + "'",
-                               mainLayer, defaultPrimName);
-        }
-    };
-    // ******************************************************************
-
-    auto timelineSettings = getTimelineSettings(args);
+    auto addSubLayerFromOutput =
+        [&mainLayer, &defaultPrimName,
+         &outputName](Amino::Ptr<BifrostUsd::Stage>& bifrostStage) {
+            if (bifrostStage) {
+                auto subLayer = (*bifrostStage)->GetRootLayer();
+                addSubLayerToLayer(subLayer,
+                                   "Layer generated by Bifrost Graph from the "
+                                   "regular output port \"" +
+                                       outputName + "\"",
+                                   mainLayer, defaultPrimName);
+            }
+        };
 
     // *******************************************************************
     // ************************ Execute the graph ************************
@@ -821,24 +461,40 @@ bool BifrostDynamicFileFormat::Read(
     Amino::Ptr<BifrostUsd::Stage> terminalDiagnosticStage;
     Amino::Ptr<BifrostUsd::Stage> graphOutputStage;
 
-    bool        useFrame = timelineSettings.has_value();
-    std::string outputName;
+    bool hasFinal = executor->hasTerminalPort(TerminalType::eFinal);
+    bool hasProxy = executor->hasTerminalPort(TerminalType::eProxy);
+    bool hasDiagn = executor->hasTerminalPort(TerminalType::eDiagnostic);
+    bool hasOutput = !outputName.empty();
+    if (!hasFinal && !hasProxy && !hasDiagn && !hasOutput) {
+        dffReportError(
+            kCtxDFFRead,
+            "The graph \"" + compoundName +
+                "\" produced no output: specify an output port via the \"" +
+                tokenToText(BifrostDffGroupingTokens->OutputsField) +
+                "\" field or a \"" +
+                tokenToText(BifrostDffGroupingTokens->OutputsAttrPrefix) +
+                "<portName>\" attribute, or enable a terminal port (\"final\", "
+                "\"proxy\", or \"diagnostic\").",
+            verbosity);
+        return false;
+    }
 
-    if (useFrame) {
+    if (useTimeline) {
         auto usdTranslatorGraphState = Amino::ExecutionState{};
 
-        executor->setTimelineSettings(timelineSettings.value());
-        executor->setFps(getFps(args));
+        executor->setTimelineSettings(timelineSettingsOpt.value());
+        executor->setFps(fpsOpt.value());
 
-        bool hasFinal = executor->hasTerminalPort(TerminalType::eFinal);
-        bool hasProxy = executor->hasTerminalPort(TerminalType::eProxy);
-        bool hasDiagn = executor->hasTerminalPort(TerminalType::eDiagnostic);
-
-        double startFrame = timelineSettings.value().startFrame;
-        double endFrame   = timelineSettings.value().endFrame;
+        double startFrame = timelineSettingsOpt.value().startFrame;
+        double endFrame   = timelineSettingsOpt.value().endFrame;
 
         for (double frame = startFrame; frame < endFrame + 1; frame += 1) {
-            executeGraph(executor, compoundName, graphArgs, verbLevel, frame);
+            if (!setGraphInputs(executor, args, verbosity)) {
+                return false;
+            }
+            if (!executeGraph(executor, compoundName, verbosity, frame)) {
+                return false;
+            }
 
             if (hasFinal) {
                 terminalFinalStage = createStageFromTerminalOutput(
@@ -852,33 +508,36 @@ bool BifrostDynamicFileFormat::Read(
                 terminalDiagnosticStage = createStageFromTerminalOutput(
                     executor, TerminalType::eDiagnostic);
             }
-
-            if (outputName = getGraphOutputName(); !outputName.empty()) {
+            if (hasOutput) {
                 graphOutputStage = createStageFromGraphOutput(
                     executor, compoundName, outputName, usdTranslatorGraphState,
-                    verbLevel, true, static_cast<float>(frame));
+                    verbosity, true, static_cast<float>(frame));
             }
         }
     } else {
-        executeGraph(executor, compoundName, graphArgs, verbLevel);
+        if (!setGraphInputs(executor, args, verbosity)) {
+            return false;
+        }
+        if (!executeGraph(executor, compoundName, verbosity)) {
+            return false;
+        }
 
-        if (executor->hasTerminalPort(TerminalType::eFinal)) {
+        if (hasFinal) {
             terminalFinalStage =
                 createStageFromTerminalOutput(executor, TerminalType::eFinal);
         }
-        if (executor->hasTerminalPort(TerminalType::eProxy)) {
+        if (hasProxy) {
             terminalProxyStage =
                 createStageFromTerminalOutput(executor, TerminalType::eProxy);
         }
-        if (executor->hasTerminalPort(TerminalType::eDiagnostic)) {
+        if (hasDiagn) {
             terminalDiagnosticStage = createStageFromTerminalOutput(
                 executor, TerminalType::eDiagnostic);
         }
-
-        if (outputName = getGraphOutputName(); !outputName.empty()) {
-            auto dummyState = Amino::ExecutionState{};
+        if (hasOutput) {
+            auto unusedState = Amino::ExecutionState{};
             graphOutputStage = createStageFromGraphOutput(
-                executor, compoundName, outputName, dummyState, verbLevel);
+                executor, compoundName, outputName, unusedState, verbosity);
         }
     }
 
@@ -893,7 +552,33 @@ bool BifrostDynamicFileFormat::Read(
                                 TerminalType::eDiagnostic);
     }
     if (graphOutputStage) {
-        addSubLayerFromOutput(graphOutputStage, outputName);
+        addSubLayerFromOutput(graphOutputStage);
+    }
+
+    if (mainLayer->GetSubLayerPaths().empty()) {
+        // All configured outputs were attempted but none produced a usable
+        // stage. Build a list of the terminal ports that were enabled but
+        // yielded nothing.
+        // Note: createStageFromGraphOutput() already emits its own specific
+        // error for graph output port failures, so we only need to report
+        // terminal port failures here.
+        std::string failedPorts;
+        auto        appendPort = [&failedPorts](const std::string& portDesc) {
+            if (!failedPorts.empty()) failedPorts += ", ";
+            failedPorts += portDesc;
+        };
+        if (hasFinal) appendPort("\"final\"");
+        if (hasProxy) appendPort("\"proxy\"");
+        if (hasDiagn) appendPort("\"diagnostic\"");
+        if (!failedPorts.empty()) {
+            dffReportError(kCtxDFFRead,
+                           "The graph \"" + compoundName +
+                               "\" was executed but the following terminal"
+                               " output port(s) produced no usable stage: " +
+                               failedPorts + ".",
+                           verbosity);
+        }
+        return false;
     }
 
     // *******************************************************************
@@ -905,9 +590,17 @@ bool BifrostDynamicFileFormat::Read(
     if (defaultPrim) {
         mainStage->SetDefaultPrim(defaultPrim);
     } else {
-        std::cout << kCtxDFFRead << "Error: Unable to find the "
-                     "default prim in the generated Stage from graph '"
-                  << compoundName << "'." << std::endl;
+        // This should never happen: every sublayer added to mainStage is
+        // produced either by objects_to_stage (which always sets "/root" as
+        // the default prim) or by a Stage output whose default prim was
+        // validated in createStageFromGraphOutput(). If we reach here, an
+        // unexpected situation was encountered.
+        dffReportError(kCtxDFFRead,
+                       "The graph \"" + compoundName +
+                           "\" produced sublayers but none carries an"
+                           " identifiable default prim. This situation was"
+                           " not expected.",
+                       verbosity);
         return false;
     }
 
@@ -952,79 +645,190 @@ bool BifrostDynamicFileFormat::WriteToStream(const SdfSpecHandle& spec,
 }
 
 void BifrostDynamicFileFormat::ComposeFieldsForFileFormatArguments(
-    [[maybe_unused]] const std::string& assetPath,
-    const PcpDynamicFileFormatContext&  context,
-    FileFormatArguments*                args,
-    [[maybe_unused]] VtValue*           contextDependencyData) const {
-    // Get BifrostGraph_Params dictionary.
-    VtValue            val;
-    ParamNameToTypeMap nameToTypesMap;
+    const std::string&                 assetPath,
+    const PcpDynamicFileFormatContext& context,
+    FileFormatArguments*               args,
+    [[maybe_unused]] VtValue*          contextDependencyData) const {
+    FileFormatArguments outArgs;
+    bool                hasError = false;
 
-    if (context.ComposeValue(BifrostDynamicFileFormatTokens->CompoundName,
-                             &val) &&
-        val.IsHolding<std::string>()) {
-        (*args)[kCompoundName] = "string " + val.UncheckedGet<std::string>();
+    // The BucketId is used to group all diagnostics related to the same asset
+    // together in the DFF Diagnostics. By default, when no BucketId field
+    // was authored, we use the assetPath.
+    DffDiagnosticScope diagnosticScope(
+        DffDiagnosticPhase::ComposeFieldsForFileFormatArguments,
+        assetPath /*bucketId*/);
+    if (const auto diagnosticsBucket = composeDiagnosticsBucketField(
+            context, BifrostUsd::GraphExecutor::defaultVerbosity, &outArgs)) {
+        diagnosticScope.setBucketId(*diagnosticsBucket);
     }
 
-    if (context.ComposeValue(BifrostDynamicFileFormatTokens->ReloadLibrary,
-                             &val) &&
-        val.IsHolding<Amino::bool_t>()) {
-        nameToTypesMap[kReloadLibrary] = "bool";
-        (*args)[kReloadLibrary] =
-            TfStringify(val.UncheckedGet<Amino::bool_t>());
+    // Compose "settings" field before processing the remaining groups since
+    // these settings values would affect the behavior of the DFF plugin itself
+    // (e.g. verbosity level).
+    // Note: We use a minimum of eErrorsAndWarnings level so that errors in
+    //       these "settings" are always surfaced regardless of what the default
+    //       verbosity says.
+    VerbosityLevel tempVerbosity =
+        std::max(VerbosityLevel::eErrorsAndWarnings,
+                 BifrostUsd::GraphExecutor::defaultVerbosity);
+    if (!composeGroupOfFieldsToArgs(
+            context, tempVerbosity, BifrostDffGroupingTokens->SettingsField,
+            &BifrostDffSettingsFieldTokens->allTokens,
+            nullptr, // no typeIds to validate against
+            BifrostDffGroupingTokens->SettingsAttrPrefix,
+            hasError ? nullptr : &outArgs)) {
+        hasError = true;
+    }
+
+    // Probe "settings" attributes that may be present on the primitive, and
+    // when one is present, it overrides the corresponding field value (which
+    // may be present or not).
+    // Note: These calls are made unconditionally (even when hasError is already
+    //       set) so that PCP always records a dependency on each attribute via
+    //       context.ComposeAttributeDefaultValue(). Otherwise, we would leave
+    //       PCP unaware of the attribute and prevent recomposition when its
+    //       value subsequently changes.
+    for (const TfToken& attrToken : BifrostDffSettingsAttrTokens->allTokens) {
+        bool success = applyAttrOverrideToFileFormatArgument(
+            context, tempVerbosity, tokenToText(attrToken), &outArgs);
+        if (!success) hasError = true;
+    }
+
+    // Extract the actual desired verbosity level that has been set in content
+    // so that all subsequent composition calls can use it. Both the field and
+    // the attribute override have been written to outArgs, so the extracted
+    // value is the final composed verbosity.
+    VerbosityLevel verbosity = BifrostUsd::GraphExecutor::defaultVerbosity;
+    std::optional<VerbosityLevel> verbosityOpt;
+    if (getVerbosityLevelArg(outArgs, verbosityOpt)) {
+        verbosity = verbosityOpt.value();
     } else {
-        val = VtValue{};
+        hasError = true;
     }
 
-    if (context.ComposeValue(BifrostDynamicFileFormatTokens->Options, &val) &&
-        val.IsHolding<VtDictionary>()) {
-        const VtDictionary& dict = val.UncheckedGet<VtDictionary>();
+    // If reloadLibrary=true (from the field, the attribute override, or both),
+    // reload the Bifrost library before creating the GraphExecutor. This
+    // ensures that compounds added, removed, or whose graph inputs/outputs
+    // changed since the last load are picked up here, so the correct port
+    // names are used when composing the remaining DFF plugin arguments
+    // (inputs, outputs, etc.).
+    std::optional<bool> reloadLibraryOpt;
+    if (!getReloadLibraryArg(outArgs, verbosity, reloadLibraryOpt)) {
+        hasError = true;
+    } else if (reloadLibraryOpt.value_or(false)) {
+        reloadLibrary();
+    }
 
-        for (const auto& [name, value] : dict) {
-            std::string fullName = kOptions + "." + name;
-            (*args)[fullName]    = getArg(value, fullName, nameToTypesMap);
+    // Compose fields from all remaining *known* grouping tokens.
+    if (!composeGroupOfFieldsToArgs(
+            context, verbosity, BifrostDffGroupingTokens->CompoundField,
+            &BifrostDffCompoundFieldTokens->allTokens,
+            nullptr, // no typeIds to validate against
+            BifrostDffGroupingTokens->CompoundAttrPrefix,
+            hasError ? nullptr : &outArgs)) {
+        hasError = true;
+    }
+    if (!composeGroupOfFieldsToArgs(context, verbosity,
+                                    BifrostDffGroupingTokens->GlobalsField,
+                                    &BifrostDffGlobalsFieldTokens->allTokens,
+                                    nullptr, // no typeIds to validate against
+                                    BifrostDffGroupingTokens->GlobalsAttrPrefix,
+                                    hasError ? nullptr : &outArgs)) {
+        hasError = true;
+    }
+
+    // Probe the "compound" attributes that may be present on the primitive. If
+    // the compoundName attribute is present, it overrides the corresponding
+    // field value (which may not be present).
+    for (const TfToken& attrToken : BifrostDffCompoundAttrTokens->allTokens) {
+        if (!applyAttrOverrideToFileFormatArgument(
+                context, verbosity, tokenToText(attrToken), &outArgs)) {
+            hasError = true;
         }
-    } else {
-        val = VtValue{};
     }
 
-    if (context.ComposeValue(BifrostDynamicFileFormatTokens->Globals, &val) &&
-        val.IsHolding<VtDictionary>()) {
-        const VtDictionary& dict = val.UncheckedGet<VtDictionary>();
-
-        for (const auto& [name, value] : dict) {
-            std::string fullName = kGlobals + "." + name;
-            (*args)[fullName]    = getArg(value, fullName, nameToTypesMap);
+    // At this point, if the compoundName is known, we can use it to create
+    // a temporary GraphExecutor to query the graph input and output port names,
+    // which cannot be known in advance like other fields and attributes.
+    GraphExecutorPtr           executor;
+    std::optional<std::string> compoundNameOpt;
+    if (!getCompoundNameArg(outArgs, verbosity, compoundNameOpt)) {
+        hasError = true;
+    } else {
+        const std::string compoundName = compoundNameOpt.value();
+        executor = makeGraphExecutor(Amino::String{compoundName.c_str()});
+        if (!executor) {
+            dffReportError(kCtxDFFComposingValues,
+                           "Failed to create a GraphExecutor for graph \"" +
+                               compoundName + "\".",
+                           verbosity);
+            hasError = true;
         }
-    } else {
-        val = VtValue{};
     }
 
-    if (context.ComposeValue(BifrostDynamicFileFormatTokens->Params, &val) &&
-        val.IsHolding<VtDictionary>()) {
-        const VtDictionary& dict = val.UncheckedGet<VtDictionary>();
+    StringArray validInputPortNames;
+    StringArray validOutputPortNames;
+    if (executor) {
+        // Compose the "inputs" field, and validate them against the valid
+        // input port names of the compound to execute.
+        validInputPortNames = executor->getInputPortNames();
+        if (!composeInputsFieldToArgs(
+                context, verbosity, BifrostDffGroupingTokens->InputsField,
+                validInputPortNames, BifrostDffGroupingTokens->InputsAttrPrefix,
+                hasError ? nullptr : &outArgs))
+            hasError = true;
 
-        for (const auto& [name, value] : dict) {
-            (*args)[name] = getArg(value, name, nameToTypesMap);
+        // The graph output ports are listed as a token[] array.
+        // Like inputs, we validate the field entries and probe attributes
+        // against the graph's known output port names, enabling attribute-only
+        // output port specification with no "outputs" field present.
+        validOutputPortNames = executor->getOutputPortNames();
+        if (!composeOutputsFieldToArgs(
+                context, verbosity, BifrostDffGroupingTokens->OutputsField,
+                validOutputPortNames,
+                BifrostDffGroupingTokens->OutputsAttrPrefix,
+                hasError ? nullptr : &outArgs))
+            hasError = true;
+    }
+
+    if (!hasError) {
+        // Probe "globals" attributes that may be present on the
+        // primitive, and when one is present, it overrides the corresponding
+        // field value (which may be present or not).
+        for (const TfToken& attrToken :
+             BifrostDffGlobalsAttrTokens->allTokens) {
+            bool success = applyAttrOverrideToFileFormatArgument(
+                context, verbosity, tokenToText(attrToken), &outArgs);
+            if (!success) hasError = true;
         }
-    } else {
-        val = VtValue{};
+
+        // Do the same for graph "inputs" attributes whose names match names of
+        // graph "inputs" field, so they can be used as graph input overrides.
+        if (executor) {
+            const std::string attrPrefix =
+                tokenToText(BifrostDffGroupingTokens->InputsAttrPrefix);
+            for (const auto& portName : validInputPortNames) {
+                const std::string attrName = attrPrefix + portName.c_str();
+                bool success = applyAttrOverrideToFileFormatArgument(
+                    context, verbosity, attrName, &outArgs);
+                if (!success) hasError = true;
+            }
+        }
+
+        // If any "outputs" attributes are present on the prim, they replace the
+        // entire output port list set by the "outputs" field (all-or-nothing
+        // semantics). This also enables attribute-only output specification
+        // when no "outputs" field is authored.
+        if (executor) {
+            applyOutputsAttrOverridesToArgs(
+                context, verbosity, validOutputPortNames,
+                BifrostDffGroupingTokens->OutputsAttrPrefix, &outArgs);
+        }
     }
 
-    if (context.ComposeValue(BifrostDynamicFileFormatTokens->OutputName,
-                             &val) &&
-        val.IsHolding<std::string>()) {
-        (*args)[kOutputName] = "string " + val.UncheckedGet<std::string>();
-    } else {
-        val = VtValue{};
-    }
-
-    // Override BifrostGraph_Params dictionary if there are some attributes
-    // matching the param nane and type.
-    // TODO (BIFROST-13584): use "bifrost" namespace to retrieve atttributes
-    // from the context that are used to set graph inputs.
-    for (const auto& [name, typeName] : nameToTypesMap) {
-        getArgOverride(context, name, args);
+    if (!hasError) {
+        *args = std::move(outArgs);
     }
 }
 

@@ -1,6 +1,43 @@
-## [1.4.3] - 2026-04-24 (Bifrost 3.1.0.8)
+## [1.4.5] - 2026-07-30 (Bifrost 3.2)
 
 ### Build
+   - BIFROST-14126 - Disable slow GraphExecutor and DynamicFileFormat unit tests in Valgrind Debug, and make the `reloadLibrary` unit test faster.
+
+### Bugfix
+  - BIFROST-14151 - Fix a GraphExecutor test.
+  - BIFROST-88228 - Fix the reload library feature in Bifrost Dynamic File Format plugin by ensuring the settings attributes are composed unconditionally during the composition phase.
+
+## [1.4.4] - 2026-07-08 (Bifrost 3.2)
+
+### Build
+  - BIFROST-13933 - Fix a warning caused by CMake 4.3.1.
+  - BIFROST-13928 - Rename libraries in bifrost-usd-pack:
+    - `BifrostUSD` -> `BifrostUsd`
+    - `BifrostUSDMayaTranslation` -> `BifrostUsdMayaTranslation`
+    - `BifrostUSDNodedefs` -> `BifrostUsdNodedefs`
+    - `BifrostUSDTestUtils` -> `BifrostUsdTestUtils`
+    - `BifrostUSDWatchpoint` -> `BifrostUsdWatchpoint`
+  - BIFROST-88227 - Allow tests to find TBB from vanilla USD.
+
+### Feature
+  - BIFROST-13938 - Add `traverse_instances` input port to the _get_prim_children_ node.
+  - BIFROST-13919 - Add `mayaUsdPlugInfo.json` so that Bifrost Dynamic Payload plugin is loaded by the Maya USD plugin.
+  - BIFROST-14119 - Add overloads of _add_reference_prim_ and _add_payload_prim_ that accept a string layer identifier.
+  - BIFROST-14108 - Add new _set_prim_metadata_by_dict_key_ node, and add string-array support to _set_prim_metadata_ and _get_prim_metadata_.
+  - BIFROST-14120 - _set_prim_metadata_ and _get_prim_metadata_ are no longer marked as internal.
+  - BIFROST-14087 - The UsdTranslator and DynamicFileFormat now use a single _objects_to_stage_ compound for both single-object and multiple-object output cases.
+    - Rename `array_of_objects_to_stage` to `objects_to_stage`.
+    - Remove the legacy `object_to_stage` function.
+  - BIFROST-13584 - Refactor the Bifrost Dynamic File Format plugin to support a new namespace for its fields and attributes, with improved parsing, validation, and error reporting.
+    - Add the new `bifrost:` namespace for all Dynamic File Format fields and attributes to avoid conflicts with other plugins and with native USD fields or attributes.
+    - Group all known tokens (`bifrostCompound`, `bifrostGlobals`, `bifrostInputs`, `bifrostOutputs`, `bifrostSettings`) so future token additions can be handled generically.
+  - BIFROST-13785 - In the Dynamic File Format plugin, remove the requirement to declare any metadata field before using it as a prim attribute. This applies to all supported metadata fields (compound name, globals, graph inputs, graph outputs and settings).
+    - Improve error reporting when there are no specified outputs, when they produce no usable Stage, or when the Stage has no default prim.
+    - Report type mismatch or unsupported type errors instead of warnings when reading attributes.
+    - Move the `reloadLibrary()` call from the read phase to the composition phase so the library is reloaded before plugin-argument fields are composed. This properly handles cases where a compound is added or removed, or where its graph inputs or outputs change.
+  - BIFROST-14150 - Add more detailed documentation for the Dynamic File Format in its README.
+
+## [1.4.3] - 2026-04-22 (Bifrost 3.1)
 
 ### Feature
   - BIFROST-13540 - Compounds that are used in quick-create on array input ports now have explicit output types set instead of auto-outputs so that auto fan-in can work.

@@ -8,8 +8,8 @@
                 {
                     "path": "${BIFROST_USD_CONFIG_SHARED_LIB}",
                     "files": [
-                        "BifrostUSD_@BIFUSD_MAJOR_VERSION@_@BIFUSD_MINOR_VERSION@",
-                        "BifrostUSDNodedefs_@BIFUSD_MAJOR_VERSION@_@BIFUSD_MINOR_VERSION@"
+                        "BifrostUsd_@BIFUSD_MAJOR_VERSION@_@BIFUSD_MINOR_VERSION@",
+                        "BifrostUsdNodedefs_@BIFUSD_MAJOR_VERSION@_@BIFUSD_MINOR_VERSION@"
                     ]
                 }
             ],
@@ -31,7 +31,7 @@
                 {
                     "path": "${BIFROST_USD_CONFIG_SHARED_LIB}",
                     "files": [
-                        "BifrostUSDWatchpoint_@BIFUSD_MAJOR_VERSION@_@BIFUSD_MINOR_VERSION@"
+                        "BifrostUsdWatchpoint_@BIFUSD_MAJOR_VERSION@_@BIFUSD_MINOR_VERSION@"
                     ]
                 }
             ]

@@ -1,6 +1,6 @@
 #-
 #*****************************************************************************
-# Copyright 2023 Autodesk, Inc.
+# Copyright 2026 Autodesk, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -62,6 +62,9 @@ bifusd_set_if_matches(BIFUSD_IS_RELEASE  CMAKE_BUILD_TYPE "^(Release|RelWithDebI
 bifusd_set_if_matches(BIFUSD_IS_DEBUG    CMAKE_BUILD_TYPE "^Debug$")
 
 bifusd_set_if_matches(BIFUSD_HAS_DEBUG_FILES CMAKE_BUILD_TYPE "^(RelWithDebInfo|RelWithAsserts|Debug)$")
+
+# BIFUSD_VALGRIND_ENABLED indicates whether the Valgrind memcheck option is enabled.
+bifusd_eval_condition(BIFUSD_VALGRIND_ENABLED CONDITION BIFUSD_ENABLE_VALGRIND)
 
 # Determine if assertions are enabled in the build.
 bifusd_set_if_matches(BIFUSD_IS_ASSERTING CMAKE_BUILD_TYPE "^(Debug|RelWithAsserts)$")

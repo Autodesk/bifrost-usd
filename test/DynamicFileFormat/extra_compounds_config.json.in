@@ -1,0 +1,14 @@
+{
+    "AminoConfigurations": [
+        {
+            "vendorName": "Autodesk",
+            "libraryName": "bifrost_usd_dff_reload_extra_test_compounds",
+            "libraryVersion": "",
+            "jsonLibs": [
+                {
+                    "path": "${DFF_EXTRA_COMPOUNDS}"
+                }
+            ]
+        }
+    ]
+}

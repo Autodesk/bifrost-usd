@@ -14,6 +14,21 @@
             "name": "USD::Prim::create_prim_definitions_from_object",
             "metadata": [
                 {
+                    "metaName": "icon",
+                    "metaType": "string",
+                    "metaValue": "../icons/usd_default.svg"
+                },
+                {
+                    "metaName": "documentation",
+                    "metaType": "string",
+                    "metaValue": "../docs/${language}/USD_Prim_create_prim_definitions_from_object.md"
+                },
+                {
+                    "metaName": "internal",
+                    "metaType": "string",
+                    "metaValue": "true"
+                },
+                {
                     "metaName": "io_nodes",
                     "metadata": [
                         {

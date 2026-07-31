@@ -21,24 +21,46 @@ set(private_libs
     Amino::Executor
     Amino::RTTI
     Bifrost::Object
-    BifrostUSD
+    BifrostUsd
     BifrostUsdGraphExecutor
     BifrostUsdTranslator
     usd
 )
 
 set(src_files
+    dffArguments.cpp
     fileFormat.cpp
+    parsingTools.cpp
+    stringToAny.cpp
+)
+
+set(diagnostics_src_files
+    dffDiagnosticsRuntime.cpp
 )
 
 bifusd_set_extra_rpaths(extra_rpaths)
 
 # On OSX, the default file extension for a CMake MODULE library is ".so",
-# but USD plugins on OSX conventionnally use ".dylib". Set the suffix explicitly
+# but USD plugins on OSX conventionally use ".dylib". Set the suffix explicitly
 # to ensure the generated plugin has the correct extension:
 if(BIFUSD_IS_OSX)
     set(CMAKE_SHARED_MODULE_SUFFIX ".dylib")
 endif()
+
+bifusd_create_shared_lib(
+    BifrostUsdDffDiagnostics "BIFROSTUSD_DFF_DIAGNOSTICS_BUILD_SHARED"
+    PUBLIC_INSTALL
+    PUBLIC_DEFINITIONS     $<${BIFUSD_IS_MSC}: BOOST_LIB_TOOLSET="vc142">
+    PRIVATE_DEFINITIONS    $<${BIFUSD_IS_DEBUG}: TBB_USE_DEBUG BOOST_DEBUG_PYTHON BOOST_LINKING_PYTHON>
+
+    PUBLIC_OPTIONS         $<${BIFUSD_IS_MSC}:/wd4251 /wd4273 /wd4003>
+                           $<${BIFUSD_IS_GCC}: -Wno-deprecated>
+                           $<${BIFUSD_IS_CLANG}: -Wno-deprecated -Wno-reserved-identifier>
+
+    SRC_FILES              ${diagnostics_src_files}
+    PRIVATE_LINK_LIBS      usd
+    EXTRA_RPATH            ${extra_rpaths}
+)
 
 # BifrostUsdDynamicFileFormat is a USD plugin that is dynamically loaded,
 # not linked against. Use bifusd_create_module_lib instead of
@@ -56,11 +78,11 @@ bifusd_create_module_lib(
                            $<${BIFUSD_IS_CLANG}: -Wno-deprecated -Wno-reserved-identifier -Wno-unused-macros>
 
     SRC_FILES              ${src_files}
-    PRIVATE_LINK_LIBS      ${private_libs}
+    PRIVATE_LINK_LIBS      ${private_libs} BifrostUsdDffDiagnostics
     EXTRA_RPATH            ${extra_rpaths}
 )
 
-set(plugin_info_json ${BIFROST_USD_OUTPUT_DFF_DIR}/plugInfo.json)
+set(plug_info_json ${BIFROST_USD_OUTPUT_DFF_DIR}/plugInfo.json)
 
 # NOTE: To keep on the radar... For some reason, for tests to work, the relative path to add in the plugInfo.json needs
 # to be computed from the directory that contains the directory that contains plugInfo.json.
@@ -70,8 +92,20 @@ else()
     file(RELATIVE_PATH BIFROST_DFF_REL_SHARED_LIB_DIR ${BIFROST_USD_OUTPUT_DFF_DIR}/.. ${BIFUSD_OUTPUT_LIB_DIR})
 endif()
 
-configure_file(plugInfo.json.in ${plugin_info_json} @ONLY)
+configure_file(plugInfo.json.in ${plug_info_json} @ONLY)
 
 install(
-    FILES ${plugin_info_json}
+    FILES ${plug_info_json}
     DESTINATION "${BIFROST_USD_PACK_INSTALL_RES_DFF_DIR}")
+
+# From Maya, the BifrostDynamicFileFormat plugin for OpenUSD is loaded in Maya’s USD environment
+# via the mayaUsdPlugInfo.json file. The directory containing this file should be added to the
+# MAYA_PXR_PLUGINPATH_NAME environment variable.
+if( NEED_MAYA_USD_PLUG_INFO )
+    # Configure and install "mayaUsdPlugInfo.json" at the root of the Bifrost USD install directory.
+    set( maya_usd_plug_info ${BIFUSD_OUTPUT_ROOT_DIR}/mayaUsdPlugInfo.json )
+    configure_file( mayaUsdPlugInfo.json.in ${maya_usd_plug_info} @ONLY )
+    install(
+        FILES ${maya_usd_plug_info}
+        DESTINATION "${BIFUSD_INSTALL_ROOT_DIR}")
+endif()

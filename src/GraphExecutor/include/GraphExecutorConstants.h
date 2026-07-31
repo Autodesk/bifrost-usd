@@ -17,9 +17,17 @@
 #ifndef BIFROSTUSD_GRAPH_EXECUTOR_CONSTANTS_H
 #define BIFROSTUSD_GRAPH_EXECUTOR_CONSTANTS_H
 
+#include "GraphExecutorTypes.h"
+
 #include <string_view>
 
 namespace BifrostUsd::GraphExecutor {
+
+/// \brief Default verbosity level to use if not set explicitly.
+constexpr VerbosityLevel defaultVerbosity = VerbosityLevel::eErrorsOnly;
+
+/// \brief Default frame rate (frames per second) to use if not set explicitly.
+constexpr double defaultFps = 24.0;
 
 // clang-format off
 
@@ -27,6 +35,10 @@ namespace BifrostUsd::GraphExecutor {
 inline constexpr std::string_view kTerminalFinal      = "Core::Graph::terminal::final";
 inline constexpr std::string_view kTerminalProxy      = "Core::Graph::terminal::proxy";
 inline constexpr std::string_view kTerminalDiagnostic = "Core::Graph::terminal::diagnostic";
+
+// Simulation Global Variable Name Strings
+inline constexpr std::string_view kSimulationTimelineInfo = "Simulation::timeline_info";
+inline constexpr std::string_view kSimulationTime         = "Simulation::time";
 
 // GraphExecutor Log Prefix Strings
 #define BIFROSTUSD_GEF_CTX_ "[BifrostUsd::GraphExecutorFactory"

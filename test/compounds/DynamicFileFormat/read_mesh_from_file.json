@@ -1,0 +1,163 @@
+{
+    "header": {
+        "metadata": [
+            {
+                "metaName": "adskFileFormatVersion",
+                "metaValue": "100L"
+            }
+        ]
+    },
+    "namespaces": [],
+    "types": [],
+    "compounds": [
+        {
+            "name": "Test::DynamicFileFormat::read_mesh_from_file",
+            "metadata": [],
+            "terminalStates": [
+                {
+                    "name": "Core::Graph::terminal::proxy",
+                    "enabled": "false"
+                }
+            ],
+            "ports": [
+                {
+                    "portName": "file",
+                    "portDirection": "input",
+                    "portType": "string",
+                    "portDefault": ""
+                },
+                {
+                    "portName": "meshes",
+                    "portDirection": "output",
+                    "portType": "array<Object>"
+                }
+            ],
+            "compounds": [],
+            "compoundNodes": [
+                {
+                    "nodeName": "open_usd_layer",
+                    "nodeType": "USD::Layer::open_usd_layer"
+                },
+                {
+                    "nodeName": "create_usd_stage",
+                    "nodeType": "USD::Stage::create_usd_stage",
+                    "fanInPortNames": {
+                        "sublayers": [
+                            "layer"
+                        ]
+                    }
+                },
+                {
+                    "nodeName": "read_usd_meshes",
+                    "nodeType": "USD::IO::read_usd_meshes",
+                    "fanInPortNames": {
+                        "exclude_prefixes": []
+                    }
+                }
+            ],
+            "connections": [
+                {
+                    "source": ".file",
+                    "target": "open_usd_layer.file"
+                },
+                {
+                    "source": "open_usd_layer.layer",
+                    "target": "create_usd_stage.sublayers.layer"
+                },
+                {
+                    "source": "create_usd_stage.stage",
+                    "target": "read_usd_meshes.stage"
+                },
+                {
+                    "source": "read_usd_meshes.mesh",
+                    "target": ".meshes"
+                }
+            ],
+            "values": [
+                {
+                    "valueName": "open_usd_layer.file",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "open_usd_layer.read_only",
+                    "valueType": "bool",
+                    "value": "true"
+                },
+                {
+                    "valueName": "open_usd_layer.save_file",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "create_usd_stage.layer",
+                    "valueType": "string",
+                    "value": ""
+                },
+                {
+                    "valueName": "create_usd_stage.file_format",
+                    "valueType": "string",
+                    "value": "Binary"
+                },
+                {
+                    "valueName": "create_usd_stage.sublayers",
+                    "valueType": "array<BifrostUsd::Layer>",
+                    "value": []
+                },
+                {
+                    "valueName": "create_usd_stage.mask",
+                    "valueType": "array<string>",
+                    "value": []
+                },
+                {
+                    "valueName": "create_usd_stage.load",
+                    "valueType": "BifrostUsd::InitialLoadSet",
+                    "value": "LoadAll"
+                },
+                {
+                    "valueName": "create_usd_stage.layer_index",
+                    "valueType": "int",
+                    "value": "-1L"
+                },
+                {
+                    "valueName": "read_usd_meshes.prim_path",
+                    "valueType": "string",
+                    "value": "/"
+                },
+                {
+                    "valueName": "read_usd_meshes.exclude_prefixes",
+                    "valueType": "array<string>",
+                    "value": []
+                },
+                {
+                    "valueName": "read_usd_meshes.use_display_color",
+                    "valueType": "bool",
+                    "value": "false"
+                },
+                {
+                    "valueName": "read_usd_meshes.uv_name",
+                    "valueType": "string",
+                    "value": "st"
+                },
+                {
+                    "valueName": "read_usd_meshes.frame",
+                    "valueType": "float",
+                    "value": "0f"
+                }
+            ],
+            "reservedNodeNames": [
+                {"name": "input"},
+                {"name": "output"},
+                {"name": "input1"},
+                {"name": "input2"},
+                {"name": "input3"},
+                {"name": "input4"}
+            ],
+            "libraryDependencies": {
+                "Amino": "2.16.0.10",
+                "bif": "2.16.0.10",
+                "usd_pack": "1.4.1"
+            }
+        }
+    ]
+}

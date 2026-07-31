@@ -27,7 +27,7 @@ set(private_libs
     Amino::Executor
     Bifrost::Object
     BifrostGraph::Executor
-    BifrostUSD
+    BifrostUsd
     BifrostUsdGraphExecutor
     usd
 )
