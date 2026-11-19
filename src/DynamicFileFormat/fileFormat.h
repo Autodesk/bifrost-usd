@@ -22,6 +22,7 @@
 #include <pxr/base/vt/value.h>
 #include <pxr/pxr.h>
 #include <pxr/usd/pcp/dynamicFileFormatInterface.h>
+#include <pxr/usd/sdf/abstractData.h>
 #include <pxr/usd/sdf/fileFormat.h>
 #include <pxr/usd/sdf/layer.h>
 #include <pxr/usd/sdf/spec.h>
@@ -137,6 +138,15 @@ public:
     /// there is no file to read from and this member function will always
     /// return false.
     bool CanRead(const std::string& file) const override;
+
+    /// Creates the initial data for a layer of this format.
+    ///
+    /// Returns a lazy \ref BifrostDffData built from the composed file format
+    /// arguments. The Bifrost graph is not baked across the timeline here:
+    /// the returned data evaluates the graph on demand, at the time sample(s)
+    /// USD queries. \ref Read therefore has nothing to read from an asset.
+    SdfAbstractDataRefPtr InitData(
+        const FileFormatArguments& args) const override;
 
     /// When USD opens a stage and composes its layers, if a prim is payloading
     /// an asset with our extension it will call \ref Read to create data in the

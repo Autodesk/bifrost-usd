@@ -37,6 +37,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <optional>
 
 using BifrostUsd::GraphExecutor::VerbosityLevel;
 
@@ -72,46 +73,100 @@ Amino::String createRootLayerWithDefaultDffFields(
     const std::string&                             outputName = {});
 
 /// Author Bifrost "settings" verbosityLevel in the root layer of the
-/// already-open \p stage. This helper performs a live stage edit and does not
+/// already-open \p stage. This helper performs a stage edit and does not
 /// save the layer.
-void setLiveVerbosityLevelField(PXR_NS::UsdStageRefPtr& stage,
-                                VerbosityLevel          level);
+void setVerbosityLevelField(PXR_NS::UsdStageRefPtr& stage,
+                            VerbosityLevel          level);
 
 /// Author Bifrost "settings" reloadLibrary in the root layer of the
-/// already-open \p stage. This helper performs a live stage edit and does not
+/// already-open \p stage. This helper performs a stage edit and does not
 /// save the layer.
-void setLiveReloadLibraryField(PXR_NS::UsdStageRefPtr& stage, bool reload);
+void setReloadLibraryField(PXR_NS::UsdStageRefPtr& stage, bool reload);
 
 /// Author the Bifrost "globals" dictionary in the root layer of the
-/// already-open \p stage. This helper performs a live stage edit and does not
+/// already-open \p stage. This helper performs a stage edit and does not
 /// save the layer.
-void setLiveGlobalsField(PXR_NS::UsdStageRefPtr&     stage,
-                         const PXR_NS::VtDictionary& paramsDict);
+void setGlobalsField(PXR_NS::UsdStageRefPtr&     stage,
+                     const PXR_NS::VtDictionary& paramsDict);
 
 /// Author the Bifrost "inputs" dictionary in the root layer of the
-/// already-open \p stage. This helper performs a live stage edit and does not
+/// already-open \p stage. This helper performs a stage edit and does not
 /// save the layer.
-void setLiveInputsField(PXR_NS::UsdStageRefPtr&     stage,
-                        const PXR_NS::VtDictionary& paramsDict);
+void setInputsField(PXR_NS::UsdStageRefPtr&     stage,
+                    const PXR_NS::VtDictionary& paramsDict);
 
 /// Author Bifrost "outputs = [outputPortNames...]" in the root layer of the
-/// of the already-open \p stage. This helper performs a live stage edit and
+/// of the already-open \p stage. This helper performs a stage edit and
 /// does not save the layer.
-void setLiveOutputsField(PXR_NS::UsdStageRefPtr&         stage,
-                         const std::vector<std::string>& outputPortNames);
+void setOutputsField(PXR_NS::UsdStageRefPtr&         stage,
+                     const std::vector<std::string>& outputPortNames);
 
 /// Author default values for the attributes in \p attributeVector on `/Root`
 /// of the already-open \p stage, creating missing attributes as needed.
-/// This helper performs a live stage edit and does not save the layer.
-void setLiveAttributeOverrides(
+/// This helper performs a stage edit and does not save the layer.
+void setAttributeOverrides(
     PXR_NS::UsdStageRefPtr&                   stage,
     const std::vector<AttributeNameAndValue>& attributeVector);
 
 /// Re-open \p layer as a stage, author Bifrost compoundName, then save the
 /// modified layer to disk. This helper edits a persisted layer rather than a
-/// caller-owned live stage.
-void setOfflineCompoundNameAttr(const PXR_NS::SdfLayerRefPtr& layer,
+/// caller-owned stage.
+void setCompoundNameAttrAndSave(const PXR_NS::SdfLayerRefPtr& layer,
                                 const std::string&            overrideName);
+
+// Create a stage with a dynamic payload using a Bifrost compound.
+PXR_NS::UsdStageRefPtr createStageWithCompoundPayload(
+    const std::string& fullyQualifiedCompoundName,
+    const std::string& outputName,
+    const std::string&                             bucketKey,
+    BifrostUsd::TestUtils::UniqueTestOutputSubdir& outputDir);
+
+/// Return the generated Bifrost Dynamic Payload layer composed into \p stage
+/// (the read-only layer produced by the DFF plugin), or a null handle if none
+/// is found. Identified by its file format id "bifrostDynamicFile". If several
+/// payload prims exist, the first match in composition order is returned.
+PXR_NS::SdfLayerHandle getGeneratedPayloadLayer(
+    const PXR_NS::UsdStageRefPtr& stage);
+
+// Create a stage with dynamic payload using the "move_up_point_simulation" compound.
+// This compound uses a feedback loop that moves a single point up on the Y-axis
+// by vertical_step units per frame.
+PXR_NS::UsdStageRefPtr createMoveUpPointSimulationStage(
+    const std::string&                             bucketKey,
+    BifrostUsd::TestUtils::UniqueTestOutputSubdir& outputDir);
+
+// Setup the "move_up_point_simulation" dynamic payload.
+//
+// The timeline values are authored atomically in a single "set globals field"
+// call so the payload never recomposes through a transient invalid state (e.g.
+// start_frame set before end_frame), which would emit a diagnostic.
+//
+// For example:
+//   - At startFrame the point is at:
+//      (0, 0, 0)
+//   - At endFrame   the point is at:
+//      (0, (endFrame - startFrame) * (vertical_step / fps), 0)
+PXR_NS::UsdAttribute setUpMoveUpPointSimulationFields(PXR_NS::UsdStageRefPtr& stage,
+                                                float  verticalStep = 1.f,
+                                                double startFrame   = 1.0,
+                                                double endFrame     = 3.0,
+                                                double fps          = 1.0);
+
+// Resolves the given points attribute at the requested time and returns its
+// first point, driving the query-time graph evaluation for that frame. The
+// EXPECT_TRUE asserts the value resolves, so a failed graph evaluation surfaces
+// as a test failure here. Returns std::nullopt when the resolved array is
+// empty, letting the caller distinguish "no point" from a point at the origin.
+std::optional<PXR_NS::GfVec3f> firstPointAt(
+    const PXR_NS::UsdAttribute& pointsAttr, PXR_NS::UsdTimeCode time);
+
+/// Query each frame in the range in ascending order to ensure that
+/// the simulation is evaluated in order.
+void checkMoveUpPointSimulation(const PXR_NS::UsdStageRefPtr& stage,
+                                double                        startFrame,
+                                double                        endFrame,
+                                double                        fps = 1.0,
+                                float verticalStep                = 1.0f);
 
 } // namespace DffTestHelpers
 

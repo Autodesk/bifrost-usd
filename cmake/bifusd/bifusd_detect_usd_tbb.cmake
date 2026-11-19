@@ -48,7 +48,9 @@ include_guard(GLOBAL)
 #   verbose     - If TRUE, prints detailed status messages during detection.
 function(_bifusd_collect_target_include_dirs out_list in_target verbose)
     set(_incs "")
-
+    if(verbose)
+        message(STATUS "   Collecting include dirs from target '${in_target}'...")
+    endif()
     # Read INTERFACE_INCLUDE_DIRECTORIES property.
     get_target_property(_inc "${in_target}" INTERFACE_INCLUDE_DIRECTORIES)
     if(_inc)
@@ -76,7 +78,7 @@ function(_bifusd_collect_target_include_dirs out_list in_target verbose)
     list(REMOVE_DUPLICATES _clean)
 
     if(NOT _clean)
-        message(FATAL_ERROR "   Target '${in_target}' has no include dirs for searching TBB headers.")
+        message(FATAL_ERROR "   Target '${in_target}' has no include dirs for searching include headers.")
     elseif(verbose)
         message(STATUS "   Collected include dirs from target '${in_target}':")
         foreach(_dir IN LISTS _clean)
@@ -194,30 +196,61 @@ function(_bifusd_guess_usd_libdir out_var in_target verbose)
     # Query the target's imported location for current build type
     set(_libdir "")
     string(TOUPPER "${CMAKE_BUILD_TYPE}" _build_type)
-    get_target_property(_loc "${in_target}" IMPORTED_LOCATION_${_build_type})
+    set(_candidate_loc IMPORTED_LOCATION_${_build_type})
+    get_target_property(_loc "${in_target}" "${_candidate_loc}")
     if(NOT _loc)
-        # Fallback - try without config suffix
+        # Fallback #1 - try without config suffix
         if(verbose)
-            message(STATUS "   Target does not have an IMPORTED_LOCATION_${_build_type} property.")
-            message(STATUS "   Trying IMPORTED_LOCATION instead...")
+            message(STATUS "   Target '${in_target}' does not have an IMPORTED_LOCATION_${_build_type} property.")
+            message(STATUS "   Fallback #1 - Trying IMPORTED_LOCATION instead...")
         endif()
-        get_target_property(_loc "${in_target}" IMPORTED_LOCATION)
+        set(_candidate_loc IMPORTED_LOCATION)
+        get_target_property(_loc "${in_target}" "${_candidate_loc}")
     endif()
-    if(_loc)
-        get_filename_component(_libdir "${_loc}" DIRECTORY)
+    if(NOT _loc)
+        # Fallback #2 - try each config listed in IMPORTED_CONFIGURATIONS
+        if(verbose)
+            message(STATUS "   Fallback #2 - Trying each config listed in IMPORTED_CONFIGURATIONS...")
+        endif()
+        get_target_property(_available_configs "${in_target}" IMPORTED_CONFIGURATIONS)
+        if(_available_configs)
+            foreach(_cfg ${_available_configs})
+                if(NOT _loc)
+                    set(_candidate_loc IMPORTED_LOCATION_${_cfg})
+                    if(verbose)
+                        message(STATUS "      Trying ${_candidate_loc}...")
+                    endif()
+                    get_target_property(_loc "${in_target}" "${_candidate_loc}")
+                endif()
+            endforeach()
+        endif()
     endif()
+    if(NOT _loc)
+        message(FATAL_ERROR "   Target '${in_target}' does not have *any* IMPORTED_LOCATION property.")
+    endif()
+
+    # Always log which property was resolved, regardless of verbose, to aid build failure diagnosis.
+    message(STATUS "   Using '${in_target}' target's property ${_candidate_loc} = '${_loc}' to determine the USD shared lib directory.")
+
+    get_filename_component(_libdir "${_loc}" DIRECTORY)
     if(NOT _libdir)
-        message(FATAL_ERROR "   Could not determine USD sharedlib directory.\n"
-                            "   Target '${in_target}' has no IMPORTED_LOCATION property with a valid path.")
+        message(FATAL_ERROR "   Could not determine the USD shared lib directory from location '${_loc}'.")
     endif()
     if(verbose)
-        message(STATUS "   USD sharedlib dir: '${_libdir}'")
+        message(STATUS "   USD shared lib dir: '${_libdir}'")
     endif()
     set(${out_var} "${_libdir}" PARENT_SCOPE)
 endfunction()
 
 # Find the directory where the TBB shared libs are located, relative to the
 # given USD shared lib directory.
+# The TBB .so (Linux, OSX) or .dll (Windows) files may live in given usd_libdir
+# directory, or in a separate sibling bin/ directory.
+#
+# Search order:
+#   1. usd_libdir itself (when TBB and USD shared libs are co-located).
+#   2. sibling ../bin dir of usd_libdir (e.g. on Windows with OpenUSD vanilla).
+#
 # If TBB shared libs are not found, set out_var to an empty string.
 #
 # Args:
@@ -231,26 +264,49 @@ function(_bifusd_find_tbb_sharedlib_dir out_var usd_libdir verbose)
                             "   Cannot search for TBB shared libs.")
     endif()
 
-    # USD typically ships its third-party dependencies (including TBB) in the
-    # same lib/ directory as its own shared libraries. Check if we can match
-    # any of the following TBB shared lib pathnames across all platforms:
-    file(GLOB _tbb_candidates
-        "${usd_libdir}/libtbb*.so*"
-        "${usd_libdir}/libtbb*.dylib*"
-        "${usd_libdir}/tbb*.dll"
-        "${usd_libdir}/tbb*.lib"
-        "${usd_libdir}/libtbb*.a"       # rare, but harmless
+    # 1. Check if TBB shared libs are co-located with USD shared libs:
+    set(_file_patterns
+        "libtbb*.so*"
+        "libtbb*.dylib*"
+        "tbb*.dll"
+        "libtbb*.a" # rare, but harmless
     )
+    set(_path_patterns "${_file_patterns}")
+    list(TRANSFORM _path_patterns PREPEND "${usd_libdir}/")
+    file(GLOB _tbb_candidates LIST_DIRECTORIES FALSE ${_path_patterns})
+    if(_tbb_candidates)
+        set(${out_var} "${usd_libdir}" PARENT_SCOPE)
+        if(verbose)
+            message(STATUS "   Found the TBB shared libs *co-located* with the USD shared libs in '${usd_libdir}'.")
+        endif()
+    endif()
+
+    # 2. If not found, check sibling ../bin dir of usd_libdir
+    #    (e.g. on Windows with OpenUSD vanilla):
+    if(NOT _tbb_candidates)
+        cmake_path(GET usd_libdir PARENT_PATH _parent_dir)
+        cmake_path(APPEND _parent_dir "bin" OUTPUT_VARIABLE _sibling_dir)
+        if(IS_DIRECTORY "${_sibling_dir}")
+            set(_path_patterns "${_file_patterns}")
+            list(TRANSFORM _path_patterns PREPEND "${_sibling_dir}/")
+            file(GLOB _tbb_candidates LIST_DIRECTORIES FALSE ${_path_patterns})
+            if(_tbb_candidates)
+                set(${out_var} "${_sibling_dir}" PARENT_SCOPE)
+                if(verbose)
+                    message(STATUS "   Fallback successful: Found the TBB shared libs in *sibling* dir '${_sibling_dir}' of the USD shared libs.")
+                endif()
+            endif()
+        endif()
+    endif()
 
     if(NOT _tbb_candidates)
-        message(FATAL_ERROR "   No typical TBB shared libs found in '${usd_libdir}'.")
+        message(FATAL_ERROR "   No typical TBB shared libs found near USD shared libs in '${usd_libdir}'.")
     elseif(verbose)
-        message(STATUS "   Found the following TBB shared libs near USD libs:")
+        message(STATUS "   Found the following TBB shared libs:")
         foreach(_tbb_candidate IN LISTS _tbb_candidates)
             message(STATUS "      ${_tbb_candidate}")
         endforeach()
     endif()
-    set(${out_var} "${usd_libdir}" PARENT_SCOPE)
 endfunction()
 
 # Append the first matching file from a directory by glob patterns to a list.
@@ -292,13 +348,14 @@ function(_bifusd_append_first_matching_file out_list src_dir)
 endfunction()
 
 # Find the directory containing TBB import library files (.lib) on Windows.
-# For oneTBB (2021+) targets configured via TBBConfig.cmake, the .dll and .lib
-# files may live in separate bin/ and lib/ directories respectively, so
-# sharedlib directory cannot always be used directly to locate the import libs.
+# The TBB .dll and .lib files may live in separate bin/ and lib/ directories
+# respectively, so TBB sharedlib directory cannot always be used directly to
+# locate the import libs.
 #
 # Search order:
 #   1. IMPORTED_IMPLIB_<CONFIG> / IMPORTED_IMPLIB property of the TBB target.
-#   2. tbb_sharedlib_dir itself  (works when .dll and .lib are co-located).
+#   2. tbb_sharedlib_dir itself (works when .dll and .lib are co-located).
+#   3. the sibling ../lib of tbb_sharedlib_dir itself (when not co-located).
 #
 # Args:
 #   out_implib_dir    - Variable name to set with the found TBB implib directory.
@@ -308,26 +365,44 @@ endfunction()
 function(_bifusd_find_tbb_implib_dir_win32 out_implib_dir tbb_target tbb_sharedlib_dir verbose)
     # 1. Try the IMPORTED_IMPLIB* properties (if set on given TBB target).
     string(TOUPPER "${CMAKE_BUILD_TYPE}" _build_type)
-    get_target_property(_implib "${tbb_target}" IMPORTED_IMPLIB_${_build_type})
+    set(_target_property "IMPORTED_IMPLIB_${_build_type}")
+    get_target_property(_implib "${tbb_target}" ${_target_property})
+
     if(NOT _implib OR NOT EXISTS "${_implib}")
-        get_target_property(_implib "${tbb_target}" IMPORTED_IMPLIB)
+        set(_target_property "IMPORTED_IMPLIB")
+        get_target_property(_implib "${tbb_target}" ${_target_property})
     endif()
+
     if(_implib AND EXISTS "${_implib}")
         get_filename_component(_implib_dir "${_implib}" DIRECTORY)
         if(verbose)
-            message(STATUS "   Using IMPORTED_IMPLIB* dir for TBB .lib search: '${_implib_dir}'")
+            message(STATUS "   Using target property ${_target_property}='${_implib_dir}' to find TBB .lib files.")
         endif()
         set(${out_implib_dir} "${_implib_dir}" PARENT_SCOPE)
         return()
     endif()
 
-    # 2. Fallback: otherwise, try the sharedlib dir itself.
-    #    This works when the .dll and .lib files are co-located in the same dir.
-    file(GLOB _lib_candidates "${tbb_sharedlib_dir}/tbb*.lib")
+    # 2. Fallback #1: try the TBB sharedlib dir itself.
+    #    This works when the .dll and .lib files are co-located.
+    file(GLOB _lib_candidates LIST_DIRECTORIES FALSE "${tbb_sharedlib_dir}/tbb*.lib")
     if(_lib_candidates)
         set(${out_implib_dir} "${tbb_sharedlib_dir}" PARENT_SCOPE)
         if(verbose)
-            message(STATUS "   Fallback successful: TBB .dll and .lib files are co-located. Using sharedlib dir for TBB .lib search: '${tbb_sharedlib_dir}'")
+            message(STATUS "   Fallback #1 successful: TBB .dll and .lib files are co-located. Using sharedlib dir '${tbb_sharedlib_dir}' for TBB .lib files.")
+        endif()
+        return()
+    endif()
+
+    # 3. Fallback #2: try the sibling ../lib of the TBB sharedlib dir.
+    #    This works when the .dll and .lib files are not co-located
+    #    (e.g. on Windows with OpenUSD vanilla).
+    cmake_path(GET tbb_sharedlib_dir PARENT_PATH _parent_dir)
+    cmake_path(APPEND _parent_dir "lib" OUTPUT_VARIABLE _sibling_dir)
+    file(GLOB _lib_candidates LIST_DIRECTORIES FALSE "${_sibling_dir}/tbb*.lib")
+    if(_lib_candidates)
+        set(${out_implib_dir} "${_sibling_dir}" PARENT_SCOPE)
+        if(verbose)
+            message(STATUS "   Fallback #2 successful: TBB .dll and .lib files are *not* co-located. Using sibling lib dir '${_sibling_dir}' for TBB .lib files.")
         endif()
         return()
     endif()
@@ -353,6 +428,13 @@ endfunction()
 #   USD_TBB_SHAREDLIB_DIR   - Path to TBB shared libs directory.
 #   USD_TBB_LIB_DIR         - Path to TBB import libs directory (if Windows).
 function(bifusd_detect_usd_tbb verbose)
+    set(usd_target "usd")
+    if(TARGET "${usd_target}")
+        message(STATUS "   Using USD target '${usd_target}'.")
+    else()
+        message(FATAL_ERROR "   USD target '${usd_target}' does not exist.")
+    endif()
+
     # Select the imported target that provides the TBB shipped with USD.
     #
     # By default we prefer USD's own TBB::tbb target (created by USD's
@@ -364,17 +446,23 @@ function(bifusd_detect_usd_tbb verbose)
     # to override these defaults and force detection to use a specific target.
     if(BIFUSD_TBB_TARGET)
         set(tbb_target "${BIFUSD_TBB_TARGET}")
+        if(verbose)
+            message(STATUS "   Override Case: Using the optional BIFUSD_TBB_TARGET='${BIFUSD_TBB_TARGET}' to find the bundled TBB library.")
+        endif()
     elseif(TARGET "TBB::tbb")
         set(tbb_target "TBB::tbb")
+        if(verbose)
+            message(STATUS "   Default Case: Using USD's own 'TBB::tbb' target to find the bundled TBB library.")
+        endif()
     else()
         # Older USD version may use 'usd' as the target name to find TBB instead
         # of 'TBB::tbb'.
-        set(tbb_target "usd")
+        set(tbb_target "${usd_target}")
+        if(verbose)
+            message(STATUS "   Fallback Case: Using the same USD target '${usd_target}' to find the bundled TBB library.")
+        endif()
     endif()
-
-    if(TARGET "${tbb_target}")
-        message(STATUS "   Found TBB library bundled with USD target '${tbb_target}'.")
-    else()
+    if(NOT TARGET "${tbb_target}")
         message(FATAL_ERROR "   Target '${tbb_target}' does not exist.")
     endif()
     if(NOT BIFUSD_PACKAGE_NAME)
@@ -385,14 +473,14 @@ function(bifusd_detect_usd_tbb verbose)
     endif()
 
     # 1) Gather include dirs from the USD target to find the TBB include root dir:
-    _bifusd_collect_target_include_dirs(_usd_incs "${tbb_target}" "${verbose}")
+    _bifusd_collect_target_include_dirs(_usd_incs "${usd_target}" "${verbose}")
     _bifusd_find_tbb_header_from_include_dirs(_tbb_inc_dir _tbb_header "${_usd_incs}" "${verbose}")
 
     # 2) Parse TBB version
     _bifusd_parse_tbb_version(_version_major _version_minor "${_tbb_header}" "${verbose}")
 
     # 3) Determine USD shared lib dir, then locate TBB shared libs shipped with USD:
-    _bifusd_guess_usd_libdir(_usd_libdir "${tbb_target}" "${verbose}")
+    _bifusd_guess_usd_libdir(_usd_libdir "${usd_target}" "${verbose}")
     _bifusd_find_tbb_sharedlib_dir(_tbb_sharedlib_dir "${_usd_libdir}" "${verbose}")
 
     # 4) Select tbb and tbbmalloc shared libs to link against:
@@ -406,6 +494,7 @@ function(bifusd_detect_usd_tbb verbose)
         # On Windows, link against import libs (.lib), not DLLs.
         # For oneTBB (2021+) targets, .lib files may be in a different directory
         # than .dll files (e.g. lib/ vs bin/). Resolve the correct dir first.
+        message(STATUS "   Using target '${tbb_target}' to find the TBB import libs on Windows.")
         _bifusd_find_tbb_implib_dir_win32(_tbb_lib_dir "${tbb_target}" "${_tbb_sharedlib_dir}" "${verbose}")
         _bifusd_append_first_matching_file(_tbb_link_libs "${_tbb_lib_dir}" "tbb*${_suffix}.lib")
         _bifusd_append_first_matching_file(_tbb_link_libs "${_tbb_lib_dir}" "tbbmalloc*${_suffix}.lib")

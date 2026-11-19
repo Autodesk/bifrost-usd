@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -935,6 +935,12 @@ TEST(PrimNodeDefs, attribute_metadata) {
         ASSERT_TRUE(success);
         ASSERT_EQ(hiddenVal, boolResult);
     }
+
+// Disable this test on Windows in Debug because USD can be built with a
+// different version of the C++ standard library than this pack, causing a
+// crash when passing std::map objects between them (like metadata containing
+// a Bifrost::Object). This is not an issue on Linux or MacOS.
+#if !defined(_WIN32) || !defined(_DEBUG)
     // Test Bifrost::Object
     {
         auto         objValue    = Bifrost::createObject();
@@ -992,6 +998,7 @@ TEST(PrimNodeDefs, attribute_metadata) {
         ASSERT_TRUE(myBool);
         ASSERT_EQ(*myBool, boolValue);
     }
+#endif
 }
 
 TEST(AttributeNodeDefs, add_attribute_connection) {

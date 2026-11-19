@@ -1,4 +1,3 @@
 {
-    "include": "compounds_config.json",
-    "include": "graphs_config.json"
+    "include": "compounds_config.json"
 }

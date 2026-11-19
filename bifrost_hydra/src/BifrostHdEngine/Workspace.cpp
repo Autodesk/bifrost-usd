@@ -1,5 +1,5 @@
 //-
-// Copyright 2024 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,7 +25,6 @@ Amino::String sourceToStr(BifrostGraph::Executor::MessageSource source) {
         case BifrostGraph::Executor::MessageSource::kWorkspace: return "Workspace";
         case BifrostGraph::Executor::MessageSource::kLibrary: return "Library";
         case BifrostGraph::Executor::MessageSource::kGraphContainer: return "GraphContainer";
-        case BifrostGraph::Executor::MessageSource::kJob: return "Job";
         case BifrostGraph::Executor::MessageSource::kTranslation: return "Translation";
     }
     assert(false);

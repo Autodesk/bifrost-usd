@@ -62,14 +62,13 @@ TEST(Inputs, invalid_port_name_field) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "Inputs_invalid_port_name_field";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Test::DynamicFileFormat::read_mesh_from_file",
-        "meshes");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::read_mesh_from_file", "meshes", bucketKey,
+        g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Test with an invalid input port names as fields.
-    setLiveInputsField(stage,
+    setInputsField(stage,
                        VtDictionary{{"a_unknown", VtValue{bool{true}}},
                                     {"b_unknown", VtValue{"something"}},
                                     {"file", VtValue{"filename.usda"}},
@@ -98,14 +97,13 @@ TEST(Inputs, invalid_field_type) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "Inputs_invalid_field_type";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Test::DynamicFileFormat::read_mesh_from_file",
-        "meshes");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::read_mesh_from_file", "meshes", bucketKey,
+        g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Test with an invalid input field type (int instead of string).
-    setLiveInputsField(stage, VtDictionary{{"file", VtValue{int{10101}}}});
+    setInputsField(stage, VtDictionary{{"file", VtValue{int{10101}}}});
 
     // Both composition and inputs arguments retrieval in Read() should succeed.
     // Graph execution should fail because of the invalid field type.
@@ -123,16 +121,15 @@ TEST(Inputs, valid_field_value) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "Inputs_valid_field_value";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Test::DynamicFileFormat::read_mesh_from_file",
-        "meshes");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::read_mesh_from_file", "meshes", bucketKey,
+        g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Test with a valid input field type
     const std::string cubeFilePath = {
         BifrostUsd::TestUtils::getResourcePath("simple_cube.usda").c_str()};
-    setLiveInputsField(
+    setInputsField(
         stage,
         VtDictionary{{"file", VtValue{cubeFilePath}}});
 
@@ -151,16 +148,15 @@ TEST(Inputs, invalid_port_name_attribute) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "Inputs_invalid_port_name_attribute";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Test::DynamicFileFormat::read_mesh_from_file",
-        "meshes");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::read_mesh_from_file", "meshes", bucketKey,
+        g_OutputDir);
     ASSERT_TRUE(stage);
 
     // First set a valid input field
     const std::string cubeFilePath = {
         BifrostUsd::TestUtils::getResourcePath("simple_cube.usda").c_str()};
-    setLiveInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
+    setInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
 
     // Test with input attributes where some port names are invalid.
     // PcpDynamicFileFormatContext can only query attributes by name; it cannot
@@ -168,7 +164,7 @@ TEST(Inputs, invalid_port_name_attribute) {
     // "bifrost:in:<portName>" attributes for port names it already knows from
     // the graph (getInputPortNames()). Attributes with unknown port names are
     // silently ignored — no error is emitted for them.
-    setLiveAttributeOverrides(
+    setAttributeOverrides(
         stage, std::vector<AttributeNameAndValue>{
                    {TfToken{std::string{kInputsAttrPrefix} + "a_unknown"},
                     {SdfValueTypeNames->String, VtValue{"something"}}},
@@ -196,17 +192,16 @@ TEST(Inputs, attribute_only_no_field) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "Inputs_attribute_only_no_field";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Test::DynamicFileFormat::read_mesh_from_file",
-        "meshes");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::read_mesh_from_file", "meshes", bucketKey,
+        g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Test with a valid input attribute, no corresponding field being present.
     const std::string cubeFilePath = {
         BifrostUsd::TestUtils::getResourcePath("simple_cube.usda").c_str()};
     const std::string attrName = std::string{kInputsAttrPrefix} + "file";
-    setLiveAttributeOverrides(
+    setAttributeOverrides(
         stage, std::vector<AttributeNameAndValue>{
                    {TfToken{attrName},
                     {SdfValueTypeNames->String, VtValue{cubeFilePath}}}});
@@ -226,16 +221,15 @@ TEST(Inputs, attribute_type_mismatch_override_rejected) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "Inputs_attr_type_mismatch_rejected";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Test::DynamicFileFormat::read_mesh_from_file",
-        "meshes");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::read_mesh_from_file", "meshes", bucketKey,
+        g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set a valid input field first
     const std::string cubeFilePath = {
         BifrostUsd::TestUtils::getResourcePath("simple_cube.usda").c_str()};
-    setLiveInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
+    setInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
     EXPECT_TRUE(stage->GetPrimAtPath(SdfPath{"/Root"}).IsValid());
@@ -248,7 +242,7 @@ TEST(Inputs, attribute_type_mismatch_override_rejected) {
 
     // Then override the input field with an input attribute with different type
     const std::string attrName = std::string{kInputsAttrPrefix} + "file";
-    setLiveAttributeOverrides(
+    setAttributeOverrides(
         stage, std::vector<AttributeNameAndValue>{
                    {TfToken{attrName},
                     {SdfValueTypeNames->Bool, VtValue{bool{true}}}}});
@@ -269,16 +263,15 @@ TEST(Inputs, attribute_override_succeeds) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "Inputs_attribute_override_succeeds";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Test::DynamicFileFormat::read_mesh_from_file",
-        "meshes");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::read_mesh_from_file", "meshes", bucketKey,
+        g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set a valid input field first
     const std::string cubeFilePath = {
         BifrostUsd::TestUtils::getResourcePath("simple_cube.usda").c_str()};
-    setLiveInputsField(
+    setInputsField(
         stage,
         VtDictionary{{"file", VtValue{cubeFilePath}}});
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
@@ -295,7 +288,7 @@ TEST(Inputs, attribute_override_succeeds) {
     const std::string capsuleFilePath = {
         BifrostUsd::TestUtils::getResourcePath("simple_capsule.usda").c_str()};
     const std::string attrName = std::string{kInputsAttrPrefix} + "file";
-    setLiveAttributeOverrides(
+    setAttributeOverrides(
         stage, std::vector<AttributeNameAndValue>{
                    {TfToken{attrName},
                     {SdfValueTypeNames->String, VtValue{capsuleFilePath}}}});

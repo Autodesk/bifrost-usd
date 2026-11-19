@@ -1,5 +1,5 @@
 //-
-// Copyright 2025 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -714,7 +714,7 @@ TEST(LayerNodeDefs, export_layer_to_file_multicases) {
     // will all be saved below this directory level.
     // So we expect that RELATIVE paths to sublayers MUST NOT contain this
     // directory name, but ABSOLUTE paths to sublayers MUST contain it:
-    const std::string commonTestDir{"export_layer_to_file_multicases"};
+    const std::string commonTestDir{"multicases"};
 
     for(bool relativeFilePath : std::vector<bool>{false, true}) {
         // Build either a relative or absolute path for the root layer's

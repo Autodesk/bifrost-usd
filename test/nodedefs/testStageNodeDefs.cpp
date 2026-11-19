@@ -1,5 +1,5 @@
 //-
-// Copyright 2025 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@
 #include <utils/test/testUtils.h>
 
 #include <fstream>
+#include <iterator>
 #include <regex>
 #include <string>
 
@@ -253,7 +254,15 @@ TEST(StageNodeDefs, set_stage_metadata) {
     // Check error - must have base type different than for "documentation"
     // Documentation is string and TimeCodesPerSecond are not...
     Amino::String bogusKey = "timeCodesPerSecond";
+
+    // Guard the expected coding error so the rejected write is asserted rather
+    // than merely logged to stderr.
+    ErrorRecorder errorRecorder;
+
     USD::Stage::get_stage_metadata(*stage, bogusKey, strDefault, strResult);
+    EXPECT_TRUE(errorRecorder.hasError())
+        << "USD should post an error when requested key type does not match.";
+    errorRecorder.reset();
     ASSERT_EQ(strResult, strDefault);
 
     // Set and get double value
@@ -270,9 +279,18 @@ TEST(StageNodeDefs, set_stage_metadata) {
     // Must have base type different than "EndTimeCode"
     // EndTimeCode is double and comment is string
     bogusKey = "comment";
+
     USD::Stage::get_stage_metadata(*stage, bogusKey, dblDefault, dblResult);
+    EXPECT_TRUE(errorRecorder.hasError())
+        << "USD should post an error when requested key type does not match.";
+    errorRecorder.reset();
     ASSERT_EQ(dblResult, dblDefault);
 
+// Disable this test on Windows in Debug because USD can be built with a
+// different version of the C++ standard library than this pack, causing a
+// crash when passing std::map objects between them (like metadata containing
+// a Bifrost::Object). This is not an issue on Linux or MacOS.
+#if !defined(_WIN32) || !defined(_DEBUG)
     // Set and get Amino Object
     key                    = "customLayerData";
     auto          objValue = Bifrost::createObject();
@@ -308,7 +326,11 @@ TEST(StageNodeDefs, set_stage_metadata) {
     // CustomLayerData is anything and comment is string
     bogusKey = "comment";
     USD::Stage::get_stage_metadata(*stage, bogusKey, objDefault, objResult);
+    EXPECT_FALSE(errorRecorder.hasError())
+        << "USD should post an error when requested key type does not match.";
+    errorRecorder.reset();
     ASSERT_TRUE(objResult->empty());
+#endif
 }
 
 TEST(StageNodeDefs, set_default_prim) {
@@ -427,12 +449,23 @@ TEST(StageNodeDefs, open_stage_from_layer) {
         auto bottle =
             stage->get().GetPrimAtPath(PXR_NS::SdfPath("/Props_grp/bottle"));
         ASSERT_TRUE(bottle);
-        ASSERT_EQ(bottle.GetChildrenNames().size(), 1);
+        // Note: use std::distance to get the number of children instead of
+        // calling GetChildrenNames().size() to avoid a crash on Windows in
+        // Debug when the USD library was built with a different version of the
+        // C++ standard library than this pack (since GetChildrenNames() returns
+        // a heap allocated std::vector by value).
+        auto children = bottle.GetChildren();
+        ASSERT_EQ(std::distance(children.begin(), children.end()), 1);
 
+// Disable GetAssetName on Windows in Debug because USD can be built with a
+// different version of the C++ standard library than this pack, causing
+// a crash when the pack releases the std::string that was allocated by USD.
+#if !defined(_WIN32) || !defined(_DEBUG)
         auto        model = PXR_NS::UsdModelAPI(bottle);
         std::string assetName;
         model.GetAssetName(&assetName);
         ASSERT_EQ(assetName, "Bottle");
+#endif
 
         auto spoon = stage->get().GetPrimAtPath(
             PXR_NS::SdfPath("/Props_grp/MeasuringSpoon"));
@@ -453,12 +486,18 @@ TEST(StageNodeDefs, open_stage_from_layer) {
         auto bottle =
             stage->get().GetPrimAtPath(PXR_NS::SdfPath("/Props_grp/bottle"));
         ASSERT_TRUE(bottle);
-        ASSERT_EQ(bottle.GetChildrenNames().size(), 1);
+        auto children = bottle.GetChildren();
+        ASSERT_EQ(std::distance(children.begin(), children.end()), 1);
 
+// Disable GetAssetName on Windows in Debug because USD can be built with a
+// different version of the C++ standard library than this pack, causing
+// a crash when the pack releases the std::string that was allocated by USD.
+#if !defined(_WIN32) || !defined(_DEBUG)
         auto        model = PXR_NS::UsdModelAPI(bottle);
         std::string assetName;
         model.GetAssetName(&assetName);
         ASSERT_EQ(assetName, "Bottle");
+#endif
 
         auto spoon = stage->get().GetPrimAtPath(
             PXR_NS::SdfPath("/Props_grp/MeasuringSpoon"));
@@ -479,7 +518,7 @@ TEST(StageNodeDefs, open_stage_from_layer) {
         auto bottle =
             stage->get().GetPrimAtPath(PXR_NS::SdfPath("/Props_grp/bottle"));
         ASSERT_TRUE(bottle);
-        ASSERT_EQ(bottle.GetChildrenNames().size(), 0);
+        ASSERT_TRUE(bottle.GetChildren().empty());
     }
     {
         // Test opening and setting edit targe.

@@ -32,6 +32,16 @@ Allowed Values: linear, cubic
 
 Coma-separated names of USD Applied API Schemas.
 
+## Time Sample
+
+### `use_frame`
+
+Whether to set the geometry data at the specified `frame`.
+
+### `frame`
+
+The frame for which to set the geometry data when `use_frame` is on.
+
 ## Variant Selection
 
 ### `variant_set_name`

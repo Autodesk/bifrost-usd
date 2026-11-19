@@ -10,7 +10,7 @@
             "libraryName": "bifrost_usd_dynamic_file_format_graphs",
             "jsonLibs": [
                 {
-                    "path": "../../../../src/graphs"
+                    "path": "../../../../src/graphs/valley_forest"
                 }
             ]
         }

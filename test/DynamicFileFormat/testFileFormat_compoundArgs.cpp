@@ -92,11 +92,9 @@ TEST(CompoundField, no_compound_name_at_all) {
 TEST(CompoundField, valid_compound_no_output) {
     DffDiagnosticCollector collector;
     const char*            bucketKey = "valid_compound_no_output";
-    auto layerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Modeling::Primitive::create_mesh_cube",
-        "" /*no output will be reported as an error*/);
-
-    auto stage = UsdStage::Open(layerPath.c_str());
+    // An empty output name will be reported as an error.
+    auto stage = createStageWithCompoundPayload(
+        "Modeling::Primitive::create_mesh_cube", "", bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
     auto rootPrim = stage->GetPrimAtPath(SdfPath{"/Root"});
     EXPECT_TRUE(rootPrim.IsValid());
@@ -120,7 +118,7 @@ TEST(CompoundField, attribute_but_no_field) {
 
     // Set outputs field. This triggers a recompose that still yields no
     // children because no bifrost:compound:name has been set yet.
-    setLiveOutputsField(stage, {"mesh"});
+    setOutputsField(stage, {"mesh"});
     auto rootPrim = stage->GetPrimAtPath(SdfPath{"/Root"});
     EXPECT_TRUE(rootPrim.IsValid());
     EXPECT_EQ(rootPrim.GetChildrenNames().size(), 0u);
@@ -128,7 +126,7 @@ TEST(CompoundField, attribute_but_no_field) {
     // Now set the compound name via the attribute, not the field.
     DffDiagnosticCollector collector;
     const char* compoundName = "Test::DynamicFileFormat::create_mesh_cube";
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
                                 std::vector<AttributeNameAndValue>{
                                     {TfToken{kCompoundNameAttr},
                                     {SdfValueTypeNames->String,
@@ -144,9 +142,8 @@ TEST(CompoundField, attribute_but_no_field) {
 TEST(CompoundField, not_found_compound) {
     DffDiagnosticCollector collector;
     const char*            bucketKey     = "not_found_compound";
-    auto                   rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Not::Found", "ignored");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload("Not::Found", "ignored",
+                                                bucketKey, g_OutputDir);
 
     // The Stage opens successfully; only the payload fails to load, leaving
     // the /Root prim with no children from the graph output:
@@ -166,10 +163,8 @@ TEST(CompoundField, not_found_compound) {
 TEST(CompoundField, empty_compound_name_emits_error) {
     DffDiagnosticCollector collector;
     const char*            bucketKey = "empty_compound_name_emits_error";
-    auto                   layerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "" /*empty*/, "ignored");
-
-    auto stage = UsdStage::Open(layerPath.c_str());
+    auto stage = createStageWithCompoundPayload("" /*empty*/, "ignored",
+                                                bucketKey, g_OutputDir);
 
     ASSERT_TRUE(stage);
     EXPECT_EQ(stage->GetPrimAtPath(SdfPath{"/Root"}).GetChildrenNames().size(),
@@ -220,7 +215,7 @@ TEST(CompoundAttr, attribute_same_as_field_no_change) {
     // Re-open the saved layer, add the attribute, and save again.
     auto layer = SdfLayer::FindOrOpen(layerPath.c_str());
     ASSERT_TRUE(layer);
-    setOfflineCompoundNameAttr(layer, compound);
+    setCompoundNameAttrAndSave(layer, compound);
 
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
     auto stage = UsdStage::Open(layerPath.c_str());
@@ -259,7 +254,7 @@ TEST(CompoundAttr, attribute_overrides_field_with_valid_compound) {
     // Graph should evaluate and this second mesh should have a different number
     // of points than the first mesh.
     const char* compound2 = "Test::DynamicFileFormat::create_mesh_sphere";
-    setOfflineCompoundNameAttr(layer, compound2);
+    setCompoundNameAttrAndSave(layer, compound2);
     EXPECT_TRUE(dffGetErrorMessages(collector, bucketKey).empty())
         << "Unexpected errors when running 2nd graph";
 
@@ -288,7 +283,7 @@ TEST(CompoundAttr, attribute_overrides_field_with_unknown_compound) {
     auto layer = SdfLayer::FindOrOpen(layerPath.c_str());
     ASSERT_TRUE(layer);
     const char* compound2 = "Override::Does::Not::Exist";
-    setOfflineCompoundNameAttr(layer, compound2);
+    setCompoundNameAttrAndSave(layer, compound2);
 
     auto stage = UsdStage::Open(layerPath.c_str());
     ASSERT_TRUE(stage);
@@ -319,7 +314,7 @@ TEST(CompoundAttr, attribute_empty_string_override_emits_error) {
 
     auto layer = SdfLayer::FindOrOpen(layerPath.c_str());
     ASSERT_TRUE(layer);
-    setOfflineCompoundNameAttr(layer, "" /*empty*/);
+    setCompoundNameAttrAndSave(layer, "" /*empty*/);
 
     stage = UsdStage::Open(layerPath.c_str());
     ASSERT_TRUE(stage);

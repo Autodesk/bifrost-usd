@@ -64,38 +64,11 @@ constexpr const char* kStartFrameAttr =
 constexpr const char* kEndFrameAttr = "bifrost:global:timeline_info_end_frame";
 constexpr const char* kFpsAttr      = "bifrost:global:time_fps";
 
-// The move_up_point_simulation compound is a pseudo-simulation feedback loop
-// that moves a single point up on the Y-axis by vertical_step units per frame.
-//   - At startFrame the point is at (0, 0, 0).
-//   - At endFrame   the point is at (0, delta * vertical_step, 0),
-//     where delta = endFrame - startFrame.
-constexpr const char* kCompound =
-    "Test::DynamicFileFormat::move_up_point_simulation";
-constexpr const char* kOutputPort   = "point";
 constexpr float       kVerticalStep = 1.0f;
 
 // The default fps used by the DFF when no valid time_fps globals field is
 // found.
 constexpr double kDefaultFps = BifrostUsd::GraphExecutor::defaultFps;
-
-/// Return the first simulated point at \p frame, or (0,0,0) if the prim or
-/// attribute is unavailable.
-GfVec3f getPointAtFrame(const UsdStageRefPtr& stage, double frame) {
-    auto pointsPrim = stage->GetPrimAtPath(SdfPath{"/Root/geo/points"});
-    if (!pointsPrim) {
-        return GfVec3f{0.f, 0.f, 0.f};
-    }
-    auto pointsGeom = UsdGeomPoints{pointsPrim};
-    if (!pointsGeom) {
-        return GfVec3f{0.f, 0.f, 0.f};
-    }
-    VtVec3fArray points;
-    pointsGeom.GetPointsAttr().Get(&points, UsdTimeCode{frame});
-    if (points.empty()) {
-        return GfVec3f{0.f, 0.f, 0.f};
-    }
-    return points[0];
-}
 
 } // namespace
 
@@ -110,13 +83,11 @@ TEST(GlobalsStartFrame, invalid_field_type) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "GlobalsStartFrame_invalid_field_type";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{bool{true}}},    // wrong type
             {kEndFrameField,   VtValue{double{3.0}}},
         }
@@ -139,13 +110,11 @@ TEST(GlobalsStartFrame, valid_field_but_no_end_frame) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "GlobalsStartFrame_valid_field_but_no_end_frame";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{double{1}}},
         }
     );
@@ -166,13 +135,11 @@ TEST(GlobalsStartFrame, valid_attr_but_no_end_frame) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "GlobalsStartFrame_valid_attr_but_no_end_frame";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // clang-format off
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kStartFrameAttr},
              {SdfValueTypeNames->Double, VtValue{double{10}}}},
@@ -195,13 +162,11 @@ TEST(GlobalsStartFrame, start_frame_greater_than_end_frame) {
     constexpr auto         bucketKey =
         "GlobalsStartFrame_start_frame_greater_than_end_frame";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{double{1}}},
             {kEndFrameField, VtValue{double{0}}},
         }
@@ -227,24 +192,21 @@ TEST(GlobalsStartFrame, valid_field_value) {
 
     constexpr double startFrame = 2.0;
     constexpr double endFrame   = 4.0;
-    constexpr float  delta      = static_cast<float>(endFrame - startFrame);
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set verbosity so that warnings and errors are captured.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{startFrame}},
             {kEndFrameField,   VtValue{endFrame}},
             {kFpsField,        VtValue{double{1.0}}},
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -253,9 +215,7 @@ TEST(GlobalsStartFrame, valid_field_value) {
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
 
-    EXPECT_EQ(getPointAtFrame(stage, startFrame), GfVec3f(0.f, 0.f, 0.f));
-    EXPECT_EQ(getPointAtFrame(stage, endFrame),
-              GfVec3f(0.f, delta * kVerticalStep, 0.f));
+    checkMoveUpPointSimulation(stage, startFrame, endFrame);
 }
 
 /// start_frame is supplied only as an attribute - there is no
@@ -268,19 +228,16 @@ TEST(GlobalsStartFrame, attribute_only_no_field) {
 
     constexpr double startFrame = 1.0;
     constexpr double endFrame   = 3.0;
-    constexpr float  delta      = static_cast<float>(endFrame - startFrame);
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set verbosity so that warnings and errors are captured.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // Dict carries only end_frame; start_frame will come later from attribute.
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kEndFrameField, VtValue{endFrame}},
             {kFpsField,      VtValue{double{1.0}}},
         }
@@ -294,13 +251,13 @@ TEST(GlobalsStartFrame, attribute_only_no_field) {
     collector.clear();
 
     // clang-format off
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kStartFrameAttr},
              {SdfValueTypeNames->Double, VtValue{startFrame}}},
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -309,9 +266,7 @@ TEST(GlobalsStartFrame, attribute_only_no_field) {
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
 
-    EXPECT_EQ(getPointAtFrame(stage, startFrame), GfVec3f(0.f, 0.f, 0.f));
-    EXPECT_EQ(getPointAtFrame(stage, endFrame),
-              GfVec3f(0.f, delta * kVerticalStep, 0.f));
+    checkMoveUpPointSimulation(stage, startFrame, endFrame);
 }
 
 /// An attribute override for start_frame whose type differs
@@ -323,29 +278,27 @@ TEST(GlobalsStartFrame, attribute_type_mismatch_override_rejected) {
     constexpr double fieldStartFrame = 2.0; // field value
     constexpr double endFrame        = 5.0;
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set verbosity so that warnings and errors are captured.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{fieldStartFrame}}, // correct type
             {kEndFrameField,   VtValue{endFrame}},
             {kFpsField,        VtValue{double{1.0}}},
         }
     );
     // Override with type mismatch: must be rejected with an error.
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kStartFrameAttr},
              {SdfValueTypeNames->Int, VtValue{int{4}}}},
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -372,31 +325,28 @@ TEST(GlobalsStartFrame, attribute_override_succeeds) {
     constexpr double fieldStartFrame = 0.0; // field value - will be overridden
     constexpr double attrStartFrame  = 1.0; // override value
     constexpr double endFrame        = 3.0;
-    constexpr float  delta = static_cast<float>(endFrame - attrStartFrame);
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set verbosity so that warnings and errors are captured.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{fieldStartFrame}},
             {kEndFrameField,   VtValue{endFrame}},
             {kFpsField,        VtValue{double{1.0}}},
         }
     );
     // Override with matching type (double) - must succeed.
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kStartFrameAttr},
              {SdfValueTypeNames->Double, VtValue{attrStartFrame}}},
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -406,9 +356,7 @@ TEST(GlobalsStartFrame, attribute_override_succeeds) {
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
 
     // Simulation starts at attrStartFrame, not the overridden field value.
-    EXPECT_EQ(getPointAtFrame(stage, attrStartFrame), GfVec3f(0.f, 0.f, 0.f));
-    EXPECT_EQ(getPointAtFrame(stage, endFrame),
-              GfVec3f(0.f, delta * kVerticalStep, 0.f));
+    checkMoveUpPointSimulation(stage, attrStartFrame, endFrame);
 }
 
 // ===========================================================================
@@ -422,18 +370,16 @@ TEST(GlobalsEndFrame, invalid_field_type) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "GlobalsEndFrame_invalid_field_type";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{double{1.0}}},
             {kEndFrameField,   VtValue{"10"}}, // wrong type
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -455,13 +401,11 @@ TEST(GlobalsEndFrame, valid_field_but_no_start_frame) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "GlobalsEndFrame_valid_field_but_no_start_frame";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kEndFrameField, VtValue{double{1}}},
         }
     );
@@ -482,13 +426,11 @@ TEST(GlobalsEndFrame, valid_attr_but_no_start_frame) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "GlobalsEndFrame_valid_attr_but_no_start_frame";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // clang-format off
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kEndFrameAttr},
              {SdfValueTypeNames->Double, VtValue{double{10}}}},
@@ -512,24 +454,21 @@ TEST(GlobalsEndFrame, valid_field_value) {
 
     constexpr double startFrame = 1.0;
     constexpr double endFrame   = 4.0;
-    constexpr float  delta      = static_cast<float>(endFrame - startFrame);
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set verbosity so that warnings and errors are captured.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{startFrame}},
             {kEndFrameField,   VtValue{endFrame}},
             {kFpsField,        VtValue{double{1.0}}},
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -538,9 +477,7 @@ TEST(GlobalsEndFrame, valid_field_value) {
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
 
-    EXPECT_EQ(getPointAtFrame(stage, startFrame), GfVec3f(0.f, 0.f, 0.f));
-    EXPECT_EQ(getPointAtFrame(stage, endFrame),
-              GfVec3f(0.f, delta * kVerticalStep, 0.f));
+    checkMoveUpPointSimulation(stage, startFrame, endFrame);
 }
 
 /// end_frame is supplied only as an attribute - there is no
@@ -553,19 +490,16 @@ TEST(GlobalsEndFrame, attribute_only_no_field) {
 
     constexpr double startFrame = 1.0;
     constexpr double endFrame   = 4.0;
-    constexpr float  delta      = static_cast<float>(endFrame - startFrame);
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set verbosity so that warnings and errors are captured.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // Dict carries only start_frame; end_frame will come later from attribute.
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{startFrame}},
             {kFpsField,        VtValue{double{1.0}}},
         }
@@ -579,13 +513,13 @@ TEST(GlobalsEndFrame, attribute_only_no_field) {
     collector.clear();
 
     // clang-format off
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kEndFrameAttr},
              {SdfValueTypeNames->Double, VtValue{endFrame}}},
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -594,9 +528,7 @@ TEST(GlobalsEndFrame, attribute_only_no_field) {
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
 
-    EXPECT_EQ(getPointAtFrame(stage, startFrame), GfVec3f(0.f, 0.f, 0.f));
-    EXPECT_EQ(getPointAtFrame(stage, endFrame),
-              GfVec3f(0.f, delta * kVerticalStep, 0.f));
+    checkMoveUpPointSimulation(stage, startFrame, endFrame);
 }
 
 /// An attribute override for end_frame whose type differs
@@ -608,29 +540,27 @@ TEST(GlobalsEndFrame, attribute_type_mismatch_override_rejected) {
     constexpr double startFrame    = 1.0;
     constexpr double fieldEndFrame = 4.0; // field value
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set verbosity so that warnings and errors are captured.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{startFrame}},
             {kEndFrameField,   VtValue{fieldEndFrame}}, // correct type
             {kFpsField,        VtValue{double{1.0}}},
         }
     );
     // Override with type mismatch: must be rejected with an error.
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kEndFrameAttr},
              {SdfValueTypeNames->Int, VtValue{int{20}}}},
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -657,31 +587,28 @@ TEST(GlobalsEndFrame, attribute_override_succeeds) {
     constexpr double startFrame    = 1.0;
     constexpr double fieldEndFrame = 3.0; // field value - will be overridden
     constexpr double attrEndFrame  = 4.0; // override value
-    constexpr float  delta = static_cast<float>(attrEndFrame - startFrame);
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set verbosity so that warnings and errors are captured.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{startFrame}},
             {kEndFrameField,   VtValue{fieldEndFrame}},
             {kFpsField,        VtValue{double{1.0}}},
         }
     );
     // Override with matching type (double) - must succeed.
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kEndFrameAttr},
              {SdfValueTypeNames->Double, VtValue{attrEndFrame}}},
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -691,9 +618,7 @@ TEST(GlobalsEndFrame, attribute_override_succeeds) {
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
 
     // Simulation ends at attrEndFrame, not the overridden field value.
-    EXPECT_EQ(getPointAtFrame(stage, startFrame), GfVec3f(0.f, 0.f, 0.f));
-    EXPECT_EQ(getPointAtFrame(stage, attrEndFrame),
-              GfVec3f(0.f, delta * kVerticalStep, 0.f));
+    checkMoveUpPointSimulation(stage, startFrame, attrEndFrame);
 }
 
 // ===========================================================================
@@ -711,19 +636,17 @@ TEST(GlobalsFps, invalid_field_type) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "GlobalsFps_invalid_field_type";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{double{1.0}}},
             {kEndFrameField,   VtValue{double{3.0}}},
             {kFpsField,        VtValue{int{60}}}, // wrong type
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -743,13 +666,11 @@ TEST(GlobalsFps, positive_value_required) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "GlobalsFps_positive_value_required";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{double{1}}},
             {kEndFrameField,   VtValue{double{2}}},
             {kFpsField,        VtValue{double{0}}},
@@ -773,23 +694,20 @@ TEST(GlobalsFps, no_fps_specified_default_is_used) {
 
     constexpr double startFrame = 1.0;
     constexpr double endFrame   = 3.0;
-    constexpr float  delta      = static_cast<float>(endFrame - startFrame);
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set verbosity so that warnings and errors are captured.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{startFrame}},
             {kEndFrameField,   VtValue{endFrame}},
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -798,12 +716,7 @@ TEST(GlobalsFps, no_fps_specified_default_is_used) {
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
 
-    EXPECT_EQ(getPointAtFrame(stage, startFrame), GfVec3f(0.f, 0.f, 0.f));
-    const GfVec3f endPoint = getPointAtFrame(stage, endFrame);
-    EXPECT_EQ(endPoint[0], 0.f);
-    EXPECT_NEAR(endPoint[1],
-                delta * kVerticalStep / static_cast<float>(kDefaultFps), 1e-5f);
-    EXPECT_EQ(endPoint[2], 0.f);
+    checkMoveUpPointSimulation(stage, startFrame, endFrame, kDefaultFps);
 }
 
 /// A valid fps field is accepted. No errors are emitted and the graph
@@ -814,25 +727,22 @@ TEST(GlobalsFps, valid_field_value) {
 
     constexpr double startFrame = 1.0;
     constexpr double endFrame   = 3.0;
-    constexpr float  delta      = static_cast<float>(endFrame - startFrame);
     constexpr double fps        = 10;
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set verbosity so that warnings and errors are captured.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{startFrame}},
             {kEndFrameField,   VtValue{endFrame}},
             {kFpsField,        VtValue{fps}},
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -841,12 +751,7 @@ TEST(GlobalsFps, valid_field_value) {
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
 
-    EXPECT_EQ(getPointAtFrame(stage, startFrame), GfVec3f(0.f, 0.f, 0.f));
-    const GfVec3f endPoint = getPointAtFrame(stage, endFrame);
-    EXPECT_EQ(endPoint[0], 0.f);
-    EXPECT_NEAR(endPoint[1], delta * kVerticalStep / static_cast<float>(fps),
-                1e-5f);
-    EXPECT_EQ(endPoint[2], 0.f);
+    checkMoveUpPointSimulation(stage, startFrame, endFrame, fps);
 }
 
 /// fps is supplied only as an attribute - there is no corresponding
@@ -859,30 +764,27 @@ TEST(GlobalsFps, attribute_only_no_field) {
 
     constexpr double startFrame = 1.0;
     constexpr double endFrame   = 3.0;
-    constexpr float  delta      = static_cast<float>(endFrame - startFrame);
     constexpr double fps        = 5;
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set verbosity so that warnings and errors are captured.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // Globals dict has start/end only - fps comes from the attribute.
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{startFrame}},
             {kEndFrameField,   VtValue{endFrame}},
         }
     );
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kFpsAttr}, {SdfValueTypeNames->Double, VtValue{fps}}},
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -891,12 +793,7 @@ TEST(GlobalsFps, attribute_only_no_field) {
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
 
-    EXPECT_EQ(getPointAtFrame(stage, startFrame), GfVec3f(0.f, 0.f, 0.f));
-    const GfVec3f endPoint = getPointAtFrame(stage, endFrame);
-    EXPECT_EQ(endPoint[0], 0.f);
-    EXPECT_NEAR(endPoint[1], delta * kVerticalStep / static_cast<float>(fps),
-                1e-5f);
-    EXPECT_EQ(endPoint[2], 0.f);
+    checkMoveUpPointSimulation(stage, startFrame, endFrame, fps);
 }
 
 /// An attribute override for fps whose type differs from the field type is
@@ -909,28 +806,26 @@ TEST(GlobalsFps, attribute_type_mismatch_override_rejected) {
     constexpr double endFrame   = 3.0;
     constexpr double fieldFps   = 20.0; // field value
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set verbosity so that warnings and errors are captured.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{startFrame}},
             {kEndFrameField,   VtValue{endFrame}},
             {kFpsField,        VtValue{fieldFps}}, // double - correct type
         }
     );
     // Override with type mismatch: must be rejected with an error.
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kFpsAttr}, {SdfValueTypeNames->Bool, VtValue{bool{true}}}},
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -956,32 +851,29 @@ TEST(GlobalsFps, attribute_override_succeeds) {
 
     constexpr double startFrame = 1.0;
     constexpr double endFrame   = 3.0;
-    constexpr float  delta      = static_cast<float>(endFrame - startFrame);
     constexpr double fieldFps   = 5.0;  // field value - will be overridden
     constexpr double attrFps    = 10.0; // override value
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set verbosity so that warnings and errors are captured.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // clang-format off
-    setLiveGlobalsField(stage, VtDictionary{
+    setGlobalsField(stage, VtDictionary{
             {kStartFrameField, VtValue{startFrame}},
             {kEndFrameField,   VtValue{endFrame}},
             {kFpsField,        VtValue{fieldFps}},
         }
     );
     // Override with matching type (double) - must succeed.
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kFpsAttr}, {SdfValueTypeNames->Double, VtValue{attrFps}}},
         }
     );
-    setLiveInputsField(stage, VtDictionary{
+    setInputsField(stage, VtDictionary{
             {"vertical_step", VtValue{kVerticalStep}},
         }
     );
@@ -991,12 +883,7 @@ TEST(GlobalsFps, attribute_override_succeeds) {
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
 
     // Simulation uses the attrFps, not the overridden field value.
-    EXPECT_EQ(getPointAtFrame(stage, startFrame), GfVec3f(0.f, 0.f, 0.f));
-    const GfVec3f endPoint = getPointAtFrame(stage, endFrame);
-    EXPECT_EQ(endPoint[0], 0.f);
-    EXPECT_NEAR(endPoint[1],
-                delta * kVerticalStep / static_cast<float>(attrFps), 1e-5f);
-    EXPECT_EQ(endPoint[2], 0.f);
+    checkMoveUpPointSimulation(stage, startFrame, endFrame, attrFps);
 }
 
 PXR_NAMESPACE_CLOSE_SCOPE

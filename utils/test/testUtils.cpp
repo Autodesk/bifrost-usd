@@ -28,7 +28,6 @@
 
 #ifdef _WIN32
 #include <process.h>
-#include <processenv.h>
 #else
 #include <unistd.h>
 #endif
@@ -157,6 +156,27 @@ Amino::String UniqueTestOutputSubdir::getPath_abs(Amino::StringView filename) {
     }
     return Bifrost::FileUtils::filePath(m_subdir_abs, filename);
 }
+
+ErrorRecorder::ErrorRecorder() {
+    PXR_NS::TfDiagnosticMgr::GetInstance().AddDelegate(this);
+}
+
+ErrorRecorder::~ErrorRecorder() {
+    PXR_NS::TfDiagnosticMgr::GetInstance().RemoveDelegate(this);
+}
+
+bool ErrorRecorder::hasError() const { return m_hasError; }
+
+void ErrorRecorder::reset() { m_hasError = false; }
+
+void ErrorRecorder::IssueError(const PXR_NS::TfError&) { m_hasError = true; }
+
+void ErrorRecorder::IssueFatalError(const PXR_NS::TfCallContext&,
+                                    const std::string&) {}
+
+void ErrorRecorder::IssueStatus(const PXR_NS::TfStatus&) {}
+
+void ErrorRecorder::IssueWarning(const PXR_NS::TfWarning&) {}
 
 bool addSubLayers(PXR_NS::SdfLayerRefPtr             sdfRootLayer,
                   const Amino::Array<Amino::String>& subNames,

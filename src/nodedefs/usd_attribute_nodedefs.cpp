@@ -1,5 +1,5 @@
 //-
-// Copyright 2023 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -67,8 +67,8 @@ bool set_attribute_metadata_impl(const Amino::String& prim_path,
         return BifrostUsd::WithVariantContext(stage, [&]() {
             auto pxr_attribute =
                 get_attribute_or_throw(prim_path, attribute_name, stage);
-
-            return pxr_attribute.SetMetadata(GetSdfFieldKey(key), toPxr(value));
+            return USDUtils::setMetadata(pxr_attribute, GetSdfFieldKey(key),
+                                         toPxr(value));
         });
 
     } catch (std::exception& e) {
@@ -1193,9 +1193,13 @@ bool USD::Attribute::get_attribute_metadata(
     try {
             auto pxr_attribute =
                 get_attribute_or_throw(prim_path, attribute_name, stage);
-            PXR_NS::VtDictionary temp;
-            if (pxr_attribute.GetMetadata(GetSdfFieldKey(key), &temp)) {
-                value = fromPxr(temp);
+            // Use a VtValue* (not a VtDictionary*)
+            // See explanation in USDUtils::getMetadataAsVtValue.
+            PXR_NS::VtValue vtValue;
+            if (USDUtils::getMetadataAsVtValue(
+                    pxr_attribute, GetSdfFieldKey(key), vtValue) &&
+                vtValue.IsHolding<PXR_NS::VtDictionary>()) {
+                value = fromPxr(vtValue.UncheckedGet<PXR_NS::VtDictionary>());
                 return true;
             } else {
                 value = default_and_type;
