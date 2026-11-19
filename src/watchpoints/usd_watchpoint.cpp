@@ -29,12 +29,14 @@
 
 #include <BifrostGraph/Executor/Watchpoint.h>
 #include <BifrostGraph/Executor/WatchpointLayout.h>
+#include <BifrostGraph/Executor/WatchpointLayoutFactory.h>
 
 #include <BifrostUsd/Attribute.h>
 #include <BifrostUsd/Layer.h>
 #include <BifrostUsd/Prim.h>
 #include <BifrostUsd/Stage.h>
 
+#include <any>
 #include <cassert>
 #include <cmath>
 #include <functional>
@@ -46,32 +48,38 @@ BIFUSD_WARNING_PUSH
 BIFUSD_WARNING_DISABLE_MSC(4003)
 BIFUSD_WARNING_DISABLE_MSC(4267)
 BIFUSD_WARNING_DISABLE_MSC(4244)
+#include <pxr/base/vt/typeHeaders.h>
 #include <pxr/usd/usd/attribute.h>
 #include <pxr/usd/usd/modelAPI.h>
 #include <pxr/usd/usd/prim.h>
 #include <pxr/usd/usd/primRange.h>
 #include <pxr/usd/usd/primTypeInfo.h>
-// matrix float not included in <pxr/usd/sdf/types.h>
-#include <pxr/base/gf/matrix2f.h>
-#include <pxr/base/gf/matrix3f.h>
-#include <pxr/base/gf/matrix4f.h>
 
 BIFUSD_WARNING_POP
+
+#if defined(_WIN32)
+#define UNREACHABLE _assume(false);
+#else
+#define UNREACHABLE __builtin_unreachable();
+#endif
 
 using Watcher               = BifrostGraph::Executor::Watchpoint::Watcher;
 using WatchpointLayout      = BifrostGraph::Executor::WatchpointLayout;
 using WatchpointLayoutArray = BifrostGraph::Executor::WatchpointLayoutArray;
+using WatchpointLayoutArrayGeneric =
+    BifrostGraph::Executor::WatchpointLayoutArrayGeneric;
 using WatchpointLayoutComposite =
     BifrostGraph::Executor::WatchpointLayoutComposite;
 using WatchpointLayoutFactory = BifrostGraph::Executor::WatchpointLayoutFactory;
 using WatchpointLayoutPath    = BifrostGraph::Executor::WatchpointLayoutPath;
 using WatchpointLayoutPtr     = BifrostGraph::Executor::WatchpointLayoutPtr;
 
-using Field   = BifrostGraph::Executor::Watchpoint::Field;
-using Sorter  = BifrostGraph::Executor::Watchpoint::Sorter;
-using Filters = BifrostGraph::Executor::Watchpoint::Filters;
-using Filter  = BifrostGraph::Executor::Watchpoint::Filter;
-using Indices = BifrostGraph::Executor::Watchpoint::Indices;
+using Field     = WatchpointLayoutArray::Sorter::Field;
+using Sorter    = WatchpointLayoutArray::Sorter;
+using Filters   = WatchpointLayoutArray::Filters;
+using Filter    = WatchpointLayoutArray::Filter;
+using CompareOp = WatchpointLayoutArray::Filter::Operation;
+using Indices   = WatchpointLayoutArray::Indices;
 
 using AttributePtr      = Amino::Ptr<BifrostUsd::Attribute>;
 using ArrayOfAttributes = Amino::Ptr<Amino::Array<AttributePtr>>;
@@ -82,110 +90,75 @@ using ArrayOfStages     = Amino::Ptr<Amino::Array<StagePtr>>;
 using PrimPtr           = Amino::Ptr<BifrostUsd::Prim>;
 using ArrayOfPrims      = Amino::Ptr<Amino::Array<PrimPtr>>;
 
+using namespace PXR_NS;
+
 namespace {
-using namespace Amino::StringViewLiterals;
-
-///-------------------------------------------------------------------------
-/// \brief Constants for the different watchpoint layout fields
-/// \{
-// Stage watchpoint
-Amino::String const kLastModifiedPrim = "last modified prim";
-Amino::String const kRootLayer        = "root layer";
-Amino::String const kVariantSelection = "variant selection";
-Amino::String const kPrims            = "prims";
-
-// Attribute watchpoint
-Amino::String const kName               = "name";
-Amino::String const kTypeName           = "type";
-Amino::String const kIsDefined          = "is_defined";
-Amino::String const kIsCustom           = "is_custom";
-Amino::String const kIsAuthored         = "is_authored";
-Amino::String const kValue              = "value";
-Amino::String const kNumTimeSamples     = "num_time_samples";
-
-// Prim watchpoint
-Amino::String const kPrimPath                = "path";
-Amino::String const kKind                    = "kind";
-Amino::String const kPrimAttributes          = "attributes";
-Amino::String const kPrimAuthoredAttributes  = "authored_attributes";
-Amino::String const kIsActive                = "is_active";
-Amino::String const kIsLoaded                = "is_loaded";
-Amino::String const kIsModel                 = "is_model";
-Amino::String const kIsGroup                 = "is_group";
-Amino::String const kIsAbstract              = "is_abstract";
-Amino::String const kHasVariantSets          = "has_variant_sets";
-Amino::String const kHasAuthoredPayloads     = "has_authored_payloads";
-Amino::String const kHasAuthoredInherits     = "has_authored_inherits";
-Amino::String const kHasAuthoredReferences   = "has_authored_references";
-Amino::String const kHasAuthoredSpecializes  = "has_authored_specializes";
-Amino::String const kHasAuthoredInstanceable = "has_authored_instanceable";
-Amino::String const kIsInstance              = "is_instance";
-Amino::String const kIsInstanceProxy         = "is_instance_proxy";
-Amino::String const kIsPrototype             = "is_prototype";
-Amino::String const kIsInPrototype           = "is_in_prototype";
-
-// Layer watchpoint
-Amino::String const kLayerDisplayName         = "display_name";
-Amino::String const kLayerFilePath            = "file_path";
-Amino::String const kLayerOriginalFilePath    = "original_file_path";
-Amino::String const kStartTimeCode            = "start_time_code";
-Amino::String const kEndTimeCode              = "end_time_code";
-
-// Usd built-in struct types fields
-Amino::String const kVectorFields[4]     = {"s0", "s1", "s2", "s3"};
-Amino::String const kMatrixFields[4][4]  = {{"m00", "m01", "m02", "m03"},
-                                            {"m10", "m11", "m12", "m13"},
-                                            {"m20", "m21", "m22", "m23"},
-                                            {"m30", "m31", "m32", "m33"}};
-Amino::String const kQuaternionFields[4] = {"r", "i", "j", "k"};
-/// \}
+// VT_TYPE, VT_TYPE_NAME and VT_SCALAR_VALUE_TYPES are defined in
+// <pxr/base/vt/types.h>
+#if (PXR_MINOR_VERSION >= 24)
+// TF_PP_SEQ_FOR_EACH is defined in <pxr/base/tf/preprocessorUtilsListe.h>
+#define VT_HANDLE_VT_TYPE(unused, element) \
+    HANDLE_VT_TYPE(element)
+#define FOR_EACH_VT_VALUE_TYPES \
+    TF_PP_SEQ_FOR_EACH(VT_HANDLE_VT_TYPE, ~, VT_SCALAR_VALUE_TYPES)
+#else
+#define VT_HANDLE_VT_TYPE(unused1, unused2, element) \
+    HANDLE_VT_TYPE(element)
+#define FOR_EACH_VT_VALUE_TYPES \
+    BOOST_PP_SEQ_FOR_EACH(VT_HANDLE_VT_TYPE, ~, VT_SCALAR_VALUE_TYPES)
+#endif
 
 template <typename T>
-constexpr bool is_builtin_type() {
-    return std::is_same_v<T, Amino::char_t> ||
-           std::is_same_v<T, Amino::uchar_t> ||
-           std::is_same_v<T, Amino::int_t> ||
-           std::is_same_v<T, Amino::uint_t> ||
-           std::is_same_v<T, Amino::short_t> ||
-           std::is_same_v<T, Amino::ushort_t> ||
-           std::is_same_v<T, Amino::long_t> ||
-           std::is_same_v<T, Amino::ulong_t> ||
-           std::is_same_v<T, Amino::float_t> ||
-           std::is_same_v<T, Amino::double_t> ||
-           std::is_same_v<T, Amino::bool_t> || std::is_same_v<T, std::string>;
+constexpr bool is_pxr_scalar_type() {
+    return std::is_same_v<T, bool> || std::is_same_v<T, char> ||
+           std::is_same_v<T, unsigned char> || std::is_same_v<T, short> ||
+           std::is_same_v<T, unsigned short> || std::is_same_v<T, int> ||
+           std::is_same_v<T, unsigned int> || std::is_same_v<T, int64_t> ||
+           std::is_same_v<T, uint64_t> || std::is_same_v<T, double> ||
+           std::is_same_v<T, float> || std::is_same_v<T, GfHalf>;
+}
+
+template <typename T>
+constexpr bool is_pxr_string_type() {
+    return std::is_same_v<T, std::string> || std::is_same_v<T, TfToken> ||
+           std::is_same_v<T, SdfAssetPath>;
 }
 
 template <typename T>
 constexpr bool is_pxr_vector_type() {
-    return std::is_same_v<T, PXR_NS::GfVec2d> ||
-           std::is_same_v<T, PXR_NS::GfVec2f> ||
-           std::is_same_v<T, PXR_NS::GfVec2h> ||
-           std::is_same_v<T, PXR_NS::GfVec2i> ||
-           std::is_same_v<T, PXR_NS::GfVec3d> ||
-           std::is_same_v<T, PXR_NS::GfVec3f> ||
-           std::is_same_v<T, PXR_NS::GfVec3h> ||
-           std::is_same_v<T, PXR_NS::GfVec3i> ||
-           std::is_same_v<T, PXR_NS::GfVec4d> ||
-           std::is_same_v<T, PXR_NS::GfVec4f> ||
-           std::is_same_v<T, PXR_NS::GfVec4h> ||
-           std::is_same_v<T, PXR_NS::GfVec4i>;
+    return std::is_same_v<T, GfVec2d> || std::is_same_v<T, GfVec2f> ||
+           std::is_same_v<T, GfVec2h> || std::is_same_v<T, GfVec2i> ||
+           std::is_same_v<T, GfVec3d> || std::is_same_v<T, GfVec3f> ||
+           std::is_same_v<T, GfVec3h> || std::is_same_v<T, GfVec3i> ||
+           std::is_same_v<T, GfVec4d> || std::is_same_v<T, GfVec4f> ||
+           std::is_same_v<T, GfVec4h> || std::is_same_v<T, GfVec4i>;
 }
 
 template <typename T>
 constexpr bool is_pxr_matrix_type() {
-    return std::is_same_v<T, PXR_NS::GfMatrix2d> ||
-           std::is_same_v<T, PXR_NS::GfMatrix2f> ||
-           std::is_same_v<T, PXR_NS::GfMatrix3d> ||
-           std::is_same_v<T, PXR_NS::GfMatrix3f> ||
-           std::is_same_v<T, PXR_NS::GfMatrix4d> ||
-           std::is_same_v<T, PXR_NS::GfMatrix4f>;
+    return std::is_same_v<T, GfMatrix2d> || std::is_same_v<T, GfMatrix2f> ||
+           std::is_same_v<T, GfMatrix3d> || std::is_same_v<T, GfMatrix3f> ||
+           std::is_same_v<T, GfMatrix4d> || std::is_same_v<T, GfMatrix4f>;
 }
 
 template <typename T>
 constexpr bool is_pxr_quaternion_type() {
-    return std::is_same_v<T, PXR_NS::GfQuatd> ||
-           std::is_same_v<T, PXR_NS::GfQuatf> ||
-           std::is_same_v<T, PXR_NS::GfQuath>;
+    return std::is_same_v<T, GfQuatd> || std::is_same_v<T, GfQuatf> ||
+           std::is_same_v<T, GfQuath> || std::is_same_v<T, GfQuaternion>;
+}
+
+template <typename T>
+constexpr bool is_pxr_dual_quaternion_type() {
+    return std::is_same_v<T, GfDualQuatd> || std::is_same_v<T, GfDualQuatf> ||
+           std::is_same_v<T, GfDualQuath>;
+}
+
+template <typename T>
+constexpr bool is_pxr_range_type() {
+    return std::is_same_v<T, GfRange1d> || std::is_same_v<T, GfRange1f> ||
+           std::is_same_v<T, GfRange2d> || std::is_same_v<T, GfRange2f> ||
+           std::is_same_v<T, GfRange3d> || std::is_same_v<T, GfRange3f> ||
+           std::is_same_v<T, GfInterval> || std::is_same_v<T, GfRect2i>;
 }
 
 template <typename T>
@@ -194,347 +167,77 @@ constexpr bool is_ptr_type() {
            std::is_same_v<T, StagePtr> || std::is_same_v<T, PrimPtr>;
 }
 
-#define FOR_EACH_SUPPORTED_TYPES(MACRO) \
-    MACRO(Amino::char_t)                \
-    MACRO(Amino::uchar_t)               \
-    MACRO(Amino::int_t)                 \
-    MACRO(Amino::uint_t)                \
-    MACRO(Amino::short_t)               \
-    MACRO(Amino::ushort_t)              \
-    MACRO(Amino::long_t)                \
-    MACRO(Amino::ulong_t)               \
-    MACRO(Amino::float_t)               \
-    MACRO(Amino::double_t)              \
-    MACRO(Amino::bool_t)                \
-    MACRO(std::string)                  \
-    MACRO(PXR_NS::GfHalf)               \
-    MACRO(PXR_NS::GfVec2d)              \
-    MACRO(PXR_NS::GfVec2f)              \
-    MACRO(PXR_NS::GfVec2h)              \
-    MACRO(PXR_NS::GfVec2i)              \
-    MACRO(PXR_NS::GfVec3d)              \
-    MACRO(PXR_NS::GfVec3f)              \
-    MACRO(PXR_NS::GfVec3h)              \
-    MACRO(PXR_NS::GfVec3i)              \
-    MACRO(PXR_NS::GfVec4d)              \
-    MACRO(PXR_NS::GfVec4f)              \
-    MACRO(PXR_NS::GfVec4h)              \
-    MACRO(PXR_NS::GfVec4i)              \
-    MACRO(PXR_NS::GfMatrix2d)           \
-    MACRO(PXR_NS::GfMatrix2f)           \
-    MACRO(PXR_NS::GfMatrix3d)           \
-    MACRO(PXR_NS::GfMatrix3f)           \
-    MACRO(PXR_NS::GfMatrix4d)           \
-    MACRO(PXR_NS::GfMatrix4f)           \
-    MACRO(PXR_NS::GfQuatd)              \
-    MACRO(PXR_NS::GfQuatf)              \
-    MACRO(PXR_NS::GfQuath)              \
-    MACRO(PXR_NS::TfToken)              \
-    MACRO(PXR_NS::SdfAssetPath)
-
-inline PXR_NS::TfToken getPrimKind(PrimPtr const& primPtr) {
-    auto modelAPI = PXR_NS::UsdModelAPI((*primPtr).getPxrPrim());
-    auto tfKind   = PXR_NS::TfToken();
-    modelAPI.GetKind(&tfKind);
-    return tfKind;
-}
-
-///-------------------------------------------------------------------------
-/// \brief Helpers get the type names for the different supported types
-/// \{
-Amino::String getShortTypeName(Amino::String typeName) {
-    auto idx = typeName.find_last_of(':');
-    if (idx != Amino::String::npos) {
-        typeName.erase(0, idx + 1);
-    }
-    idx = typeName.find_first_of('_');
-    if (idx != Amino::String::npos) {
-        typeName.erase(idx);
-    }
-    return typeName;
-}
-
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
 template <typename T>
-Amino::String getTypeName() {
-#define HANDLE_TYPE(TYPE)                                             \
-    if constexpr (std::is_same_v<T, TYPE>) {                          \
-        return getShortTypeName(#TYPE);                               \
-    }                                                                 \
-    if constexpr (std::is_same_v<T, PXR_NS::VtArray<TYPE>>) {         \
-        return Amino::String{"VtArray<"} + getTypeName<TYPE>() + ">"; \
-    }
+struct QuaternionTraits {
+    using RealType      = typename T::ScalarType;
+    using ImaginaryType = typename T::ImaginaryType;
+};
 
-    FOR_EACH_SUPPORTED_TYPES(HANDLE_TYPE)
+template <>
+struct QuaternionTraits<GfQuaternion> {
+    using RealType      = double;
+    using ImaginaryType = GfVec3d;
+};
 
-#undef HANDLE_TYPE
-}
-/// \}
-
-///-------------------------------------------------------------------------
-/// \brief Helpers to create the layout for the different supported types
-/// \{
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
 template <typename T>
-WatchpointLayoutPtr getLayoutFromType(WatchpointLayoutFactory const& factory) {
-    if constexpr (is_builtin_type<T>()) {
-        if constexpr (std::is_same_v<T, std::string>) {
-            return factory.get(Amino::getTypeId<Amino::String>());
-        } else {
-            return factory.get(Amino::getTypeId<T>());
-        }
+struct DualQuaternionTraits;
+
+template <>
+struct DualQuaternionTraits<GfDualQuatd> {
+    using QuaternionType = GfQuatd;
+};
+
+template <>
+struct DualQuaternionTraits<GfDualQuatf> {
+    using QuaternionType = GfQuatf;
+};
+
+template <>
+struct DualQuaternionTraits<GfDualQuath> {
+    using QuaternionType = GfQuath;
+};
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+template <typename T>
+struct RangeTraits {
+    using MinMaxType                   = typename T::MinMaxType;
+    static const std::size_t dimension = T::dimension;
+};
+
+template <>
+struct RangeTraits<GfInterval> {
+    using MinMaxType                   = double;
+    static const std::size_t dimension = 1;
+};
+
+template <>
+struct RangeTraits<GfRect2i> {
+    using MinMaxType                   = GfVec2i;
+    static const std::size_t dimension = GfVec2i::dimension;
+};
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+// Epsilon value used for floating point value comparison.
+// This to match precision of value converted to string,
+// and allow value copy/pasted from UI to be used as filter value.
+template <typename TYPE>
+constexpr TYPE epsilon_value() {
+    if constexpr (std::is_same<TYPE, float>::value) {
+        return 1.e-5f;
+    } else if constexpr (std::is_same<TYPE, double>::value) {
+        return 1.e-5;
     } else {
-        if (factory.exists(Amino::getTypeId<T>())) {
-            return factory.get(Amino::getTypeId<T>());
-        }
-
-        WatchpointLayoutPtr layout;
-
-        if constexpr (std::is_same_v<T, PXR_NS::GfHalf> ||
-                      std::is_same_v<T, PXR_NS::TfToken> ||
-                      std::is_same_v<T, PXR_NS::SdfAssetPath>) {
-            layout = WatchpointLayout::create(factory, Amino::getTypeId<T>());
-        }
-
-        if constexpr (is_pxr_vector_type<T>()) {
-            layout          = WatchpointLayoutComposite::create(factory,
-                                                                Amino::getTypeId<T>());
-            auto& composite = layout.getAs<WatchpointLayoutComposite>();
-            auto  componentLayout =
-                getLayoutFromType<typename T::ScalarType>(factory);
-            assert(componentLayout);
-            composite.add(kVectorFields[0], componentLayout);
-            composite.add(kVectorFields[1], componentLayout);
-            if constexpr (T::dimension > 2) {
-                composite.add(kVectorFields[2], componentLayout);
-                if constexpr (T::dimension > 3) {
-                    composite.add(kVectorFields[3], componentLayout);
-                }
-            }
-        }
-
-        if constexpr (is_pxr_matrix_type<T>()) {
-            layout = WatchpointLayoutComposite::create(factory,
-                                                       Amino::getTypeId<T>());
-            layout->setTypeKind("matrix");
-            auto& composite = layout.getAs<WatchpointLayoutComposite>();
-            auto  componentLayout =
-                getLayoutFromType<typename T::ScalarType>(factory);
-            assert(componentLayout);
-            for (size_t row = 0; row < T::numRows; ++row) {
-                for (size_t col = 0; col < T::numColumns; ++col) {
-                    composite.add(kMatrixFields[row][col], componentLayout);
-                }
-            }
-        }
-
-        if constexpr (is_pxr_quaternion_type<T>()) {
-            layout          = WatchpointLayoutComposite::create(factory,
-                                                                Amino::getTypeId<T>());
-            auto& composite = layout.getAs<WatchpointLayoutComposite>();
-            auto  componentLayout =
-                getLayoutFromType<typename T::ScalarType>(factory);
-            assert(componentLayout);
-            composite.add(kQuaternionFields[0], componentLayout);
-            composite.add(kQuaternionFields[1], componentLayout);
-            composite.add(kQuaternionFields[2], componentLayout);
-            composite.add(kQuaternionFields[3], componentLayout);
-        }
-
-        assert(layout);
-        layout->setTypeName(getTypeName<T>());
-        const_cast<WatchpointLayoutFactory&>(factory).add(layout);
-        return layout;
+        static_assert(!std::is_same_v<TYPE, TYPE>,
+                      "Epsilon value is only defined for floating point types");
     }
 }
-/// \}
 
-///-------------------------------------------------------------------------
-/// \brief Helpers to create the layout for the different supported value types
-/// \{
-template <typename T>
-WatchpointLayoutPtr createLayoutFromValue(
-    WatchpointLayoutFactory const& factory, T const& value) {
-    return factory.get(Amino::Any{value});
-}
-
-WatchpointLayoutPtr createLayoutFromVtValue(
-    WatchpointLayoutFactory const& factory, PXR_NS::VtValue value) {
-#define HANDLE_TYPE(TYPE)                                                      \
-    if (value.IsHolding<TYPE>()) {                                             \
-        return getLayoutFromType<TYPE>(factory);                               \
-    }                                                                          \
-    if (value.IsHolding<PXR_NS::VtArray<TYPE>>()) {                            \
-        auto valuePtr = Amino::newClassPtr<PXR_NS::VtValue>(std::move(value)); \
-        auto layout =                                                          \
-            WatchpointLayoutArray::create(factory, Amino::Any{valuePtr});      \
-        assert(layout);                                                        \
-        layout->setTypeName(getTypeName<PXR_NS::VtArray<TYPE>>());             \
-        layout.getAs<WatchpointLayoutArray>().setElementTypeName(              \
-            getTypeName<TYPE>());                                              \
-        if constexpr (is_pxr_matrix_type<TYPE>()) {                            \
-            layout.getAs<WatchpointLayoutArray>().setElementTypeKind(          \
-                "matrix");                                                     \
-        }                                                                      \
-        return layout;                                                         \
-    }
-
-    FOR_EACH_SUPPORTED_TYPES(HANDLE_TYPE)
-
-#undef HANDLE_TYPE
-
-    assert(false && "createLayoutFromVtValue called for unsupported type");
-    return {};
-}
-
-template <typename PTR_TYPE, typename PARENT_TYPE, typename USD_ARRAY_TYPE>
-WatchpointLayoutPtr createArrayLayout(WatchpointLayoutFactory const& factory,
-                                      PARENT_TYPE const&             parent,
-                                      USD_ARRAY_TYPE const&          values) {
-    auto arrayPtr = Amino::newMutablePtr<Amino::Array<PTR_TYPE>>(
-        std::distance(values.begin(), values.end()));
-    unsigned index = 0;
-    for (auto const& element : values) {
-        arrayPtr->at(index++) =
-            Amino::newClassPtr<typename PTR_TYPE::element_type>(element,
-                                                                parent);
-    }
-    return createLayoutFromValue(factory, arrayPtr.toImmutable());
-}
-
-template <>
-WatchpointLayoutPtr createLayoutFromValue<>(
-    WatchpointLayoutFactory const& factory, AttributePtr const& attributePtr) {
-    auto layout = WatchpointLayoutComposite::create(
-        factory, Amino::getTypeId<AttributePtr>());
-    if (attributePtr) {
-        auto const& attribute = *attributePtr;
-        auto&       composite = layout.getAs<WatchpointLayoutComposite>();
-
-        composite.add(kName, factory.get(Amino::getTypeId<Amino::String>()));
-        composite.add(kTypeName,
-                      factory.get(Amino::getTypeId<Amino::String>()));
-        composite.add(kIsDefined,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kIsCustom,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kIsAuthored,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kNumTimeSamples,
-                      factory.get(Amino::getTypeId<Amino::ulong_t>()));
-
-        PXR_NS::VtValue vtVal;
-        if (attribute->Get(&vtVal)) {
-            composite.add(kValue,
-                          createLayoutFromVtValue(factory, std::move(vtVal)));
-        }
-    }
-    return layout;
-}
-
-template <>
-WatchpointLayoutPtr createLayoutFromValue<>(
-    WatchpointLayoutFactory const& factory, PrimPtr const& primPtr) {
-    auto layout =
-        WatchpointLayoutComposite::create(factory, Amino::getTypeId<PrimPtr>());
-    if (primPtr) {
-        auto const& prim      = *primPtr;
-        auto&       composite = layout.getAs<WatchpointLayoutComposite>();
-
-        composite.add(kPrimPath,
-                      factory.get(Amino::getTypeId<Amino::String>()));
-        composite.add(kTypeName,
-                      factory.get(Amino::getTypeId<Amino::String>()));
-        composite.add(kKind, factory.get(Amino::getTypeId<Amino::String>()));
-        composite.add(kIsActive,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kIsLoaded,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kIsModel, factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kIsGroup, factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kIsAbstract,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kIsDefined,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kHasVariantSets,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kHasAuthoredPayloads,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kHasAuthoredInherits,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kHasAuthoredReferences,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kHasAuthoredSpecializes,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kHasAuthoredInstanceable,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kIsInstance,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kIsInstanceProxy,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kIsPrototype,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kIsInPrototype,
-                      factory.get(Amino::getTypeId<Amino::bool_t>()));
-        composite.add(kPrimAttributes,
-                      createArrayLayout<AttributePtr>(factory, primPtr,
-                                                      prim->GetAttributes()));
-        composite.add(kPrimAuthoredAttributes,
-                      createArrayLayout<AttributePtr>(
-                          factory, primPtr, prim->GetAuthoredAttributes()));
-    }
-    return layout;
-}
-
-template <>
-WatchpointLayoutPtr createLayoutFromValue<>(
-    WatchpointLayoutFactory const& factory, LayerPtr const& layerPtr) {
-    auto layout = WatchpointLayoutComposite::create(
-        factory, Amino::getTypeId<LayerPtr>());
-    if (layerPtr) {
-        auto& composite = layout.getAs<WatchpointLayoutComposite>();
-
-        composite.add(kLayerDisplayName,
-                      factory.get(Amino::getTypeId<Amino::String>()));
-        composite.add(kLayerFilePath,
-                      factory.get(Amino::getTypeId<Amino::String>()));
-        composite.add(kLayerOriginalFilePath,
-                      factory.get(Amino::getTypeId<Amino::String>()));
-        composite.add(kStartTimeCode,
-                      factory.get(Amino::getTypeId<Amino::double_t>()));
-        composite.add(kEndTimeCode,
-                      factory.get(Amino::getTypeId<Amino::double_t>()));
-        // sublayers ?
-    }
-    return layout;
-}
-
-template <>
-WatchpointLayoutPtr createLayoutFromValue<>(
-    WatchpointLayoutFactory const& factory, StagePtr const& stagePtr) {
-    auto layout = WatchpointLayoutComposite::create(
-        factory, Amino::getTypeId<StagePtr>());
-    if (stagePtr) {
-        auto const& stage     = *stagePtr;
-        auto&       composite = layout.getAs<WatchpointLayoutComposite>();
-
-        composite.add(kLastModifiedPrim,
-                      factory.get(Amino::getTypeId<Amino::String>()));
-        composite.add(kRootLayer,
-                      createLayoutFromValue(factory, stage.getRootLayer()));
-        composite.add(kVariantSelection,
-                      factory.get(Amino::getTypeId<Amino::String>()));
-        composite.add(
-            kPrims,
-            createArrayLayout<PrimPtr>(
-                factory, stagePtr,
-                const_cast<PXR_NS::UsdStage&>(stage.get()).TraverseAll()));
-    }
-    return layout;
-}
-/// \}
-
-///-------------------------------------------------------------------------
-/// Helpers to compare values of different supported types
-/// \{
 template <typename T>
 bool is_equal(T const& v1, T const& v2) {
     if constexpr (is_pxr_vector_type<T>()) {
@@ -560,11 +263,17 @@ bool is_equal(T const& v1, T const& v2) {
     } else if constexpr (is_pxr_quaternion_type<T>()) {
         return is_equal(v1.GetReal(), v2.GetReal()) &&
                is_equal(v1.GetImaginary(), v2.GetImaginary());
-    } else if constexpr (std::is_same_v<T, PXR_NS::GfHalf>) {
+    } else if constexpr (is_pxr_dual_quaternion_type<T>()) {
+        return is_equal(v1.GetReal(), v2.GetReal()) &&
+               is_equal(v1.GetDual(), v2.GetDual());
+    } else if constexpr (is_pxr_range_type<T>()) {
+        return is_equal(v1.GetMin(), v2.GetMin()) &&
+               is_equal(v1.GetMax(), v2.GetMax());
+    } else if constexpr (std::is_same_v<T, GfHalf>) {
         return is_equal(static_cast<float>(v1), static_cast<float>(v2));
     } else if constexpr (std::is_same_v<T, double> ||
                          std::is_same_v<T, float>) {
-        return std::isless(std::fabs(v1 - v2), std::numeric_limits<T>::min());
+        return std::isless(std::fabs(v1 - v2), epsilon_value<T>());
     } else {
         return v1 == v2;
     }
@@ -601,12 +310,20 @@ bool is_less(T const& v1, T const& v2) {
         return is_less(v1.GetReal(), v2.GetReal()) ||
                (is_equal(v1.GetReal(), v2.GetReal()) &&
                 is_less(v1.GetImaginary(), v2.GetImaginary()));
+    } else if constexpr (is_pxr_dual_quaternion_type<T>()) {
+        return is_less(v1.GetReal(), v2.GetReal()) ||
+               (is_equal(v1.GetReal(), v2.GetReal()) &&
+                is_less(v1.GetDual(), v2.GetDual()));
+    } else if constexpr (is_pxr_range_type<T>()) {
+        return is_less(v1.GetMin(), v2.GetMin()) ||
+               (is_equal(v1.GetMin(), v2.GetMin()) &&
+                is_less(v1.GetMax(), v2.GetMax()));
     } else if constexpr (std::is_same_v<T, std::string> ||
                          std::is_same_v<T, Amino::String> ||
-                         std::is_same_v<T, PXR_NS::TfToken> ||
-                         std::is_same_v<T, PXR_NS::SdfAssetPath>) {
+                         std::is_same_v<T, TfToken> ||
+                         std::is_same_v<T, SdfAssetPath>) {
         return v1 < v2;
-    } else if constexpr (std::is_same_v<T, PXR_NS::GfHalf>) {
+    } else if constexpr (std::is_same_v<T, GfHalf>) {
         return std::isless(static_cast<float>(v1), static_cast<float>(v2));
     } else {
         return std::isless(v1, v2);
@@ -641,12 +358,20 @@ bool is_greater(T const& v1, T const& v2) {
         return is_greater(v1.GetReal(), v2.GetReal()) ||
                (is_equal(v1.GetReal(), v2.GetReal()) &&
                 is_greater(v1.GetImaginary(), v2.GetImaginary()));
+    } else if constexpr (is_pxr_dual_quaternion_type<T>()) {
+        return is_greater(v1.GetReal(), v2.GetReal()) ||
+               (is_equal(v1.GetReal(), v2.GetReal()) &&
+                is_greater(v1.GetDual(), v2.GetDual()));
+    } else if constexpr (is_pxr_range_type<T>()) {
+        return is_greater(v1.GetMin(), v2.GetMin()) ||
+               (is_equal(v1.GetMin(), v2.GetMin()) &&
+                is_greater(v1.GetMax(), v2.GetMax()));
     } else if constexpr (std::is_same_v<T, std::string> ||
                          std::is_same_v<T, Amino::String> ||
-                         std::is_same_v<T, PXR_NS::TfToken> ||
-                         std::is_same_v<T, PXR_NS::SdfAssetPath>) {
+                         std::is_same_v<T, TfToken> ||
+                         std::is_same_v<T, SdfAssetPath>) {
         return v1 > v2;
-    } else if constexpr (std::is_same_v<T, PXR_NS::GfHalf>) {
+    } else if constexpr (std::is_same_v<T, GfHalf>) {
         return std::isgreater(static_cast<float>(v1), static_cast<float>(v2));
     } else {
         return std::isgreater(v1, v2);
@@ -685,15 +410,19 @@ bool is_infinite(T const& v) {
         }
         return false;
     } else if constexpr (is_pxr_quaternion_type<T>()) {
-        return is_infinite(v.GetReal()) && is_infinite(v.GetImaginary());
+        return is_infinite(v.GetReal()) || is_infinite(v.GetImaginary());
+    } else if constexpr (is_pxr_dual_quaternion_type<T>()) {
+        return is_infinite(v.GetReal()) || is_infinite(v.GetDual());
+    } else if constexpr (is_pxr_range_type<T>()) {
+        return is_infinite(v.GetMin()) || is_infinite(v.GetMax());
     } else if constexpr (std::is_same_v<T, double> ||
                          std::is_same_v<T, float> ||
-                         std::is_same_v<T, PXR_NS::GfHalf>) {
+                         std::is_same_v<T, GfHalf>) {
         return std::isinf(v);
     } else if constexpr (std::is_same_v<T, std::string> ||
                          std::is_same_v<T, Amino::String> ||
-                         std::is_same_v<T, PXR_NS::TfToken> ||
-                         std::is_same_v<T, PXR_NS::SdfAssetPath>) {
+                         std::is_same_v<T, TfToken> ||
+                         std::is_same_v<T, SdfAssetPath>) {
         return false;
     } else {
         return std::isinf(static_cast<double>(v));
@@ -726,16 +455,20 @@ bool is_not_a_number(T const& v) {
         }
         return false;
     } else if constexpr (is_pxr_quaternion_type<T>()) {
-        return is_not_a_number(v.GetReal()) &&
+        return is_not_a_number(v.GetReal()) ||
                is_not_a_number(v.GetImaginary());
+    } else if constexpr (is_pxr_dual_quaternion_type<T>()) {
+        return is_not_a_number(v.GetReal()) || is_not_a_number(v.GetDual());
+    } else if constexpr (is_pxr_range_type<T>()) {
+        return is_not_a_number(v.GetMin()) || is_not_a_number(v.GetMax());
     } else if constexpr (std::is_same_v<T, double> ||
                          std::is_same_v<T, float> ||
-                         std::is_same_v<T, PXR_NS::GfHalf>) {
+                         std::is_same_v<T, GfHalf>) {
         return std::isnan(v);
     } else if constexpr (std::is_same_v<T, std::string> ||
                          std::is_same_v<T, Amino::String> ||
-                         std::is_same_v<T, PXR_NS::TfToken> ||
-                         std::is_same_v<T, PXR_NS::SdfAssetPath>) {
+                         std::is_same_v<T, TfToken> ||
+                         std::is_same_v<T, SdfAssetPath>) {
         return false;
     } else {
         return std::isnan(static_cast<double>(v));
@@ -747,7 +480,7 @@ inline bool is_not_a_number_(T const& v, T const&) {
 }
 
 template <typename T>
-std::function<bool(T const&, T const&)> getCompareFunc(Filter::Operation op) {
+std::function<bool(T const&, T const&)> getCompareFunc(CompareOp op) {
     switch (op) {
         case Filter::Operation::eLess: return &is_less<T>;
         case Filter::Operation::eLessOrEqual: return &is_less_or_equal<T>;
@@ -759,878 +492,1564 @@ std::function<bool(T const&, T const&)> getCompareFunc(Filter::Operation op) {
         case Filter::Operation::eIsNotANumber: return &is_not_a_number_<T>;
         case Filter::Operation::eSubFilters: assert(false); break;
     }
-
-#if defined(_WIN32)
-    _assume(false);
-#else
-    __builtin_unreachable();
-#endif
+    UNREACHABLE
 }
-/// \}
 
-///-------------------------------------------------------------------------
-/// \brief Helpers to sort and filter array values
-/// \{
 template <typename T>
-T getValueFromAny(Amino::Any const& valueAny) {
-    if constexpr (std::is_same_v<T, std::string>) {
-        assert(valueAny.type() == Amino::getTypeId<Amino::String>());
-        return std::string{Amino::any_cast<Amino::String>(valueAny).c_str()};
-    } else if constexpr (std::is_same_v<T, PXR_NS::SdfAssetPath> ||
-                         std::is_same_v<T, PXR_NS::SdfAssetPath>) {
-        assert(valueAny.type() == Amino::getTypeId<Amino::String>());
-        return T{std::string{Amino::any_cast<Amino::String>(valueAny).c_str()}};
-    } else {
-        assert(valueAny.type() == Amino::getTypeId<T>());
-        return Amino::any_cast<T>(valueAny);
-    }
+bool compareValuesT(T const& a, T const& b, CompareOp op) {
+    auto compareFn = getCompareFunc<T>(op);
+    return compareFn(a, b);
 }
 
-/// \brief Dispatch to call doFn with the getter and compare functions of proper type.
-template <typename T, typename GET_ELT_FN, typename DO_FN>
-void doForElement(GET_ELT_FN&&      getEltFn,
-                  Filter::Operation compareOp,
-                  DO_FN&&           doFn) {
-    using ELT_T =
-        typename std::invoke_result<decltype(getEltFn), T const&>::type;
-    auto compareFn = getCompareFunc<ELT_T>(compareOp);
-    doFn(getEltFn, compareFn);
+template <>
+bool compareValuesT<>(VtValue const& a, VtValue const& b, CompareOp op) {
+    if (a.IsEmpty() || b.IsEmpty()) {
+        return compareValuesT(a.IsEmpty(), b.IsEmpty(), op);
+    }
+#define HANDLE_TYPE(T)                                \
+    if (a.IsHolding<T>() && b.IsHolding<T>()) {       \
+        auto const& typedA = a.UncheckedGet<T>();     \
+        auto const& typedB = b.UncheckedGet<T>();     \
+        return compareValuesT<T>(typedA, typedB, op); \
+    }
+
+#define HANDLE_VT_TYPE(element) HANDLE_TYPE(VT_TYPE(element))
+    FOR_EACH_VT_VALUE_TYPES
+#undef HANDLE_VT_TYPE
+#undef HANDLE_TYPE
+
+    return compareValuesT(a.GetHash(), b.GetHash(), op);
 }
-
-/// \brief Helper to map the element name with the proper getter for the given type T.
-template <typename T, typename DO_FN>
-bool doForElement(Amino::String const& elementName,
-                  Filter::Operation    compareOp,
-                  DO_FN&&              doFn) {
-#define HANDLE_ELEMENT(NAME, GETTER)              \
-    if (elementName == NAME) {                    \
-        doForElement<T>(GETTER, compareOp, doFn); \
-        return true;                              \
-    }
-
-    if constexpr (std::is_same_v<T, AttributePtr>) {
-        HANDLE_ELEMENT(kName, [](T const& attrPtr) {
-            return (*attrPtr)->GetName().GetString();
-        })
-        HANDLE_ELEMENT(kTypeName, [](T const& attrPtr) {
-            return (*attrPtr)->GetTypeName().GetAsToken().GetString();
-        })
-        HANDLE_ELEMENT(kIsDefined,
-                       [](T const& attrPtr) { return (*attrPtr)->IsDefined(); })
-        HANDLE_ELEMENT(kIsCustom,
-                       [](T const& attrPtr) { return (*attrPtr)->IsCustom(); })
-        HANDLE_ELEMENT(kIsAuthored, [](T const& attrPtr) {
-            return (*attrPtr)->IsAuthored();
-        })
-        HANDLE_ELEMENT(kNumTimeSamples, [](T const& attrPtr) {
-            return (*attrPtr)->GetNumTimeSamples();
-        })
-    }
-
-    if constexpr (std::is_same_v<T, LayerPtr>) {
-        HANDLE_ELEMENT(kLayerDisplayName, [](T const& layerPtr) {
-            return (*layerPtr)->GetDisplayName();
-        })
-        HANDLE_ELEMENT(kLayerFilePath, [](T const& layerPtr) {
-            return (*layerPtr).getFilePath();
-        })
-        HANDLE_ELEMENT(kLayerOriginalFilePath, [](T const& layerPtr) {
-            return (*layerPtr).getOriginalFilePath();
-        })
-        HANDLE_ELEMENT(kStartTimeCode, [](T const& layerPtr) {
-            return (*layerPtr)->GetStartTimeCode();
-        })
-        HANDLE_ELEMENT(kEndTimeCode, [](T const& layerPtr) {
-            return (*layerPtr)->GetEndTimeCode();
-        })
-    }
-
-    if constexpr (std::is_same_v<T, StagePtr>) {
-        HANDLE_ELEMENT(kLastModifiedPrim, [](T const& stagePtr) {
-            return (*stagePtr).last_modified_prim;
-        })
-        HANDLE_ELEMENT(kVariantSelection, [](T const& stagePtr) {
-            return (*stagePtr).variantSelection().variantInfo();
-        })
-    }
-
-    if constexpr (std::is_same_v<T, PrimPtr>) {
-        HANDLE_ELEMENT(kPrimPath, [](T const& primPtr) {
-            return (*primPtr)->GetPath().GetString();
-        })
-        HANDLE_ELEMENT(kTypeName, [](T const& primPtr) {
-            return (*primPtr)->GetTypeName().GetString();
-        })
-        HANDLE_ELEMENT(kKind, [](T const& primPtr) {
-            return getPrimKind(primPtr).GetString();
-        })
-        HANDLE_ELEMENT(kIsActive,
-                       [](T const& primPtr) { return (*primPtr)->IsActive(); })
-        HANDLE_ELEMENT(kIsLoaded,
-                       [](T const& primPtr) { return (*primPtr)->IsLoaded(); })
-        HANDLE_ELEMENT(kIsModel,
-                       [](T const& primPtr) { return (*primPtr)->IsModel(); })
-        HANDLE_ELEMENT(kIsGroup,
-                       [](T const& primPtr) { return (*primPtr)->IsGroup(); })
-        HANDLE_ELEMENT(kIsAbstract, [](T const& primPtr) {
-            return (*primPtr)->IsAbstract();
-        })
-        HANDLE_ELEMENT(kHasVariantSets, [](T const& primPtr) {
-            return (*primPtr)->HasVariantSets();
-        })
-        HANDLE_ELEMENT(kHasAuthoredPayloads, [](T const& primPtr) {
-            return (*primPtr)->HasAuthoredPayloads();
-        })
-        HANDLE_ELEMENT(kHasAuthoredInherits, [](T const& primPtr) {
-            return (*primPtr)->HasAuthoredInherits();
-        })
-        HANDLE_ELEMENT(kHasAuthoredReferences, [](T const& primPtr) {
-            return (*primPtr)->HasAuthoredReferences();
-        })
-        HANDLE_ELEMENT(kHasAuthoredSpecializes, [](T const& primPtr) {
-            return (*primPtr)->HasAuthoredSpecializes();
-        })
-        HANDLE_ELEMENT(kHasAuthoredInstanceable, [](T const& primPtr) {
-            return (*primPtr)->HasAuthoredInstanceable();
-        })
-        HANDLE_ELEMENT(kIsInstance, [](T const& primPtr) {
-            return (*primPtr)->IsInstance();
-        })
-        HANDLE_ELEMENT(kIsInstanceProxy, [](T const& primPtr) {
-            return (*primPtr)->IsInstanceProxy();
-        })
-        HANDLE_ELEMENT(kIsPrototype, [](T const& primPtr) {
-            return (*primPtr)->IsPrototype();
-        })
-        HANDLE_ELEMENT(kIsInPrototype, [](T const& primPtr) {
-            return (*primPtr)->IsInPrototype();
-        })
-    }
-
-    if constexpr (is_pxr_vector_type<T>()) {
-        HANDLE_ELEMENT(kVectorFields[0], [](T const& v) { return v[0]; })
-        HANDLE_ELEMENT(kVectorFields[1], [](T const& v) { return v[1]; })
-        if constexpr (T::dimension > 2) {
-            HANDLE_ELEMENT(kVectorFields[2], [](T const& v) { return v[2]; })
-            if constexpr (T::dimension > 3) {
-                HANDLE_ELEMENT(kVectorFields[3],
-                               [](T const& v) { return v[3]; })
-            }
-        }
-    }
-
-    if constexpr (is_pxr_matrix_type<T>()) {
-        for (size_t row = 0; row < T::numRows; ++row) {
-            for (size_t col = 0; col < T::numColumns; ++col) {
-                HANDLE_ELEMENT(
-                    (kMatrixFields[row][col]), ([row, col](T const& v) {
-                        return v[static_cast<int>(row)][static_cast<int>(col)];
-                    }))
-            }
-        }
-    }
-
-    if constexpr (is_pxr_quaternion_type<T>()) {
-        HANDLE_ELEMENT(kQuaternionFields[0],
-                       [](T const& v) { return v.GetReal(); })
-        HANDLE_ELEMENT(kQuaternionFields[1],
-                       [](T const& v) { return v.GetImaginary()[0]; })
-        HANDLE_ELEMENT(kQuaternionFields[2],
-                       [](T const& v) { return v.GetImaginary()[1]; })
-        HANDLE_ELEMENT(kQuaternionFields[3],
-                       [](T const& v) { return v.GetImaginary()[2]; })
-    }
-
-#undef HANDLE_ELEMENT
-
-    return false;
-}
-
-template <typename ARRAY_TYPE,
-          typename VALUE_TYPE = typename ARRAY_TYPE::value_type>
-bool filterIndices(ARRAY_TYPE const& values,
-                   Filter const&     filter,
-                   Indices const&    indices,
-                   Indices&          new_indices) {
-    if (filter.m_field == Field::eIndex) {
-        assert(filter.m_value.type() == Amino::getTypeId<std::size_t>());
-        auto filterValue = Amino::any_cast<std::size_t>(filter.m_value);
-        auto compareFn   = getCompareFunc<std::size_t>(filter.m_operation);
-        for (auto idx : indices) {
-            if (compareFn(idx, filterValue)) {
-                new_indices.push_back(idx);
-            }
-        }
-    } else if (filter.m_field == Field::eValue) {
-        if constexpr (!is_ptr_type<VALUE_TYPE>()) {
-            auto filterValue = getValueFromAny<VALUE_TYPE>(filter.m_value);
-            auto compareFn   = getCompareFunc<VALUE_TYPE>(filter.m_operation);
-            for (auto idx : indices) {
-                assert(idx < values.size());
-                if (compareFn(values[idx], filterValue)) {
-                    new_indices.push_back(idx);
-                }
-            }
-        }
-    } else {
-        assert(filter.m_field == Field::eElement);
-        auto const& filterValueAny = filter.m_value;
-        return doForElement<VALUE_TYPE>(
-            filter.m_elementName, filter.m_operation,
-            [&values, &indices, &new_indices, &filterValueAny](auto getEltFn,
-                                                               auto compareFn) {
-                using ELT_T =
-                    typename std::invoke_result<decltype(getEltFn),
-                                                VALUE_TYPE const&>::type;
-                auto filterValue = getValueFromAny<ELT_T>(filterValueAny);
-                for (auto idx : indices) {
-                    assert(idx < values.size());
-                    if (compareFn(getEltFn(values[idx]), filterValue)) {
-                        new_indices.push_back(idx);
-                    }
-                }
-            });
-    }
-    return true;
-}
-
-template <typename ARRAY_TYPE>
-bool applyFilters(ARRAY_TYPE const& values,
-                  Filters const&    filters,
-                  Indices const&    all_indices,
-                  Indices&          indices);
-
-template <typename ARRAY_TYPE>
-bool applyFilter(ARRAY_TYPE const& values,
-                 Filter const&     filter,
-                 Indices const&    all_indices,
-                 Indices&          indices) {
-    Indices const& working_indices =
-        filter.m_conjunction == Filter::Conjunction::eAnd ? indices
-                                                          : all_indices;
-    Indices new_indices;
-    new_indices.reserve(working_indices.size());
-
-    if (filter.m_operation == Filter::Operation::eSubFilters) {
-        if (!applyFilters(values, filter.m_subFilters, all_indices,
-                          new_indices)) {
-            return false;
-        }
-    } else if (!filterIndices(values, filter, working_indices, new_indices)) {
-        return false;
-    }
-
-    indices.swap(new_indices);
-    return true;
-}
-
-template <typename ARRAY_TYPE>
-bool applyFilters(ARRAY_TYPE const& values,
-                  Filters const&    filters,
-                  Indices const&    all_indices,
-                  Indices&          indices) {
-    if (!filters.empty()) {
-        if (filters.front().m_conjunction == Filter::Conjunction::eOr) {
-            indices.clear();
-        } else {
-            indices = all_indices;
-        }
-        for (auto const& filter : filters) {
-            Indices new_indices = indices;
-            if (!applyFilter(values, filter, all_indices, new_indices)) {
-                return false;
-            }
-
-            if (new_indices.empty()) {
-                if (filter.m_conjunction == Filter::Conjunction::eAnd) {
-                    indices.clear();
-                }
-            } else {
-                if (indices.empty()) {
-                    if (filter.m_conjunction == Filter::Conjunction::eOr) {
-                        indices.swap(new_indices);
-                    }
-                } else if (filter.m_conjunction == Filter::Conjunction::eAnd) {
-                    Indices filtered_indices;
-                    std::set_intersection(indices.begin(), indices.end(),
-                                          new_indices.begin(),
-                                          new_indices.end(),
-                                          std::back_inserter(filtered_indices));
-                    indices.swap(filtered_indices);
-                } else {
-                    Indices filtered_indices;
-                    std::merge(indices.begin(), indices.end(),
-                               new_indices.begin(), new_indices.end(),
-                               std::back_inserter(filtered_indices));
-                    // remove duplicates
-                    auto last = std::unique(filtered_indices.begin(),
-                                            filtered_indices.end());
-                    filtered_indices.erase(last, filtered_indices.end());
-                    indices.swap(filtered_indices);
-                }
-            }
-        }
-    }
-    return true;
-}
-
-template <typename ARRAY_TYPE>
-bool sortIndices(ARRAY_TYPE const& values,
-                 Sorter const&     sorter,
-                 Indices&          indices) {
-    auto compareOp = (sorter.m_order == Sorter::Order::eDescending
-                          ? Filter::Operation::eGreater
-                          : Filter::Operation::eLess);
-    if (sorter.m_field == Field::eIndex) {
-        std::sort(indices.begin(), indices.end());
-        if (sorter.m_order == Sorter::Order::eDescending) {
-            std::reverse(indices.begin(), indices.end());
-        }
-    } else if (sorter.m_field == Field::eValue) {
-        using VALUE_TYPE = typename ARRAY_TYPE::value_type;
-        if constexpr (!is_ptr_type<VALUE_TYPE>()) {
-            auto compareFn = getCompareFunc<VALUE_TYPE>(compareOp);
-            std::sort(indices.begin(), indices.end(),
-                      [&values, &compareFn](std::size_t a, std::size_t b) {
-                          return compareFn(values[a], values[b]);
-                      });
-        }
-    } else {
-        assert(sorter.m_field == Field::eElement);
-        using VALUE_TYPE = typename ARRAY_TYPE::value_type;
-        return doForElement<VALUE_TYPE>(
-            sorter.m_elementName, compareOp,
-            [&values, &indices](auto getEltFn, auto compareFn) {
-                std::sort(indices.begin(), indices.end(),
-                          [&values, &getEltFn, &compareFn](std::size_t a,
-                                                           std::size_t b) {
-                              return compareFn(getEltFn(values[a]),
-                                               getEltFn(values[b]));
-                          });
-            });
-    }
-    return true;
-}
-
-template <typename ARRAY_TYPE>
-bool sortAndFilterIndices(ARRAY_TYPE const& values,
-                          Filters const&    filters,
-                          Sorter const&     sorter,
-                          Indices&          indices) {
-    assert(!values.empty());
-    Indices all_indices;
-    all_indices.reserve(values.size());
-    for (size_t idx = 0; idx < values.size(); ++idx) {
-        all_indices.push_back(idx);
-    }
-
-    indices = all_indices;
-    if (!applyFilters(values, filters, all_indices, indices)) {
-        return false;
-    }
-
-    if (indices.size() > 1) {
-        if (!sortIndices(values, sorter, indices)) {
-            return false;
-        }
-    }
-
-    return true;
-}
-/// \}
 
 ///-------------------------------------------------------------------------
-/// \brief Helpers to convert values to string
+/// \brief Helper to get the name for the different supported types
+template <typename T>
+constexpr const char* vtGetTypeName() {
+    if constexpr (std::is_same_v<T, Amino::String>) {
+        return "String";
+    } else if constexpr (std::is_same_v<T, std::size_t>) {
+        return "size_t";
+    } else if constexpr (std::is_same_v<T, SdfAssetPath>) {
+        return "SdfAssetPath";
+    } else if constexpr (std::is_same_v<T, VtArray<SdfAssetPath>>) {
+        return "VtArray<SdfAssetPath>";
+    }
+    // TF_PP_CAT and TF_PP_STRINGIZE are defined in
+    // <pxr/base/tf/preprocessorUtils.h>
+#define HANDLE_VT_TYPE(element)                                        \
+    else if constexpr (std::is_same_v<T, VT_TYPE(element)>) {          \
+        return TF_PP_STRINGIZE(VT_TYPE_NAME(element));                 \
+    }                                                                  \
+    else if constexpr (std::is_same_v<T, VtArray<VT_TYPE(element)>>) { \
+        return TF_PP_STRINGIZE(                                        \
+            TF_PP_CAT(VtArray, VT_TYPE_NAME(element)));                \
+    }
+    FOR_EACH_VT_VALUE_TYPES
+#undef HANDLE_VT_TYPE
+    else {
+        static_assert(!std::is_same_v<T, T>,
+                      "vtGetTypeName is not implemented for this type");
+    }
+}
+
+///-------------------------------------------------------------------------
+/// \brief Helper to convert values to string
 /// \{
 template <typename T>
 Amino::String to_string(T const& value) {
-    return Amino::to_string(value);
-}
-
-template <>
-Amino::String to_string<>(std::string const& value) {
-    return Amino::String(value.c_str());
-}
-
-template <>
-Amino::String to_string<>(bool const& value) {
-    return value ? "true" : "false";
-}
-
-template <>
-Amino::String to_string<>(double const& value) {
-    return Amino::String(std::to_string(value).c_str());
-}
-
-template <>
-Amino::String to_string(float const& value) {
-    return Amino::String(std::to_string(value).c_str());
-}
-
-template <>
-Amino::String to_string<>(unsigned long const& value) {
-    return to_string(static_cast<unsigned long long>(value));
-}
-
-template <>
-Amino::String to_string(PXR_NS::GfHalf const& value) {
-    return Amino::String(std::to_string(value).c_str());
+    if constexpr (std::is_same_v<T, const char*>) {
+        return Amino::String(value);
+    } else if constexpr (std::is_same_v<T, Amino::String>) {
+        return value;
+    } else if constexpr (std::is_same_v<T, std::string>) {
+        return Amino::String(value.c_str());
+    } else if constexpr (std::is_same_v<T, bool>) {
+        return Amino::String(value ? "true" : "false");
+    } else if constexpr (std::is_same_v<T, std::size_t>) {
+        return to_string(
+            std::to_string(static_cast<unsigned long long>(value)));
+    } else if constexpr (std::is_same_v<T, GfHalf>) {
+        return to_string(std::to_string(value));
+    } else if constexpr (std::is_same_v<T, SdfAssetPath>) {
+        return to_string(value.GetAssetPath());
+    } else if constexpr (std::is_same_v<T, TfToken>) {
+        return to_string(value.GetText());
+    } else {
+        return to_string(std::to_string(value).c_str());
+    }
 }
 /// \}
 
-///-------------------------------------------------------------------------
-/// \brief Helpers to get the value for the different supported types
-/// \{
-template <typename T>
-bool getValue(T const& value,
-              WatchpointLayoutFactory const& /*factory*/,
-              WatchpointLayoutPath& path,
-              Amino::String&        out_value) {
-    if constexpr (is_builtin_type<T>()) {
-        out_value = to_string(value);
-        return path.empty();
-    }
-
-    if constexpr (is_pxr_vector_type<T>()) {
-        if (!path.empty()) {
-            auto fieldName = path.front();
-            path.pop_front();
-            if (fieldName == kVectorFields[0]) {
-                out_value = to_string(value[0]);
-                return path.empty();
-            } else if (fieldName == kVectorFields[1]) {
-                out_value = to_string(value[1]);
-                return path.empty();
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+template <typename STR, typename T>
+bool stringToValue(STR const& fromValue, T& toValue) {
+    if constexpr (std::is_same_v<STR, T>) { // string to string conversion, just
+                                            // return the string
+        toValue = fromValue;
+        return true;
+    } else if constexpr (std::is_same_v<STR, Amino::String>) {
+        return stringToValue(
+            std::string(static_cast<std::string_view>(fromValue)), toValue);
+    } else if constexpr (std::is_same_v<T, TfToken>) {
+        toValue = TfToken::Find(fromValue);
+        return true;
+    } else if constexpr (std::is_same_v<T, SdfAssetPath>) {
+        toValue = SdfAssetPath(fromValue);
+        return true;
+    } else if (!fromValue.empty()) {
+        try {
+            if constexpr (std::is_same_v<T, bool>) {
+                toValue = static_cast<T>(std::stoi(fromValue));
+            } else if constexpr (std::is_same_v<T, char>) {
+                toValue = static_cast<T>(std::stoi(fromValue));
+            } else if constexpr (std::is_same_v<T, unsigned char>) {
+                toValue = static_cast<T>(std::stoi(fromValue));
+            } else if constexpr (std::is_same_v<T, short>) {
+                toValue = static_cast<T>(std::stoi(fromValue));
+            } else if constexpr (std::is_same_v<T, unsigned short>) {
+                toValue = static_cast<T>(std::stoi(fromValue));
+            } else if constexpr (std::is_same_v<T, int>) {
+                toValue = static_cast<T>(std::stoi(fromValue));
+            } else if constexpr (std::is_same_v<T, unsigned int>) {
+                toValue = static_cast<T>(std::stoull(fromValue));
+            } else if constexpr (std::is_same_v<T, int64_t>) {
+                toValue = static_cast<T>(std::stoll(fromValue));
+            } else if constexpr (std::is_same_v<T, uint64_t>) {
+                toValue = static_cast<T>(std::stoull(fromValue));
+            } else if constexpr (std::is_same_v<T, std::size_t>) {
+                toValue = static_cast<T>(std::stoull(fromValue));
+            } else if constexpr (std::is_same_v<T, float>) {
+                toValue = std::stof(fromValue);
+            } else if constexpr (std::is_same_v<T, double>) {
+                toValue = std::stod(fromValue);
+            } else if constexpr (std::is_same_v<T, GfHalf>) {
+                toValue = static_cast<GfHalf>(std::stof(fromValue));
+            } else {
+                static_assert(!std::is_same_v<T, T>,
+                              "stringToValue is not implemented for this type");
             }
-            if constexpr (T::dimension > 2) {
-                if (fieldName == kVectorFields[2]) {
-                    out_value = to_string(value[2]);
-                    return path.empty();
-                }
-                if constexpr (T::dimension > 3) {
-                    if (fieldName == kVectorFields[3]) {
-                        out_value = to_string(value[3]);
-                        return path.empty();
-                    }
-                }
-            }
+            return true;
+        } catch (...) {
         }
-        return false;
     }
+    return false;
+}
 
-    if constexpr (is_pxr_matrix_type<T>()) {
-        if (!path.empty()) {
-            auto fieldName = path.front();
-            path.pop_front();
+using StringArray = std::vector<std::string>;
+
+template <typename T>
+bool stringArrayToValue(StringArray const& fromValues, T& toValue) {
+    if constexpr (is_pxr_scalar_type<T>() || is_pxr_string_type<T>()) {
+        if (fromValues.size() == 1) {
+            return stringToValue(fromValues[0], toValue);
+        }
+    } else if constexpr (is_pxr_vector_type<T>()) {
+        if (fromValues.size() == T::dimension) {
+            for (size_t i = 0; i < static_cast<size_t>(T::dimension); ++i) {
+                if (!stringToValue(fromValues[i], toValue[i])) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    } else if constexpr (is_pxr_matrix_type<T>()) {
+        if (fromValues.size() == T::numColumns * T::numRows) {
             for (size_t row = 0; row < T::numRows; ++row) {
                 for (size_t col = 0; col < T::numColumns; ++col) {
-                    if (fieldName == kMatrixFields[row][col]) {
-                        out_value = to_string(value[static_cast<int>(row)]
-                                                   [static_cast<int>(col)]);
-                        return path.empty();
+                    if (!stringToValue(fromValues[row * T::numColumns + col],
+                                       toValue[static_cast<int>(row)]
+                                              [static_cast<int>(col)])) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    } else if constexpr (is_pxr_quaternion_type<T>()) {
+        if (fromValues.size() == 4) {
+            typename QuaternionTraits<T>::RealType realValue;
+            if (stringToValue(fromValues[0], realValue)) {
+                typename QuaternionTraits<T>::ImaginaryType imaginaryValue;
+                if (stringArrayToValue(
+                        StringArray(fromValues.begin() + 1, fromValues.end()),
+                        imaginaryValue)) {
+                    toValue = T(realValue, imaginaryValue);
+                    return true;
+                }
+            }
+        }
+    } else if constexpr (is_pxr_dual_quaternion_type<T>()) {
+        if (fromValues.size() == 8) {
+            typename DualQuaternionTraits<T>::QuaternionType realValue;
+            if (stringArrayToValue(
+                    StringArray(fromValues.begin(), fromValues.begin() + 4),
+                    realValue)) {
+                typename DualQuaternionTraits<T>::QuaternionType dualValue;
+                if (stringArrayToValue(
+                        StringArray(fromValues.begin() + 4, fromValues.end()),
+                        dualValue)) {
+                    toValue = T(realValue, dualValue);
+                    return true;
+                }
+            }
+        }
+    } else if constexpr (is_pxr_range_type<T>()) {
+        if (fromValues.size() == 2 * RangeTraits<T>::dimension) {
+            typename RangeTraits<T>::MinMaxType minValue;
+            if (stringArrayToValue(
+                    StringArray(fromValues.begin(),
+                                fromValues.begin() + RangeTraits<T>::dimension),
+                    minValue)) {
+                typename RangeTraits<T>::MinMaxType maxValue;
+                if (stringArrayToValue(
+                        StringArray(
+                            fromValues.begin() + RangeTraits<T>::dimension,
+                            fromValues.end()),
+                        maxValue)) {
+                    toValue = T(minValue, maxValue);
+                    return true;
+                }
+            }
+        }
+    } else {
+        static_assert(!std::is_same_v<T, T>,
+                      "stringArrayToValue with StringArray is not implemented "
+                      "for this type");
+    }
+    return false;
+}
+
+StringArray toStringArray(Amino::String const& fromValue) {
+    StringArray result;
+    if (!fromValue.empty()) {
+        std::string value(fromValue);
+        // Strip parentheses or braces if present
+        if ((value.front() == '(' && value.back() == ')') ||
+            (value.front() == '{' && value.back() == '}')) {
+            value = value.substr(1, value.size() - 2);
+        }
+        std::string_view strView(value);
+        std::size_t      start = 0;
+        while (start < strView.size()) {
+            auto commaPos = strView.find(',', start);
+            if (commaPos == std::string_view::npos) {
+                commaPos = strView.size();
+            }
+            auto token = strView.substr(start, commaPos - start);
+            // Trim whitespace
+            auto firstNonSpace = token.find_first_not_of(' ');
+            auto lastNonSpace  = token.find_last_not_of(' ');
+            if (firstNonSpace != std::string_view::npos &&
+                lastNonSpace != std::string_view::npos) {
+                result.emplace_back(token.substr(
+                    firstNonSpace, lastNonSpace - firstNonSpace + 1));
+            }
+            start = commaPos + 1;
+        }
+    }
+    return result;
+}
+
+template <typename T>
+bool anyToValueAny(Amino::Any const& fromAny, std::any& toAny);
+
+template <typename T>
+bool anyToVtValueAny(Amino::Any const& fromAny, std::any& toAny);
+
+bool anyToAny(Amino::Any const& fromAny, std::any& toAny) {
+    auto const& toType = toAny.type();
+    if (toType == typeid(VtValue)) {
+        auto const& toVtValue = std::any_cast<VtValue>(toAny);
+#define HANDLE_TYPE(T)                             \
+    if (toVtValue.IsHolding<T>()) {                \
+        return anyToVtValueAny<T>(fromAny, toAny); \
+    }
+
+#define HANDLE_VT_TYPE(element) HANDLE_TYPE(VT_TYPE(element))
+        FOR_EACH_VT_VALUE_TYPES
+#undef HANDLE_VT_TYPE
+        HANDLE_TYPE(SdfAssetPath)
+#undef HANDLE_TYPE
+
+    } else {
+#define HANDLE_TYPE(T)                           \
+    if (toType == typeid(T)) {                   \
+        return anyToValueAny<T>(fromAny, toAny); \
+    }
+
+#define HANDLE_VT_TYPE(element) HANDLE_TYPE(VT_TYPE(element))
+        FOR_EACH_VT_VALUE_TYPES
+#undef HANDLE_VT_TYPE
+        HANDLE_TYPE(SdfAssetPath)
+#undef HANDLE_TYPE
+    }
+
+    return false;
+}
+
+template <typename T>
+bool anyToValue(Amino::Any const& fromAny, T& toValue) {
+    if constexpr (std::is_same<T, std::any>::value) {
+        return anyToAny(fromAny, toValue);
+    } else if constexpr (std::is_same<T, std::string>::value ||
+                         std::is_same_v<T, SdfAssetPath> ||
+                         std::is_same_v<T, TfToken>) {
+        if (fromAny.type() == Amino::getTypeId<Amino::String>()) {
+            auto strValue = Amino::any_cast<Amino::String>(fromAny);
+            return stringToValue(strValue, toValue);
+        }
+    } else {
+        if (fromAny.type() == Amino::getTypeId<T>()) {
+            toValue = Amino::any_cast<T>(fromAny);
+            return true;
+        }
+
+        if constexpr (!std::is_same<T, Amino::String>::value) {
+            if (fromAny.type() == Amino::getTypeId<Amino::String>()) {
+                auto strValue = Amino::any_cast<Amino::String>(fromAny);
+                if constexpr (is_pxr_vector_type<T>() ||
+                              is_pxr_matrix_type<T>() ||
+                              is_pxr_quaternion_type<T>() ||
+                              is_pxr_dual_quaternion_type<T>() ||
+                              is_pxr_range_type<T>()) {
+                    return stringArrayToValue(toStringArray(strValue), toValue);
+                } else {
+                    if constexpr (std::is_same<T, bool>::value) {
+                        std::transform(
+                            strValue.begin(), strValue.end(), strValue.begin(),
+                            [](unsigned char c) { return std::tolower(c); });
+                        if (strValue == "true") {
+                            toValue = true;
+                            return true;
+                        } else if (strValue == "false") {
+                            toValue = false;
+                            return true;
+                        }
+                    }
+                    return stringToValue(strValue, toValue);
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+template <typename T>
+bool anyToValueAny(Amino::Any const& fromAny, std::any& toAny) {
+    T outTypedValue;
+    if (anyToValue(fromAny, outTypedValue)) {
+        toAny = std::any(outTypedValue);
+        return true;
+    }
+    return false;
+}
+
+template <typename T>
+bool anyToVtValueAny(Amino::Any const& fromAny, std::any& toAny) {
+    T outTypedValue;
+    if (anyToValue(fromAny, outTypedValue)) {
+        toAny = std::any(VtValue(outTypedValue));
+        return true;
+    }
+    return false;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+class USDWatchpointLayoutArray {
+public:
+    USDWatchpointLayoutArray()          = default;
+    virtual ~USDWatchpointLayoutArray() = default;
+
+protected:
+    bool getIndices_impl(std::size_t    size,
+                         Filters const& filters,
+                         Sorter const&  sorter,
+                         Indices&       out_indices) const noexcept {
+        try {
+            if (size > 0) {
+                Indices all_indices;
+                all_indices.reserve(size);
+                for (size_t idx = 0; idx < size; ++idx) {
+                    all_indices.push_back(idx);
+                }
+
+                out_indices = all_indices;
+                if (!applyFilters(filters, all_indices, out_indices)) {
+                    return false;
+                }
+
+                if (out_indices.size() > 1) {
+                    if (!sortIndices(sorter, out_indices)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } catch (...) {
+            return false; // LCOV_EXCL_LINE
+        }
+    }
+
+private:
+    virtual bool filterByValue(CompareOp         compareOp,
+                               Amino::Any const& filterValue,
+                               Indices const&    indices,
+                               Indices&          out_indices) const   = 0;
+    virtual bool filterByElement(Amino::String const& elementName,
+                                 CompareOp            compareOp,
+                                 Amino::Any const&    filterValue,
+                                 Indices const&       indices,
+                                 Indices&             out_indices) const = 0;
+
+    bool filterIndices(Filter const&  filter,
+                       Indices const& indices,
+                       Indices&       out_indices) const {
+        if (indices.empty()) {
+            return true;
+        }
+        if (filter.m_field == Field::eIndex) {
+            std::size_t filterValue;
+            if (anyToValue(filter.m_value, filterValue)) {
+                auto compareFn =
+                    getCompareFunc<std::size_t>(filter.m_operation);
+                for (auto idx : indices) {
+                    if (compareFn(idx, filterValue)) {
+                        out_indices.push_back(idx);
+                    }
+                }
+                return true;
+            }
+        } else if (filter.m_field == Field::eValue) {
+            return filterByValue(filter.m_operation, filter.m_value, indices,
+                                 out_indices);
+        } else if (filter.m_field == Field::eElement) {
+            return filterByElement(filter.m_elementName, filter.m_operation,
+                                   filter.m_value, indices, out_indices);
+        }
+        return false; // LCOV_EXCL_LINE
+    }
+
+    bool applyFilter(Filter const&  filter,
+                     Indices const& all_indices,
+                     Indices&       out_indices) const {
+        auto const& working_indices =
+            filter.m_conjunction == Filter::Conjunction::eAnd ? out_indices
+                                                              : all_indices;
+        Indices new_indices;
+        new_indices.reserve(working_indices.size());
+
+        if (filter.m_operation == Filter::Operation::eSubFilters) {
+            if (!applyFilters(filter.m_subFilters, all_indices, new_indices)) {
+                return false;
+            }
+        } else if (!filterIndices(filter, working_indices, new_indices)) {
+            return false;
+        }
+
+        out_indices.swap(new_indices);
+        return true;
+    }
+
+    bool applyFilters(Filters const& filters,
+                      Indices const& all_indices,
+                      Indices&       out_indices) const {
+        if (!filters.empty()) {
+            if (filters.front().m_conjunction == Filter::Conjunction::eOr) {
+                out_indices.clear();
+            } else {
+                out_indices = all_indices;
+            }
+            for (auto const& filter : filters) {
+                Indices new_indices = out_indices;
+                if (!applyFilter(filter, all_indices, new_indices)) {
+                    return false;
+                }
+
+                if (new_indices.empty()) {
+                    if (filter.m_conjunction == Filter::Conjunction::eAnd) {
+                        out_indices.clear();
+                    }
+                } else {
+                    if (out_indices.empty()) {
+                        if (filter.m_conjunction == Filter::Conjunction::eOr) {
+                            out_indices.swap(new_indices);
+                        }
+                    } else if (filter.m_conjunction ==
+                               Filter::Conjunction::eAnd) {
+                        Indices filtered_indices;
+                        std::set_intersection(
+                            out_indices.begin(), out_indices.end(),
+                            new_indices.begin(), new_indices.end(),
+                            std::back_inserter(filtered_indices));
+                        out_indices.swap(filtered_indices);
+                    } else {
+                        Indices filtered_indices;
+                        std::merge(out_indices.begin(), out_indices.end(),
+                                   new_indices.begin(), new_indices.end(),
+                                   std::back_inserter(filtered_indices));
+                        // remove duplicates
+                        auto last = std::unique(filtered_indices.begin(),
+                                                filtered_indices.end());
+                        filtered_indices.erase(last, filtered_indices.end());
+                        out_indices.swap(filtered_indices);
                     }
                 }
             }
         }
-        return false;
+        return true;
     }
 
-    if constexpr (is_pxr_quaternion_type<T>()) {
-        if (!path.empty()) {
-            auto fieldName = path.front();
-            path.pop_front();
-            if (fieldName == kQuaternionFields[0]) {
-                out_value = to_string(value.GetReal());
-                return path.empty();
-            } else if (fieldName == kQuaternionFields[1]) {
-                out_value = to_string(value.GetImaginary()[0]);
-                return path.empty();
-            } else if (fieldName == kQuaternionFields[2]) {
-                out_value = to_string(value.GetImaginary()[1]);
-                return path.empty();
-            } else if (fieldName == kQuaternionFields[3]) {
-                out_value = to_string(value.GetImaginary()[2]);
-                return path.empty();
+    virtual bool sortByValue(CompareOp compareOp,
+                             Indices&  out_indices) const   = 0;
+    virtual bool sortByElement(Amino::String const& elementName,
+                               CompareOp            compareOp,
+                               Indices&             out_indices) const = 0;
+
+    bool sortIndices(Sorter const& sorter, Indices& out_indices) const {
+        if (sorter.m_field == Field::eIndex) {
+            std::sort(out_indices.begin(), out_indices.end());
+            if (sorter.m_order == Sorter::Order::eDescending) {
+                std::reverse(out_indices.begin(), out_indices.end());
+            }
+            return true;
+        } else {
+            auto compareOp = (sorter.m_order == Sorter::Order::eDescending
+                                  ? CompareOp::eGreater
+                                  : CompareOp::eLess);
+            if (sorter.m_field == Field::eValue) {
+                return sortByValue(compareOp, out_indices);
+            } else if (sorter.m_field == Field::eElement) {
+                return sortByElement(sorter.m_elementName, compareOp,
+                                     out_indices);
             }
         }
-        return false;
+        return false; // LCOV_EXCL_LINE
     }
+};
 
-    if constexpr (std::is_same_v<T, PXR_NS::TfToken>) {
-        out_value = value.GetText();
-        return path.empty();
-    }
-
-    if constexpr (std::is_same_v<T, PXR_NS::SdfAssetPath>) {
-        out_value = value.GetAssetPath().c_str();
-        return path.empty();
-    }
-
-    assert(false && "getValue called for unsupported type");
-    return false;
-}
-
-template <>
-bool getValue<>(PXR_NS::VtValue const&         value,
-                WatchpointLayoutFactory const& factory,
-                WatchpointLayoutPath&          path,
-                Amino::String&                 out_value) {
-#define HANDLE_TYPE(TYPE)                                                      \
-    if (value.IsHolding<TYPE>()) {                                             \
-        return getValue(value.UncheckedGet<TYPE>(), factory, path, out_value); \
-    }                                                                          \
-    if (value.IsHolding<PXR_NS::VtArray<TYPE>>()) {                            \
-        if (path.frontIsIndex()) {                                             \
-            auto idx = path.frontAsIndex();                                    \
-            path.pop_front();                                                  \
-            auto const& vtArray = value.UncheckedGet<PXR_NS::VtArray<TYPE>>(); \
-            if (vtArray.size() > idx) {                                        \
-                return getValue(vtArray[idx], factory, path, out_value);       \
-            }                                                                  \
-        }                                                                      \
-        return false;                                                          \
-    }
-
-    FOR_EACH_SUPPORTED_TYPES(HANDLE_TYPE)
-
-#undef HANDLE_TYPE
-
-    assert(false && "getValue called for unsupported type");
-    return false;
-}
-
-template <typename PTR_TYPE, typename PARENT_TYPE, typename GET_ARRAY_FN>
-bool getElementValue(PARENT_TYPE const&             parent,
-                     WatchpointLayoutFactory const& factory,
-                     WatchpointLayoutPath&          path,
-                     Amino::String&                 out_value,
-                     GET_ARRAY_FN&&                 getArrayFn) {
-    if (!path.empty() && path.frontIsIndex()) {
-        auto idx = path.frontAsIndex();
-        path.pop_front();
-        auto values = getArrayFn();
-        if (std::distance(values.begin(), values.end()) >
-            static_cast<std::ptrdiff_t>(idx)) {
-            auto it = values.begin();
-            std::advance(it, idx);
-            auto elementPtr =
-                Amino::newClassPtr<typename PTR_TYPE::element_type>(*it,
-                                                                    parent);
-            return getValue(elementPtr, factory, path, out_value);
-        }
-    }
-    return false;
-}
-
-template <>
-bool getValue<>(AttributePtr const&            attributePtr,
-                WatchpointLayoutFactory const& factory,
-                WatchpointLayoutPath&          path,
-                Amino::String&                 out_value) {
-    if (attributePtr && !path.empty()) {
-        auto const& attribute = *attributePtr;
-        if (path.front() == kName) {
-            path.pop_front();
-            out_value = attribute->GetName().GetText();
-            return path.empty();
-        } else if (path.front() == kTypeName) {
-            path.pop_front();
-            out_value = attribute->GetTypeName().GetAsToken().GetText();
-            return path.empty();
-        } else if (path.front() == kIsDefined) {
-            path.pop_front();
-            out_value = to_string(attribute->IsDefined());
-            return path.empty();
-        } else if (path.front() == kIsCustom) {
-            path.pop_front();
-            out_value = to_string(attribute->IsCustom());
-            return path.empty();
-        } else if (path.front() == kIsAuthored) {
-            path.pop_front();
-            out_value = to_string(attribute->IsAuthored());
-            return path.empty();
-        } else if (path.front() == kNumTimeSamples) {
-            path.pop_front();
-            out_value = to_string(attribute->GetNumTimeSamples());
-            return path.empty();
-        } else if (path.front() == kValue) {
-            path.pop_front();
-            PXR_NS::VtValue vtVal;
-            if (attribute->Get(&vtVal)) {
-                return getValue(vtVal, factory, path, out_value);
-            }
-        }
-    }
-    return false;
-}
-
-template <>
-bool getValue<>(PrimPtr const&                 primPtr,
-                WatchpointLayoutFactory const& factory,
-                WatchpointLayoutPath&          path,
-                Amino::String&                 out_value) {
-    if (primPtr && !path.empty()) {
-        auto const& prim = *primPtr;
-        if (path.front() == kPrimPath) {
-            path.pop_front();
-            out_value = prim->GetPath().GetString().c_str();
-            return path.empty();
-        } else if (path.front() == kTypeName) {
-            path.pop_front();
-            out_value = prim->GetTypeName().GetText();
-            return path.empty();
-        } else if (path.front() == kKind) {
-            path.pop_front();
-            out_value = getPrimKind(primPtr).GetText();
-            return path.empty();
-        } else if (path.front() == kIsActive) {
-            path.pop_front();
-            out_value = to_string(prim->IsActive());
-            return path.empty();
-        } else if (path.front() == kIsLoaded) {
-            path.pop_front();
-            out_value = to_string(prim->IsLoaded());
-            return path.empty();
-        } else if (path.front() == kIsModel) {
-            path.pop_front();
-            out_value = to_string(prim->IsModel());
-            return path.empty();
-        } else if (path.front() == kIsGroup) {
-            path.pop_front();
-            out_value = to_string(prim->IsGroup());
-            return path.empty();
-        } else if (path.front() == kIsAbstract) {
-            path.pop_front();
-            out_value = to_string(prim->IsAbstract());
-            return path.empty();
-        } else if (path.front() == kHasVariantSets) {
-            path.pop_front();
-            out_value = to_string(prim->HasVariantSets());
-            return path.empty();
-        } else if (path.front() == kHasAuthoredPayloads) {
-            path.pop_front();
-            out_value = to_string(prim->HasAuthoredPayloads());
-            return path.empty();
-        } else if (path.front() == kHasAuthoredInherits) {
-            path.pop_front();
-            out_value = to_string(prim->HasAuthoredInherits());
-            return path.empty();
-        } else if (path.front() == kHasAuthoredReferences) {
-            path.pop_front();
-            out_value = to_string(prim->HasAuthoredReferences());
-            return path.empty();
-        } else if (path.front() == kHasAuthoredSpecializes) {
-            path.pop_front();
-            out_value = to_string(prim->HasAuthoredSpecializes());
-            return path.empty();
-        } else if (path.front() == kHasAuthoredInstanceable) {
-            path.pop_front();
-            out_value = to_string(prim->HasAuthoredInstanceable());
-            return path.empty();
-        } else if (path.front() == kIsInstance) {
-            path.pop_front();
-            out_value = to_string(prim->IsInstance());
-            return path.empty();
-        } else if (path.front() == kIsInstanceProxy) {
-            path.pop_front();
-            out_value = to_string(prim->IsInstanceProxy());
-            return path.empty();
-        } else if (path.front() == kIsPrototype) {
-            path.pop_front();
-            out_value = to_string(prim->IsPrototype());
-            return path.empty();
-        } else if (path.front() == kIsInPrototype) {
-            path.pop_front();
-            out_value = to_string(prim->IsInPrototype());
-            return path.empty();
-        } else if (path.front() == kPrimAttributes) {
-            path.pop_front();
-            return getElementValue<AttributePtr>(
-                primPtr, factory, path, out_value,
-                [&prim]() { return prim->GetAttributes(); });
-        } else if (path.front() == kPrimAuthoredAttributes) {
-            path.pop_front();
-            return getElementValue<AttributePtr>(
-                primPtr, factory, path, out_value,
-                [&prim]() { return prim->GetAuthoredAttributes(); });
-        }
-    }
-    return false;
-}
-
-template <>
-bool getValue<>(LayerPtr const& layerPtr,
-                WatchpointLayoutFactory const& /*factory*/,
-                WatchpointLayoutPath& path,
-                Amino::String&        out_value) {
-    if (layerPtr && !path.empty()) {
-        auto const& layer = *layerPtr;
-        if (path.front() == kLayerDisplayName) {
-            path.pop_front();
-            out_value = layer->GetDisplayName().c_str();
-            return path.empty();
-        } else if (path.front() == kLayerFilePath) {
-            path.pop_front();
-            out_value = layer.getFilePath();
-            return path.empty();
-        } else if (path.front() == kLayerOriginalFilePath) {
-            path.pop_front();
-            out_value = layer.getOriginalFilePath();
-            return path.empty();
-        } else if (path.front() == kStartTimeCode) {
-            path.pop_front();
-            out_value = to_string(layer->GetStartTimeCode());
-            return path.empty();
-        } else if (path.front() == kEndTimeCode) {
-            path.pop_front();
-            out_value = to_string(layer->GetEndTimeCode());
-            return path.empty();
-        }
-    }
-    return false;
-}
-
-template <>
-bool getValue<>(StagePtr const&                stagePtr,
-                WatchpointLayoutFactory const& factory,
-                WatchpointLayoutPath&          path,
-                Amino::String&                 out_value) {
-    if (stagePtr && !path.empty()) {
-        auto const& stage = *stagePtr;
-        if (path.front() == kLastModifiedPrim) {
-            path.pop_front();
-            out_value = stage.last_modified_prim;
-            return path.empty();
-        } else if (path.front() == kRootLayer) {
-            path.pop_front();
-            return getValue(stage.getRootLayer(), factory, path, out_value);
-        } else if (path.front() == kVariantSelection) {
-            path.pop_front();
-            out_value = stage.variantSelection().variantInfo();
-            return path.empty();
-        } else if (path.front() == kPrims) {
-            path.pop_front();
-            return getElementValue<PrimPtr>(
-                stagePtr, factory, path, out_value, [&stage]() {
-                    return const_cast<PXR_NS::UsdStage&>(stage.get())
-                        .TraverseAll();
-                });
-        }
-    }
-    return false;
-}
-
-/// \}
-
-///-------------------------------------------------------------------------
-/// \brief The usd watchpoint watcher to store the recorded values
-/// and create the layout.
-/// \{
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
 template <typename T>
-class USDWatcher : public Watcher {
+class USDWatchpointLayoutVtValue {
 public:
-    USDWatcher() noexcept;
-    ~USDWatcher() noexcept override;
+    USDWatchpointLayoutVtValue(T const& value) : m_value(value) {}
+    virtual ~USDWatchpointLayoutVtValue() = default;
 
-    void deleteThis() noexcept override;
+    T const& value() const noexcept { return m_value; }
 
-    void setValue(Amino::ValueView const& value) noexcept override;
-
-    WatchpointLayoutPtr getLayout(
-        WatchpointLayoutFactory& factory) const noexcept override;
-
-    bool getValue(WatchpointLayoutFactory const&,
-                  WatchpointLayoutPath& path,
-                  Amino::String&        out_value) const noexcept override;
-
-private:
-    T                           m_value;
-    mutable WatchpointLayoutPtr m_cachedLayout;
+protected:
+    T m_value;
 };
 
 template <typename T>
-USDWatcher<T>::USDWatcher() noexcept = default;
+class USDWatchpointLayoutVtValueScalar : public USDWatchpointLayoutVtValue<T>,
+                                         public WatchpointLayout {
+public:
+    using BaseClass = USDWatchpointLayoutVtValue<T>;
 
-template <typename T>
-USDWatcher<T>::~USDWatcher() noexcept = default;
+    USDWatchpointLayoutVtValueScalar(T const& value)
+        : USDWatchpointLayoutVtValue<T>(value),
+          WatchpointLayout(vtGetTypeName<T>()) {}
+    ~USDWatchpointLayoutVtValueScalar() override = default;
 
-template <typename T>
-void USDWatcher<T>::deleteThis() noexcept {
-    delete this;
-}
-
-template <typename T>
-void USDWatcher<T>::setValue(Amino::ValueView const& value) noexcept {
-    auto const* valuePtr = Amino::view_cast<T>(value);
-    assert(valuePtr);
-    m_value = *valuePtr;
-    m_cachedLayout = {};
-}
-
-template <typename T>
-WatchpointLayoutPtr USDWatcher<T>::getLayout(
-    WatchpointLayoutFactory& factory) const noexcept {
-    try {
-        if (!m_cachedLayout) {
-            m_cachedLayout = ::createLayoutFromValue<T>(factory, m_value);
+    void deleteThis() noexcept final { delete this; }
+    bool getValue(WatchpointLayoutPath& path,
+                  Amino::String&        out_value) const noexcept final {
+        if (path.empty()) {
+            out_value = to_string(BaseClass::m_value);
+            return true;
         }
-        return m_cachedLayout;
-    } catch (...) {
-        return {}; // LCOV_EXCL_LINE
+        return false;
     }
-}
+};
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+constexpr std::array<const char*, 4> kVectorComponents = {
+    {"s0", "s1", "s2", "s3"}};
+constexpr std::array<std::array<const char*, 4>, 4> kMatrixComponents = {
+    {{{"m00", "m01", "m02", "m03"}},
+     {{"m10", "m11", "m12", "m13"}},
+     {{"m20", "m21", "m22", "m23"}},
+     {{"m30", "m31", "m32", "m33"}}}};
+constexpr std::array<const char*, 4> kQuaternionComponents = {
+    {"r", "i", "j", "k"}};
+const std::array<const char*, 2> kDualQuaternionComponents = {{"real", "dual"}};
+const std::array<const char*, 2> kRangeComponents          = {{"min", "max"}};
 
 template <typename T>
-bool USDWatcher<T>::getValue(WatchpointLayoutFactory const& factory,
-                             WatchpointLayoutPath&          path,
-                             Amino::String& out_value) const noexcept {
-    try {
-        return ::getValue(m_value, factory, path, out_value);
-    } catch (...) {
+class USDWatchpointLayoutVtValueComposite
+    : public USDWatchpointLayoutVtValue<T>,
+      public WatchpointLayoutComposite {
+public:
+    using BaseClass = USDWatchpointLayoutVtValue<T>;
+
+    USDWatchpointLayoutVtValueComposite(T const& value)
+        : USDWatchpointLayoutVtValue<T>(value),
+          WatchpointLayoutComposite(vtGetTypeName<T>()) {
+        try {
+            buildLayouts();
+        } catch (...) {
+        }
+    }
+    ~USDWatchpointLayoutVtValueComposite() override = default;
+
+    void deleteThis() noexcept final { delete this; }
+
+    std::size_t size() const noexcept final { return m_layouts.size(); }
+
+    WatchpointLayoutPtr get(Amino::String const& name) const noexcept final {
+        for (size_t i = 0; i < m_layouts.size(); ++i) {
+            if (name == m_layouts.at(i).name()) {
+                return m_layouts.at(i).layout();
+            }
+        }
+        return {};
+    }
+
+    SubLayout get(std::size_t index) const noexcept final {
+        if (index < m_layouts.size()) {
+            return m_layouts.at(index);
+        }
+        return {};
+    }
+
+private:
+    void buildLayouts();
+
+private:
+    std::vector<SubLayout> m_layouts;
+};
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+template <typename T>
+class USDWatchpointLayoutVtValueArray : public USDWatchpointLayoutVtValue<T>,
+                                        public WatchpointLayoutArray,
+                                        public USDWatchpointLayoutArray {
+public:
+    using BaseClass = USDWatchpointLayoutVtValue<T>;
+
+    USDWatchpointLayoutVtValueArray(T const& value)
+        : USDWatchpointLayoutVtValue<T>(value),
+          WatchpointLayoutArray(vtGetTypeName<T>()),
+          USDWatchpointLayoutArray() {}
+    ~USDWatchpointLayoutVtValueArray() override = default;
+
+    void deleteThis() noexcept final { delete this; }
+
+    std::size_t size() const noexcept final {
+        return BaseClass::m_value.size();
+    }
+
+    WatchpointLayoutPtr get(std::size_t index) const noexcept final;
+
+    bool getValue(WatchpointLayoutPath& path,
+                  Amino::String&        out_value) const noexcept final {
+        if (!path.empty() && path.frontIsIndex()) {
+            auto index         = path.frontAsIndex();
+            auto elementLayout = get(index);
+            if (elementLayout) {
+                return elementLayout->getValue(path.pop_front(), out_value);
+            }
+        }
         return false; // LCOV_EXCL_LINE
     }
-}
-/// \}
 
+    bool isSortable(Sorter::Field, Amino::String const&) const noexcept final {
+        return !BaseClass::m_value.empty();
+    }
+    bool isFilterable(Filter::Field,
+                      Amino::String const&) const noexcept final {
+        return !BaseClass::m_value.empty();
+    }
+
+    bool getIndices(Filters const& filters,
+                    Sorter const&  sorter,
+                    Indices&       out_indices) const noexcept final {
+        return getIndices_impl(BaseClass::m_value.size(), filters, sorter,
+                               out_indices);
+    }
+
+private:
+    bool filterByValue(CompareOp         compareOp,
+                       Amino::Any const& filterValue_,
+                       Indices const&    indices,
+                       Indices&          out_indices) const final {
+        typename T::value_type filterValue;
+        if (anyToValue(filterValue_, filterValue)) {
+            for (auto idx : indices) {
+                auto const& value = BaseClass::m_value[idx];
+                if (compareValuesT(value, filterValue, compareOp)) {
+                    out_indices.push_back(idx);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    bool filterByElement(Amino::String const& elementName,
+                         CompareOp            compareOp,
+                         Amino::Any const&    filterValue_,
+                         Indices const&       indices,
+                         Indices&             out_indices) const final {
+        using ValueType = typename T::value_type;
+        if constexpr (is_pxr_vector_type<ValueType>()) {
+            typename ValueType::ScalarType filterValue;
+            if (anyToValue(filterValue_, filterValue)) {
+                for (size_t eltIdx = 0; eltIdx < ValueType::dimension;
+                     ++eltIdx) {
+                    if (elementName == kVectorComponents[eltIdx]) {
+                        for (auto idx : indices) {
+                            auto const& value = BaseClass::m_value[idx][eltIdx];
+                            if (compareValuesT(value, filterValue, compareOp)) {
+                                out_indices.push_back(idx);
+                            }
+                        }
+                        return true;
+                    }
+                }
+            }
+        } else if constexpr (is_pxr_matrix_type<ValueType>()) {
+            typename ValueType::ScalarType filterValue;
+            if (anyToValue(filterValue_, filterValue)) {
+                for (size_t row = 0; row < ValueType::numRows; ++row) {
+                    for (size_t col = 0; col < ValueType::numColumns; ++col) {
+                        if (elementName == kMatrixComponents[row][col]) {
+                            for (auto idx : indices) {
+                                auto const& value =
+                                    BaseClass::m_value[idx][static_cast<int>(
+                                        row)][static_cast<int>(col)];
+                                if (compareValuesT(value, filterValue,
+                                                   compareOp)) {
+                                    out_indices.push_back(idx);
+                                }
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+        } else if constexpr (is_pxr_quaternion_type<ValueType>()) {
+            for (size_t eltIdx = 0; eltIdx < kQuaternionComponents.size();
+                 ++eltIdx) {
+                if (elementName == kQuaternionComponents[eltIdx]) {
+                    if (eltIdx == 0) {
+                        typename QuaternionTraits<ValueType>::RealType
+                            filterValue;
+                        if (anyToValue(filterValue_, filterValue)) {
+                            for (auto idx : indices) {
+                                auto const& value =
+                                    BaseClass::m_value[idx].GetReal();
+                                if (compareValuesT(value, filterValue,
+                                                   compareOp)) {
+                                    out_indices.push_back(idx);
+                                }
+                            }
+                            return true;
+                        }
+                    } else {
+                        typename QuaternionTraits<
+                            ValueType>::ImaginaryType::ScalarType filterValue;
+                        if (anyToValue(filterValue_, filterValue)) {
+                            for (auto idx : indices) {
+                                auto const& value =
+                                    BaseClass::m_value[idx]
+                                        .GetImaginary()[eltIdx - 1];
+                                if (compareValuesT(value, filterValue,
+                                                   compareOp)) {
+                                    out_indices.push_back(idx);
+                                }
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+        } else if constexpr (is_pxr_dual_quaternion_type<ValueType>()) {
+            for (size_t eltIdx = 0; eltIdx < kDualQuaternionComponents.size();
+                 ++eltIdx) {
+                if (elementName == kDualQuaternionComponents[eltIdx]) {
+                    typename DualQuaternionTraits<ValueType>::QuaternionType
+                        filterValue;
+                    if (anyToValue(filterValue_, filterValue)) {
+                        for (auto idx : indices) {
+                            auto const& value =
+                                eltIdx == 0 ? BaseClass::m_value[idx].GetReal()
+                                            : BaseClass::m_value[idx].GetDual();
+                            if (compareValuesT(value, filterValue, compareOp)) {
+                                out_indices.push_back(idx);
+                            }
+                        }
+                        return true;
+                    }
+                }
+            }
+        } else if constexpr (is_pxr_range_type<ValueType>()) {
+            for (size_t eltIdx = 0; eltIdx < kRangeComponents.size();
+                 ++eltIdx) {
+                if (elementName == kRangeComponents[eltIdx]) {
+                    typename RangeTraits<ValueType>::MinMaxType filterValue;
+                    if (anyToValue(filterValue_, filterValue)) {
+                        for (auto idx : indices) {
+                            auto const& value =
+                                eltIdx == 0 ? BaseClass::m_value[idx].GetMin()
+                                            : BaseClass::m_value[idx].GetMax();
+                            if (compareValuesT(value, filterValue, compareOp)) {
+                                out_indices.push_back(idx);
+                            }
+                        }
+                        return true;
+                    }
+                }
+            }
+        } else if constexpr (is_pxr_scalar_type<ValueType>() ||
+                             is_pxr_string_type<ValueType>()) {
+            return false; // LCOV_EXCL_LINE
+        } else {
+            static_assert(!std::is_same_v<ValueType, ValueType>,
+                          "filterByElement is not implemented for this type");
+        }
+        return false;
+    }
+
+    bool sortByValue(CompareOp compareOp, Indices& out_indices) const final {
+        std::sort(out_indices.begin(), out_indices.end(),
+                  [&](std::size_t a, std::size_t b) {
+                      auto const& valueA = BaseClass::m_value[a];
+                      auto const& valueB = BaseClass::m_value[b];
+                      return compareValuesT(valueA, valueB, compareOp);
+                  });
+        return true;
+    }
+
+    bool sortByElement(Amino::String const& elementName,
+                       CompareOp            compareOp,
+                       Indices&             out_indices) const final {
+        using ValueType = typename T::value_type;
+        if constexpr (is_pxr_vector_type<ValueType>()) {
+            for (size_t eltIdx = 0; eltIdx < ValueType::dimension; ++eltIdx) {
+                if (elementName == kVectorComponents[eltIdx]) {
+                    std::sort(
+                        out_indices.begin(), out_indices.end(),
+                        [&](std::size_t a, std::size_t b) {
+                            auto const& valueA = BaseClass::m_value[a][eltIdx];
+                            auto const& valueB = BaseClass::m_value[b][eltIdx];
+                            return compareValuesT(valueA, valueB, compareOp);
+                        });
+                    return true;
+                }
+            }
+        } else if constexpr (is_pxr_matrix_type<ValueType>()) {
+            for (size_t row = 0; row < ValueType::numRows; ++row) {
+                for (size_t col = 0; col < ValueType::numColumns; ++col) {
+                    if (elementName == kMatrixComponents[row][col]) {
+                        std::sort(
+                            out_indices.begin(), out_indices.end(),
+                            [&](std::size_t a, std::size_t b) {
+                                auto const& valueA =
+                                    BaseClass::m_value[a][static_cast<int>(row)]
+                                                      [static_cast<int>(col)];
+                                auto const& valueB =
+                                    BaseClass::m_value[b][static_cast<int>(row)]
+                                                      [static_cast<int>(col)];
+                                return compareValuesT(valueA, valueB,
+                                                      compareOp);
+                            });
+                        return true;
+                    }
+                }
+            }
+        } else if constexpr (is_pxr_quaternion_type<ValueType>()) {
+            for (size_t eltIdx = 0; eltIdx < kQuaternionComponents.size();
+                 ++eltIdx) {
+                if (elementName == kQuaternionComponents[eltIdx]) {
+                    if (eltIdx == 0) {
+                        std::sort(out_indices.begin(), out_indices.end(),
+                                  [&](std::size_t a, std::size_t b) {
+                                      auto const& valueA =
+                                          BaseClass::m_value[a].GetReal();
+                                      auto const& valueB =
+                                          BaseClass::m_value[b].GetReal();
+                                      return compareValuesT(valueA, valueB,
+                                                            compareOp);
+                                  });
+                    } else {
+                        std::sort(out_indices.begin(), out_indices.end(),
+                                  [&](std::size_t a, std::size_t b) {
+                                      auto const& valueA =
+                                          BaseClass::m_value[a]
+                                              .GetImaginary()[eltIdx - 1];
+                                      auto const& valueB =
+                                          BaseClass::m_value[b]
+                                              .GetImaginary()[eltIdx - 1];
+                                      return compareValuesT(valueA, valueB,
+                                                            compareOp);
+                                  });
+                    }
+                    return true;
+                }
+            }
+        } else if constexpr (is_pxr_dual_quaternion_type<ValueType>()) {
+            for (size_t eltIdx = 0; eltIdx < kDualQuaternionComponents.size();
+                 ++eltIdx) {
+                if (elementName == kDualQuaternionComponents[eltIdx]) {
+                    std::sort(
+                        out_indices.begin(), out_indices.end(),
+                        [&](std::size_t a, std::size_t b) {
+                            auto const& valueA =
+                                eltIdx == 0 ? BaseClass::m_value[a].GetReal()
+                                            : BaseClass::m_value[a].GetDual();
+                            auto const& valueB =
+                                eltIdx == 0 ? BaseClass::m_value[b].GetReal()
+                                            : BaseClass::m_value[b].GetDual();
+                            return compareValuesT(valueA, valueB, compareOp);
+                        });
+                    return true;
+                }
+            }
+        } else if constexpr (is_pxr_range_type<ValueType>()) {
+            for (size_t eltIdx = 0; eltIdx < kRangeComponents.size();
+                 ++eltIdx) {
+                if (elementName == kRangeComponents[eltIdx]) {
+                    std::sort(
+                        out_indices.begin(), out_indices.end(),
+                        [&](std::size_t a, std::size_t b) {
+                            auto const& valueA =
+                                eltIdx == 0 ? BaseClass::m_value[a].GetMin()
+                                            : BaseClass::m_value[a].GetMax();
+                            auto const& valueB =
+                                eltIdx == 0 ? BaseClass::m_value[b].GetMin()
+                                            : BaseClass::m_value[b].GetMax();
+                            return compareValuesT(valueA, valueB, compareOp);
+                        });
+                    return true;
+                }
+            }
+        } else if constexpr (is_pxr_scalar_type<ValueType>() ||
+                             is_pxr_string_type<ValueType>()) {
+            return false; // LCOV_EXCL_LINE
+        } else {
+            static_assert(!std::is_same_v<ValueType, ValueType>,
+                          "sortByElement is not implemented for this type");
+        }
+        return false; // LCOV_EXCL_LINE
+    }
+};
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+template <typename T>
+WatchpointLayoutPtr getValueLayoutT(T const& value) {
+    if constexpr (is_pxr_vector_type<T>() || is_pxr_matrix_type<T>() ||
+                  is_pxr_quaternion_type<T>() ||
+                  is_pxr_dual_quaternion_type<T>() || is_pxr_range_type<T>()) {
+        return WatchpointLayout::createT<
+            USDWatchpointLayoutVtValueComposite<T>>(value);
+    } else {
+        return WatchpointLayout::createT<USDWatchpointLayoutVtValueScalar<T>>(
+            value);
+    }
+}
+
+template <>
+WatchpointLayoutPtr getValueLayoutT(VtValue const& value) {
+    if (!value.IsEmpty()) {
+#define HANDLE_TYPE(T)                                             \
+    if (value.IsHolding<T>()) {                                    \
+        auto const& vtValue = value.UncheckedGet<T>();             \
+        return getValueLayoutT(vtValue);                           \
+    }                                                              \
+    if (value.IsHolding<VtArray<T>>()) {                           \
+        auto const& vtArray = value.UncheckedGet<VtArray<T>>();    \
+        return WatchpointLayout::createT<                          \
+            USDWatchpointLayoutVtValueArray<VtArray<T>>>(vtArray); \
+    }
+
+#define HANDLE_VT_TYPE(element) HANDLE_TYPE(VT_TYPE(element))
+        FOR_EACH_VT_VALUE_TYPES
+#undef HANDLE_VT_TYPE
+        HANDLE_TYPE(SdfAssetPath)
+#undef HANDLE_TYPE
+
+        assert(false &&
+               "getValueLayoutT VtValue called for unsupported value type");
+    }
+    return {}; // LCOV_EXCL_LINE
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+WatchpointLayoutPtr getValueLayoutFromAny(
+    WatchpointLayoutFactory const& factory,
+    Amino::TypeRegistry const&     typeRegistry,
+    std::any const&                value) {
+    assert(value.has_value());
+
+#define HANDLE_TYPE(T)                                    \
+    if (value.type() == typeid(T)) {                      \
+        auto const& typedValue = std::any_cast<T>(value); \
+        return getValueLayoutT(typedValue);               \
+    }
+
+#define HANDLE_VT_TYPE(element) HANDLE_TYPE(VT_TYPE(element))
+    FOR_EACH_VT_VALUE_TYPES
+#undef HANDLE_VT_TYPE
+
+    HANDLE_TYPE(VtValue)
+    HANDLE_TYPE(Amino::String)
+#undef HANDLE_TYPE
+
+#define HANDLE_TYPE(T)                                       \
+    if (value.type() == typeid(T)) {                         \
+        auto const& typedValue = std::any_cast<T>(value);    \
+        return factory.getLayoutT(typeRegistry, typedValue); \
+    }
+    HANDLE_TYPE(LayerPtr)
+    HANDLE_TYPE(ArrayOfAttributes)
+    HANDLE_TYPE(ArrayOfPrims)
+#undef HANDLE_TYPE
+
+    assert(false && "getValueLayoutFromAny called for unsupported value type");
+    return {}; // LCOV_EXCL_LINE
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+bool compareValuesAny(std::any const& a, std::any const& b, CompareOp op) {
+    if (!a.has_value() || !b.has_value()) {
+        return compareValuesT(a.has_value(), b.has_value(), op);
+    }
+    if (a.type() == b.type()) {
+#define HANDLE_TYPE(T)                                       \
+    if (a.type() == typeid(T)) {                             \
+        auto const& typedValueA = std::any_cast<T>(a);       \
+        auto const& typedValueB = std::any_cast<T>(b);       \
+        return compareValuesT(typedValueA, typedValueB, op); \
+    }
+
+#define HANDLE_VT_TYPE(element) HANDLE_TYPE(VT_TYPE(element))
+        FOR_EACH_VT_VALUE_TYPES
+#undef HANDLE_VT_TYPE
+
+        HANDLE_TYPE(VtValue)
+        HANDLE_TYPE(Amino::String)
+#undef HANDLE_TYPE
+    }
+
+    assert(false && "compareValuesAny called for unsupported value type");
+    return false; // LCOV_EXCL_LINE
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+template <typename T>
+void USDWatchpointLayoutVtValueComposite<T>::buildLayouts() {
+    if constexpr (is_pxr_quaternion_type<T>()) {
+        m_layouts.reserve(4);
+        m_layouts.emplace_back(kQuaternionComponents[0],
+                               getValueLayoutT(BaseClass::m_value.GetReal()));
+        m_layouts.emplace_back(
+            kQuaternionComponents[1],
+            getValueLayoutT(BaseClass::m_value.GetImaginary()[0]));
+        m_layouts.emplace_back(
+            kQuaternionComponents[2],
+            getValueLayoutT(BaseClass::m_value.GetImaginary()[1]));
+        m_layouts.emplace_back(
+            kQuaternionComponents[3],
+            getValueLayoutT(BaseClass::m_value.GetImaginary()[2]));
+    } else if constexpr (is_pxr_matrix_type<T>()) {
+        m_layouts.reserve(T::numColumns * T::numRows);
+        for (size_t row = 0; row < T::numRows; ++row) {
+            for (size_t col = 0; col < T::numColumns; ++col) {
+                m_layouts.emplace_back(
+                    kMatrixComponents[row][col],
+                    getValueLayoutT(BaseClass::m_value[static_cast<int>(row)]
+                                                      [static_cast<int>(col)]));
+            }
+        }
+    } else if constexpr (is_pxr_vector_type<T>()) {
+        m_layouts.reserve(T::dimension);
+        m_layouts.emplace_back(kVectorComponents[0],
+                               getValueLayoutT(BaseClass::m_value[0]));
+        m_layouts.emplace_back(kVectorComponents[1],
+                               getValueLayoutT(BaseClass::m_value[1]));
+        if constexpr (T::dimension > 2) {
+            m_layouts.emplace_back(kVectorComponents[2],
+                                   getValueLayoutT(BaseClass::m_value[2]));
+            if constexpr (T::dimension > 3) {
+                m_layouts.emplace_back(kVectorComponents[3],
+                                       getValueLayoutT(BaseClass::m_value[3]));
+            }
+        }
+    } else if constexpr (is_pxr_dual_quaternion_type<T>()) {
+        m_layouts.reserve(2);
+        m_layouts.emplace_back(kDualQuaternionComponents[0],
+                               getValueLayoutT(BaseClass::m_value.GetReal()));
+        m_layouts.emplace_back(kDualQuaternionComponents[1],
+                               getValueLayoutT(BaseClass::m_value.GetDual()));
+    } else if constexpr (is_pxr_range_type<T>()) {
+        m_layouts.reserve(2);
+        m_layouts.emplace_back(kRangeComponents[0],
+                               getValueLayoutT(BaseClass::m_value.GetMin()));
+        m_layouts.emplace_back(kRangeComponents[1],
+                               getValueLayoutT(BaseClass::m_value.GetMax()));
+    } else {
+        static_assert(!std::is_same_v<T, T>,
+                      "buildLayouts is not implemented for this type");
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+template <typename T>
+WatchpointLayoutPtr USDWatchpointLayoutVtValueArray<T>::get(
+    std::size_t index) const noexcept {
+    if (index < BaseClass::m_value.size()) {
+        return getValueLayoutT(BaseClass::m_value[index]);
+    }
+    return {};
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+auto getStagePrims(StagePtr const& stage) {
+    auto usdPrimRange = const_cast<UsdStage&>(stage->get()).TraverseAll();
+    auto arrayPrims = Amino::newMutablePtr<Amino::Array<PrimPtr>>();
+    arrayPrims->reserve(
+        std::distance(usdPrimRange.begin(), usdPrimRange.end()));
+    for (const auto& usdPrim : usdPrimRange) {
+        arrayPrims->push_back(
+            Amino::newClassPtr<typename PrimPtr::element_type>(usdPrim, stage));
+    }
+    return arrayPrims.toImmutable();
+}
+
+auto getPrimAttributes(std::vector<UsdAttribute> const& usdAttributes,
+                       PrimPtr const&                   prim) {
+    auto arrayAttributes = Amino::newMutablePtr<Amino::Array<AttributePtr>>();
+    arrayAttributes->reserve(usdAttributes.size());
+    for (const auto& usdAttribute : usdAttributes) {
+        arrayAttributes->push_back(
+            Amino::newClassPtr<typename AttributePtr::element_type>(
+                usdAttribute, prim));
+    }
+    return arrayAttributes.toImmutable();
+};
+
+auto getPrimKind(PrimPtr const& prim) {
+    auto tfKind = TfToken();
+    UsdModelAPI(prim->getPxrPrim()).GetKind(&tfKind);
+    return tfKind.GetString();
+}
+
+auto getAttrValue(AttributePtr const& attr) {
+    VtValue vtValue;
+    (*attr)->Get(&vtValue);
+    return vtValue;
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+#define HANDLE_T_ELEMENT(T, NAME, FUNC)                               \
+    std::make_pair<Amino::String, std::function<std::any(T const&)>>( \
+        NAME, [](T const& value) -> std::any { return FUNC; })
+
+#define HANDLE_STAGE_ELEMENT(NAME, FUNC) HANDLE_T_ELEMENT(StagePtr, NAME, FUNC)
+const std::
+    array<std::pair<Amino::String, std::function<std::any(StagePtr const&)>>, 4>
+        kStageElements = {
+            HANDLE_STAGE_ELEMENT("last modified prim",
+                                 value->last_modified_prim),
+            HANDLE_STAGE_ELEMENT("root layer", value->getRootLayer()),
+            HANDLE_STAGE_ELEMENT("variant selection",
+                                 value->variantSelection().variantInfo()),
+            HANDLE_STAGE_ELEMENT("prims", getStagePrims(value))};
+#undef HANDLE_STAGE_ELEMENT
+
+#define HANDLE_LAYER_ELEMENT(NAME, FUNC) HANDLE_T_ELEMENT(LayerPtr, NAME, FUNC)
+const std::
+    array<std::pair<Amino::String, std::function<std::any(LayerPtr const&)>>, 5>
+        kLayerElements = {
+            HANDLE_LAYER_ELEMENT("display_name", value->get().GetDisplayName()),
+            HANDLE_LAYER_ELEMENT("file_path", value->getFilePath()),
+            HANDLE_LAYER_ELEMENT("original_file_path",
+                                 value->getOriginalFilePath()),
+            HANDLE_LAYER_ELEMENT("start_time_code",
+                                 value->get().GetStartTimeCode()),
+            HANDLE_LAYER_ELEMENT("end_time_code",
+                                 value->get().GetEndTimeCode())};
+#undef HANDLE_LAYER_ELEMENT
+
+#define HANDLE_PRIM_ELEMENT(NAME, FUNC) HANDLE_T_ELEMENT(PrimPtr, NAME, FUNC)
+const std::array<
+    std::pair<Amino::String, std::function<std::any(PrimPtr const&)>>,
+    21>
+    kPrimElements = {
+        HANDLE_PRIM_ELEMENT("path", value->getPxrPrim().GetPath().GetString()),
+        HANDLE_PRIM_ELEMENT("type",
+                            value->getPxrPrim().GetTypeName().GetString()),
+        HANDLE_PRIM_ELEMENT("kind", getPrimKind(value)),
+        HANDLE_PRIM_ELEMENT("is_active", value->getPxrPrim().IsActive()),
+        HANDLE_PRIM_ELEMENT("is_loaded", value->getPxrPrim().IsLoaded()),
+        HANDLE_PRIM_ELEMENT("is_model", value->getPxrPrim().IsModel()),
+        HANDLE_PRIM_ELEMENT("is_group", value->getPxrPrim().IsGroup()),
+        HANDLE_PRIM_ELEMENT("is_abstract", value->getPxrPrim().IsAbstract()),
+        HANDLE_PRIM_ELEMENT("is_defined", value->getPxrPrim().IsDefined()),
+        HANDLE_PRIM_ELEMENT("has_variant_sets",
+                            value->getPxrPrim().HasVariantSets()),
+        HANDLE_PRIM_ELEMENT("has_authored_payloads",
+                            value->getPxrPrim().HasAuthoredPayloads()),
+        HANDLE_PRIM_ELEMENT("has_authored_inherits",
+                            value->getPxrPrim().HasAuthoredInherits()),
+        HANDLE_PRIM_ELEMENT("has_authored_references",
+                            value->getPxrPrim().HasAuthoredReferences()),
+        HANDLE_PRIM_ELEMENT("has_authored_specializes",
+                            value->getPxrPrim().HasAuthoredSpecializes()),
+        HANDLE_PRIM_ELEMENT("has_authored_instanceable",
+                            value->getPxrPrim().HasAuthoredInstanceable()),
+        HANDLE_PRIM_ELEMENT("is_instance", value->getPxrPrim().IsInstance()),
+        HANDLE_PRIM_ELEMENT("is_instance_proxy",
+                            value->getPxrPrim().IsInstanceProxy()),
+        HANDLE_PRIM_ELEMENT("is_prototype", value->getPxrPrim().IsPrototype()),
+        HANDLE_PRIM_ELEMENT("is_in_prototype",
+                            value->getPxrPrim().IsInPrototype()),
+        HANDLE_PRIM_ELEMENT(
+            "attributes",
+            getPrimAttributes(value->getPxrPrim().GetAttributes(), value)),
+        HANDLE_PRIM_ELEMENT(
+            "authored_attributes",
+            getPrimAttributes(value->getPxrPrim().GetAuthoredAttributes(),
+                              value))};
+#undef HANDLE_PRIM_ELEMENT
+
+#define HANDLE_ATTR_ELEMENT(NAME, FUNC) \
+    HANDLE_T_ELEMENT(AttributePtr, NAME, FUNC)
+const std::array<
+    std::pair<Amino::String, std::function<std::any(AttributePtr const&)>>,
+    7>
+    kAttrElements = {
+        HANDLE_ATTR_ELEMENT("name", (*value)->GetName().GetString()),
+        HANDLE_ATTR_ELEMENT("type",
+                            (*value)->GetTypeName().GetAsToken().GetString()),
+        HANDLE_ATTR_ELEMENT("is_defined", (*value)->IsDefined()),
+        HANDLE_ATTR_ELEMENT("is_custom", (*value)->IsCustom()),
+        HANDLE_ATTR_ELEMENT("is_authored", (*value)->IsAuthored()),
+        HANDLE_ATTR_ELEMENT("num_time_samples", (*value)->GetNumTimeSamples()),
+        HANDLE_ATTR_ELEMENT("value", getAttrValue(value))};
+#undef HANDLE_ATTR_ELEMENT
+
+#undef HANDLE_T_ELEMENT
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+/// \brief Returns whether the USD object held by the given pointer can be
+///        safely dereferenced by the element accessors.
+///
+/// A non-null Amino::Ptr does not imply a usable USD object. The default value
+/// of BifrostUsd::Layer and BifrostUsd::Attribute is an invalid one, and nodes
+/// such as USD::Layer::get_layer and USD::Prim::get_prim_at_path return invalid
+/// objects to report a failure.
+template <typename T>
+bool isUsdValid(T const& value) {
+    static_assert(is_ptr_type<T>(), "expected T to be a BifrostUsd class Ptr");
+    if (!value || !*value) {
+        return false;
+    }
+    if constexpr (std::is_same_v<T, PrimPtr>) {
+        // BifrostUsd::Prim::operator bool only reports the validity of the
+        // stage, not the one of the PXR_NS::UsdPrim, which is left invalid by
+        // USD::Prim::get_prim_at_path when the path does not resolve.
+        return value->getPxrPrim().IsValid();
+    } else {
+        return true;
+    }
+}
+
+/// \brief Returns the value of the given element for the given USD object, or
+///        an empty std::any if that object can't be safely dereferenced.
+template <typename ELEMENT, typename T>
+std::any getElementValue(ELEMENT const& element, T const& value) {
+    if (!isUsdValid(value)) {
+        return {};
+    }
+    return element.second(value);
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+template <typename T>
+class USDWatchpointLayoutArrayGeneric : public WatchpointLayoutArrayGeneric,
+                                        public USDWatchpointLayoutArray {
+public:
+    USDWatchpointLayoutArrayGeneric(WatchpointLayoutFactory const& factory,
+                                    Amino::TypeRegistry const&     typeRegistry,
+                                    Amino::ArrayValueView const&   value)
+        : WatchpointLayoutArrayGeneric(factory, typeRegistry, value),
+          USDWatchpointLayoutArray() {
+        assert(value.getType().getTypeId() == Amino::getTypeId<T>());
+        auto const* valuePtr = Amino::view_cast<T>(value);
+        assert(valuePtr);
+        m_value = *valuePtr;
+    }
+    ~USDWatchpointLayoutArrayGeneric() override = default;
+
+    void deleteThis() noexcept final { delete this; }
+
+    bool isSortable(Sorter::Field field,
+                    Amino::String const&) const noexcept final {
+        return m_value && !m_value->empty() && field != Field::eValue;
+    }
+    bool isFilterable(Filter::Field field,
+                      Amino::String const&) const noexcept final {
+        return m_value && !m_value->empty() && field != Field::eValue;
+    }
+
+    bool getIndices(Filters const& filters,
+                    Sorter const&  sorter,
+                    Indices&       out_indices) const noexcept final {
+        return getIndices_impl(m_value ? m_value->size() : 0, filters, sorter,
+                               out_indices);
+    }
+
+private:
+    bool filterByValue(CompareOp,
+                       Amino::Any const&,
+                       Indices const&,
+                       Indices&) const final {
+        return false;
+    }
+    bool filterByElement(Amino::String const& elementName,
+                         CompareOp            compareOp,
+                         Amino::Any const&    filterValue_,
+                         Indices const&       indices,
+                         Indices&             out_indices) const final {
+        if (!m_value || m_value->empty()) {
+            return false;
+        }
+
+        auto const& elements = []() {
+            if constexpr (std::is_same_v<T, ArrayOfStages>) {
+                return kStageElements;
+            } else if constexpr (std::is_same_v<T, ArrayOfLayers>) {
+                return kLayerElements;
+            } else if constexpr (std::is_same_v<T, ArrayOfPrims>) {
+                return kPrimElements;
+            } else {
+                static_assert(std::is_same_v<T, ArrayOfAttributes>,
+                              "expected T to be ArrayOfAttributes");
+                return kAttrElements;
+            }
+        }();
+        auto elementIt = std::find_if(
+            elements.begin(), elements.end(),
+            [&](auto const& element) { return element.first == elementName; });
+        if (elementIt == elements.end()) {
+            return false;
+        }
+
+        // Seed the filter value from the first element that can be safely
+        // dereferenced (which is not necessarily the first element), so that
+        // anyToValue knows which type to convert to.
+        std::any filterValue;
+        for (std::size_t idx = 0;
+             idx < m_value->size() && !filterValue.has_value(); ++idx) {
+            filterValue = getElementValue(*elementIt, (*m_value)[idx]);
+        }
+        if (!anyToValue(filterValue_, filterValue)) {
+            return false;
+        }
+
+        for (auto idx : indices) {
+            auto elementValue = getElementValue(*elementIt, (*m_value)[idx]);
+            if (compareValuesAny(elementValue, filterValue, compareOp)) {
+                out_indices.push_back(idx);
+            }
+        }
+        return true;
+    }
+
+    bool sortByValue(CompareOp, Indices&) const final { return false; }
+    bool sortByElement(Amino::String const& elementName,
+                       CompareOp            compareOp,
+                       Indices&             out_indices) const final {
+        if (!m_value || m_value->empty()) {
+            return false;
+        }
+
+        auto const& elements = []() {
+            if constexpr (std::is_same_v<T, ArrayOfStages>) {
+                return kStageElements;
+            } else if constexpr (std::is_same_v<T, ArrayOfLayers>) {
+                return kLayerElements;
+            } else if constexpr (std::is_same_v<T, ArrayOfPrims>) {
+                return kPrimElements;
+            } else {
+                static_assert(std::is_same_v<T, ArrayOfAttributes>,
+                              "expected T to be ArrayOfAttributes");
+                return kAttrElements;
+            }
+        }();
+        auto elementIt = std::find_if(
+            elements.begin(), elements.end(),
+            [&](auto const& element) { return element.first == elementName; });
+        if (elementIt == elements.end()) {
+            return false;
+        }
+
+        std::sort(out_indices.begin(), out_indices.end(),
+                  [&](std::size_t a, std::size_t b) {
+                      auto valueA = getElementValue(*elementIt, (*m_value)[a]);
+                      auto valueB = getElementValue(*elementIt, (*m_value)[b]);
+                      return compareValuesAny(valueA, valueB, compareOp);
+                  });
+        return true;
+    }
+
+private:
+    T m_value;
+};
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+template <typename T>
+class USDWatchpointLayoutComposite : public WatchpointLayoutComposite {
+public:
+    USDWatchpointLayoutComposite(WatchpointLayoutFactory const& factory,
+                                 Amino::TypeRegistry const&     typeRegistry,
+                                 Amino::ClassValueView const&   value)
+        : WatchpointLayoutComposite(value) {
+        try {
+            assert(value.getType().getTypeId() == Amino::getTypeId<T>());
+            auto const* valuePtr = Amino::view_cast<T>(value);
+            assert(valuePtr);
+            buildLayouts(factory, typeRegistry, *valuePtr);
+        } catch (...) {
+        }
+    }
+
+    ~USDWatchpointLayoutComposite() override = default;
+
+    void deleteThis() noexcept final { delete this; }
+
+    std::size_t size() const noexcept final { return m_layouts.size(); }
+
+    WatchpointLayoutPtr get(Amino::String const& name) const noexcept final {
+        auto it = std::find_if(m_layouts.begin(), m_layouts.end(),
+                               [&](SubLayout const& subLayout) {
+                                   return subLayout.name() == name;
+                               });
+        if (it != m_layouts.end()) {
+            return it->layout();
+        }
+        return {};
+    }
+
+    SubLayout get(std::size_t index) const noexcept final {
+        if (index < m_layouts.size()) {
+            return m_layouts.at(index);
+        }
+        return {};
+    }
+
+private:
+    void buildLayouts(WatchpointLayoutFactory const& factory,
+                      Amino::TypeRegistry const&     typeRegistry,
+                      T const&                       value) {
+        if (isUsdValid(value)) {
+            auto const& elements = []() {
+                if constexpr (std::is_same_v<T, StagePtr>) {
+                    return kStageElements;
+                } else if constexpr (std::is_same_v<T, LayerPtr>) {
+                    return kLayerElements;
+                } else if constexpr (std::is_same_v<T, PrimPtr>) {
+                    return kPrimElements;
+                } else {
+                    static_assert(std::is_same_v<T, AttributePtr>,
+                                  "expected T to be AttributePtr");
+                    return kAttrElements;
+                }
+            }();
+            m_layouts.reserve(elements.size());
+            for (auto const& element : elements) {
+                auto layout = getValueLayoutFromAny(factory, typeRegistry,
+                                                    element.second(value));
+                if (layout) {
+                    m_layouts.emplace_back(element.first, layout);
+                }
+            }
+        }
+    }
+
+private:
+    std::vector<SubLayout> m_layouts;
+};
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+template <typename VIEW_TYPE, typename T>
+class USDWatcher : public Watcher {
+public:
+    USDWatcher(WatchpointLayoutFactory const& factory,
+               Amino::TypeRegistry const&     typeRegistry,
+               VIEW_TYPE const&               value) noexcept
+        : Watcher(value) {
+        assert(value.getType().getTypeId() == Amino::getTypeId<T>());
+        try {
+            if constexpr (std::is_same_v<VIEW_TYPE, Amino::ClassValueView>) {
+                m_layout =
+                    WatchpointLayout::createT<USDWatchpointLayoutComposite<T>>(
+                        factory, typeRegistry, value);
+            } else if constexpr (std::is_same_v<VIEW_TYPE,
+                                                Amino::ArrayValueView>) {
+                m_layout = WatchpointLayout::createT<
+                    USDWatchpointLayoutArrayGeneric<T>>(factory, typeRegistry,
+                                                        value);
+            }
+        } catch (...) {
+        }
+    }
+    ~USDWatcher() noexcept override = default;
+
+    void deleteThis() noexcept final { delete this; }
+
+    WatchpointLayoutPtr getLayout() const noexcept final { return m_layout; }
+
+private:
+    WatchpointLayoutPtr m_layout;
+};
 } // namespace
 
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
 class USDWatchpoint : public BifrostGraph::Executor::Watchpoint {
 public:
-    USDWatchpoint() noexcept;
+    explicit USDWatchpoint(WatchpointLayoutFactory const& factory) noexcept;
     ~USDWatchpoint() noexcept override;
 
     void deleteThis() noexcept override;
 
-    void getSupportedTypeIds(TypeIdArray& out_typeIds) const noexcept override;
+    void getSupportedTypeIds(TypeIdArray& out_typeIds) const noexcept final;
 
-    Watcher* createWatcher(Amino::TypeId const& typeId,
-                           Watcher::Flags       flags) const noexcept override;
-
-    bool getValue(WatchpointLayoutFactory const& factory,
-                  Amino::Any const&              any,
-                  WatchpointLayoutPath&          path,
-                  Amino::String& out_value) const noexcept override;
+    Watcher* createWatcher(Amino::TypeRegistry const& typeRegistry,
+                           Amino::ValueView const& value) const noexcept final;
 
     WatchpointLayoutPtr createLayout(
-        WatchpointLayoutFactory const& factory,
-        Amino::Any const&              any) const noexcept override;
+        Amino::TypeRegistry const& typeRegistry,
+        Amino::ValueView const&    value) const noexcept final;
 
-    std::size_t getArraySize(Amino::Any const& any) const noexcept override;
-
-    WatchpointLayoutPtr getArrayElementLayout(
-        WatchpointLayoutFactory const& factory,
-        Amino::Any const&              any,
-        std::size_t                    index) const noexcept override;
-
-    bool getIndices(Amino::Any const& any,
-                    Filters const&    filters,
-                    Sorter const&     sorter,
-                    Indices&          out_indices) const noexcept override;
+private:
+    WatchpointLayoutFactory const& m_factory;
 };
 
-USDWatchpoint::USDWatchpoint() noexcept
-    : BifrostGraph::Executor::Watchpoint("USD Watchpoint") {}
-
+USDWatchpoint::USDWatchpoint(WatchpointLayoutFactory const& factory) noexcept
+    : BifrostGraph::Executor::Watchpoint("USD Watchpoint"),
+      m_factory(factory) {}
 USDWatchpoint::~USDWatchpoint() noexcept = default;
 
 void USDWatchpoint::deleteThis() noexcept { delete this; }
@@ -1645,162 +2064,116 @@ void USDWatchpoint::getSupportedTypeIds(
     out_typeIds.push_back(Amino::getTypeId<ArrayOfStages>());
     out_typeIds.push_back(Amino::getTypeId<PrimPtr>());
     out_typeIds.push_back(Amino::getTypeId<ArrayOfPrims>());
-
-    // Add Amino::Ptr<PXR_NS::VtValue> to support array element watching
-    out_typeIds.push_back(Amino::getTypeId<Amino::Ptr<PXR_NS::VtValue>>());
 }
 
-Watcher* USDWatchpoint::createWatcher(Amino::TypeId const& typeId,
-                                      Watcher::Flags /*flags*/) const noexcept {
+Watcher* USDWatchpoint::createWatcher(
+    Amino::TypeRegistry const& typeRegistry,
+    Amino::ValueView const&    value) const noexcept {
     try {
-#define HANDLE_TYPE(TYPE)                     \
-    if (typeId == Amino::getTypeId<TYPE>()) { \
-        return new USDWatcher<TYPE>{};        \
-    }
-        HANDLE_TYPE(AttributePtr)
-        HANDLE_TYPE(ArrayOfAttributes)
-        HANDLE_TYPE(LayerPtr)
-        HANDLE_TYPE(ArrayOfLayers)
-        HANDLE_TYPE(StagePtr)
-        HANDLE_TYPE(ArrayOfStages)
-        HANDLE_TYPE(PrimPtr)
-        HANDLE_TYPE(ArrayOfPrims)
-#undef HANDLE_TYPE
-        assert(false && "createWatcher called for unsupported type");
+        auto typeId = value.getType().getTypeId();
+        return Amino::visit(
+            [&](auto const& v) -> Watcher* {
+                using VIEW_TYPE = std::decay_t<decltype(v)>;
+                if constexpr (std::is_same_v<VIEW_TYPE,
+                                             Amino::ClassValueView>) {
+                    if (typeId == Amino::getTypeId<AttributePtr>()) {
+                        return new USDWatcher<VIEW_TYPE, AttributePtr>(
+                            m_factory, typeRegistry, v);
+                    } else if (typeId == Amino::getTypeId<LayerPtr>()) {
+                        return new USDWatcher<VIEW_TYPE, LayerPtr>(
+                            m_factory, typeRegistry, v);
+                    } else if (typeId == Amino::getTypeId<StagePtr>()) {
+                        return new USDWatcher<VIEW_TYPE, StagePtr>(
+                            m_factory, typeRegistry, v);
+                    } else if (typeId == Amino::getTypeId<PrimPtr>()) {
+                        return new USDWatcher<VIEW_TYPE, PrimPtr>(
+                            m_factory, typeRegistry, v);
+                    }
+                } else if constexpr (std::is_same_v<VIEW_TYPE,
+                                                    Amino::ArrayValueView>) {
+                    if (typeId == Amino::getTypeId<ArrayOfAttributes>()) {
+                        return new USDWatcher<VIEW_TYPE, ArrayOfAttributes>(
+                            m_factory, typeRegistry, v);
+                    } else if (typeId == Amino::getTypeId<ArrayOfLayers>()) {
+                        return new USDWatcher<VIEW_TYPE, ArrayOfLayers>(
+                            m_factory, typeRegistry, v);
+                    } else if (typeId == Amino::getTypeId<ArrayOfStages>()) {
+                        return new USDWatcher<VIEW_TYPE, ArrayOfStages>(
+                            m_factory, typeRegistry, v);
+                    } else if (typeId == Amino::getTypeId<ArrayOfPrims>()) {
+                        return new USDWatcher<VIEW_TYPE, ArrayOfPrims>(
+                            m_factory, typeRegistry, v);
+                    }
+                }
+                return nullptr; // LCOV_EXCL_LINE
+            },
+            value);
     } catch (...) {
+        return nullptr; // LCOV_EXCL_LINE
     }
-    return nullptr; // LCOV_EXCL_LINE
-}
-
-bool USDWatchpoint::getValue(WatchpointLayoutFactory const& factory,
-                             Amino::Any const&              any,
-                             WatchpointLayoutPath&          path,
-                             Amino::String& out_value) const noexcept {
-    try {
-        assert(any.has_value());
-#define HANDLE_TYPE(TYPE)                                            \
-    if (any.type() == Amino::getTypeId<TYPE>()) {                    \
-        return ::getValue(Amino::any_cast<TYPE>(any), factory, path, \
-                          out_value);                                \
-    }
-        HANDLE_TYPE(AttributePtr)
-        HANDLE_TYPE(ArrayOfAttributes)
-        HANDLE_TYPE(LayerPtr)
-        HANDLE_TYPE(ArrayOfLayers)
-        HANDLE_TYPE(StagePtr)
-        HANDLE_TYPE(ArrayOfStages)
-        HANDLE_TYPE(PrimPtr)
-        HANDLE_TYPE(ArrayOfPrims)
-#undef HANDLE_TYPE
-        assert(false && "getValue called for unsupported type");
-    } catch (...) {
-    }
-    return false; // LCOV_EXCL_LINE
 }
 
 WatchpointLayoutPtr USDWatchpoint::createLayout(
-    WatchpointLayoutFactory const& factory,
-    Amino::Any const&              any) const noexcept {
+    Amino::TypeRegistry const& typeRegistry,
+    Amino::ValueView const&    value) const noexcept {
     try {
-#define HANDLE_TYPE(TYPE)                                                 \
-    if (any.type() == Amino::getTypeId<TYPE>()) {                         \
-        return ::createLayoutFromValue<TYPE>(factory,                     \
-                                             Amino::any_cast<TYPE>(any)); \
-    }
-        HANDLE_TYPE(AttributePtr)
-        HANDLE_TYPE(ArrayOfAttributes)
-        HANDLE_TYPE(LayerPtr)
-        HANDLE_TYPE(ArrayOfLayers)
-        HANDLE_TYPE(StagePtr)
-        HANDLE_TYPE(ArrayOfStages)
-        HANDLE_TYPE(PrimPtr)
-        HANDLE_TYPE(ArrayOfPrims)
-#undef HANDLE_TYPE
-        assert(false && "createLayout called for unsupported type");
+        auto typeId = value.getType().getTypeId();
+        return Amino::visit(
+            [&](auto const& v) -> WatchpointLayoutPtr {
+                using VIEW_TYPE = std::decay_t<decltype(v)>;
+                if constexpr (std::is_same_v<VIEW_TYPE,
+                                             Amino::ClassValueView>) {
+                    if (typeId == Amino::getTypeId<AttributePtr>()) {
+                        return WatchpointLayout::createT<
+                            USDWatchpointLayoutComposite<AttributePtr>>(
+                            m_factory, typeRegistry, v);
+                    } else if (typeId == Amino::getTypeId<LayerPtr>()) {
+                        return WatchpointLayout::createT<
+                            USDWatchpointLayoutComposite<LayerPtr>>(
+                            m_factory, typeRegistry, v);
+                    } else if (typeId == Amino::getTypeId<StagePtr>()) {
+                        return WatchpointLayout::createT<
+                            USDWatchpointLayoutComposite<StagePtr>>(
+                            m_factory, typeRegistry, v);
+                    } else if (typeId == Amino::getTypeId<PrimPtr>()) {
+                        return WatchpointLayout::createT<
+                            USDWatchpointLayoutComposite<PrimPtr>>(
+                            m_factory, typeRegistry, v);
+                    }
+                } else if constexpr (std::is_same_v<VIEW_TYPE,
+                                                    Amino::ArrayValueView>) {
+                    if (typeId == Amino::getTypeId<ArrayOfAttributes>()) {
+                        return WatchpointLayout::createT<
+                            USDWatchpointLayoutArrayGeneric<ArrayOfAttributes>>(
+                            m_factory, typeRegistry, v);
+                    } else if (typeId == Amino::getTypeId<ArrayOfLayers>()) {
+                        return WatchpointLayout::createT<
+                            USDWatchpointLayoutArrayGeneric<ArrayOfLayers>>(
+                            m_factory, typeRegistry, v);
+                    } else if (typeId == Amino::getTypeId<ArrayOfStages>()) {
+                        return WatchpointLayout::createT<
+                            USDWatchpointLayoutArrayGeneric<ArrayOfStages>>(
+                            m_factory, typeRegistry, v);
+                    } else if (typeId == Amino::getTypeId<ArrayOfPrims>()) {
+                        return WatchpointLayout::createT<
+                            USDWatchpointLayoutArrayGeneric<ArrayOfPrims>>(
+                            m_factory, typeRegistry, v);
+                    }
+                }
+                return {}; // LCOV_EXCL_LINE
+            },
+            value);
     } catch (...) {
+        return {}; // LCOV_EXCL_LINE
     }
-    return {}; // LCOV_EXCL_LINE
 }
-
-std::size_t USDWatchpoint::getArraySize(Amino::Any const& any) const noexcept {
-    if (any.type() == Amino::getTypeId<Amino::Ptr<PXR_NS::VtValue>>()) {
-        auto const& vtValuePtr =
-            Amino::any_cast<Amino::Ptr<PXR_NS::VtValue>>(any);
-        assert(vtValuePtr && vtValuePtr->IsArrayValued());
-        return vtValuePtr->GetArraySize();
-    }
-
-    assert(false && "getArraySize called for unsupported value");
-    return 0u; // LCOV_EXCL_LINE
-}
-
-WatchpointLayoutPtr USDWatchpoint::getArrayElementLayout(
-    WatchpointLayoutFactory const& factory,
-    Amino::Any const&              any,
-    std::size_t /*index*/) const noexcept {
-    if (any.type() == Amino::getTypeId<Amino::Ptr<PXR_NS::VtValue>>()) {
-        auto const& vtValuePtr =
-            Amino::any_cast<Amino::Ptr<PXR_NS::VtValue>>(any);
-        assert(vtValuePtr && vtValuePtr->IsArrayValued());
-
-#define HANDLE_TYPE(TYPE)                                 \
-    if (vtValuePtr->IsHolding<PXR_NS::VtArray<TYPE>>()) { \
-        return getLayoutFromType<TYPE>(factory);          \
-    }
-        FOR_EACH_SUPPORTED_TYPES(HANDLE_TYPE)
-#undef HANDLE_TYPE
-    }
-
-    assert(false && "getArrayElementLayout called for unsupported value");
-    return {};
-}
-
-bool USDWatchpoint::getIndices(Amino::Any const& any,
-                               Filters const&    filters,
-                               Sorter const&     sorter,
-                               Indices&          out_indices) const noexcept {
-#define HANDLE_TYPE(TYPE)                                            \
-    if (any.type() == Amino::getTypeId<TYPE>()) {                    \
-        auto const& valuesPtr = Amino::any_cast<TYPE>(any);          \
-        if (valuesPtr && !valuesPtr->empty()) {                      \
-            return sortAndFilterIndices(*valuesPtr, filters, sorter, \
-                                        out_indices);                \
-        }                                                            \
-        return true;                                                 \
-    }
-    HANDLE_TYPE(ArrayOfAttributes)
-    HANDLE_TYPE(ArrayOfLayers)
-    HANDLE_TYPE(ArrayOfStages)
-    HANDLE_TYPE(ArrayOfPrims)
-#undef HANDLE_TYPE
-
-    if (any.type() == Amino::getTypeId<Amino::Ptr<PXR_NS::VtValue>>()) {
-        auto const& vtValuePtr =
-            Amino::any_cast<Amino::Ptr<PXR_NS::VtValue>>(any);
-        assert(vtValuePtr && vtValuePtr->IsArrayValued());
-        if (vtValuePtr->GetArraySize() > 0) {
-#define HANDLE_TYPE(TYPE)                                                   \
-    if (vtValuePtr->IsHolding<PXR_NS::VtArray<TYPE>>()) {                   \
-        auto const& vtArray =                                               \
-            vtValuePtr->UncheckedGet<PXR_NS::VtArray<TYPE>>();              \
-        return sortAndFilterIndices(vtArray, filters, sorter, out_indices); \
-    }
-            FOR_EACH_SUPPORTED_TYPES(HANDLE_TYPE)
-#undef HANDLE_TYPE
-        }
-        return true;
-    }
-
-    assert(false && "getIndices called for unsupported value");
-    return false;
-}
-
-#undef FOR_EACH_SUPPORTED_TYPES
 
 extern "C" {
-USD_WATCHPOINT_EXPORT BifrostGraph::Executor::Watchpoint* createBifrostWatchpoint(void);
+USD_WATCHPOINT_EXPORT BifrostGraph::Executor::Watchpoint*
+                      createBifrostWatchpoint(WatchpointLayoutFactory const&);
 
-USD_WATCHPOINT_EXPORT BifrostGraph::Executor::Watchpoint* createBifrostWatchpoint(void) {
-    return new USDWatchpoint();
+USD_WATCHPOINT_EXPORT BifrostGraph::Executor::Watchpoint*
+createBifrostWatchpoint(WatchpointLayoutFactory const& factory) {
+    return new USDWatchpoint(factory);
 }
 }

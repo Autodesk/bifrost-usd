@@ -25,7 +25,10 @@
 #include <utils/test/testUtils.h>
 
 // Open USD
+#include <pxr/base/tf/diagnosticMgr.h>
+#include <pxr/base/tf/stringUtils.h>
 #include <pxr/base/tf/token.h>
+#include <pxr/base/tf/warning.h>
 #include <pxr/base/vt/value.h>
 #include <pxr/pxr.h>
 #include <pxr/usd/sdf/path.h>
@@ -34,7 +37,9 @@
 #include <pxr/usd/usd/stage.h>
 
 // C++ Standard Library
+#include <algorithm>
 #include <regex>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -59,6 +64,27 @@ constexpr const char* kOutputPort = "mesh";
 constexpr const char* kVerbosityAttr    = "bifrost:setting:verbosityLevel";
 constexpr const char* kCompoundNameAttr = "bifrost:compound:name";
 
+/// Minimal TfDiagnosticMgr::Delegate that records every warning's commentary
+/// issued while it is registered. Composition failures (e.g. a payload's
+/// Read() returning false) are reported by USD as TfWarnings, not TfErrors,
+/// so TfErrorMark cannot observe them; this is the smallest thing that can.
+class WarningRecorder : public TfDiagnosticMgr::Delegate {
+public:
+    WarningRecorder() { TfDiagnosticMgr::GetInstance().AddDelegate(this); }
+    ~WarningRecorder() override {
+        TfDiagnosticMgr::GetInstance().RemoveDelegate(this);
+    }
+
+    void IssueStatus(const TfStatus&) override {}
+    void IssueWarning(const TfWarning& warning) override {
+        messages.push_back(warning.GetCommentary());
+    }
+    void IssueError(const TfError&) override {}
+    void IssueFatalError(const TfCallContext&, const std::string&) override {}
+
+    std::vector<std::string> messages;
+};
+
 } // namespace
 
 // ===========================================================================
@@ -77,9 +103,8 @@ TEST(SettingsVerbosityLevel, invalid_field_type) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "SettingsVerbosityLevel_invalid_field_type";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(kCompound, kOutputPort,
+                                                bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
     EXPECT_TRUE(stage->GetPrimAtPath(SdfPath{"/Root/geo/mesh"}).IsValid());
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
@@ -88,7 +113,7 @@ TEST(SettingsVerbosityLevel, invalid_field_type) {
 
     // Phase 1 - switch to "Silent". (Almost) no diagnostics at all from this
     // point on until verbosity is raised again.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eSilent);
+    setVerbosityLevelField(stage, VerbosityLevel::eSilent);
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
     EXPECT_TRUE(dffHasNoStatus(collector, bucketKey));
@@ -101,7 +126,7 @@ TEST(SettingsVerbosityLevel, invalid_field_type) {
     // current silent verbosity.
     // Composition fails because the compound name cannot be applied,
     // leaving /Root with no children.
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
                               std::vector<AttributeNameAndValue>{
                                   {TfToken{kCompoundNameAttr},
                                    {SdfValueTypeNames->Int, VtValue{int{42}}}},
@@ -146,7 +171,7 @@ TEST(SettingsVerbosityLevel, invalid_field_type) {
     // string type again so no type-mismatch error is produced.
     // But the override for the compoundName is still invalid (int, not string),
     // and now that verbosity is no longer Silent, the DFF reports this error.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsOnly);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsOnly);
     EXPECT_FALSE(dffHasError(collector, bucketKey, "verbosityLevel"));
     EXPECT_TRUE(dffHasErrorRegex(
         collector, bucketKey,
@@ -165,7 +190,7 @@ TEST(SettingsVerbosityLevel, invalid_field_type) {
     auto rootPrim = stage->GetPrimAtPath(SdfPath{"/Root"});
     ASSERT_TRUE(rootPrim.IsValid());
     rootPrim.RemoveProperty(TfToken{kCompoundNameAttr});
-    setLiveAttributeOverrides(
+    setAttributeOverrides(
         stage, std::vector<AttributeNameAndValue>{
                    {TfToken{kCompoundNameAttr},
                     {SdfValueTypeNames->String, VtValue{kCompound}}},
@@ -183,6 +208,38 @@ TEST(SettingsVerbosityLevel, invalid_field_type) {
     EXPECT_FALSE(stage->GetPrimAtPath(SdfPath{"/Root/geo/mesh"}).IsValid());
 }
 
+/// Invalid file format arguments (here, a wrongly-typed verbosityLevel) make
+/// BifrostDffDataParams::FromArgs mark the data invalid, and Read() must
+/// report that as a real failure (return false) rather than silently
+/// succeeding with empty content. A real USD composition error/warning must
+/// therefore be posted, so the failure is visible even to callers that never
+/// inspect the DFF diagnostics collector.
+TEST(SettingsVerbosityLevel, invalid_field_type_reports_usd_error) {
+    DffDiagnosticCollector collector;
+    constexpr auto bucketKey =
+        "SettingsVerbosityLevel_invalid_field_type_reports_usd_error";
+
+    auto stage = createStageWithCompoundPayload(kCompound, kOutputPort,
+                                                bucketKey, g_OutputDir);
+    ASSERT_TRUE(stage);
+    ASSERT_TRUE(stage->GetPrimAtPath(SdfPath{"/Root/geo/mesh"}).IsValid());
+    collector.clear();
+
+    WarningRecorder warnings;
+    stage->GetRootLayer()->SetFieldDictValueByKey(
+        SdfPath{"/DynamicFileFormatField"}, TfToken{"bifrostSettings"},
+        TfToken{"verbosityLevel"}, int64_t{10});
+    EXPECT_TRUE(std::any_of(warnings.messages.begin(), warnings.messages.end(),
+                            [](const std::string& msg) {
+                                return TfStringContains(msg,
+                                                        "Could not open asset");
+                            }))
+        << "USD should post a real composition warning when the dynamic "
+           "payload's Read() fails due to invalid arguments.";
+
+    EXPECT_FALSE(stage->GetPrimAtPath(SdfPath{"/Root/geo/mesh"}).IsValid());
+}
+
 /// An unrecognised verbosity level string causes the DFF to report two errors:
 /// one naming the invalid value and one listing all accepted values. Both
 /// errors are always emitted regardless of current verbosity, so users are
@@ -191,11 +248,10 @@ TEST(SettingsVerbosityLevel, invalid_field_value) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "SettingsVerbosityLevel_invalid_field_value";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(kCompound, kOutputPort,
+                                                bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eSilent);
+    setVerbosityLevelField(stage, VerbosityLevel::eSilent);
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
     EXPECT_TRUE(stage->GetPrimAtPath(SdfPath{"/Root/geo/mesh"}).IsValid());
@@ -240,13 +296,13 @@ TEST(SettingsVerbosityLevel, field_only_early_fail) {
 
     // Phase 1 - set verbosity field to Silent. Recomposition fires but the
     // compound name missing error must not be reported.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eSilent);
+    setVerbosityLevelField(stage, VerbosityLevel::eSilent);
     EXPECT_TRUE(dffHasNoError(collector, bucketKey)); // error not reported
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
     collector.clear();
 
     // Phase 2 - raise verbosity to eErrorsOnly. The error is now visible.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsOnly);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsOnly);
     EXPECT_TRUE(
         dffHasErrorRegex(collector, bucketKey,
                          std::regex{R"(bifrost:compound:name[^\n]*missing)",
@@ -265,18 +321,17 @@ TEST(SettingsVerbosityLevel, valid_field_value) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "SettingsVerbosityLevel_valid_field_value";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(kCompound, kOutputPort,
+                                                bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
     EXPECT_TRUE(stage->GetPrimAtPath(SdfPath{"/Root/geo/mesh"}).IsValid());
 
     // Phase 1 - "ErrorsAndWarnings": a type-mismatch error must appear.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
     // Trigger a type-mismatch error: compound name field is "string", but the
     // attribute override below uses type "int". The error is fired and the
     // graph produces no mesh.
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
                               std::vector<AttributeNameAndValue>{
                                   {TfToken{kCompoundNameAttr},
                                    {SdfValueTypeNames->Int, VtValue{int{42}}}},
@@ -293,7 +348,7 @@ TEST(SettingsVerbosityLevel, valid_field_value) {
     // Phase 2 - "Silent": the same error must no longer appear.
     // Changing the verbosity triggers a recomposition; the compound-name
     // attribute type mismatch fires again but is now filtered.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eSilent);
+    setVerbosityLevelField(stage, VerbosityLevel::eSilent);
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
     EXPECT_TRUE(stage->GetPrimAtPath(SdfPath{"/Root"}).IsValid());
@@ -324,7 +379,7 @@ TEST(SettingsVerbosityLevel, attribute_only_no_field) {
     stage->GetRootLayer()->SetFieldDictValueByKey(
         SdfPath{"/DynamicFileFormatField"}, TfToken{"bifrostCompound"},
         TfToken{"name"}, TfToken{kCompound});
-    setLiveOutputsField(stage, {kOutputPort});
+    setOutputsField(stage, {kOutputPort});
     // No verbosity field is present, so graph executes at default verbosity:
     // no status messages expected.
     EXPECT_TRUE(dffHasNoStatus(collector, bucketKey));
@@ -333,7 +388,7 @@ TEST(SettingsVerbosityLevel, attribute_only_no_field) {
 
     // Set the verbosity attribute to "AllMessages" - no corresponding field.
     // Read() will use this value, making status messages visible.
-    setLiveAttributeOverrides(
+    setAttributeOverrides(
         stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kVerbosityAttr},
@@ -353,7 +408,7 @@ TEST(SettingsVerbosityLevel, attribute_only_no_field) {
     auto rootPrim = stage->GetPrimAtPath(SdfPath{"/Root"});
     ASSERT_TRUE(rootPrim.IsValid());
     rootPrim.RemoveProperty(TfToken{kVerbosityAttr});
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
                               std::vector<AttributeNameAndValue>{
                                   {TfToken{kVerbosityAttr},
                                    {SdfValueTypeNames->Int, VtValue{int{42}}}},
@@ -400,7 +455,7 @@ TEST(SettingsVerbosityLevel, attribute_only_early_fail) {
 
     // Phase 1 - set verbosity attribute to Silent. Recomposition fires but the
     // compound name missing error must not be reported.
-    setLiveAttributeOverrides(
+    setAttributeOverrides(
         stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kVerbosityAttr},
@@ -412,7 +467,7 @@ TEST(SettingsVerbosityLevel, attribute_only_early_fail) {
 
     // Phase 2 - raise verbosity to ErrorsAndWarnings via attribute.
     // The error is now visible.
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
                               std::vector<AttributeNameAndValue>{
                                   {TfToken{kVerbosityAttr},
                                    {SdfValueTypeNames->String,
@@ -432,16 +487,15 @@ TEST(SettingsVerbosityLevel, attribute_type_mismatch_override_rejected) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "SettingsVerbosityLevel_attr_type_mismatch";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(kCompound, kOutputPort,
+                                                bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set field verbosity to Silent — the strictest filter possible.
     // The attribute type-mismatch warning must still appear because
     // applyAttrOverrideToFileFormatArgument is called with a hardcoded
     // eErrorsAndWarnings level for the verbosityLevel attribute.
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eSilent);
+    setVerbosityLevelField(stage, VerbosityLevel::eSilent);
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
     EXPECT_TRUE(stage->GetPrimAtPath(SdfPath{"/Root/geo/mesh"}).IsValid());
@@ -450,7 +504,7 @@ TEST(SettingsVerbosityLevel, attribute_type_mismatch_override_rejected) {
     // Attempt an attribute override with wrong type (int instead of string).
     // The warning is emitted even though the field is Silent.
     // The field value (eSilent) is kept because types do not match.
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
                               std::vector<AttributeNameAndValue>{
                                   {TfToken{kVerbosityAttr},
                                    {SdfValueTypeNames->Int, VtValue{int{42}}}},
@@ -471,11 +525,10 @@ TEST(SettingsVerbosityLevel, attribute_override_succeeds) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "SettingsVerbosityLevel_override_succeeds";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kCompound, kOutputPort);
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(kCompound, kOutputPort,
+                                                bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
-    setLiveVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
+    setVerbosityLevelField(stage, VerbosityLevel::eErrorsAndWarnings);
 
     // Field verbosity is "ErrorsAndWarnings": status messages are not emitted.
     EXPECT_TRUE(dffGetStatusMessages(collector, bucketKey).empty());
@@ -489,7 +542,7 @@ TEST(SettingsVerbosityLevel, attribute_override_succeeds) {
     // Read() now uses AllMessages: the "has produced an Object" status message
     // is emitted when the Object output of create_mesh_cube is converted to a
     // USD stage.
-    setLiveAttributeOverrides(
+    setAttributeOverrides(
         stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{kVerbosityAttr},
@@ -500,6 +553,63 @@ TEST(SettingsVerbosityLevel, attribute_override_succeeds) {
     EXPECT_TRUE(dffHasNoWarning(collector, bucketKey));
     EXPECT_TRUE(dffHasStatus(collector, bucketKey, "has produced an Object"));
     EXPECT_TRUE(stage->GetPrimAtPath(SdfPath{"/Root/geo/mesh"}).IsValid());
+}
+
+// ===========================================================================
+// SettingsDiagnosticsBucket - fallback when no bucket id is authored
+// ===========================================================================
+
+// When no diagnostics bucket is explicitly authored (neither via the
+// "settings" field nor the bifrost:dff:diagnostics:id attribute), the plugin
+// falls back to a bucket id derived from the full composed file format
+// arguments, not just the compound name. Two prims that share a compound but
+// differ in some other setting or input must therefore land in different
+// buckets rather than being merged together.
+TEST(SettingsDiagnosticsBucket, falls_back_per_argument_combination) {
+    DffDiagnosticCollector collector;
+
+    // createStageWithCompoundPayload names the root layer file after the
+    // current test name, so each stage needs its own output subdirectory to
+    // avoid colliding on the same on-disk layer identifier.
+    UniqueTestOutputSubdir outputDirA{"SettingsDiagnosticsBucket_A"};
+    UniqueTestOutputSubdir outputDirB{"SettingsDiagnosticsBucket_B"};
+
+    // Both stages share the same compound and deliberately omit an explicit
+    // diagnostics bucket (empty bucketKey) to exercise the fallback path.
+    // They differ only in the reloadLibrary setting, so their composed file
+    // format arguments -- and therefore their fallback bucket ids -- must
+    // differ. Both use AllMessages verbosity so each emits the same
+    // identifiable "has produced an Object" status message.
+    auto stageA = createStageWithCompoundPayload(kCompound, kOutputPort,
+                                                 /*bucketKey=*/"", outputDirA);
+    ASSERT_TRUE(stageA);
+    setVerbosityLevelField(stageA, VerbosityLevel::eAllMessages);
+    setReloadLibraryField(stageA, false);
+    ASSERT_TRUE(stageA->GetPrimAtPath(SdfPath{"/Root/geo/mesh"}).IsValid());
+
+    auto stageB = createStageWithCompoundPayload(kCompound, kOutputPort,
+                                                 /*bucketKey=*/"", outputDirB);
+    ASSERT_TRUE(stageB);
+    setVerbosityLevelField(stageB, VerbosityLevel::eAllMessages);
+    setReloadLibraryField(stageB, true);
+    ASSERT_TRUE(stageB->GetPrimAtPath(SdfPath{"/Root/geo/mesh"}).IsValid());
+
+    // Collect every distinct, non-empty bucket id that recorded the "has
+    // produced an Object" status expected from both stages.
+    std::set<std::string> bucketIds;
+    for (const auto& record : collector.getSnapshot()) {
+        if (!record.bucketId.empty() &&
+            record.formattedMessage.find("has produced an Object") !=
+                std::string::npos) {
+            bucketIds.insert(record.bucketId);
+        }
+    }
+    EXPECT_EQ(bucketIds.size(), 2u)
+        << "Two prims sharing a compound but differing in another setting "
+           "must not collapse into the same diagnostics bucket when no "
+           "bucket id is explicitly authored.";
+    EXPECT_EQ(bucketIds.count(kCompound), 0u)
+        << "The fallback bucket must not be just the bare compound name.";
 }
 
 PXR_NAMESPACE_CLOSE_SCOPE

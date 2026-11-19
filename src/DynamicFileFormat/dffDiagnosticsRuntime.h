@@ -66,7 +66,9 @@ PXR_NAMESPACE_OPEN_SCOPE
 /// file-format field (the prim whose payload the DFF plugin resolves). The
 /// plugin reads it at composition time and at read time to route all
 /// diagnostics for that layer to the named bucket. When this attribute is
-/// absent, the layer identifier is used as the bucket id instead.
+/// absent, a bucket id derived from the full composed file format arguments
+/// is used instead, so prims that share a compound but differ in some other
+/// setting or input still land in distinct buckets.
 ///
 /// \par Timing
 /// The attribute must be present before the DFF evaluation you want to
@@ -77,6 +79,7 @@ PXR_NAMESPACE_OPEN_SCOPE
 ///   \c stage->Reload() to trigger recomposition and activate the new key.
 ///
 /// \par GTest usage
+/// Example pattern using \c DffDiagnosticCollector:
 /// \code
 ///   DffDiagnosticCollector collector;
 ///   constexpr auto bucketId = "MyTest_some_scenario";

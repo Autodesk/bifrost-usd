@@ -1,5 +1,5 @@
 //-
-// Copyright 2022 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -40,7 +40,8 @@ bool set_stage_metadata_impl(const Amino::String&   key,
     if (!stage) return false;
 
     try {
-        return stage->SetMetadata(GetSdfFieldKey(key), toPxr(value));
+        return USDUtils::setMetadata(*stage, GetSdfFieldKey(key),
+                                     toPxr(value));
 
     } catch (std::exception& e) {
         log_exception("set_stage_metadata", e);
@@ -61,7 +62,7 @@ bool get_stage_metadata_impl(const BifrostUsd::Stage&   stage,
             value = default_and_type;
         }
     } catch (std::exception& e) {
-        log_exception("get_prim_metadata", e);
+        log_exception("get_stage_metadata", e);
         value = default_and_type;
     }
     return false;
@@ -393,7 +394,7 @@ bool USD::Stage::get_stage_metadata(const BifrostUsd::Stage& stage,
 }
 
 bool USD::Stage::get_stage_metadata(
-    const BifrostUsd::Stage&         stage,
+    const BifrostUsd::Stage&           stage,
     const Amino::String&               key,
     const Amino::Ptr<Bifrost::Object>& default_and_type,
     Amino::Ptr<Bifrost::Object>&       value) {
@@ -401,9 +402,12 @@ bool USD::Stage::get_stage_metadata(
         value, [&default_and_type]() { return default_and_type; });
 
     try {
-        PXR_NS::VtDictionary temp;
-        if (stage && stage->GetMetadata(GetSdfFieldKey(key), &temp)) {
-            value = fromPxr(temp);
+        // Use a VtValue* (not a VtDictionary*)
+        // See explanation in USDUtils::getMetadataAsVtValue.
+        PXR_NS::VtValue vtValue;
+        if (stage && stage->GetMetadata(GetSdfFieldKey(key), &vtValue) &&
+            vtValue.IsHolding<PXR_NS::VtDictionary>()) {
+            value = fromPxr(vtValue.UncheckedGet<PXR_NS::VtDictionary>());
             return true;
         } else {
             value = default_and_type;

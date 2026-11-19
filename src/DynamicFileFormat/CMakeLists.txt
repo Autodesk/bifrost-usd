@@ -29,6 +29,8 @@ set(private_libs
 
 set(src_files
     dffArguments.cpp
+    dffData.cpp
+    dffExecuteGraphFrameToLayer.cpp
     fileFormat.cpp
     parsingTools.cpp
     stringToAny.cpp

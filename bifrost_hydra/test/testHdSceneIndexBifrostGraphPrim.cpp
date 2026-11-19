@@ -421,7 +421,22 @@ TEST_F(TestSceneIndexPrim, re_render) {
         EXPECT_EQ(vtPoints[17], pt);
     }
 
-    EXPECT_EQ(getObserver().GetEvents().size(), 4);
+    // The RecordingSceneIndexObserver can be used to verify that the scene
+    // index was actually notified about the primvar change.
+    // RecordingSceneIndexObserver::PrimsDirtied creates one Event per dirty
+    // locator (not per prim), and the number of dirty locators vary depending
+    // on the USD version.
+    auto events = getObserver().GetEvents();
+    EXPECT_FALSE(events.empty());
+    bool hasDirtyForGraphPrim = std::any_of(
+        events.begin(), events.end(),
+        [&primPath](const RecordingSceneIndexObserver::Event& e) {
+            return e.eventType ==
+                       RecordingSceneIndexObserver::EventType_PrimDirtied &&
+                   e.primPath == primPath;
+        });
+    EXPECT_TRUE(hasDirtyForGraphPrim)
+        << "Expected PrimDirtied for " << primPath;
 
     // for (const auto &e : getObserver().GetEvents()) {
     //     switch(e.eventType) {

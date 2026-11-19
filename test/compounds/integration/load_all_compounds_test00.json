@@ -2303,6 +2303,16 @@
                             "value": "cubic"
                         },
                         {
+                            "valueName": "define_usd_curves.use_frame",
+                            "valueType": "bool",
+                            "value": "false"
+                        },
+                        {
+                            "valueName": "define_usd_curves.frame",
+                            "valueType": "float",
+                            "value": "0f"
+                        },
+                        {
                             "valueName": "define_usd_curves.reference_definitions",
                             "valueType": "array<Object>",
                             "value": []

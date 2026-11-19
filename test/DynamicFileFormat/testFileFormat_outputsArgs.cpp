@@ -58,19 +58,18 @@ TEST(Outputs, invalid_port_name_field) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "Outputs_invalid_port_name_field";
 
-    // Create a layer with no initial bifrostOutputs (empty array).
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Test::DynamicFileFormat::read_mesh_from_file");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::read_mesh_from_file", /*empty bifrostOutputs field*/ "",
+        bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Set a valid input so the graph could otherwise run.
     const std::string cubeFilePath = {
         BifrostUsd::TestUtils::getResourcePath("simple_cube.usda").c_str()};
-    setLiveInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
+    setInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
 
     // Now set an outputs field containing unknown and empty port names.
-    setLiveOutputsField(stage, {"unknown1", "meshes", "", "unknown2"});
+    setOutputsField(stage, {"unknown1", "meshes", "", "unknown2"});
 
     // Composition should fail because "unknown1" and "unknown2" are not valid,
     // and empty port names are not allowed. The valid "meshes" entry is ignored
@@ -92,16 +91,14 @@ TEST(Outputs, valid_field_value) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "Outputs_valid_field_value";
 
-    // Create a layer with "meshes" as the output port field.
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Test::DynamicFileFormat::read_mesh_from_file",
-        "meshes");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::read_mesh_from_file", "meshes", bucketKey,
+        g_OutputDir);
     ASSERT_TRUE(stage);
 
     const std::string cubeFilePath = {
         BifrostUsd::TestUtils::getResourcePath("simple_cube.usda").c_str()};
-    setLiveInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
+    setInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
 
     // Graph execution succeeds and produces a mesh child.
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
@@ -118,15 +115,15 @@ TEST(Outputs, attribute_only_no_field) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "Outputs_attribute_only_no_field";
 
-    // Create a layer with an empty bifrostOutputs field (no field entries).
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Test::DynamicFileFormat::read_mesh_from_file");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    // Create a stage with an empty bifrostOutputs field (no field entries).
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::read_mesh_from_file", /*empty bifrostOutputs field*/ "",
+        bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     const std::string cubeFilePath = {
         BifrostUsd::TestUtils::getResourcePath("simple_cube.usda").c_str()};
-    setLiveInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
+    setInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
 
     // Without any outputs field entries, the graph should fail.
     EXPECT_TRUE(dffHasError(collector, bucketKey,
@@ -138,7 +135,7 @@ TEST(Outputs, attribute_only_no_field) {
     // Specify the output port solely via a "bifrost:out:meshes" attribute,
     // with no corresponding bifrostOutputs field entry.
     const std::string attrName = std::string{kOutputsAttrPrefix} + "meshes";
-    setLiveAttributeOverrides(
+    setAttributeOverrides(
         stage, std::vector<AttributeNameAndValue>{
                    {TfToken{attrName},
                     {SdfValueTypeNames->Token, VtValue{TfToken{"meshes"}}}}});
@@ -158,16 +155,15 @@ TEST(Outputs, attribute_override_succeeds) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "Outputs_attribute_override_succeeds";
 
-    // Create a layer with "meshes" as the output port via the field.
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Test::DynamicFileFormat::read_mesh_from_file",
-        "meshes");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    // Create a stage with "meshes" as the output port via the field.
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::read_mesh_from_file", "meshes", bucketKey,
+        g_OutputDir);
     ASSERT_TRUE(stage);
 
     const std::string cubeFilePath = {
         BifrostUsd::TestUtils::getResourcePath("simple_cube.usda").c_str()};
-    setLiveInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
+    setInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
 
     // Initial execution via field succeeds.
     EXPECT_TRUE(dffHasNoError(collector, bucketKey));
@@ -181,7 +177,7 @@ TEST(Outputs, attribute_override_succeeds) {
     // The attribute-confirmed port list replaces the field-derived list.
     // Since both resolve to "meshes", the graph still executes successfully.
     const std::string attrName = std::string{kOutputsAttrPrefix} + "meshes";
-    setLiveAttributeOverrides(
+    setAttributeOverrides(
         stage, std::vector<AttributeNameAndValue>{
                    {TfToken{attrName},
                     {SdfValueTypeNames->Token, VtValue{TfToken{"meshes"}}}}});
@@ -197,23 +193,22 @@ TEST(Outputs, invalid_port_name_attribute) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "Outputs_invalid_port_name_attribute";
 
-    // Create a layer with "meshes" as the output port via the field.
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Test::DynamicFileFormat::read_mesh_from_file",
-        "meshes");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    // Create a stage with "meshes" as the output port via the field.
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::read_mesh_from_file", "meshes", bucketKey,
+        g_OutputDir);
     ASSERT_TRUE(stage);
 
     const std::string cubeFilePath = {
         BifrostUsd::TestUtils::getResourcePath("simple_cube.usda").c_str()};
-    setLiveInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
+    setInputsField(stage, VtDictionary{{"file", VtValue{cubeFilePath}}});
 
     // Author both a valid and an unknown "bifrost:out:*" attribute.
     // PcpDynamicFileFormatContext cannot enumerate prim attributes — only
     // port names that appear in getOutputPortNames() are probed for attribute
     // overrides. Attributes whose port name is not a known output port are
     // silently ignored (no error is emitted for them).
-    setLiveAttributeOverrides(
+    setAttributeOverrides(
         stage,
         std::vector<AttributeNameAndValue>{
             {TfToken{std::string{kOutputsAttrPrefix} + "meshes"},

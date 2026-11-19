@@ -26,6 +26,7 @@
 #include <BifrostGraph/Executor/Utility.h>
 #include <BifrostUsd/Layer.h>
 
+#include <pxr/base/tf/diagnosticMgr.h>
 #include <pxr/usd/sdf/declareHandles.h>
 
 #include <cstdlib>
@@ -127,6 +128,42 @@ private:
     Amino::String m_subdir_abs;
     bool          m_created    = false;
     bool          m_autoDelete = true;
+};
+
+/// \class ErrorRecorder
+/// \brief RAII TfDiagnosticMgr::Delegate that records whether a TfError was
+/// issued while it is registered.
+///
+/// Used to assert on an expected coding/runtime error (e.g. opening a
+/// non-existent USD layer, or querying stage metadata with a mismatched
+/// type) rather than merely letting USD log it to stderr.
+///
+/// Usage example:
+///     ErrorRecorder errorRecorder;
+///     doSomethingThatShouldFail();
+///     EXPECT_TRUE(errorRecorder.hasError());
+///
+class USD_TESTUTILS_DECL ErrorRecorder : public PXR_NS::TfDiagnosticMgr::Delegate {
+public:
+    ErrorRecorder();
+    ~ErrorRecorder() override;
+
+    /// @brief Returns true if a TfError was issued since construction or
+    /// the last call to reset().
+    bool hasError() const;
+
+    /// @brief Clears the recorded error state, so that hasError() reflects
+    /// only errors issued from this point forward.
+    void reset();
+
+    void IssueError(const PXR_NS::TfError& err) override;
+    void IssueFatalError(const PXR_NS::TfCallContext& context,
+                         const std::string&           msg) override;
+    void IssueStatus(const PXR_NS::TfStatus& status) override;
+    void IssueWarning(const PXR_NS::TfWarning& warning) override;
+
+private:
+    bool m_hasError = false;
 };
 
 inline Amino::String getResourcePath(const Amino::String& filename) {

@@ -57,13 +57,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 
-# Boost headers are indirectly included by USD and Boost older than 1.81 was
+# Boost headers are indirectly included by USD, and Boost older than 1.81 was
 # using std::unary_function (deprecated in C++11, removed in C++17) and
 # std::random_shuffle (deprecated in C++14, removed in C++17).
-# But now that USD is using Boost 1.81 and above, we should not define
+# But now that USD is using Boost 1.81 and above, we should not have to define
 # BOOST_NO_CXX98_FUNCTION_BASE nor _HAS_AUTO_PTR_ETC anymore.
-# add_definitions(-DBOOST_NO_CXX98_FUNCTION_BASE)
-# add_definitions(-D_HAS_AUTO_PTR_ETC=0)
 
 #==============================================================================
 # Define common build variables
@@ -175,7 +173,7 @@ find_package(USD REQUIRED)
 # Tests require our own TBBInitGuard that needs to be built with the TBB that
 # is shipped with USD, so we first need to detect what/where is the USD's TBB:
 include(${BIFUSD_TOOLS_DIR}/bifusd_detect_usd_tbb.cmake)
-bifusd_detect_usd_tbb(FALSE) # verbose=FALSE
+bifusd_detect_usd_tbb(TRUE) # verbose=TRUE
 
 # Add our TBBInitGuard to properly initialize and terminate TBB's scheduler:
 add_subdirectory(${BIFUSD_TOOLS_DIR}/src/tbb tbb)

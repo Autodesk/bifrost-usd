@@ -30,6 +30,7 @@
 #include <pxr/usd/sdf/reference.h>
 #include <pxr/usd/usd/attribute.h>
 #include <pxr/usd/usd/prim.h>
+#include <pxr/usd/usdGeom/points.h>
 
 PXR_NAMESPACE_USING_DIRECTIVE
 
@@ -80,7 +81,7 @@ void createRootLayerWithDffImpl(
     auto referenceList = rootPrimSpec->GetReferenceList();
     referenceList.Append(internalReference);
 }
-}
+} // namespace
 
 namespace DffTestHelpers {
 
@@ -89,7 +90,8 @@ Amino::String createRootLayerWithDff(
     BifrostUsd::TestUtils::UniqueTestOutputSubdir& outputDir) {
     SdfLayerRefPtr layer;
     Amino::String  exportPath;
-    createRootLayerWithDffImpl(diagnosticsBucketKey, outputDir, layer, exportPath);
+    createRootLayerWithDffImpl(diagnosticsBucketKey, outputDir, layer,
+                               exportPath);
     layer->Save();
     return exportPath;
 }
@@ -102,7 +104,8 @@ Amino::String createRootLayerWithDefaultDffFields(
     SdfLayerRefPtr layer;
     Amino::String  exportPath;
 
-    createRootLayerWithDffImpl(diagnosticsBucketKey, outputDir, layer, exportPath);
+    createRootLayerWithDffImpl(diagnosticsBucketKey, outputDir, layer,
+                               exportPath);
 
     layer->SetFieldDictValueByKey(SdfPath{"/DynamicFileFormatField"},
                                   TfToken{"bifrostCompound"}, TfToken("name"),
@@ -130,33 +133,30 @@ Amino::String createRootLayerWithDefaultDffFields(
     return exportPath;
 }
 
-void setLiveVerbosityLevelField(UsdStageRefPtr& stage,
-                                VerbosityLevel  level) {
+void setVerbosityLevelField(UsdStageRefPtr& stage, VerbosityLevel level) {
     stage->GetRootLayer()->SetFieldDictValueByKey(
         SdfPath{"/DynamicFileFormatField"}, TfToken{"bifrostSettings"},
         TfToken("verbosityLevel"), VerbosityLevelToStrMap[level]);
 }
 
-void setLiveReloadLibraryField(UsdStageRefPtr& stage, bool reload) {
+void setReloadLibraryField(UsdStageRefPtr& stage, bool reload) {
     stage->GetRootLayer()->SetFieldDictValueByKey(
         SdfPath{"/DynamicFileFormatField"}, TfToken{"bifrostSettings"},
         TfToken{"reloadLibrary"}, reload);
 }
 
-void setLiveGlobalsField(UsdStageRefPtr&     stage,
-                         const VtDictionary& paramsDict) {
+void setGlobalsField(UsdStageRefPtr& stage, const VtDictionary& paramsDict) {
     stage->GetRootLayer()->SetField(SdfPath{"/DynamicFileFormatField"},
                                     TfToken{"bifrostGlobals"}, paramsDict);
 }
 
-void setLiveInputsField(UsdStageRefPtr&     stage,
-                        const VtDictionary& paramsDict) {
+void setInputsField(UsdStageRefPtr& stage, const VtDictionary& paramsDict) {
     stage->GetRootLayer()->SetField(SdfPath{"/DynamicFileFormatField"},
                                     TfToken{"bifrostInputs"}, paramsDict);
 }
 
-void setLiveOutputsField(UsdStageRefPtr&                stage,
-                         const std::vector<std::string>& outputPortNames) {
+void setOutputsField(UsdStageRefPtr&                 stage,
+                     const std::vector<std::string>& outputPortNames) {
     VtArray<TfToken> outputs;
     outputs.reserve(outputPortNames.size());
     for (const auto& name : outputPortNames) {
@@ -166,7 +166,7 @@ void setLiveOutputsField(UsdStageRefPtr&                stage,
                                     TfToken{"bifrostOutputs"}, outputs);
 }
 
-void setLiveAttributeOverrides(
+void setAttributeOverrides(
     UsdStageRefPtr&                           stage,
     const std::vector<AttributeNameAndValue>& attributeVector) {
     auto rootPrim = stage->GetPrimAtPath(SdfPath{"/Root"});
@@ -181,7 +181,7 @@ void setLiveAttributeOverrides(
     }
 }
 
-void setOfflineCompoundNameAttr(const SdfLayerRefPtr& layer,
+void setCompoundNameAttrAndSave(const SdfLayerRefPtr& layer,
                                 const std::string&    overrideName) {
     auto stage = UsdStage::Open(layer);
     ASSERT_TRUE(stage) << "Failed to open stage for attribute override setup";
@@ -198,4 +198,88 @@ void setOfflineCompoundNameAttr(const SdfLayerRefPtr& layer,
     layer->Save();
 }
 
+PXR_NS::UsdStageRefPtr createStageWithCompoundPayload(
+    const std::string& fullyQualifiedCompoundName,
+    const std::string& outputName,
+    const std::string&                             bucketKey,
+    BifrostUsd::TestUtils::UniqueTestOutputSubdir& outputDir) {
+    auto rootLayerPath = createRootLayerWithDefaultDffFields(
+        bucketKey, outputDir,
+        fullyQualifiedCompoundName, outputName);
+    return UsdStage::Open(rootLayerPath.c_str());
+}
+
+PXR_NS::SdfLayerHandle getGeneratedPayloadLayer(
+    const PXR_NS::UsdStageRefPtr& stage) {
+    if (!stage) {
+        return {};
+    }
+    // The DFF plugin is a runtime-loaded USD MODULE that tests do not link
+    // against, so match on the file format id string rather than the plugin's
+    // BifrostDffPluginTokens->Id symbol.
+    static const TfToken kDffFormatId{"bifrostDynamicFile"};
+    for (const auto& layer : stage->GetUsedLayers()) {
+        if (layer && layer->GetFileFormat() &&
+            layer->GetFileFormat()->GetFormatId() == kDffFormatId) {
+            return layer;
+        }
+    }
+    return {};
+}
+
+PXR_NS::UsdStageRefPtr createMoveUpPointSimulationStage(
+    const std::string&                             bucketKey,
+    BifrostUsd::TestUtils::UniqueTestOutputSubdir& outputDir) {
+    return createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::move_up_point_simulation", "point", bucketKey,
+        outputDir);
+}
+
+PXR_NS::UsdAttribute setUpMoveUpPointSimulationFields(
+    PXR_NS::UsdStageRefPtr& stage,
+    float                   verticalStep,
+    double                  startFrame,
+    double                  endFrame,
+    double                  fps) {
+    using namespace PXR_NS;
+    setGlobalsField(stage,
+                    VtDictionary{
+                        {"timeline_info_start_frame", VtValue{startFrame}},
+                        {"timeline_info_end_frame", VtValue{endFrame}},
+                        {"time_fps", VtValue{fps}},
+                    });
+    setInputsField(stage,
+                   VtDictionary{{"vertical_step", VtValue{verticalStep}}});
+
+    auto pointsPrim = stage->GetPrimAtPath(SdfPath{"/Root/geo/points"});
+    auto pointsGeom = UsdGeomPoints{pointsPrim};
+    return pointsGeom.GetPointsAttr();
+}
+
+std::optional<PXR_NS::GfVec3f> firstPointAt(
+    const PXR_NS::UsdAttribute& pointsAttr, PXR_NS::UsdTimeCode time) {
+    using namespace PXR_NS;
+    VtVec3fArray points;
+    EXPECT_TRUE(pointsAttr.Get(&points, time));
+    if (points.empty()) {
+        return std::nullopt;
+    }
+    return points[0];
+}
+
+void checkMoveUpPointSimulation(const UsdStageRefPtr& stage,
+                                double                startFrame,
+                                double                endFrame,
+                                double                fps,
+                                float                 verticalStep) {
+    EXPECT_GT(fps, 0.0);
+    for (double frame = startFrame; frame <= endFrame; ++frame) {
+        auto expectedY =
+            static_cast<float>((frame - startFrame) * (static_cast<double>(verticalStep) / fps));
+        ASSERT_EQ(firstPointAt(stage->GetPrimAtPath(SdfPath{"/Root/geo/points"})
+                                   .GetAttribute(TfToken{"points"}),
+                               UsdTimeCode{frame}),
+                  GfVec3f(0.f, expectedY, 0.f));
+    }
+}
 } // namespace DffTestHelpers

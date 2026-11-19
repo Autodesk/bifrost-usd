@@ -1,3 +1,15 @@
+## [1.4.6] - 2026-10-02 (Bifrost 3.3)
+
+### Bugfix
+  - BIFROST-88391 - fix crash when watching an invalid USD object.
+
+### Feature
+  - BIFROST-10100: _use_frame_ and _frame_ inputs added to the _define_usd_curves_ compound.
+  - BIFROST-88291 Playback caching: 
+    - Do not re-execute graph when inputs don't change, instead re-use the attribute time samples of the cached layer.
+    - First frame is used to execute the graph once: that is, it does not compute the whole frame range when opening the stage anymore.
+    - Change input value at any frame: no need to first go to the first frame. This will re-start the simulation from the first frame.
+
 ## [1.4.5] - 2026-07-30 (Bifrost 3.2)
 
 ### Build

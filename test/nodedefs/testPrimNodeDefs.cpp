@@ -1,5 +1,5 @@
 //-
-// Copyright 2025 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -986,6 +986,12 @@ TEST(PrimNodeDefs, prim_metadata) {
         ASSERT_TRUE(success);
         ASSERT_EQ(int64Value, int64Result);
     }
+
+// Disable this test on Windows in Debug because USD can be built with a
+// different version of the C++ standard library than this pack, causing a
+// crash when passing std::map objects between them (like metadata containing
+// a Bifrost::Object). This is not an issue on Linux or MacOS.
+#if !defined(_WIN32) || !defined(_DEBUG)
     // Test Bifrost::Object
     {
         auto         objValue    = Bifrost::createObject();
@@ -1042,6 +1048,8 @@ TEST(PrimNodeDefs, prim_metadata) {
         ASSERT_TRUE(myBool);
         ASSERT_EQ(*myBool, boolValue);
     }
+#endif
+
     // Test Amino::Array<Amino::String>
     {
         auto value = Amino::Array<Amino::String>{"a", "b", "c"};

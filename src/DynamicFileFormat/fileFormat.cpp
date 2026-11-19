@@ -18,23 +18,17 @@
 
 #include "dffArguments.h"
 #include "dffConstants.h"
+#include "dffData.h"
 #include "dffDiagnostics.h"
 
 // Amino
-#include <Amino/Core/Any.h>
-
-// Bifrost
-#include <Amino/Core/Ptr.h>
 #include <Amino/Core/StringView.h>
-#include <Bifrost/Object/Object.h>
 
 // Bifrost USD
 #include <BifrostUsd/GraphExecutor/GraphExecutor.h>
 #include <BifrostUsd/GraphExecutor/GraphExecutorConstants.h>
 #include <BifrostUsd/GraphExecutor/GraphExecutorFactory.h>
 #include <BifrostUsd/GraphExecutor/GraphExecutorTypes.h>
-#include <BifrostUsd/Stage.h>
-#include <BifrostUsd/UsdTranslator/ObjectToStage.h>
 #include <bifusd/config/CfgWarningMacros.h>
 
 // Open USD base headers
@@ -45,8 +39,6 @@
 #include <pxr/usd/sdf/fileFormat.h>
 #include <pxr/usd/sdf/layer.h>
 #include <pxr/usd/usd/common.h>
-#include <pxr/usd/usd/prim.h>
-#include <pxr/usd/usd/stage.h>
 
 #if ((PXR_MINOR_VERSION == 25) && (PXR_PATCH_VERSION >= 8)) || \
     (PXR_MINOR_VERSION > 25)
@@ -57,16 +49,29 @@
 
 // C++ Standard Library
 #include <algorithm>
-#include <iostream>
-#include <limits>
+#include <atomic>
 #include <optional>
-#include <stdexcept>
 #include <string>
+#include <string_view>
 
 using namespace BifrostUsd::DynamicPayload;
 using namespace BifrostUsd::GraphExecutor;
 
 PXR_NAMESPACE_OPEN_SCOPE
+
+namespace {
+
+// Internal-only argument key: not read by any decoder in dffArguments.*, its
+// sole purpose is to make the composed arguments differ across a
+// reloadLibrary() call (see its use in ComposeFieldsForFileFormatArguments).
+constexpr std::string_view kReloadGenerationArg =
+    "bifrost:dff:internal:reloadGeneration";
+
+// Monotonic counter incremented every time this file format actually calls
+// reloadLibrary() while composing a prim's arguments.
+std::atomic<uint64_t> g_reloadGeneration{0};
+
+} // namespace
 
 // clang-format off
 TF_DEFINE_PUBLIC_TOKENS(BifrostDffPluginTokens, BIFROST_DFF_PLUGIN_TOKENS);
@@ -90,234 +95,6 @@ TF_REGISTRY_FUNCTION(TfType)
 }
 // clang-format on
 
-namespace {
-
-// Function to process terminal output and transfer content to a layer
-Amino::Ptr<BifrostUsd::Stage> createStageFromTerminalOutput(
-    GraphExecutorPtr& executor, TerminalType terminalType) {
-    auto terminalOutput = executor->extractTerminalOutput(terminalType);
-    if (terminalOutput.isValid()) {
-        auto flattened = terminalOutput.getFlattened();
-        using T        = Amino::Ptr<Amino::Array<Amino::Ptr<Bifrost::Object>>>;
-        using ArrayT   = Amino::Ptr<Amino::Array<T>>;
-
-        auto const& outArrayOfObjectsPtr = flattened.get<ArrayT>();
-
-        Amino::MutablePtr<Amino::Array<Amino::Ptr<Bifrost::Object>>> objectsPtr;
-        size_t totalCount = 0;
-
-        for (const auto& arrayPtr : *outArrayOfObjectsPtr) {
-            totalCount += arrayPtr->size();
-        }
-
-        objectsPtr =
-            Amino::newMutablePtr<Amino::Array<Amino::Ptr<Bifrost::Object>>>(
-                totalCount);
-        size_t idx = 0;
-
-        for (const auto& arrayPtr : *outArrayOfObjectsPtr) {
-            for (const auto& objPtr : *arrayPtr) {
-                (*objectsPtr)[idx++] = objPtr;
-            }
-        }
-
-        BifrostUsd::ImageablePurpose purpose =
-            BifrostUsd::ImageablePurpose::Default;
-        switch (terminalType) {
-            case TerminalType::eFinal:
-                purpose = BifrostUsd::ImageablePurpose::Render;
-                break;
-            case TerminalType::eProxy:
-                purpose = BifrostUsd::ImageablePurpose::Proxy;
-                break;
-            case TerminalType::eDiagnostic:
-                purpose = BifrostUsd::ImageablePurpose::Guide;
-                break;
-        }
-
-        // *******************************************************************
-        // ************************ Execute the graph ************************
-        // *******************************************************************
-        return objects_to_stage(objectsPtr.toImmutable(),
-                                         "terminal_layer.usda", purpose);
-    }
-
-    return Amino::Ptr<BifrostUsd::Stage>{};
-}
-
-bool executeGraph(GraphExecutorPtr&    executor,
-                  const std::string&   compoundName,
-                  const VerbosityLevel verbosity,
-                  double frame = std::numeric_limits<double>::max()) {
-    if (frame < std::numeric_limits<double>::max()) {
-        dffReportStatus(kCtxDFFExecuteGraph,
-                        "Set frame " + std::to_string(frame) + " in graph \"" +
-                            compoundName + "\".",
-                        verbosity);
-        executor->setFrame(frame);
-    }
-
-    StringArray messages;
-    if (!executor->execute(messages, verbosity)) {
-        dffReportError(kCtxDFFExecuteGraph,
-                       "Failed to execute graph \"" + compoundName + "\".",
-                       verbosity);
-        for (const auto& msg : messages) {
-            dffReportError(kCtxDFFExecuteGraph, std::string{msg.c_str()},
-                           verbosity);
-        }
-        return false;
-    }
-    return true;
-}
-
-const Amino::Ptr<BifrostUsd::Stage> createStageFromGraphOutput(
-    GraphExecutorPtr&      executor,
-    const std::string&     compoundName,
-    const std::string&     outputName,
-    Amino::ExecutionState& translatorState,
-    const VerbosityLevel   verbosity,
-    bool                   use_frame        = false,
-    float                  frame            = 0.0f,
-    bool                   varying_topology = false) {
-    auto closure = executor->extractOutputClosure(outputName);
-
-    if (!closure) {
-        dffReportError(kCtxDFFCreateStageFromGraphOutput,
-                       "The graph \"" + compoundName +
-                           "\" does not have an \"" + outputName + "\" output.",
-                       verbosity);
-
-        return nullptr;
-    }
-
-    auto const& outAny = closure.getAny();
-
-    auto const& outStagePtr =
-        Amino::any_cast<Amino::Ptr<BifrostUsd::Stage>>(&outAny);
-
-    auto const& outObjectPtr =
-        Amino::any_cast<Amino::Ptr<Bifrost::Object>>(&outAny);
-
-    auto const& outObjectArrayPtr =
-        Amino::any_cast<Amino::Ptr<Amino::Array<Amino::Ptr<Bifrost::Object>>>>(
-            &outAny);
-
-    if (!outStagePtr && !outObjectPtr && !outObjectArrayPtr) {
-        dffReportError(kCtxDFFCreateStageFromGraphOutput,
-                       "The graph \"" + compoundName +
-                           "\" did not produce a valid \"" + outputName +
-                           "\" output. Expecting a Stage, an Object or an array"
-                           " of Objects.",
-                       verbosity);
-        return nullptr;
-    }
-
-    if (outStagePtr) {
-        // A Stage output must have a default prim; without it the DFF plugin
-        // cannot locate the root of the generated scene.
-        if (!(*outStagePtr) || !(*outStagePtr)->isValid() ||
-            !(*outStagePtr)->get().HasDefaultPrim()) {
-            dffReportError(
-                kCtxDFFCreateStageFromGraphOutput,
-                "The graph \"" + compoundName +
-                    "\" produced a Stage with no default prim on output port "
-                    "\"" +
-                    outputName +
-                    "\". Set a default prim on the output Stage (e.g. using "
-                    "\"USD::Layer::set_layer_default_prim\"), or use an Object "
-                    "or Object[] output port instead (the default prim is then "
-                    "set automatically).",
-                verbosity);
-            return nullptr;
-        }
-        return *outStagePtr;
-    }
-
-    if (outObjectPtr) {
-        dffReportStatus(kCtxDFFCreateStageFromGraphOutput,
-                        "The graph \"" + compoundName +
-                            "\" has produced an Object. Converting to USD...",
-                        verbosity);
-
-        auto objectsArrayMutablePtr =
-            Amino::newMutablePtr<Amino::Array<Amino::Ptr<Bifrost::Object>>>(1);
-        (*objectsArrayMutablePtr)[0] = *outObjectPtr;
-
-        Amino::Ptr<BifrostUsd::Stage> outStageFromObjectPtr;
-
-        if (use_frame) {
-            outStageFromObjectPtr = objects_to_stage(
-                objectsArrayMutablePtr.toImmutable(), translatorState,
-                Amino::String{"objects.usd"},
-                BifrostUsd::ImageablePurpose::Default, frame, varying_topology);
-
-        } else {
-            outStageFromObjectPtr =
-                objects_to_stage(objectsArrayMutablePtr.toImmutable(),
-                                 Amino::String{"objects.usd"},
-                                 BifrostUsd::ImageablePurpose::Default);
-        }
-
-        if (outStageFromObjectPtr) {
-            return outStageFromObjectPtr;
-        } else {
-            dffReportError(
-                kCtxDFFCreateStageFromGraphOutput,
-                "Failed to create a Stage from an Object with graph \"" +
-                    compoundName + "\".",
-                verbosity);
-            return nullptr;
-        }
-    }
-
-    if (outObjectArrayPtr) {
-        dffReportStatus(kCtxDFFCreateStageFromGraphOutput,
-                        "The graph \"" + compoundName +
-                            "\" has produced an array of Objects. Converting to"
-                            " USD...",
-                        verbosity);
-
-        auto const& outStageFromObjectArrayPtr =
-            objects_to_stage(*outObjectArrayPtr);
-        if (outStageFromObjectArrayPtr) {
-            return outStageFromObjectArrayPtr;
-        } else {
-            dffReportError(kCtxDFFCreateStageFromGraphOutput,
-                           "Failed to create a Stage from an array of Objects"
-                           " with graph \"" +
-                               compoundName + "\".",
-                           verbosity);
-            return nullptr;
-        }
-    }
-
-    return nullptr;
-}
-
-TfToken getDefaultPrimName(const SdfLayerRefPtr& layer) {
-    TfToken name;
-    auto    stage = UsdStage::Open(layer);
-    if (stage && stage->HasDefaultPrim()) {
-        name = stage->GetDefaultPrim().GetName();
-    }
-    return name;
-};
-
-void addSubLayerToLayer(SdfLayerHandle&    subLayer,
-                        const std::string& msg,
-                        SdfLayerHandle&    outLayer,
-                        TfToken&           outDefaultPrimName) {
-    subLayer->SetComment(msg);
-    outLayer->GetSubLayerPaths().push_back(subLayer->GetIdentifier());
-
-    if (TfToken value = getDefaultPrimName(subLayer); !value.IsEmpty()) {
-        outDefaultPrimName = value;
-    }
-};
-
-} // namespace
-
 BifrostDynamicFileFormat::BifrostDynamicFileFormat()
     : SdfFileFormat(BifrostDffPluginTokens->Id,
                     BifrostDffPluginTokens->Version,
@@ -330,6 +107,15 @@ bool BifrostDynamicFileFormat::CanRead(const std::string& /*filePath*/) const {
     return false;
 }
 
+SdfAbstractDataRefPtr BifrostDynamicFileFormat::InitData(
+    const FileFormatArguments& args) const {
+    // The layer's data is a lazy implementation that evaluates the Bifrost
+    // graph at the time sample(s) USD queries. All the configuration needed to
+    // (re)execute the graph is decoded from the composed file format arguments
+    // here and carried by the data for the lifetime of the layer.
+    return BifrostDffData::New(BifrostDffDataParams::FromArgs(args));
+}
+
 bool BifrostDynamicFileFormat::Read(
     SdfLayer*                           layer,
     [[maybe_unused]] const std::string& resolvedPath,
@@ -338,284 +124,23 @@ bool BifrostDynamicFileFormat::Read(
         return false;
     }
 
-    const FileFormatArguments& args = layer->GetFileFormatArguments();
-    DffDiagnosticScope         diagnosticScope(
-                DffDiagnosticPhase::Read,
-                getDiagnosticsBucketArg(args).value_or(layer->GetIdentifier()));
-
-    // Extract the verbosity level first so that subsequent calls can use it.
-    std::optional<VerbosityLevel> verbosityOpt;
-    if (!getVerbosityLevelArg(args, verbosityOpt)) {
-        return false;
-    }
-    auto verbosity = verbosityOpt.value();
-
-    std::optional<std::string> compoundNameOpt;
-    if (!getCompoundNameArg(args, verbosity, compoundNameOpt)) {
-        return false;
-    }
-    const std::string compoundName = compoundNameOpt.value();
-
-    std::optional<std::string> outputNameOpt;
-    if (!getOutputNameArg(args, verbosity, outputNameOpt)) {
-        return false;
-    }
-    std::string outputName =
-        outputNameOpt.has_value() ? outputNameOpt.value() : "";
-
-    std::optional<TimelineSettings> timelineSettingsOpt;
-    std::optional<double>           fpsOpt;
-    if (!getTimelineSettingsArgs(args, verbosity, timelineSettingsOpt)) {
-        return false;
-    }
-    bool useTimeline = timelineSettingsOpt.has_value();
-    if (useTimeline && !getFpsArg(args, verbosity, fpsOpt)) {
+    // The payload contents are produced lazily by the BifrostDffData created
+    // in InitData, which evaluates the Bifrost graph at the time sample(s) USD
+    // queries. There is no asset to read here, so report the same failure
+    // InitData recorded when the file format arguments failed to
+    // decode/validate, mirroring the previous behavior where Read itself
+    // aborted (returned false) on invalid arguments -- otherwise USD would
+    // silently treat the layer as successfully read but empty, hiding the
+    // failure from callers that do not inspect the diagnostics collector.
+    auto data = TfDynamic_cast<BifrostDffDataConstPtr>(_GetLayerData(*layer));
+    if (!data || !data->IsValid()) {
         return false;
     }
 
-    GraphExecutorPtr executor =
-        makeGraphExecutor(Amino::String{compoundName.c_str()});
-    if (!executor) {
-        dffReportError(kCtxDFFRead,
-                       "Failed to create a GraphExecutor for graph \"" +
-                           compoundName + "\".",
-                       verbosity);
-        return false;
-    }
-
-    // ******************************************************************
-
-    // Since a graph can have more than one output (the BifrostDynamicFileFormat
-    // plugin is currently supporting one regular graph output and many terminal
-    // outputs), it can create many stages. We put those stage's root layers
-    // under the "main.usda" root layer of an in-memory stage
-    // created here. This is used to compose all the graph outputs below one
-    // stage that will be flattened. The flattened layer is then transferred to
-    // the in/out layer of the BifrostDynamicFileFormat::Read function member.
-    //
-    // For example, if the graph uses every supported outputs, the "mainStage"
-    // layer hierarchy will look like that:
-    //
-    // |- main.usda
-    // `--- terminal_final.usda
-    // `--- terminal_proxy.usda
-    // `--- terminal_diagnostic.usda
-    // `--- graph_output.usda
-    //
-    auto mainStage = UsdStage::CreateInMemory("main.usda");
-    auto mainLayer = mainStage->GetRootLayer();
-
-    // We try to find the default prim name in this order:
-    // 1: from stage created by terminal "final" output.
-    // 2: from stage created by terminal "proxy" output
-    // 3: from stage created by terminal "diagnostic" output
-    // 4: from stage created by graph's output
-    TfToken defaultPrimName;
-
-    // Use the root layer from a BifrostUsd stage created from a terminal output
-    // and add it as a sublayer of the main stage.
-    auto addSubLayerFromTerminal =
-        [&mainLayer, &defaultPrimName](
-            Amino::Ptr<BifrostUsd::Stage>& bifrostStage,
-            TerminalType                   terminalType) {
-            std::string terminalTypeStr;
-            switch (terminalType) {
-                case TerminalType::eFinal: terminalTypeStr = "final"; break;
-                case TerminalType::eProxy: terminalTypeStr = "proxy"; break;
-                case TerminalType::eDiagnostic:
-                    terminalTypeStr = "diagnostic";
-                    break;
-            }
-
-            if (bifrostStage) {
-                auto subLayer = (*bifrostStage)->GetRootLayer();
-                addSubLayerToLayer(subLayer,
-                                   "Layer generated by Bifrost Graph from a " +
-                                       terminalTypeStr +
-                                       " terminal output port",
-                                   mainLayer, defaultPrimName);
-            }
-        };
-
-    // Use the root layer from a BifrostUsd stage created from a graph output
-    // and add it as a sublayer of the main stage.
-    auto addSubLayerFromOutput =
-        [&mainLayer, &defaultPrimName,
-         &outputName](Amino::Ptr<BifrostUsd::Stage>& bifrostStage) {
-            if (bifrostStage) {
-                auto subLayer = (*bifrostStage)->GetRootLayer();
-                addSubLayerToLayer(subLayer,
-                                   "Layer generated by Bifrost Graph from the "
-                                   "regular output port \"" +
-                                       outputName + "\"",
-                                   mainLayer, defaultPrimName);
-            }
-        };
-
-    // *******************************************************************
-    // ************************ Execute the graph ************************
-    // *******************************************************************
-
-    Amino::Ptr<BifrostUsd::Stage> terminalFinalStage;
-    Amino::Ptr<BifrostUsd::Stage> terminalProxyStage;
-    Amino::Ptr<BifrostUsd::Stage> terminalDiagnosticStage;
-    Amino::Ptr<BifrostUsd::Stage> graphOutputStage;
-
-    bool hasFinal = executor->hasTerminalPort(TerminalType::eFinal);
-    bool hasProxy = executor->hasTerminalPort(TerminalType::eProxy);
-    bool hasDiagn = executor->hasTerminalPort(TerminalType::eDiagnostic);
-    bool hasOutput = !outputName.empty();
-    if (!hasFinal && !hasProxy && !hasDiagn && !hasOutput) {
-        dffReportError(
-            kCtxDFFRead,
-            "The graph \"" + compoundName +
-                "\" produced no output: specify an output port via the \"" +
-                tokenToText(BifrostDffGroupingTokens->OutputsField) +
-                "\" field or a \"" +
-                tokenToText(BifrostDffGroupingTokens->OutputsAttrPrefix) +
-                "<portName>\" attribute, or enable a terminal port (\"final\", "
-                "\"proxy\", or \"diagnostic\").",
-            verbosity);
-        return false;
-    }
-
-    if (useTimeline) {
-        auto usdTranslatorGraphState = Amino::ExecutionState{};
-
-        executor->setTimelineSettings(timelineSettingsOpt.value());
-        executor->setFps(fpsOpt.value());
-
-        double startFrame = timelineSettingsOpt.value().startFrame;
-        double endFrame   = timelineSettingsOpt.value().endFrame;
-
-        for (double frame = startFrame; frame < endFrame + 1; frame += 1) {
-            if (!setGraphInputs(executor, args, verbosity)) {
-                return false;
-            }
-            if (!executeGraph(executor, compoundName, verbosity, frame)) {
-                return false;
-            }
-
-            if (hasFinal) {
-                terminalFinalStage = createStageFromTerminalOutput(
-                    executor, TerminalType::eFinal);
-            }
-            if (hasProxy) {
-                terminalProxyStage = createStageFromTerminalOutput(
-                    executor, TerminalType::eProxy);
-            }
-            if (hasDiagn) {
-                terminalDiagnosticStage = createStageFromTerminalOutput(
-                    executor, TerminalType::eDiagnostic);
-            }
-            if (hasOutput) {
-                graphOutputStage = createStageFromGraphOutput(
-                    executor, compoundName, outputName, usdTranslatorGraphState,
-                    verbosity, true, static_cast<float>(frame));
-            }
-        }
-    } else {
-        if (!setGraphInputs(executor, args, verbosity)) {
-            return false;
-        }
-        if (!executeGraph(executor, compoundName, verbosity)) {
-            return false;
-        }
-
-        if (hasFinal) {
-            terminalFinalStage =
-                createStageFromTerminalOutput(executor, TerminalType::eFinal);
-        }
-        if (hasProxy) {
-            terminalProxyStage =
-                createStageFromTerminalOutput(executor, TerminalType::eProxy);
-        }
-        if (hasDiagn) {
-            terminalDiagnosticStage = createStageFromTerminalOutput(
-                executor, TerminalType::eDiagnostic);
-        }
-        if (hasOutput) {
-            auto unusedState = Amino::ExecutionState{};
-            graphOutputStage = createStageFromGraphOutput(
-                executor, compoundName, outputName, unusedState, verbosity);
-        }
-    }
-
-    if (terminalFinalStage) {
-        addSubLayerFromTerminal(terminalFinalStage, TerminalType::eFinal);
-    }
-    if (terminalProxyStage) {
-        addSubLayerFromTerminal(terminalProxyStage, TerminalType::eProxy);
-    }
-    if (terminalDiagnosticStage) {
-        addSubLayerFromTerminal(terminalDiagnosticStage,
-                                TerminalType::eDiagnostic);
-    }
-    if (graphOutputStage) {
-        addSubLayerFromOutput(graphOutputStage);
-    }
-
-    if (mainLayer->GetSubLayerPaths().empty()) {
-        // All configured outputs were attempted but none produced a usable
-        // stage. Build a list of the terminal ports that were enabled but
-        // yielded nothing.
-        // Note: createStageFromGraphOutput() already emits its own specific
-        // error for graph output port failures, so we only need to report
-        // terminal port failures here.
-        std::string failedPorts;
-        auto        appendPort = [&failedPorts](const std::string& portDesc) {
-            if (!failedPorts.empty()) failedPorts += ", ";
-            failedPorts += portDesc;
-        };
-        if (hasFinal) appendPort("\"final\"");
-        if (hasProxy) appendPort("\"proxy\"");
-        if (hasDiagn) appendPort("\"diagnostic\"");
-        if (!failedPorts.empty()) {
-            dffReportError(kCtxDFFRead,
-                           "The graph \"" + compoundName +
-                               "\" was executed but the following terminal"
-                               " output port(s) produced no usable stage: " +
-                               failedPorts + ".",
-                           verbosity);
-        }
-        return false;
-    }
-
-    // *******************************************************************
-    // *******************************************************************
-    // *******************************************************************
-
-    auto defaultPrim = mainStage->GetPrimAtPath(
-        SdfPath::AbsoluteRootPath().AppendChild(defaultPrimName));
-    if (defaultPrim) {
-        mainStage->SetDefaultPrim(defaultPrim);
-    } else {
-        // This should never happen: every sublayer added to mainStage is
-        // produced either by objects_to_stage (which always sets "/root" as
-        // the default prim) or by a Stage output whose default prim was
-        // validated in createStageFromGraphOutput(). If we reach here, an
-        // unexpected situation was encountered.
-        dffReportError(kCtxDFFRead,
-                       "The graph \"" + compoundName +
-                           "\" produced sublayers but none carries an"
-                           " identifiable default prim. This situation was"
-                           " not expected.",
-                       verbosity);
-        return false;
-    }
-
-    auto flattenedTerminalsLayerRefPtr = mainStage->Flatten();
-
-    layer->TransferContent(flattenedTerminalsLayerRefPtr);
-
-    if (layer) {
-        // Enforce that the procedural layer is read only.
-        layer->SetPermissionToSave(false);
-        layer->SetPermissionToEdit(false);
-        return true;
-    }
-
-    return false;
+    // Otherwise we only enforce that the generated layer is read only.
+    layer->SetPermissionToSave(false);
+    layer->SetPermissionToEdit(false);
+    return true;
 }
 
 bool BifrostDynamicFileFormat::WriteToString(const SdfLayer&    layer,
@@ -718,6 +243,18 @@ void BifrostDynamicFileFormat::ComposeFieldsForFileFormatArguments(
         hasError = true;
     } else if (reloadLibraryOpt.value_or(false)) {
         reloadLibrary();
+
+        // Force this composition's arguments to differ from whatever was
+        // previously composed for this prim. Without this, if reload is
+        // triggered by an edit that otherwise leaves the composed arguments
+        // unchanged, PCP's dynamic-file-format caching would reuse the
+        // existing BifrostDffData -- whose persistent GraphExecutor
+        // (dffData.cpp) is only rebuilt on a backward scrub -- so an
+        // already-open animated payload mid-playback would keep stepping the
+        // pre-reload library forward indefinitely instead of picking up the
+        // reload.
+        outArgs[std::string{kReloadGenerationArg}] =
+            std::to_string(++g_reloadGeneration);
     }
 
     // Compose fields from all remaining *known* grouping tokens.

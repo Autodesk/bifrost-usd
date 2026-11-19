@@ -1,5 +1,5 @@
 //-
-// Copyright 2023 Autodesk, Inc.
+// Copyright 2026 Autodesk, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -64,7 +64,8 @@ bool set_prim_metadata_impl(const Amino::String& path,
     try {
         return BifrostUsd::WithVariantContext(stage, [&]() {
             auto pxr_prim = USDUtils::get_prim_or_throw(path, stage);
-            return pxr_prim.SetMetadata(GetSdfFieldKey(key), toPxr(value));
+            return USDUtils::setMetadata(pxr_prim, GetSdfFieldKey(key),
+                                         toPxr(value));
         });
 
     } catch (std::exception& e) {
@@ -84,9 +85,9 @@ bool set_prim_metadata_by_dict_key_impl(const Amino::String& path,
     try {
         return BifrostUsd::WithVariantContext(stage, [&]() {
             auto pxr_prim = USDUtils::get_prim_or_throw(path, stage);
-            return pxr_prim.SetMetadataByDictKey(
-                GetSdfFieldKey(key), PXR_NS::TfToken(key_path.c_str()),
-                toPxr(value));
+            return USDUtils::setMetadataByDictKey(
+                pxr_prim, GetSdfFieldKey(key),
+                PXR_NS::TfToken(key_path.c_str()), toPxr(value));
         });
 
     } catch (std::exception& e) {
@@ -1512,11 +1513,13 @@ bool USD::Prim::get_prim_metadata(
     try {
         auto pxr_prim = USDUtils::get_prim_or_throw(path, stage);
         auto pxr_key  = GetSdfFieldKey(key);
-        PXR_NS::VtArray<std::string> temp;
-
-        if (pxr_prim.GetMetadata(pxr_key, &temp)) {
+        // Use a VtValue* (not a VtArray<std::string>*)
+        // See explanation in USDUtils::getMetadataAsVtValue.
+        PXR_NS::VtValue vtValue;
+        if (USDUtils::getMetadataAsVtValue(pxr_prim, pxr_key, vtValue) &&
+            vtValue.IsHolding<PXR_NS::VtArray<std::string>>()) {
             value = Amino::newClassPtr<Amino::Array<Amino::String>>(
-                fromPxr(temp));
+                fromPxr(vtValue.UncheckedGet<PXR_NS::VtArray<std::string>>()));
             return true;
         } else {
             value = default_and_type;
@@ -1542,10 +1545,12 @@ bool USD::Prim::get_prim_metadata(
     try {
         auto pxr_prim = USDUtils::get_prim_or_throw(path, stage);
         auto pxr_key  = GetSdfFieldKey(key);
-        PXR_NS::VtDictionary temp;
-
-        if (pxr_prim.GetMetadata(pxr_key, &temp)) {
-            value = fromPxr(temp);
+        // Use a VtValue* (not a VtDictionary*)
+        // See explanation in USDUtils::getMetadataAsVtValue.
+        PXR_NS::VtValue vtValue;
+        if (USDUtils::getMetadataAsVtValue(pxr_prim, pxr_key, vtValue) &&
+            vtValue.IsHolding<PXR_NS::VtDictionary>()) {
+            value = fromPxr(vtValue.UncheckedGet<PXR_NS::VtDictionary>());
             return true;
         } else {
             value = default_and_type;

@@ -85,6 +85,12 @@
                                                 },
                                                 {
                                                     "metaName": "variant_name"
+                                                },
+                                                {
+                                                    "metaName": "use_frame"
+                                                },
+                                                {
+                                                    "metaName": "frame"
                                                 }
                                             ]
                                         },
@@ -165,7 +171,7 @@
                 {
                     "metaName": "UILayout",
                     "metaType": "string",
-                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"path\"\n            },\n            {\n                \"port\": \"strands\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"General\",\n                \"items\": [\n                    {\n                        \"port\": \"basis\"\n                    },\n                    {\n                        \"port\": \"type\"\n                    },\n                    {\n                        \"port\": \"applied_schema_names\"\n                    },\n                    {\n                        \"expanded\": false,\n                        \"group\": \"Variant Selection\",\n                        \"items\": [\n                            {\n                                \"port\": \"variant_set_name\"\n                            },\n                            {\n                                \"port\": \"variant_name\"\n                            }\n                        ],\n                        \"unique_id\": 10\n                    }\n                ],\n                \"unique_id\": 25\n            },\n            {\n                \"port\": \"reference_definitions\"\n            },\n            {\n                \"port\": \"attribute_definitions\"\n            },\n            {\n                \"port\": \"children\"\n            },\n            {\n                \"port\": \"relationship_definitions\"\n            },\n            {\n                \"port\": \"material\"\n            }\n        ]\n    }\n}"
+                    "metaValue": "{\n    \"NodeLayout\": {\n        \"hideUndeclaredPorts\": false,\n        \"items\": [\n            {\n                \"port\": \"path\"\n            },\n            {\n                \"port\": \"strands\"\n            },\n            {\n                \"expanded\": false,\n                \"group\": \"General\",\n                \"items\": [\n                    {\n                        \"port\": \"basis\"\n                    },\n                    {\n                        \"port\": \"type\"\n                    },\n                    {\n                        \"port\": \"applied_schema_names\"\n                    },\n                    {\n                        \"expanded\": false,\n                        \"group\": \"Time Sample\",\n                        \"items\": [\n                            {\n                                \"port\": \"use_frame\"\n                            },\n                            {\n                                \"port\": \"frame\"\n                            }\n                        ],\n                        \"unique_id\": 40\n                    },\n                    {\n                        \"expanded\": false,\n                        \"group\": \"Variant Selection\",\n                        \"items\": [\n                            {\n                                \"port\": \"variant_set_name\"\n                            },\n                            {\n                                \"port\": \"variant_name\"\n                            }\n                        ],\n                        \"unique_id\": 10\n                    }\n                ],\n                \"unique_id\": 25\n            },\n            {\n                \"port\": \"reference_definitions\"\n            },\n            {\n                \"port\": \"attribute_definitions\"\n            },\n            {\n                \"port\": \"children\"\n            },\n            {\n                \"port\": \"relationship_definitions\"\n            },\n            {\n                \"port\": \"material\"\n            }\n        ]\n    }\n}\n"
                 },
                 {
                     "metaName": "PortExpandedState",
@@ -194,6 +200,18 @@
                 }
             ],
             "ports": [
+                {
+                    "portName": "use_frame",
+                    "portDirection": "input",
+                    "portType": "bool",
+                    "portDefault": "false"
+                },
+                {
+                    "portName": "frame",
+                    "portDirection": "input",
+                    "portType": "float",
+                    "portDefault": "0f"
+                },
                 {
                     "portName": "path",
                     "portDirection": "input",
@@ -372,6 +390,12 @@
                                                         },
                                                         {
                                                             "metaName": "type"
+                                                        },
+                                                        {
+                                                            "metaName": "use_frame"
+                                                        },
+                                                        {
+                                                            "metaName": "frame"
                                                         }
                                                     ]
                                                 },
@@ -452,6 +476,18 @@
                                     "metaValue": "string, float, bool, uchar, int, uint, long, ulong, double, Math::float3, Math::float4, array<float>, array<bool>, array<uchar>, array<int>, array<uint>, array<long>, array<ulong>, array<double>, array<string>, array<Math::float2>, array<Math::float3>, array<Math::float4>"
                                 }
                             ]
+                        },
+                        {
+                            "portName": "use_frame",
+                            "portDirection": "input",
+                            "portType": "bool",
+                            "portDefault": "false"
+                        },
+                        {
+                            "portName": "frame",
+                            "portDirection": "input",
+                            "portType": "float",
+                            "portDefault": "0f"
                         },
                         {
                             "portName": "attribute_definitions",
@@ -1112,6 +1148,12 @@
                                                                 },
                                                                 {
                                                                     "metaName": "default_color"
+                                                                },
+                                                                {
+                                                                    "metaName": "use_frame"
+                                                                },
+                                                                {
+                                                                    "metaName": "frame"
                                                                 }
                                                             ]
                                                         }
@@ -1172,6 +1214,18 @@
                                             "metaValue": "ColorPicker"
                                         }
                                     ]
+                                },
+                                {
+                                    "portName": "use_frame",
+                                    "portDirection": "input",
+                                    "portType": "bool",
+                                    "portDefault": "false"
+                                },
+                                {
+                                    "portName": "frame",
+                                    "portDirection": "input",
+                                    "portType": "float",
+                                    "portDefault": "0f"
                                 },
                                 {
                                     "portName": "attribute_definition",
@@ -1348,6 +1402,14 @@
                                 {
                                     "source": "define_usd_attribute.attribute_definition",
                                     "target": ".attribute_definition"
+                                },
+                                {
+                                    "source": ".use_frame",
+                                    "target": "define_usd_attribute.use_frame"
+                                },
+                                {
+                                    "source": ".frame",
+                                    "target": "define_usd_attribute.frame"
                                 },
                                 {
                                     "source": "value.output",
@@ -1825,6 +1887,54 @@
                         }
                     ],
                     "connections": [
+                        {
+                            "source": ".use_frame",
+                            "target": "attribute.use_frame"
+                        },
+                        {
+                            "source": ".frame",
+                            "target": "attribute.frame"
+                        },
+                        {
+                            "source": ".use_frame",
+                            "target": "attribute2.use_frame"
+                        },
+                        {
+                            "source": ".frame",
+                            "target": "attribute2.frame"
+                        },
+                        {
+                            "source": ".use_frame",
+                            "target": "define_usd_attribute1.use_frame"
+                        },
+                        {
+                            "source": ".frame",
+                            "target": "define_usd_attribute1.frame"
+                        },
+                        {
+                            "source": ".use_frame",
+                            "target": "define_usd_attribute3.use_frame"
+                        },
+                        {
+                            "source": ".frame",
+                            "target": "define_usd_attribute3.frame"
+                        },
+                        {
+                            "source": ".use_frame",
+                            "target": "define_usd_attribute6.use_frame"
+                        },
+                        {
+                            "source": ".frame",
+                            "target": "define_usd_attribute6.frame"
+                        },
+                        {
+                            "source": ".use_frame",
+                            "target": "define_usd_display_color.use_frame"
+                        },
+                        {
+                            "source": ".frame",
+                            "target": "define_usd_display_color.frame"
+                        },
                         {
                             "source": "build_vertex_counts.out_array",
                             "target": "attribute2.value"
@@ -2454,6 +2564,14 @@
                 {
                     "source": ".applied_schema_names",
                     "target": "define_usd_prim.applied_schema_names"
+                },
+                {
+                    "source": ".use_frame",
+                    "target": "create_curves_attributes.use_frame"
+                },
+                {
+                    "source": ".frame",
+                    "target": "create_curves_attributes.frame"
                 }
             ],
             "values": [

@@ -76,10 +76,8 @@ bool hasSameTranslation(const UsdPrim& prim, const GfVec3f& expected) {
 TEST(BifrostDynamicFileFormatTests, string_to_array_compound) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "string_to_array_compound";
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Core::String::string_to_array", "string_array");
-
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Core::String::string_to_array", "string_array", bucketKey, g_OutputDir);
 
     // The Stage opens successfully; only the payload fails to load, leaving
     // the /Root prim with no children from the graph output:
@@ -98,10 +96,9 @@ TEST(BifrostDynamicFileFormatTests, create_helix_of_prims_compound) {
     DffDiagnosticCollector collector;
     constexpr auto         bucketKey = "create_helix_of_prims_compound";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Test::DynamicFileFormat::create_helix_of_prims", "stage");
-
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::create_helix_of_prims", "stage", bucketKey,
+        g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Test with default fields only
@@ -131,7 +128,7 @@ TEST(BifrostDynamicFileFormatTests, create_helix_of_prims_compound) {
     // Test with some params fields
     {
         // clang-format off
-        setLiveInputsField(stage, VtDictionary{
+        setInputsField(stage, VtDictionary{
                 {"name", VtValue{std::string{"newShape"}}},
                 {"count", VtValue{int{3}}},
                 {"prim_type", VtValue{TfToken{"Cylinder"}}},
@@ -160,7 +157,7 @@ TEST(BifrostDynamicFileFormatTests, create_helix_of_prims_compound) {
     // Test with some attribute overrides
     {
         // clang-format off
-        setLiveAttributeOverrides(stage,
+        setAttributeOverrides(stage,
             std::vector<AttributeNameAndValue> {
                 {TfToken{"bifrost:in:name"}, {SdfValueTypeNames->String, VtValue{std::string{"ball"}}}},
                 {TfToken{"bifrost:in:count"}, {SdfValueTypeNames->Int, VtValue{int{6}}}},
@@ -191,16 +188,15 @@ TEST(BifrostDynamicFileFormatTests, create_mesh_torus_compound) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "create_mesh_torus_compound";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Modeling::Primitive::create_mesh_torus",
-        "torus_mesh");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Modeling::Primitive::create_mesh_torus", "torus_mesh", bucketKey,
+        g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Test with some params fields
     {
         // clang-format off
-        setLiveInputsField(stage, VtDictionary{
+        setInputsField(stage, VtDictionary{
                 {"major_radius", VtValue{float{1}}},
                 {"minor_radius", VtValue{float{0.5}}},
                 {"major_segments", VtValue{static_cast<unsigned>(30)}},
@@ -236,7 +232,7 @@ TEST(BifrostDynamicFileFormatTests, create_mesh_torus_compound) {
     // Test with some attribute overrides
     {
         // clang-format off
-        setLiveAttributeOverrides(stage,
+        setAttributeOverrides(stage,
             std::vector<AttributeNameAndValue> {
                 {TfToken{"bifrost:in:major_radius"}, {SdfValueTypeNames->Float, VtValue{float{1.2f}}}},
                 {TfToken{"bifrost:in:minor_radius"}, {SdfValueTypeNames->Float, VtValue{float{0.6f}}}},
@@ -258,11 +254,9 @@ TEST(BifrostDynamicFileFormatTests, create_torus_and_cylinder_compound) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "create_torus_and_cylinder_compound";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir,
+    auto stage = createStageWithCompoundPayload(
         "Test::DynamicFileFormat::create_torus_and_cylinder",
-        "torus_and_cylinder");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+        "torus_and_cylinder", bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Test with default fields only
@@ -297,7 +291,7 @@ TEST(BifrostDynamicFileFormatTests, create_torus_and_cylinder_compound) {
         // 'array_of_objects_to_stage' translation compound should detect that
         // the prim_paths are already set and should not change them.
         // clang-format off
-        setLiveInputsField(stage, VtDictionary{
+        setInputsField(stage, VtDictionary{
                 {"set_prim_paths", VtValue{bool{true}}}
             }
         );
@@ -317,7 +311,7 @@ TEST(BifrostDynamicFileFormatTests, create_torus_and_cylinder_compound) {
         // check that attribute overrides have more priority than input compound
         // params fields.
         // clang-format off
-        setLiveAttributeOverrides(stage,
+        setAttributeOverrides(stage,
             std::vector<AttributeNameAndValue> {
                 {TfToken{"bifrost:in:set_prim_paths"}, {SdfValueTypeNames->Bool, VtValue{bool{false}}}},
             }
@@ -340,16 +334,15 @@ TEST(BifrostDynamicFileFormatTests, DISABLED_boolean_fracture_usd_meshes_compoun
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "boolean_fracture_usd_meshes_compound";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir,
-        "Test::DynamicFileFormat::boolean_fracture_usd_meshes", "shards");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::boolean_fracture_usd_meshes", "shards",
+        bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Test with some params fields
     {
         // clang-format off
-        setLiveInputsField(stage, VtDictionary{
+        setInputsField(stage, VtDictionary{
                 {"file", VtValue{std::string{""}}},
                 {"generate_slicer_planes", VtValue{bool{true}}},
                 {"slicer_plane_count", VtValue{GfVec3i{0, 2, 0}}},
@@ -379,7 +372,7 @@ TEST(BifrostDynamicFileFormatTests, DISABLED_boolean_fracture_usd_meshes_compoun
     // Test with some attribute overrides
     {
         // clang-format off
-        setLiveAttributeOverrides(stage,
+        setAttributeOverrides(stage,
             std::vector<AttributeNameAndValue> {
                 {TfToken{"bifrost:in:file"}, {SdfValueTypeNames->Asset, VtValue{SdfAssetPath{"polygonal_mesh_cube.usd"}}}}
             }
@@ -405,11 +398,10 @@ TEST(BifrostDynamicFileFormatTests, create_mesh_capsule_with_terminal_compound) 
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "create_mesh_capsule_with_terminal_compound";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir,
-        "Test::DynamicFileFormat::create_mesh_capsule_with_terminal",
-        ""); // no regular output name, so only terminal outputs are present
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    // No regular output name, so only terminal outputs are present.
+    auto stage = createStageWithCompoundPayload(
+        "Test::DynamicFileFormat::create_mesh_capsule_with_terminal", "",
+        bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
     auto rootPrim = stage->GetPrimAtPath(SdfPath{"/Root"});
     EXPECT_TRUE(rootPrim);
@@ -455,10 +447,8 @@ TEST(BifrostDynamicFileFormatTests, graphs_scatter_valley_forest_compound) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "graphs_scatter_valley_forest_compound";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, "Graphs::Scatter::valley_forest", "out_points");
-
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createStageWithCompoundPayload(
+        "Graphs::Scatter::valley_forest", "out_points", bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
     auto rootPrim = stage->GetPrimAtPath(SdfPath{"/Root"});
     EXPECT_TRUE(rootPrim);
@@ -631,10 +621,7 @@ TEST(BifrostDynamicFileFormatTests, move_up_point_simulation_compound) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "move_up_point_simulation_compound";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir,
-        "Test::DynamicFileFormat::move_up_point_simulation", "point");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+    auto stage = createMoveUpPointSimulationStage(bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     // Stage's time range should have no effect on the graph execution.
@@ -645,9 +632,11 @@ TEST(BifrostDynamicFileFormatTests, move_up_point_simulation_compound) {
 
     // The start_frame/end_frame passed to Bifrost graph should control the
     // end result regardless of the Stage's time range set above.
-    double startFrame = 1;
-    double endFrame = 3;
-    double delta = endFrame - startFrame;
+    constexpr double startFrame = 1;
+    constexpr double endFrame = 3;
+    constexpr double fps = 1;
+    constexpr double delta = endFrame - startFrame;
+
     ASSERT_GT(delta, 0);
 
     // This graph runs a pseudo-simulation feedback loop that moves a point up
@@ -658,20 +647,20 @@ TEST(BifrostDynamicFileFormatTests, move_up_point_simulation_compound) {
     {
         // clang-fomat off
         // Set default field values for the start_frame/end_frame.
-        setLiveGlobalsField(stage, VtDictionary{
+        setGlobalsField(stage, VtDictionary{
                 {"timeline_info_start_frame", VtValue{double{0}}},
                 {"timeline_info_end_frame", VtValue{double{0}}},
             }
         );
         // Override the default field values by setting attribute overrides.
-        setLiveAttributeOverrides(stage,
+        setAttributeOverrides(stage,
             std::vector<AttributeNameAndValue> {
                 {TfToken{"bifrost:global:timeline_info_start_frame"}, {SdfValueTypeNames->Double, VtValue{startFrame}}},
                 {TfToken{"bifrost:global:timeline_info_end_frame"}, {SdfValueTypeNames->Double, VtValue{endFrame}}},
-                {TfToken{"bifrost:global:time_fps"}, {SdfValueTypeNames->Double, VtValue{double{1.0}}}},
+                {TfToken{"bifrost:global:time_fps"}, {SdfValueTypeNames->Double, VtValue{fps}}},
             }
         );
-        setLiveInputsField(stage, VtDictionary{
+        setInputsField(stage, VtDictionary{
                  {"vertical_step", VtValue{verticalStep}},
             }
         );
@@ -690,19 +679,16 @@ TEST(BifrostDynamicFileFormatTests, move_up_point_simulation_compound) {
         ASSERT_TRUE(pointsAttr);
         EXPECT_TRUE(pointsAttr.HasValue());
 
-        // Test first frame
-        VtVec3fArray points;
-        EXPECT_TRUE(pointsAttr.Get(&points, UsdTimeCode{startFrame}));
-        ASSERT_GT(points.size(), 0);
-        auto expectedFirstPoint = GfVec3f{0.f, 0.f, 0.f};
-        EXPECT_EQ(points[0], expectedFirstPoint);
-
-        // Test last frame
-        EXPECT_TRUE(pointsAttr.Get(&points, UsdTimeCode{endFrame}));
-        ASSERT_GT(points.size(), 0);
-        auto expectedLastPoint =
-            GfVec3f{0.f, static_cast<float>(delta) * verticalStep, 0.f};
-        EXPECT_EQ(points[0], expectedLastPoint);
+        // Test each frame in the range in ascending order to ensure that
+        // the simulation is evaluated in order.
+        for (double frame = startFrame; frame <= endFrame; ++frame) {
+            VtVec3fArray points;
+            EXPECT_TRUE(pointsAttr.Get(&points, UsdTimeCode{frame}));
+            ASSERT_GT(points.size(), 0);
+            auto expectedY = static_cast<float>((frame - startFrame) * (static_cast<double>(verticalStep) / fps));
+            auto expectedPoint = GfVec3f{0.f, expectedY, 0.f};
+            EXPECT_EQ(points[0], expectedPoint);
+        }
     }
 }
 
@@ -710,11 +696,9 @@ TEST(BifrostDynamicFileFormatTests, spectral_wave_simulation_compound) {
     DffDiagnosticCollector collector;
     constexpr auto bucketKey = "spectral_wave_simulation_compound";
 
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir,
+    auto stage = createStageWithCompoundPayload(
         "Test::DynamicFileFormat::spectral_wave_simulation",
-        "geometry_with_material");
-    auto stage = UsdStage::Open(rootLayerPath.c_str());
+        "geometry_with_material", bucketKey, g_OutputDir);
     ASSERT_TRUE(stage);
 
     double startFrame = 1;
@@ -727,13 +711,13 @@ TEST(BifrostDynamicFileFormatTests, spectral_wave_simulation_compound) {
     // Test with some params fields
     {
         // clang-fomat off
-        setLiveGlobalsField(stage, VtDictionary{
+        setGlobalsField(stage, VtDictionary{
                 {"timeline_info_start_frame", VtValue{startFrame}},
                 {"timeline_info_end_frame", VtValue{endFrame}},
                 {"time_fps", VtValue{fps}},
             }
         );
-        setLiveInputsField(stage, VtDictionary{
+        setInputsField(stage, VtDictionary{
                  {"length", VtValue{float{2}}},
                  {"width", VtValue{float{2}}},
                  {"segments", VtValue{int{2}}},

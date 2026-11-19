@@ -149,6 +149,11 @@ TEST(BifrostUsdTests, Layer_ctors) {
         Amino::String path = getResourcePath("__inexistent_originalPath.usd");
         Amino::String savePath =
             g_OutputDir.getPath_abs("Layer_ctors_saveFilePath.usd");
+
+        // Guard the expected coding error so the rejected write is asserted
+        // rather than merely logged to stderr.
+        ErrorRecorder errorRecorder;
+
         BifrostUsd::Layer layer1{path /*originalPath*/, "my_tag", savePath,
                                  editable};
         EXPECT_FALSE(layer1); // INVALID (since no file at provided path)
@@ -161,6 +166,9 @@ TEST(BifrostUsdTests, Layer_ctors) {
         EXPECT_STREQ(layer2.getOriginalFilePath().c_str(), "");
         EXPECT_STREQ(layer2.getFilePath().c_str(), "");
         testCopyAndMoveOps(layer2, editable);
+
+        EXPECT_TRUE(errorRecorder.hasError())
+            << "USD should post an error when opening inexistant layer";
     }
 }
 
@@ -697,7 +705,14 @@ TEST(BifrostUsdTests, insertSubLayer) {
     {
         std::string title("\t Case 4: Root has an INVALID PATH - ");
 
+        // Guard the expected coding error so the rejected write is asserted
+        // rather than merely logged to stderr.
+        ErrorRecorder errorRecorder;
+
         BifrostUsd::Layer layer{"invalidPath.usd", ""};
+        EXPECT_TRUE(errorRecorder.hasError())
+            << "USD should post an error when opening inexistant layer";
+
         EXPECT_FALSE(layer.isValid());
         EXPECT_EQ(layer.getSubLayers().size(), 0);
 

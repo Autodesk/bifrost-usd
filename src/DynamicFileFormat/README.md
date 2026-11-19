@@ -9,6 +9,11 @@ The combination of Dynamic File Format and Payload is called Dynamic Payload in 
  - [Dynamic File Format](https://openusd.org/dev/api/_usd__page__dynamic_file_format.html)
  - [Payload](https://openusd.org/dev/api/class_usd_payloads.html)
 
+This README covers how to *author* a Dynamic Payload. For the plugin's internal
+implementation (how the graph is lazily evaluated, the frame-stepping/caching model,
+and the persistent executor's lifetime), see [ARCHITECTURE.md](ARCHITECTURE.md) and
+[EXECUTOR_LIFETIME.md](EXECUTOR_LIFETIME.md).
+
 
 ## Key Features
 

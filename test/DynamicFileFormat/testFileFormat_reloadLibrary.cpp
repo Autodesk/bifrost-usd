@@ -130,9 +130,8 @@ void testSetupWithReloadLibraryField(const char*             bucketKey,
     // Phase 1: reloadLibrary=false and verbosityLevel=eErrorsAndWarnings.
     // The placeholder config is empty -> the library does not know about the
     // compound. Composition fails; no /Root/geo child is produced.
-    auto rootLayerPath = createRootLayerWithDefaultDffFields(
-        bucketKey, g_OutputDir, kReloadCompound, kReloadOutput);
-    out_stage = UsdStage::Open(rootLayerPath.c_str());
+    out_stage = createStageWithCompoundPayload(kReloadCompound, kReloadOutput,
+                                               bucketKey, g_OutputDir);
     ASSERT_TRUE(out_stage);
     EXPECT_TRUE(dffHasError(collector, bucketKey,
                             "Failed to create a GraphExecutor for graph"));
@@ -158,7 +157,7 @@ void testSetupWithReloadLibraryField(const char*             bucketKey,
     // upgrading the verbosity level to eAllMessages. The in-memory library has
     // not been reloaded, so the compound is still unknown and composition
     // fails.
-    setLiveVerbosityLevelField(out_stage, VerbosityLevel::eAllMessages);
+    setVerbosityLevelField(out_stage, VerbosityLevel::eAllMessages);
     EXPECT_TRUE(dffHasError(collector, bucketKey,
                             "Failed to create a GraphExecutor for graph"));
     EXPECT_FALSE(dffHasErrorRegex(
@@ -174,7 +173,7 @@ void testSetupWithReloadLibraryField(const char*             bucketKey,
     VtDictionary inputsDict;
     inputsDict["first"]  = VtValue{int{0}};
     inputsDict["second"] = VtValue{int{1}};
-    setLiveInputsField(out_stage, inputsDict);
+    setInputsField(out_stage, inputsDict);
     collector.clear();
 }
 
@@ -203,7 +202,7 @@ TEST(SettingsReloadLibrary, field_only) {
     // compound. Read() is then invoked and fails with "did not produce a
     // valid ... Expecting a Stage" because the compound outputs a bool, not
     // a Stage -- proving that composition was reached.
-    setLiveReloadLibraryField(stage, true);
+    setReloadLibraryField(stage, true);
     EXPECT_FALSE(dffHasError(collector, bucketKey,
                              "Failed to create a GraphExecutor for graph"));
     EXPECT_TRUE(dffHasErrorRegex(
@@ -233,7 +232,7 @@ TEST(SettingsReloadLibrary, attribute_override) {
     // Then set an attribute override reloadLibrary=true.
     // The DFF plugin must use the final composed value (field + attribute
     // override) when deciding whether to call reloadLibrary().
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
                               std::vector<AttributeNameAndValue>{
                                   {TfToken{"bifrost:setting:reloadLibrary"},
                                    {SdfValueTypeNames->Bool, VtValue{true}}},
@@ -308,13 +307,13 @@ TEST(SettingsReloadLibrary, attribute_only_no_field) {
     VtDictionary inputsDict;
     inputsDict["first"]  = VtValue{int{0}};
     inputsDict["second"] = VtValue{int{1}};
-    setLiveInputsField(stage, inputsDict);
+    setInputsField(stage, inputsDict);
     collector.clear();
 
     // Test 1: author reloadLibrary=false via attribute (no field counterpart).
     // Even though the extra config is on disk, no reload happens because
     // reloadLibrary is false. Composition fails: compound is still unknown.
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
                               std::vector<AttributeNameAndValue>{
                                   {TfToken{"bifrost:setting:reloadLibrary"},
                                    {SdfValueTypeNames->Bool, VtValue{false}}},
@@ -331,7 +330,7 @@ TEST(SettingsReloadLibrary, attribute_only_no_field) {
     // The compound is then found and Read() fails with
     // "did not produce a valid ... Expecting a Stage" because the compound
     // outputs a bool, not a Stage -- proving that composition succeeded.
-    setLiveAttributeOverrides(stage,
+    setAttributeOverrides(stage,
                               std::vector<AttributeNameAndValue>{
                                   {TfToken{"bifrost:setting:reloadLibrary"},
                                    {SdfValueTypeNames->Bool, VtValue{true}}},
@@ -343,6 +342,76 @@ TEST(SettingsReloadLibrary, attribute_only_no_field) {
         std::regex{R"(did not produce a valid[^\n]*Expecting a Stage)"}));
     EXPECT_FALSE(stage->GetPrimAtPath(SdfPath{"/Root/geo"}).IsValid());
     collector.clear();
+}
+
+// ===========================================================================
+// Test that a reloadLibrary=true composition always carries a distinct
+// internal marker in its composed file format arguments.
+//
+// PCP reuses an existing BifrostDffData (and the persistent GraphExecutor it
+// holds -- see dffData.cpp) across recompositions whenever the composed
+// FileFormatArguments are unchanged. For an animated payload mid-playback,
+// that executor is only ever rebuilt on a backward scrub; a reload triggered
+// by a recomposition that otherwise leaves the arguments unchanged would
+// therefore have no effect, silently continuing to step the pre-reload
+// library forward. ComposeFieldsForFileFormatArguments guards against this by
+// injecting a monotonically increasing marker into the composed arguments
+// every time it actually calls reloadLibrary(), so a reload always yields a
+// fresh BifrostDffData/GraphExecutor.
+// ===========================================================================
+TEST(SettingsReloadLibrary, composed_args_differ_across_reloads) {
+    DffDiagnosticCollector collector;
+    constexpr auto         bucketKey =
+        "SettingsReloadLibrary_composed_args_differ_across_reloads";
+    constexpr auto kReloadGenerationArg = "bifrost:dff:internal:reloadGeneration";
+
+    // Load the extra config up front so kReloadCompound is known: composing
+    // file format arguments for an unknown compound fails (hasError), which
+    // would prevent the composed arguments -- and this test's marker -- from
+    // ever reaching the generated layer.
+    ASSERT_TRUE(std::filesystem::copy_file(
+        EXTRA_CONFIG_FILE, PLACEHOLDER_CONFIG_FILE,
+        std::filesystem::copy_options::overwrite_existing));
+    PlaceholderConfigGuard guard;
+    BifrostUsd::GraphExecutor::reloadLibrary();
+
+    // Two independently-configured stages, each requesting reloadLibrary=true
+    // with identical compound/inputs. Their composed arguments are otherwise
+    // identical, so without the marker they would be byte-for-byte the same.
+    UniqueTestOutputSubdir outputDirA{"ReloadArgsDiffer_A"};
+    UniqueTestOutputSubdir outputDirB{"ReloadArgsDiffer_B"};
+    VtDictionary           inputsDict;
+    inputsDict["first"]  = VtValue{int{0}};
+    inputsDict["second"] = VtValue{int{1}};
+
+    auto stageA = createStageWithCompoundPayload(kReloadCompound, kReloadOutput,
+                                                 bucketKey, outputDirA);
+    ASSERT_TRUE(stageA);
+    setReloadLibraryField(stageA, true);
+    setInputsField(stageA, inputsDict);
+    auto payloadLayerA = getGeneratedPayloadLayer(stageA);
+    ASSERT_TRUE(payloadLayerA);
+
+    auto stageB = createStageWithCompoundPayload(kReloadCompound, kReloadOutput,
+                                                 bucketKey, outputDirB);
+    ASSERT_TRUE(stageB);
+    setReloadLibraryField(stageB, true);
+    setInputsField(stageB, inputsDict);
+    auto payloadLayerB = getGeneratedPayloadLayer(stageB);
+    ASSERT_TRUE(payloadLayerB);
+
+    const auto& argsA = payloadLayerA->GetFileFormatArguments();
+    const auto& argsB = payloadLayerB->GetFileFormatArguments();
+    auto        itA   = argsA.find(kReloadGenerationArg);
+    auto        itB   = argsB.find(kReloadGenerationArg);
+    ASSERT_NE(itA, argsA.end())
+        << "A reloadLibrary=true composition must carry the internal "
+           "reload-generation marker.";
+    ASSERT_NE(itB, argsB.end());
+    EXPECT_NE(itA->second, itB->second)
+        << "Two independent reloadLibrary=true compositions must not carry "
+           "the same generation marker, otherwise PCP could reuse a stale, "
+           "pre-reload BifrostDffData across them.";
 }
 
 PXR_NAMESPACE_CLOSE_SCOPE

@@ -58,8 +58,7 @@ set(bifrost_env_config
 # Each consumer appends its own test-specific config files at the use site.
 if(IS_BIFUSD_STANDALONE)
     set(minimum_lib_config_files
-        ${BIFROST_LOCATION}/resources/standalone_config.json
-        ${BIFUSD_EXTRA_CONFIG_FILES}
+        ${BIFROST_LOCATION}/resources/amino_config.json
     )
 else()
     if(NOT EXISTS "${AMINO_LOCATION}/amino_config.json")
@@ -79,8 +78,20 @@ set(test_files
     testFileFormat_globalsArgs.cpp
     testFileFormat_inputsArgs.cpp
     testFileFormat_outputsArgs.cpp
+    testFileFormat_queryTimeSample.cpp
+    testFileFormat_readOnlyLayer.cpp
     testFileFormat_settingsArgs.cpp
 )
+
+# Tests requiring compounds from the scatter pack 'graphs' library.
+# Left empty in standalone builds, which already get the 'graphs' library from
+# standalone_config.json.
+set(test_files_requiring_graphs_config)
+if(NOT IS_BIFUSD_STANDALONE)
+    list(APPEND test_files_requiring_graphs_config
+        testFileFormat_contents.cpp
+    )
+endif()
 
 if(IS_BIFUSD_STANDALONE)
     list(APPEND bifrost_env_config BIFROST_DISABLE_PACKS=usd_pack)
@@ -118,9 +129,14 @@ if(NOT (BIFUSD_VALGRIND_ENABLED AND BIFUSD_IS_DEBUG))
             TIMEOUT         ${test_timeout}
         )
         get_unittest_target(unittest_target "DynamicFileFormat" ${test_file})
+        set(_lib_config_files ${lib_config_files})
+        if(${test_file} IN_LIST test_files_requiring_graphs_config)
+            list(APPEND _lib_config_files
+                ${CMAKE_CURRENT_SOURCE_DIR}/graphs_config.json)
+        endif()
         # bifusd_append_test_path_env_var takes care of handling the path separator
         # (':' for unix, escaped ';' for windows) to not be confused for CMake list:
-        bifusd_append_test_path_env_var(${unittest_target} "BIFROST_LIB_CONFIG_FILES" "${lib_config_files}")
+        bifusd_append_test_path_env_var(${unittest_target} "BIFROST_LIB_CONFIG_FILES" "${_lib_config_files}")
     endforeach()
 endif()
 
